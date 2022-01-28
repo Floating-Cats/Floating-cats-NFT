@@ -1,0 +1,10 @@
+# dependencies
+/node_modules
+
+# it holds the compiled artifacts (bytecode and metadata), 
+# It’s a good idea to add this directory to your .gitignore
+/artifacts/**/*.json
+/artifacts/contracts/**/*.json
+
+# mac
+.DS_Store
