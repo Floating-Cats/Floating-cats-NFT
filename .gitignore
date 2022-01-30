@@ -1,10 +1,17 @@
-# dependencies
+# npm dependencies
 /node_modules
 
 # it holds the compiled artifacts (bytecode and metadata), 
-# It’s a good idea to add this directory to your .gitignore
+# it’s a good idea to add this directory to your .gitignore
 /artifacts/**/*.json
 /artifacts/contracts/**/*.json
 
-# mac
+# it holds our infuraProjectId, mnemonic, etherscanApiKey
+# do not share with anyone
+secrets.json
+
+# misc
 .DS_Store
+
+# git
+.git
