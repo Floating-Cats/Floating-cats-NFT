@@ -1,17 +1,15 @@
 {
   "name": "hardhat-project",
-  
   "dependenciesComments": {
     "//1": "Packages that are under dependencies are mainly the core packages that your code will need to work.",
-    "//2": "Packages like react, angular etc are some of the packages that mainly resides under “dependencies”." 
+    "//2": "Packages like react, angular etc are some of the packages that mainly resides under “dependencies”."
   },
   "dependencies": {
-
+    "@openzeppelin/contracts": "^4.4.2"
   },
-
   "devDependenciesComments": {
     "//1": "Packages that are under devDependencies are mainly used for the development purposes and ignored while building the production build.",
-    "//2": "Packages like test suites, liniting, transpilers etc are some of the packages that mainly resides under “devDependencies”." 
+    "//2": "Packages like test suites, liniting, transpilers etc are some of the packages that mainly resides under “devDependencies”."
   },
   "devDependencies": {
     "@nomiclabs/hardhat-etherscan": "^3.0.0",
