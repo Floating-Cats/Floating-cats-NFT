@@ -41,4 +41,7 @@ module.exports = {
     apiKey: etherscanApiKey,
   },
   solidity: '0.8.4',
+  paths: {
+    artifacts: './src/artifacts',
+  },
 };
