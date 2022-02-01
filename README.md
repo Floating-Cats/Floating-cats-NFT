@@ -51,4 +51,6 @@ Most of all, opening a cat café is always our dream. We will team up with local
 
 ### How To Test
 
-- run
+- run `npx hardhat test` to run the test.
+- run `npx hardhat accounts` to execute hardhat.config.js to print a list of addresses.
+- run `npx hardhat balance --account <0x... address>` to execute hardhat.config.js to print the account balance.

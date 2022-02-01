@@ -1,17 +1,19 @@
 const { expect } = require('chai');
-const { ethers } = require('hardhat');
+const hre = require('hardhat');
 
 describe('MyNFT', function () {
   it('Should mint and transfer an NFT to someone', async function () {
-    const FCat = await ethers.getContractFactory('FloatingCats');
+    const FCat = await hre.ethers.getContractFactory('FloatingCats');
     const fcat = await FCat.deploy();
 
     await fcat.deployed();
 
-    const recipient = ' 0x4cA9eC8027133cA87fBF93C7CCfB5C0bCdEA4bcf';
+    const recipient = ' 0xf39fd6e51aad88f6f4ce6ab8827279cfffb92266';
     const metadataURI = 'cid/test.png';
+    console.log('Hi');
 
-    let balance = await fcat.balanceOf(recipient);
+    // Error: network does not support ENS
+    // let balance = await fcat.balanceOf(recipient);
     // expect(balance).to.equal(0);
 
     // const newlyMintedToken = await fcat.payToMint(recipient, metadataURI, {

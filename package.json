@@ -1,10 +1,19 @@
 {
-  "name": "hardhat-project",
+  "name": "fc-web",
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
   "dependenciesComments": {
     "//1": "Packages that are under dependencies are mainly the core packages that your code will need to work.",
     "//2": "Packages like react, angular etc are some of the packages that mainly resides under “dependencies”."
   },
-  "dependencies": {},
+  "dependencies": {
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  },
   "devDependenciesComments": {
     "//1": "Packages that are under devDependencies are mainly used for the development purposes and ignored while building the production build.",
     "//2": "Packages like test suites, liniting, transpilers etc are some of the packages that mainly resides under “devDependencies”."
@@ -15,10 +24,12 @@
     "@nomiclabs/hardhat-waffle": "^2.0.2",
     "@nomiclabs/hardhat-web3": "^2.0.0",
     "@openzeppelin/contracts": "^4.4.2",
+    "@vitejs/plugin-react": "^1.0.7",
     "chai": "^4.3.6",
     "ethereum-waffle": "^3.4.0",
     "ethers": "^5.5.4",
     "hardhat": "^2.8.3",
+    "vite": "^2.7.2",
     "web3": "^1.7.0"
   }
 }
