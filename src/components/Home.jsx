@@ -10,26 +10,23 @@ import WalletBalance from './WalletBalance';
 // contracts
 import FCat from '../artifacts/contracts/MyNFT.sol/FloatingCats.json';
 
-const contractAddress = '0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512';
+const contractAddress = '0x5FbDB2315678afecb367f032d93F642f64180aa3';
 
 const provider = new ethers.providers.Web3Provider(window.ethereum);
 
 // get the end user
 const signer = provider.getSigner();
 
-// get the smart contrat
+// get the smart contract
 const contract = new ethers.Contract(contractAddress, FCat.abi, signer);
 
 function Home() {
   const [totalMinted, setTotalMinted] = useState(0);
-
   useEffect(() => {
-    console.log('here');
     getCount();
   }, []);
 
   const getCount = async () => {
-    console.log('count is:');
     const count = await contract.count();
     console.log(parseInt(count));
     setTotalMinted(parseInt(count));
@@ -45,7 +42,7 @@ function Home() {
         .fill(0)
         .map((_, i) => (
           <div key={i}>
-            <NFTImage tokenId={i} />
+            <NFTImage tokenId={i} getCount={getCount} />
           </div>
         ))}
     </div>
@@ -53,12 +50,12 @@ function Home() {
 }
 
 function NFTImage({ tokenId, getCount }) {
-  const contentId = 'QmSZyYG4JQDd5M5H3e4ZtFh1GGqptR2Yyqo7SLrnYri3Tm';
+  const contentId = 'Qmdbpbpy7fA99UkgusTiLhMWzyd3aETeCFrz7NpYaNi6zY';
   const metadataURI = `${contentId}/${tokenId}.json`;
   const imageURI = `https://gateway.pinata.cloud/ipfs/${contentId}/${tokenId}.png`;
+  //   const imageURI = `img/${tokenId}.png`;
 
   const [isMinted, setIsMinted] = useState(false);
-
   useEffect(() => {
     getMintedStatus();
   }, [isMinted]);
@@ -88,6 +85,7 @@ function NFTImage({ tokenId, getCount }) {
   }
   return (
     <div className='card' style={{ width: '18rem' }}>
+      //{' '}
       <img
         className='card-img-top'
         src={isMinted ? imageURI : 'pics/placeholder.png'}
