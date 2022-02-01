@@ -1,24 +1,20 @@
+import { useEffect, useState } from 'react';
+
 // views
 import Install from './views/Install';
 import Home from './views/Home';
 
-import { useEffect, useState } from 'react';
+// to create Web3Provider object and format balance
 import { ethers } from 'ethers';
-
-// components
 
 // contracts
 import FCat from './artifacts/contracts/MyNFT.sol/FloatingCats.json';
 
+// global vars
 const contractAddress = '0x5FbDB2315678afecb367f032d93F642f64180aa3';
-
 const provider = new ethers.providers.Web3Provider(window.ethereum);
-
-// get the end user
-const signer = provider.getSigner();
-
-// get the smart contract
-const contract = new ethers.Contract(contractAddress, FCat.abi, signer);
+const signer = provider.getSigner(); // get the end user
+const contract = new ethers.Contract(contractAddress, FCat.abi, signer); // get the smart contract
 
 function App() {
   const [totalMinted, setTotalMinted] = useState(0);
