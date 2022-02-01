@@ -1,7 +1,13 @@
 import { useEffect, useState } from 'react';
 import { ethers } from 'ethers';
 
+// components
+import Navbar from './Navbar';
+
+// views
 import WalletBalance from './WalletBalance';
+
+// contracts
 import FCat from '../artifacts/contracts/MyNFT.sol/FloatingCats.json';
 
 const contractAddress = '0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512';
@@ -18,6 +24,7 @@ function Home() {
   const [totalMinted, setTotalMinted] = useState(0);
 
   useEffect(() => {
+    console.log('here');
     getCount();
   }, []);
 
@@ -28,6 +35,7 @@ function Home() {
 
   return (
     <div>
+      <Navbar />
       <WalletBalance />
 
       <h1>FLoating Cats NFT Collection</h1>
