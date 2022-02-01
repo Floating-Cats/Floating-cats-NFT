@@ -1,5 +1,9 @@
 import { useState } from 'react';
 
+// components
+// import Navbar from './components/Navbar';
+
+// views
 import Install from './components/Install';
 import Home from './components/Home';
 
