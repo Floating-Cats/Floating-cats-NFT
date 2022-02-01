@@ -29,7 +29,9 @@ function Home() {
   }, []);
 
   const getCount = async () => {
+    console.log('count is:');
     const count = await contract.count();
+    console.log(parseInt(count));
     setTotalMinted(parseInt(count));
   };
 
