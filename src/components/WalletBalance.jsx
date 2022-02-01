@@ -20,9 +20,11 @@ function WalletBalance() {
 
   return (
     <div className='card'>
-      <div>
-        <h5>Your Balance: {balance}</h5>
-        <button onClick={() => getBalance()}>Show My Balance</button>
+      <div className='card-body'>
+        <h5 className='card-title'>Your Balance: {balance}</h5>
+        <button className='btn btn-success' onClick={() => getBalance()}>
+          Show My Balance
+        </button>
       </div>
     </div>
   );

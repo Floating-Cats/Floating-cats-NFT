@@ -44,10 +44,12 @@ Most of all, opening a cat café is always our dream. We will team up with local
 
 ### How To Begin
 
-- run `git pull origin main` (and solve merge conflicts).
-- run `npx hardhat node`. This creates a mock network on localhost and provides a bunch of fake accounts (should always be running in the background).
+- If you haven't, run `git pull origin main` (and solve merge conflicts).
+- run `npx hardhat node`. This creates a mock network on localhost and provides a bunch of fake accounts. This should always be running in the background, so we need to open another terminal tab.
 - run `npx hardhat compile`. This runs the solidity compiler to convert your code (`./contracts`) into binary.
-- run `npx hardhat run scripts/MyScript.js --network localhost`
+- run `npx hardhat run scripts/MyScript.js --network localhost` to deploy our contract.
+- run `npm run dev` and go to http://localhost:3000/
+-
 
 ### How To Test
 
