@@ -34,3 +34,21 @@ Most of all, opening a cat café is always our dream. We will team up with local
 <img src="https://user-images.githubusercontent.com/61571167/151492504-c31a6267-4df0-4e56-b700-403776635171.JPEG" width="150" /> <img src="https://user-images.githubusercontent.com/61571167/151492524-e2d13cad-1e77-4511-a0b4-9a01d65c37e2.jpg" width="150" /> <img src="https://user-images.githubusercontent.com/61571167/151492533-cebde53d-3f68-489b-aa55-a35b4331cd24.jpg" width="150" />
 
 <img src="https://user-images.githubusercontent.com/61571167/151492539-07ff5b9e-3705-4c9c-916f-e29c7bbcbe2d.jpg" width="150" /> <img src="https://user-images.githubusercontent.com/61571167/151492547-7de80c49-0e00-45e6-9dc1-e986315033a6.jpg" width="150" /> <img src="https://user-images.githubusercontent.com/61571167/151492552-406736a2-0458-4521-90f9-7c81e273e4df.jpeg" width="150" />
+
+### Our Application
+
+- React framework for our website.
+- Hardhat-waffle for automatic testing for our contracts.
+- ether.js to interact with smart contracts in the browser.
+- openzepplelin to build our industry-standard smart contracts.
+
+### How To Begin
+
+- run `git pull origin main` (and solve merge conflicts).
+- run `npx hardhat node`. This creates a mock network on localhost and provides a bunch of fake accounts (should always be running in the background).
+- run `npx hardhat compile`. This runs the solidity compiler to convert your code (`./contracts`) into binary.
+- run `npx hardhat run scripts/MyScript.js --network localhost`
+
+### How To Test
+
+- run
