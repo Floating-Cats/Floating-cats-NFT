@@ -15,7 +15,7 @@ import './style.css';
 
 function Navigation() {
   const [btnHidden, setBtnHidden] = useState(false);
-  const [addr, setAddr] = useState(0);
+  const [addr, setAddr] = useState('');
 
   const handleOnClick = async () => {
     // get the connected account on the window etheureum object
@@ -25,9 +25,7 @@ function Navigation() {
 
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const address = await provider._getAddress(account);
-    setAddr(address);
-    console.log('TEST ~~ ', addr);
-
+    setAddr(address.toString());
     setBtnHidden(true);
   };
 
@@ -64,16 +62,17 @@ function Navigation() {
               data-bs-target='#navbarNav'
               aria-controls='navbarNav'
               aria-expanded='false'
-              aria-label='Toggle navigation'
+              aria-label='Toggle navigation'             
             >
               <span className='navbar-toggler-icon'></span>
             </button>
-
+            
             <Nav.Link href='#mint'>MINT</Nav.Link>
             <Nav.Link href='#about'>ABOUT</Nav.Link>
             <Nav.Link href='#roadmap'>ROADMAP</Nav.Link>
             <Nav.Link href='#team'>TEAM</Nav.Link>
-            <button
+            <button 
+
               id='show_button'
               className='enableEthereumButton'
               onClick={() => handleOnClick()}
@@ -83,7 +82,10 @@ function Navigation() {
             </button>
             <h6>
               <span className='showAccount' hidden={!btnHidden}>
-                {addr}
+                {`${addr.substring(0, 4)}...${addr.substring(
+                  addr.length - 4,
+                  addr.length
+                )}`}
               </span>
             </h6>
             <div className='rightside-nav navbar-nav'>
