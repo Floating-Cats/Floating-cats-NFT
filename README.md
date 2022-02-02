@@ -44,15 +44,26 @@ Most of all, opening a cat café is always our dream. We will team up with local
 
 ### How To Begin
 
-- If you haven't, run `git pull origin main` (and solve merge conflicts).
-- run `npx hardhat node`. This creates a mock network on localhost and provides a bunch of fake accounts. This should always be running in the background, so we need to open another terminal tab.
-- run `npx hardhat compile`. This runs the solidity compiler to convert your code (`./contracts`) into binary.
-- run `npx hardhat run scripts/MyScript.js --network localhost` to deploy our contract.
-- run `npm run dev` and go to http://localhost:3000/
--
+##### Build Command Instructions
 
-### How To Test
+- Run `git pull origin main` (and solve merge conflicts).
+- Run `npm install` to install dependencies.
+- Run `npx hardhat compile`. This runs the solidity compiler to convert your code (`./contracts`) into binary. Once succeed you should be able to see the artifacts folder (do not upload this folder) under src folder.
+- Run `npx hardhat run scripts/MyScript.js --network localhost` to deploy our contract, and record the address returned by executing this.
+
+##### Run Instructions
+
+- run `npx hardhat node`. This creates a mock network on localhost and provides a bunch of fake accounts. This should always be running in the background, so we need to open another terminal tab.
+- run `npm run dev` and go to http://localhost:3000/
+
+##### Testing Instructions
 
 - run `npx hardhat test` to run the test.
 - run `npx hardhat accounts` to execute hardhat.config.js to print a list of addresses.
 - run `npx hardhat balance --account <0x... address>` to execute hardhat.config.js to print the account balance.
+
+### Members
+
+Team Leader/Dev: `Thomas`,
+Artist:` Mao`
+Dev: `Andy` (lin383@wisc.edu)

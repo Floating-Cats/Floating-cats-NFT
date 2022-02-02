@@ -2,8 +2,8 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "/Users/andy/Documents/personal/Floating-cats-NFT/contracts/MyNFT.sol": {
-      "lastModificationDate": 1643675772708,
-      "contentHash": "e69ad080c71ad7586f705289baad8655",
+      "lastModificationDate": 1643748960987,
+      "contentHash": "cd121616f28970714936695032e4c844",
       "sourceName": "contracts/MyNFT.sol",
       "solcConfig": {
         "version": "0.8.4",
@@ -31,7 +31,6 @@
       "imports": [
         "@openzeppelin/contracts/token/ERC721/ERC721.sol",
         "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol",
-        "@openzeppelin/contracts/security/Pausable.sol",
         "@openzeppelin/contracts/access/Ownable.sol",
         "@openzeppelin/contracts/utils/Counters.sol"
       ],
@@ -43,7 +42,7 @@
       ]
     },
     "/Users/andy/Documents/personal/Floating-cats-NFT/node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol": {
-      "lastModificationDate": 1643648565072,
+      "lastModificationDate": 1643747934305,
       "contentHash": "ead7082e39cf31875ff89b22f473500d",
       "sourceName": "@openzeppelin/contracts/token/ERC721/ERC721.sol",
       "solcConfig": {
@@ -86,7 +85,7 @@
       ]
     },
     "/Users/andy/Documents/personal/Floating-cats-NFT/node_modules/@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol": {
-      "lastModificationDate": 1643648565100,
+      "lastModificationDate": 1643747934923,
       "contentHash": "580a443491d9d70eb064b0130fc3cd01",
       "sourceName": "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol",
       "solcConfig": {
@@ -123,7 +122,7 @@
       ]
     },
     "/Users/andy/Documents/personal/Floating-cats-NFT/node_modules/@openzeppelin/contracts/security/Pausable.sol": {
-      "lastModificationDate": 1643648564739,
+      "lastModificationDate": 1643747937473,
       "contentHash": "9c2dccab8e3a43a18c41e358763fe4d8",
       "sourceName": "@openzeppelin/contracts/security/Pausable.sol",
       "solcConfig": {
@@ -160,7 +159,7 @@
       ]
     },
     "/Users/andy/Documents/personal/Floating-cats-NFT/node_modules/@openzeppelin/contracts/access/Ownable.sol": {
-      "lastModificationDate": 1643648562478,
+      "lastModificationDate": 1643747937368,
       "contentHash": "8398972af73b4e9e5ff3b31cad86234f",
       "sourceName": "@openzeppelin/contracts/access/Ownable.sol",
       "solcConfig": {
@@ -197,7 +196,7 @@
       ]
     },
     "/Users/andy/Documents/personal/Floating-cats-NFT/node_modules/@openzeppelin/contracts/utils/Counters.sol": {
-      "lastModificationDate": 1643648565163,
+      "lastModificationDate": 1643747931340,
       "contentHash": "74654e3ae5d7f39555055dfe244dab7a",
       "sourceName": "@openzeppelin/contracts/utils/Counters.sol",
       "solcConfig": {
@@ -232,7 +231,7 @@
       ]
     },
     "/Users/andy/Documents/personal/Floating-cats-NFT/node_modules/@openzeppelin/contracts/token/ERC721/IERC721.sol": {
-      "lastModificationDate": 1643648565077,
+      "lastModificationDate": 1643747936437,
       "contentHash": "27d219ec6f69478d065fdbfa7931da68",
       "sourceName": "@openzeppelin/contracts/token/ERC721/IERC721.sol",
       "solcConfig": {
@@ -269,7 +268,7 @@
       ]
     },
     "/Users/andy/Documents/personal/Floating-cats-NFT/node_modules/@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol": {
-      "lastModificationDate": 1643648565081,
+      "lastModificationDate": 1643747936824,
       "contentHash": "592df588492d45fdcf46b3cb608c0fbf",
       "sourceName": "@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol",
       "solcConfig": {
@@ -304,7 +303,7 @@
       ]
     },
     "/Users/andy/Documents/personal/Floating-cats-NFT/node_modules/@openzeppelin/contracts/token/ERC721/extensions/IERC721Metadata.sol": {
-      "lastModificationDate": 1643648565110,
+      "lastModificationDate": 1643747936814,
       "contentHash": "efbc0d15b80a74e34dbe8da0f3e879bb",
       "sourceName": "@openzeppelin/contracts/token/ERC721/extensions/IERC721Metadata.sol",
       "solcConfig": {
@@ -341,7 +340,7 @@
       ]
     },
     "/Users/andy/Documents/personal/Floating-cats-NFT/node_modules/@openzeppelin/contracts/utils/Address.sol": {
-      "lastModificationDate": 1643648565151,
+      "lastModificationDate": 1643747931168,
       "contentHash": "4cff8b2ea0d958750786b4e3ca308445",
       "sourceName": "@openzeppelin/contracts/utils/Address.sol",
       "solcConfig": {
@@ -376,7 +375,7 @@
       ]
     },
     "/Users/andy/Documents/personal/Floating-cats-NFT/node_modules/@openzeppelin/contracts/utils/Context.sol": {
-      "lastModificationDate": 1643648565160,
+      "lastModificationDate": 1643747931328,
       "contentHash": "5f2c5c4b6af2dd4551027144797bc8be",
       "sourceName": "@openzeppelin/contracts/utils/Context.sol",
       "solcConfig": {
@@ -411,7 +410,7 @@
       ]
     },
     "/Users/andy/Documents/personal/Floating-cats-NFT/node_modules/@openzeppelin/contracts/utils/Strings.sol": {
-      "lastModificationDate": 1643648565182,
+      "lastModificationDate": 1643747938130,
       "contentHash": "9c54c6c065d9e590fdcdd72c451425b9",
       "sourceName": "@openzeppelin/contracts/utils/Strings.sol",
       "solcConfig": {
@@ -446,7 +445,7 @@
       ]
     },
     "/Users/andy/Documents/personal/Floating-cats-NFT/node_modules/@openzeppelin/contracts/utils/introspection/ERC165.sol": {
-      "lastModificationDate": 1643648565426,
+      "lastModificationDate": 1643747932937,
       "contentHash": "0e7db055ce108f9da7bb6686a00287c0",
       "sourceName": "@openzeppelin/contracts/utils/introspection/ERC165.sol",
       "solcConfig": {
@@ -483,7 +482,7 @@
       ]
     },
     "/Users/andy/Documents/personal/Floating-cats-NFT/node_modules/@openzeppelin/contracts/utils/introspection/IERC165.sol": {
-      "lastModificationDate": 1643648565443,
+      "lastModificationDate": 1643747936175,
       "contentHash": "03e6768535ac4da0e9756f1d8a4a018a",
       "sourceName": "@openzeppelin/contracts/utils/introspection/IERC165.sol",
       "solcConfig": {

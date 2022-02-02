@@ -3,7 +3,6 @@ pragma solidity ^0.8.2;
 
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
-import "@openzeppelin/contracts/security/Pausable.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 
@@ -15,9 +14,9 @@ contract FloatingCats is ERC721, ERC721URIStorage, Ownable {
     // this make sure that the same uri don't get minted twice
     mapping(string => uint8) existingURIs;
 
-    constructor() ERC721("Floating-Cats", "FCAT") {}
+    constructor() ERC721("FloatingCats", "FCAT") {}
 
-    function _baseURL() internal pure returns (string memory) {
+    function _baseURI() internal pure override returns (string memory) {
         return "ipfs://";
     }
 
