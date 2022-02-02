@@ -1,4 +1,3 @@
-// ~/hardhat.config.js
 // const {
 //   infuraProjectId,
 //   mnemonic,
@@ -56,11 +55,6 @@ module.exports = {
   //   },
   // },
 
-  // etherscan: {
-  //   // Your API key for Etherscan
-  //   // Obtain one at https://etherscan.io/
-  //   apiKey: etherscanApiKey,
-  // },
   solidity: '0.8.4',
   paths: {
     artifacts: './src/artifacts',
