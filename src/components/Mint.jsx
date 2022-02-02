@@ -30,7 +30,7 @@ function Mint(props) {
   };
 
   const mintToken = () => {
-    console.log('Mint Token!');
+    toast.info('🐱 Mint Token!');
   };
 
   // get mint

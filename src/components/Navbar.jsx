@@ -8,7 +8,6 @@ import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 
 // service imports
-import { ethers } from 'ethers';
 import ConnEthers from '../services/ConnEthers';
 
 // other imports
