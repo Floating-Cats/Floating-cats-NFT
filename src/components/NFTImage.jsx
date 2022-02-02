@@ -16,16 +16,15 @@ function NFTImage({ contract, signer, tokenId, getCount }) {
   }, [isMinted]);
 
   const getMintedStatus = async () => {
-    const result = await contract
+    await contract
       .isContentOwned(metadataURI)
-      .then(() => {
+      .then((resp) => {
+        setIsMinted(resp);
         console.debug('getMintedStatus Request Successful!');
       })
       .catch((error) => {
         console.error('getMintedStatus Request Failed: ', error.message);
       });
-    console.log('result: ', result);
-    setIsMinted(result);
   };
 
   const mintToken = async () => {

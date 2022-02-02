@@ -1,4 +1,3 @@
-// ~/hardhat.config.js
 // const {
 //   infuraProjectId,
 //   mnemonic,
