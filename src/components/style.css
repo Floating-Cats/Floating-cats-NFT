@@ -17,11 +17,25 @@ body{
     font-size: 20px;
 
 }
-button{
+#show_button{
+    padding: 2px 25px;
     margin-left: 3rem;
-    border-radius: 8px;
-    padding: 14px 30x;
+    border-radius: 30px;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    transition-duration: 0.5s;
     font-family: 'Gloria Hallelujah', cursive;
+}
+#show_button:hover {
+    background-color: #55a759; /* Green */
+    color: white;
+  }
+.showAccount{
+    padding-left: 20%;
+    padding-right: 20%;
+    margin-left: 10%;
+    background-color:#a6e4a6;
+    border-radius: 10px;
+    
 }
 #roadmap{
     text-align: center;
@@ -44,11 +58,12 @@ button{
 }
     
 #team{
-    margin-top: 5%;
+    margin-top: 10%;
     text-align: center;
 }
 
 #team img{
+    margin-top: 5%;
     border-radius: 50%;
     width: 200px;
     height: 200px;
@@ -81,9 +96,7 @@ hr{
     margin-right: auto;
 }
 
-.navbar-toggler-icon{
-    background-image: url("pics/arrow.png");
-}
+
 
 .bg-dark{
     background: transparent !important;
