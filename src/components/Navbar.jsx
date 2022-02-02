@@ -30,21 +30,6 @@ function Navigation({ provider, userAddr, setUserAddr }) {
         console.error('❌ Connect to Wallet Request Failed: ', err.message);
         toast.error(response.message);
       });
-
-    // console.log('Connected account: ', account);
-    // const provider = new ethers.providers.Web3Provider(window.ethereum);
-    // await provider
-    //   ._getAddress(account)
-    //   .then((address) => {
-    //     setUserAddr(address.toString());
-    //     setBtnHidden(true);
-    //     console.debug('Successfully Connected to Wallet!');
-    //     toast('🐱 Wallet Connected!');
-    //   })
-    //   .catch((err) => {
-    //     console.error('❌ Connect to Wallet Request Failed: ', err.message);
-    //     toast.error(response.message);
-    //   });
   };
 
   return (

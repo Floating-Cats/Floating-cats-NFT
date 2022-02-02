@@ -32,6 +32,17 @@ task('balance', "Prints an account's balance")
  * @type import('hardhat/config').HardhatUserConfig
  */
 module.exports = {
+  solidity: '0.8.4',
+  paths: {
+    artifacts: './src/artifacts',
+  },
+  settings: {
+    optimizer: {
+      enabled: true,
+      runs: 1000,
+    },
+  },
+
   // networks: {
   //   rinkeby: {
   //     url: `https://rinkeby.infura.io/v3/${infuraProjectId}`,
@@ -54,9 +65,4 @@ module.exports = {
   //     accounts: { mnemonic: mnemonic },
   //   },
   // },
-
-  solidity: '0.8.4',
-  paths: {
-    artifacts: './src/artifacts',
-  },
 };

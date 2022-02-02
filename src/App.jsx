@@ -19,7 +19,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 // global vars
-const contractAddress = '0x5FbDB2315678afecb367f032d93F642f64180aa3'; // contract address
+const contractAddress = '0x9fE46736679d2D9a65F0992F2272dE9f3c7fa6e0'; // contract address
 const provider = new ethers.providers.Web3Provider(window.ethereum); // provider provides methods interacting with blockchain
 const signer = provider.getSigner(); // get the end user
 const contract = new ethers.Contract(contractAddress, FCat.abi, signer); // get the smart contract
@@ -49,7 +49,7 @@ function App() {
       <ToastContainer
         position='top-right'
         theme='dark'
-        autoClose={1000}
+        autoClose={1000} // 1000 ms = 1sec
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick
