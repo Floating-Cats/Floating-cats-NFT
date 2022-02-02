@@ -147,39 +147,40 @@ function Home(props) {
             <section className='mb-4'>
               {/* <!-- Twitter --> */}
               <a
-                className='btn btn-outline-light btn-floating m-1'
-                href='pics/twitter.png'
+                className='btn btn-floating m-1'
+                href='https://twitter.com/FloatingCatsNFT'
                 role='button'
               >
-                <i className='fab fa-twitter'></i>
+                <img src='pics/twitter.png' alt='' width='30' height='30' />
               </a>
 
               {/* <!-- Discord --> */}
               <a
-                className='btn btn-outline-light btn-floating m-1'
+                class='btn btn-floating m-1'
                 href='pics/discord.png'
                 role='button'
               >
-                <i className='fab fa-dicord'></i>
+                <img src='pics/discord.png' alt='' width='30' height='30' />
               </a>
 
               {/* <!-- Opensea --> */}
               <a
-                className='btn btn-outline-light btn-floating m-1'
+                class='btn btn-floating m-1'
                 href='pics/os-icon.png'
                 role='button'
               >
-                <i className='fab fa-os'></i>
+                <img src='pics/os-icon.png' alt='' width='33' height='33' />
               </a>
 
+              {/* TODO: add a contract */}
               {/* <!-- Contract --> */}
-              <a
+              {/* <a
                 className='btn btn-outline-light btn-floating m-1'
                 href='#!'
                 role='button'
               >
                 <i className='fab fa-contract'></i>
-              </a>
+              </a> */}
             </section>
           </div>
           {/* <!-- Copyright --> */}

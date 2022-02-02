@@ -11,7 +11,7 @@ import { ethers } from 'ethers';
 import FCat from './artifacts/contracts/MyNFT.sol/FloatingCats.json';
 
 // global vars
-const contractAddress = '0x5FbDB2315678afecb367f032d93F642f64180aa3';
+const contractAddress = '0x5FbDB2315678afecb367f032d93F642f64180aa3'; // contract address
 const provider = new ethers.providers.Web3Provider(window.ethereum);
 const signer = provider.getSigner(); // get the end user
 const contract = new ethers.Contract(contractAddress, FCat.abi, signer); // get the smart contract
