@@ -10,12 +10,12 @@ import Container from 'react-bootstrap/Container';
 // to create Web3Provider object and format balance
 import { ethers } from 'ethers';
 
-// css
+// css imports
 import './style.css';
 
 function Navigation() {
   const [btnHidden, setBtnHidden] = useState(false);
-  const [addr, setAddr] = useState(0);
+  const [addr, setAddr] = useState('');
 
   const handleOnClick = async () => {
     // get the connected account on the window etheureum object
@@ -25,9 +25,7 @@ function Navigation() {
 
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const address = await provider._getAddress(account);
-    setAddr(address);
-    console.log('TEST ~~ ', addr);
-
+    setAddr(address.toString());
     setBtnHidden(true);
   };
 
@@ -54,8 +52,6 @@ function Navigation() {
         </Navbar.Brand>
         <Navbar.Toggle aria-controls='responsive-navbar-nav' />
         <Navbar.Collapse id='responsive-navbar-nav'>
-          {/* <Navbar.Toggle aria-controls='navbarScroll' />
-          <Navbar.Collapse id="navbarScroll"> */}
           <Nav className='mr-auto ms-auto'>
             <button
               className='navbar-toggler button'
@@ -83,7 +79,10 @@ function Navigation() {
             </button>
             <h6>
               <span className='showAccount' hidden={!btnHidden}>
-                {addr}
+                {`${addr.substring(0, 4)}...${addr.substring(
+                  addr.length - 4,
+                  addr.length
+                )}`}
               </span>
             </h6>
             <div className='rightside-nav navbar-nav'>
@@ -116,7 +115,6 @@ function Navigation() {
                   src='pics/os-icon.png'
                   width='33'
                   height='33'
-                  // style='margin-bottom: 5px'
                   style={{ marginBottom: '5px' }}
                 />
               </a>

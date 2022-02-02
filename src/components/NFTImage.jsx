@@ -1,11 +1,14 @@
 import { useEffect, useState } from 'react';
 import { ethers } from 'ethers';
 
-function NFTImage(props /*{ tokenId, getCount }*/) {
+function NFTImage({ contract, signer, tokenId, getCount }) {
   // cid from pinata
-  const contentId = 'Qmdbpbpy7fA99UkgusTiLhMWzyd3aETeCFrz7NpYaNi6zY';
-  const metadataURI = `${contentId}/${props.tokenId}.json`;
-  const imageURI = `https://gateway.pinata.cloud/ipfs/${contentId}/${props.tokenId}.png`;
+  const contentId = 'QmSZyYG4JQDd5M5H3e4ZtFh1GGqptR2Yyqo7SLrnYri3Tm';
+  const metadataURI = `${contentId}/${tokenId}.json`;
+  // const imageURI = `https://gateway.pinata.cloud/ipfs/${contentId}/${
+  //   tokenId
+  // }.png`;
+  const imageURI = '../../pics/t-icon.jpg';
 
   const [isMinted, setIsMinted] = useState(false);
   useEffect(() => {
@@ -13,37 +16,54 @@ function NFTImage(props /*{ tokenId, getCount }*/) {
   }, [isMinted]);
 
   const getMintedStatus = async () => {
-    const result = await props.contract.isContentOwned(metadataURI);
-    console.log(result);
+    const result = await contract
+      .isContentOwned(metadataURI)
+      .then(() => {
+        console.debug('getMintedStatus Request Successful!');
+      })
+      .catch((error) => {
+        console.error('getMintedStatus Request Failed: ', error.message);
+      });
+    console.log('result: ', result);
     setIsMinted(result);
   };
 
   const mintToken = async () => {
-    // make connection between contracts and signer
-    const connection = props.contract.connect(signer);
+    const connection = contract.connect(signer);
     const addr = connection.address;
-    const result = await props.contract.payToMint(addr, metadataURI, {
-      value: ethers.utils.parseEther('0.05'),
-    });
+    const result = await contract
+      .payToMint(addr, metadataURI, {
+        value: ethers.utils.parseEther('0.05'),
+      })
+      .then(() => {
+        result.wait();
+        getMintedStatus();
+        getCount();
+        console.debug('mintToken Request Successful!');
+      })
+      .catch((error) => {
+        console.error('mintToken Request Failed: ', error.message);
+      });
 
-    await result.wait();
-    getMintedStatus();
-    props.getCount();
+    // await result.wait();
+    // getMintedStatus();
+    // getCount();
   };
 
   async function getURI() {
-    const uri = await props.contract.tokenURI(props.tokenId);
+    const uri = await contract.tokenURI(tokenId);
     alert(uri);
   }
+
   return (
     <div className='card' style={{ width: '18rem' }}>
       //{' '}
       <img
         className='card-img-top'
-        src={isMinted ? imageURI : 'pics/placeholder.png'}
+        src={isMinted ? imageURI : 'pics/hidden.jpg'}
       ></img>
       <div className='card-body'>
-        <h5 className='card-title'>ID #{props.tokenId}</h5>
+        <h5 className='card-title'>ID #{tokenId}</h5>
         {!isMinted ? (
           <button className='btn btn-primary' onClick={mintToken}>
             Mint

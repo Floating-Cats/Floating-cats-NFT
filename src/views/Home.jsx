@@ -16,6 +16,7 @@ function Home(props) {
               <NFTImage
                 tokenId={i}
                 contract={props.contract}
+                signer={props.signer}
                 getCount={props.getCount}
               />
             </div>
@@ -137,7 +138,6 @@ function Home(props) {
     );
   };
 
-  // TODO: update icons from https://react-icons.github.io/react-icons/search?q=fab
   // get footer
   const getFooter = () => {
     return (
@@ -156,7 +156,7 @@ function Home(props) {
 
               {/* <!-- Discord --> */}
               <a
-                class='btn btn-floating m-1'
+                className='btn btn-floating m-1'
                 href='pics/discord.png'
                 role='button'
               >
@@ -165,7 +165,7 @@ function Home(props) {
 
               {/* <!-- Opensea --> */}
               <a
-                class='btn btn-floating m-1'
+                className='btn btn-floating m-1'
                 href='pics/os-icon.png'
                 role='button'
               >
@@ -200,7 +200,7 @@ function Home(props) {
     <div>
       <Navbar />
       {/* <WalletBalance /> */}
-      {/* {getCollection()} */}
+      {getCollection()}
       {getBgCloud()}
       {getMint()}
       {getRoadmap()}
