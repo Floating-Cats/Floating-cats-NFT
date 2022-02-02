@@ -10,6 +10,8 @@ import Container from 'react-bootstrap/Container';
 // to create Web3Provider object and format balance
 import { ethers } from 'ethers';
 
+import { toast } from 'react-toastify';
+
 // css imports
 import './style.css';
 
@@ -23,10 +25,27 @@ function Navigation() {
       method: 'eth_requestAccounts',
     });
 
+    console.log('Connected Account: ', account);
     const provider = new ethers.providers.Web3Provider(window.ethereum);
-    const address = await provider._getAddress(account);
-    setAddr(address.toString());
-    setBtnHidden(true);
+    await provider
+      ._getAddress(account)
+      .then((address) => {
+        setAddr(address.toString());
+        setBtnHidden(true);
+        toast('Successfully Connected to Wallet!');
+        console.debug('🦄 Wallet Connected!');
+      })
+      .catch((err) => {
+        toast.error(response.message);
+        console.error('❌ Connect to Wallet Request Failed: ', err.message);
+      });
+    // const provider = new ethers.providers.Web3Provider(window.ethereum);
+    // const address = await provider._getAddress(account);
+
+    // setAddr(address.toString());
+    // setBtnHidden(true);
+    // toast('Successfully Connected to Wallet!');
+    // console.debug('Successfully Connected to Wallet!');
   };
 
   return (

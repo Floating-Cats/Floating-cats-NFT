@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { ethers } from 'ethers';
 
+// import { toast } from 'react-toastify';
+
 function NFTImage({ contract, signer, tokenId, getCount }) {
   // cid from pinata
   const contentId = 'QmSZyYG4JQDd5M5H3e4ZtFh1GGqptR2Yyqo7SLrnYri3Tm';
@@ -20,9 +22,11 @@ function NFTImage({ contract, signer, tokenId, getCount }) {
       .isContentOwned(metadataURI)
       .then((resp) => {
         setIsMinted(resp);
+        // toast.success('🚀 Successfully logged in!');
         console.debug('getMintedStatus Request Successful!');
       })
       .catch((error) => {
+        // toast.error(response.message);
         console.error('getMintedStatus Request Failed: ', error.message);
       });
   };

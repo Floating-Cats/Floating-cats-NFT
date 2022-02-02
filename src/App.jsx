@@ -4,19 +4,24 @@ import { useEffect, useState } from 'react';
 import Install from './views/Install';
 import Home from './views/Home';
 
+// components
+import Navbar from './components/Navbar';
+import Footer from './components/Footer';
+
 // to create Web3Provider object and format balance
-import { ethers } from 'ethers';
+import { constants, ethers } from 'ethers';
 
 // contracts
 import FCat from './artifacts/contracts/MyNFT.sol/FloatingCats.json';
 
+// toastify, ref: https://fkhadra.github.io/react-toastify/introduction
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 // global vars
 const contractAddress = '0x5FbDB2315678afecb367f032d93F642f64180aa3'; // contract address
 const provider = new ethers.providers.Web3Provider(window.ethereum);
-// console.log('window.ethereum is: ', window.ethereum);
-// console.log('provider is: ', provider);
 const signer = provider.getSigner(); // get the end user
-// console.log('signer is: ', signer);
 const contract = new ethers.Contract(contractAddress, FCat.abi, signer); // get the smart contract
 
 function App() {
@@ -38,18 +43,36 @@ function App() {
     setTotalMinted(parseInt(count));
   };
 
-  if (window.ethereum) {
-    return (
-      <Home
-        contract={contract}
-        signer={signer}
-        totalMinted={totalMinted}
-        getCount={getCount}
+  return (
+    <>
+      <ToastContainer
+        position='top-right'
+        theme='dark'
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
       />
-    );
-  } else {
-    return <Install />;
-  }
+      <Navbar />
+      <div>
+        {window.ethereum ? (
+          <Home
+            contract={contract}
+            signer={signer}
+            totalMinted={totalMinted}
+            getCount={getCount}
+          />
+        ) : (
+          <Install />
+        )}
+      </div>
+      <Footer />
+    </>
+  );
 }
 
 export default App;
