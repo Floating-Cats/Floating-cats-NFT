@@ -25,6 +25,7 @@ const signer = provider.getSigner(); // get the end user
 const contract = new ethers.Contract(contractAddress, FCat.abi, signer); // get the smart contract
 
 function App() {
+  const [addr, setAddr] = useState('');
   const [totalMinted, setTotalMinted] = useState(0);
   useEffect(() => {
     getCount()
@@ -57,7 +58,7 @@ function App() {
         draggable
         pauseOnHover
       />
-      <Navbar />
+      <Navbar addr={addr} setAddr={setAddr} />
       <div>
         {window.ethereum ? (
           <Home

@@ -15,9 +15,8 @@ import { toast } from 'react-toastify';
 // css imports
 import './style.css';
 
-function Navigation() {
+function Navigation({ addr, setAddr }) {
   const [btnHidden, setBtnHidden] = useState(false);
-  const [addr, setAddr] = useState('');
 
   const handleOnClick = async () => {
     // get the connected account on the window etheureum object
@@ -39,13 +38,6 @@ function Navigation() {
         toast.error(response.message);
         console.error('❌ Connect to Wallet Request Failed: ', err.message);
       });
-    // const provider = new ethers.providers.Web3Provider(window.ethereum);
-    // const address = await provider._getAddress(account);
-
-    // setAddr(address.toString());
-    // setBtnHidden(true);
-    // toast('Successfully Connected to Wallet!');
-    // console.debug('Successfully Connected to Wallet!');
   };
 
   return (
@@ -88,22 +80,25 @@ function Navigation() {
             <Nav.Link href='#about'>ABOUT</Nav.Link>
             <Nav.Link href='#roadmap'>ROADMAP</Nav.Link>
             <Nav.Link href='#team'>TEAM</Nav.Link>
-            <button
-              id='show_button'
-              className='enableEthereumButton'
-              onClick={() => handleOnClick()}
-              hidden={btnHidden}
-            >
-              Connect your wallet
-            </button>
-            <h6>
-              <span className='showAccount' hidden={!btnHidden}>
-                {`${addr.substring(0, 4)}...${addr.substring(
-                  addr.length - 4,
-                  addr.length
-                )}`}
-              </span>
-            </h6>
+            {!btnHidden ? (
+              <button
+                id='show_button'
+                className='enableEthereumButton'
+                onClick={() => handleOnClick()}
+                hidden={btnHidden}
+              >
+                Connect your wallet
+              </button>
+            ) : (
+              <h6>
+                <span className='showAccount' hidden={!btnHidden}>
+                  {`${addr.substring(0, 4)}...${addr.substring(
+                    addr.length - 4,
+                    addr.length
+                  )}`}
+                </span>
+              </h6>
+            )}
             <div className='rightside-nav navbar-nav'>
               <a target='_blank' href='#' className='nav-link'>
                 <img
