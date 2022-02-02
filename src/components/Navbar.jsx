@@ -31,12 +31,12 @@ function Navigation({ userAddr, setUserAddr }) {
       .then((address) => {
         setUserAddr(address.toString());
         setBtnHidden(true);
-        toast('Successfully Connected to Wallet!');
-        console.debug('🦄 Wallet Connected!');
+        console.debug('Successfully Connected to Wallet!');
+        toast('🐱 Wallet Connected!');
       })
       .catch((err) => {
-        toast.error(response.message);
         console.error('❌ Connect to Wallet Request Failed: ', err.message);
+        toast.error(response.message);
       });
   };
 

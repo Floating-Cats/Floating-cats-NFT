@@ -8,22 +8,37 @@ import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Col from 'react-bootstrap/Col';
 
+// service imports
+import ConnEthers from '../services/ConnEthers';
+
 function Mint(props) {
   const [balance, setBalance] = useState('-');
-  const getBalance = async () => {
-    console.log('Connected Address: ', props.userAddr);
-    // get the connected account on the window etheureum object
-    const [account] = await window.ethereum.request({
-      method: 'eth_requestAccounts',
-    });
+  // const getBalance = async () => {
+  //   // console.log('Connected Address: ', props.userAddr);
+  //   // // get the connected account on the window etheureum object
+  //   // const [account] = await window.ethereum.request({
+  //   //   method: 'eth_requestAccounts',
+  //   // });
+  //   const [account] = ConnEthers.connectUser();
 
-    // provider provides methods interacting with blockchain
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
-    const balance = await provider.getBalance(account);
-    console.log();
-    setBalance(
-      parseFloat(ethers.utils.formatEther(balance)).toFixed(4).toString()
-    );
+  //   // provider provides methods interacting with blockchain
+  //   const provider = new ethers.providers.Web3Provider(window.ethereum);
+  //   const balance = await provider.getBalance(account);
+  //   console.log();
+  //   setBalance(
+  //     parseFloat(ethers.utils.formatEther(balance)).toFixed(4).toString()
+  //   );
+  // };
+
+  const getBalance = () => {
+    ConnEthers.getBalance()
+      .then((balance) => {
+        setBalance(balance);
+      })
+      .catch((err) => {
+        toast.error(response.message);
+        console.error('❌  ', err.message);
+      });
   };
 
   const mintToken = () => {

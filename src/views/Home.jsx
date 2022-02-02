@@ -2,7 +2,6 @@
 
 import Mint from '../components/Mint';
 import NFTImage from '../components/NFTImage';
-import WalletBalance from '../components/WalletBalance';
 
 // the entry point of our home page
 function Home(props) {
@@ -124,8 +123,7 @@ function Home(props) {
 
   return (
     <div>
-      {/* <WalletBalance /> */}
-      {getCollection()}
+      {/* {getCollection()} */}
       {getBgCloud()}
       <Mint userAddr={props.userAddr} />
       {getRoadmap()}
