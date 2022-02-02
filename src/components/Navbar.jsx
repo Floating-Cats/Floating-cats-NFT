@@ -15,7 +15,7 @@ import { toast } from 'react-toastify';
 // css imports
 import './style.css';
 
-function Navigation({ addr, setAddr }) {
+function Navigation({ userAddr, setUserAddr }) {
   const [btnHidden, setBtnHidden] = useState(false);
 
   const handleOnClick = async () => {
@@ -29,7 +29,7 @@ function Navigation({ addr, setAddr }) {
     await provider
       ._getAddress(account)
       .then((address) => {
-        setAddr(address.toString());
+        setUserAddr(address.toString());
         setBtnHidden(true);
         toast('Successfully Connected to Wallet!');
         console.debug('🦄 Wallet Connected!');
@@ -85,16 +85,15 @@ function Navigation({ addr, setAddr }) {
                 id='show_button'
                 className='enableEthereumButton'
                 onClick={() => handleOnClick()}
-                hidden={btnHidden}
               >
                 Connect your wallet
               </button>
             ) : (
               <h6>
-                <span className='showAccount' hidden={!btnHidden}>
-                  {`${addr.substring(0, 4)}...${addr.substring(
-                    addr.length - 4,
-                    addr.length
+                <span className='showAccount'>
+                  {`${userAddr.substring(0, 4)}...${userAddr.substring(
+                    userAddr.length - 4,
+                    userAddr.length
                   )}`}
                 </span>
               </h6>

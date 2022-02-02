@@ -1,5 +1,6 @@
 // components
-import Navbar from '../components/Navbar';
+
+import Mint from '../components/Mint';
 import NFTImage from '../components/NFTImage';
 import WalletBalance from '../components/WalletBalance';
 
@@ -56,23 +57,6 @@ function Home(props) {
 
   // TODO: get banner
   const getBanner = () => {};
-
-  // get mint
-  const getMint = () => {
-    return (
-      <>
-        <div className='container' id='mint'>
-          <img
-            src='pics/mint-button.png'
-            className='rounded mx-auto d-block'
-            alt=''
-            width='400'
-            height='300'
-          />
-        </div>
-      </>
-    );
-  };
 
   // get roadmap
   const getRoadmap = () => {
@@ -143,7 +127,7 @@ function Home(props) {
       {/* <WalletBalance /> */}
       {getCollection()}
       {getBgCloud()}
-      {getMint()}
+      <Mint userAddr={props.userAddr} />
       {getRoadmap()}
       {getTeam()}
     </div>
