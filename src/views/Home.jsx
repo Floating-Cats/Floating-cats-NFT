@@ -125,7 +125,7 @@ function Home(props) {
     <div>
       {/* {getCollection()} */}
       {getBgCloud()}
-      <Mint userAddr={props.userAddr} />
+      <Mint provider={props.provider} userAddr={props.userAddr} />
       {getRoadmap()}
       {getTeam()}
     </div>

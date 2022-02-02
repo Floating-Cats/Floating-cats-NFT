@@ -11,33 +11,21 @@ import Col from 'react-bootstrap/Col';
 // service imports
 import ConnEthers from '../services/ConnEthers';
 
+// other imports
+import { toast } from 'react-toastify';
+
 function Mint(props) {
   const [balance, setBalance] = useState('-');
-  // const getBalance = async () => {
-  //   // console.log('Connected Address: ', props.userAddr);
-  //   // // get the connected account on the window etheureum object
-  //   // const [account] = await window.ethereum.request({
-  //   //   method: 'eth_requestAccounts',
-  //   // });
-  //   const [account] = ConnEthers.connectUser();
-
-  //   // provider provides methods interacting with blockchain
-  //   const provider = new ethers.providers.Web3Provider(window.ethereum);
-  //   const balance = await provider.getBalance(account);
-  //   console.log();
-  //   setBalance(
-  //     parseFloat(ethers.utils.formatEther(balance)).toFixed(4).toString()
-  //   );
-  // };
 
   const getBalance = () => {
-    ConnEthers.getBalance()
+    ConnEthers.getBalance(props.provider, props.userAddr)
       .then((balance) => {
         setBalance(balance);
+        toast.success('🐱 Balance Fetched!');
       })
       .catch((err) => {
-        toast.error(response.message);
-        console.error('❌  ', err.message);
+        console.error(err.message);
+        toast.error('❌ Balance Failed to Connect', err.message);
       });
   };
 

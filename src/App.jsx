@@ -9,7 +9,7 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 
 // to create Web3Provider object and format balance
-import { constants, ethers } from 'ethers';
+import { ethers } from 'ethers';
 
 // contracts
 import FCat from './artifacts/contracts/MyNFT.sol/FloatingCats.json';
@@ -20,7 +20,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 // global vars
 const contractAddress = '0x5FbDB2315678afecb367f032d93F642f64180aa3'; // contract address
-const provider = new ethers.providers.Web3Provider(window.ethereum);
+const provider = new ethers.providers.Web3Provider(window.ethereum); // provider provides methods interacting with blockchain
 const signer = provider.getSigner(); // get the end user
 const contract = new ethers.Contract(contractAddress, FCat.abi, signer); // get the smart contract
 
@@ -58,10 +58,15 @@ function App() {
         draggable
         pauseOnHover
       />
-      <Navbar userAddr={userAddr} setUserAddr={setUserAddr} />
+      <Navbar
+        provider={provider}
+        userAddr={userAddr}
+        setUserAddr={setUserAddr}
+      />
       <div>
         {window.ethereum ? (
           <Home
+            provider={provider}
             userAddr={userAddr}
             contract={contract}
             signer={signer}

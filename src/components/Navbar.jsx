@@ -7,27 +7,20 @@ import Navbar from 'react-bootstrap/Navbar';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 
-// to create Web3Provider object and format balance
+// service imports
 import { ethers } from 'ethers';
+import ConnEthers from '../services/ConnEthers';
 
+// other imports
 import { toast } from 'react-toastify';
-
-// css imports
 import './style.css';
 
-function Navigation({ userAddr, setUserAddr }) {
+function Navigation({ provider, userAddr, setUserAddr }) {
   const [btnHidden, setBtnHidden] = useState(false);
 
   const handleOnClick = async () => {
     // get the connected account on the window etheureum object
-    const [account] = await window.ethereum.request({
-      method: 'eth_requestAccounts',
-    });
-
-    console.log('Connected Account: ', account);
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
-    await provider
-      ._getAddress(account)
+    const account = ConnEthers.getAddress(provider)
       .then((address) => {
         setUserAddr(address.toString());
         setBtnHidden(true);
@@ -38,6 +31,21 @@ function Navigation({ userAddr, setUserAddr }) {
         console.error('❌ Connect to Wallet Request Failed: ', err.message);
         toast.error(response.message);
       });
+
+    // console.log('Connected account: ', account);
+    // const provider = new ethers.providers.Web3Provider(window.ethereum);
+    // await provider
+    //   ._getAddress(account)
+    //   .then((address) => {
+    //     setUserAddr(address.toString());
+    //     setBtnHidden(true);
+    //     console.debug('Successfully Connected to Wallet!');
+    //     toast('🐱 Wallet Connected!');
+    //   })
+    //   .catch((err) => {
+    //     console.error('❌ Connect to Wallet Request Failed: ', err.message);
+    //     toast.error(response.message);
+    //   });
   };
 
   return (
