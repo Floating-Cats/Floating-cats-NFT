@@ -5,6 +5,8 @@
 // Runtime Environment's members available in the global scope.
 const hre = require('hardhat');
 
+require('dotenv').config();
+
 async function main() {
   // Hardhat always runs the compile task when running scripts with its command
   // line interface.
@@ -18,7 +20,8 @@ async function main() {
   const fcat = await FCat.deploy(
     'FloatingCats', // name
     'FCAT', // symbol
-    'ipfs://QmSZyYG4JQDd5M5H3e4ZtFh1GGqptR2Yyqo7SLrnYri3Tm/' // cid, remember the '/' at the end
+    // 'ipfs://QmSZyYG4JQDd5M5H3e4ZtFh1GGqptR2Yyqo7SLrnYri3Tm/' // cid, remember the '/' at the end
+    `ipfs://${process.env.FC_TEST_CID}/` // cid, remember the '/' at the end
   );
 
   await fcat.deployed();

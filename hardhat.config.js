@@ -8,6 +8,7 @@ require('@nomiclabs/hardhat-ethers');
 require('@nomiclabs/hardhat-etherscan');
 require('@nomiclabs/hardhat-waffle');
 require('@nomiclabs/hardhat-web3');
+require('dotenv').config();
 
 // This is a sample Hardhat task. To learn how to create your own go to
 // https://hardhat.org/guides/create-task.html
@@ -19,6 +20,8 @@ task('accounts', 'Prints the list of accounts', async (taskArgs, hre) => {
   }
 });
 
+// This is a sample Hardhat task. To learn how to create your own go to
+// https://hardhat.org/guides/create-task.html
 task('balance', "Prints an account's balance")
   .addParam('account', "The account's address")
   .setAction(async (taskArgs) => {
@@ -32,6 +35,13 @@ task('balance', "Prints an account's balance")
  * @type import('hardhat/config').HardhatUserConfig
  */
 module.exports = {
+  networks: {
+    hardhat: {},
+    rinkeby: {
+      url: INFURA_URL,
+      accounts: [`0x${owner}`, `0x${alice}`, `0x${bob}`],
+    },
+  },
   solidity: '0.8.4',
   paths: {
     artifacts: './src/artifacts',
@@ -39,7 +49,7 @@ module.exports = {
   settings: {
     optimizer: {
       enabled: true,
-      runs: 1000,
+      runs: 200,
     },
   },
 
