@@ -15,7 +15,7 @@ import { ethers } from 'ethers';
 import FCat from './artifacts/contracts/MyNFT.sol/FloatingCats.json';
 
 // toastify, ref: https://fkhadra.github.io/react-toastify/introduction
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 // global vars
@@ -33,7 +33,7 @@ function App() {
         console.debug('App/useEffect Request Successful!');
       })
       .catch((error) => {
-        console.error('AppuseEffect Request Failed: ', error.message);
+        console.error('App/useEffect Request Failed: ', error.message);
       });
   }, []);
 

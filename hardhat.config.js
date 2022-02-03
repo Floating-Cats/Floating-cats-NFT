@@ -35,13 +35,13 @@ task('balance', "Prints an account's balance")
  * @type import('hardhat/config').HardhatUserConfig
  */
 module.exports = {
-  networks: {
-    hardhat: {},
-    rinkeby: {
-      url: INFURA_URL,
-      accounts: [`0x${owner}`, `0x${alice}`, `0x${bob}`],
-    },
-  },
+  // networks: {
+  //   hardhat: {},
+  //   rinkeby: {
+  //     url: INFURA_URL,
+  //     accounts: [`0x${owner}`, `0x${alice}`, `0x${bob}`],
+  //   },
+  // },
   solidity: '0.8.4',
   paths: {
     artifacts: './src/artifacts',
