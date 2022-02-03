@@ -68,13 +68,13 @@ function Navigation({ provider, userAddr, setUserAddr }) {
             />
           </h1>
         </Navbar.Brand>
-        <Navbar.Toggle aria-controls='basic-navbar-nav'/>
-        <Navbar.Collapse id='basic-navbar-nav'>
-          <Nav className='ms-auto'>     
+        <Navbar.Toggle aria-controls='responsive-navbar-nav' />
+        <Navbar.Collapse className='' id='responsive-navbar-nav'>
+          <Nav className='ms-auto'>
             <Nav.Link href='#mint'>MINT</Nav.Link>
             <Nav.Link href='#about'>ABOUT</Nav.Link>
             <Nav.Link href='#roadmap'>ROADMAP</Nav.Link>
-            <Nav.Link href='#team'>TEAM</Nav.Link>  
+            <Nav.Link href='#team'>TEAM</Nav.Link>
 
             {!btnHidden ? (
               <button
@@ -95,7 +95,11 @@ function Navigation({ provider, userAddr, setUserAddr }) {
               </h6>
             )}
             <div className='rightside-nav navbar-nav'>
-              <a target='_blank' href='https://discord.com/invite/6u9ezDyYzV' className='nav-link'>
+              <a
+                target='_blank'
+                href='https://discord.com/invite/6u9ezDyYzV'
+                className='nav-link'
+              >
                 <img
                   loading='lazy'
                   className='socialLogos mx-auto'
