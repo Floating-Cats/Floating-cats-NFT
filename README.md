@@ -65,5 +65,7 @@ Most of all, opening a cat café is always our dream. We will team up with local
 ### Members
 
 Team Leader/Dev: `Thomas`,
+
 Artist:` Mao`
+
 Dev: `Andy` (lin383@wisc.edu)

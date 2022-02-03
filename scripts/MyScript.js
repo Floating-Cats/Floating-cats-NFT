@@ -15,7 +15,11 @@ async function main() {
 
   // We get the contract to deploy
   const FCat = await hre.ethers.getContractFactory('FloatingCats');
-  const fcat = await FCat.deploy(); // constructor argument
+  const fcat = await FCat.deploy(
+    'FloatingCats', // name
+    'FCAT', // symbol
+    'ipfs://QmSZyYG4JQDd5M5H3e4ZtFh1GGqptR2Yyqo7SLrnYri3Tm/' // cid, remember the '/' at the end
+  );
 
   await fcat.deployed();
 
@@ -25,6 +29,6 @@ async function main() {
 main()
   .then(() => process.exit(0))
   .catch((error) => {
-    console.error('Error~~! \n', error);
+    console.error('Error~~! \n', error.message);
     process.exit(1);
   });
