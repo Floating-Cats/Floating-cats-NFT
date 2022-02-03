@@ -2,6 +2,7 @@
 
 import Mint from '../components/Mint';
 import NFTImage from '../components/NFTImage';
+import Collapsible from 'react-collapsible';
 
 // the entry point of our home page
 function Home(props) {
@@ -135,62 +136,34 @@ function Home(props) {
 
   const getFaq = () => {
     return (
-      <div className='contanier' id='faq'>
+      <div className="container" id='faq'>
         <h1>FAQ's</h1>
-        <p>
-          <button
-            className='btn btn-primary'
-            type='button'
-            data-bs-toggle='collapse'
-            data-bs-target='#answer1'
-            aria-expanded='false'
-            aria-controls='answer1'
-          >
-            How many Floting Cats NFT’s will there be?
-          </button>
+      <><><Collapsible trigger='What Are Floating Cats?' id='faq_Q'>
+      <p id='answers'>
+         We are a team located in Nagoya, Japan. 🗾 We love cats.  Our goal is to build a strong community to help as many cats as possible. We plan to team up with local shelters and provide them with their needs . 🏡 
+         And of course, We are also planning to have weekly/monthly events to help shelters voluntarily. And it doesn’t stop there, we’re committed and wish to expand this moment worldwide. 🌍 
+      </p>
+        </Collapsible><Collapsible trigger='How many Floting Cats NFT’s will there be?' id='faq_Q'>
+        <p id='answers'>
+          There will be 8,888 unique NFT’s including 15 1️⃣OF1️⃣.
         </p>
-        <div className='collapse' id='answer1'>
-          <div className='card card-body'>
-            8,888 unique pieces (including 15 1/1).
-          </div>
-        </div>
-        <p>
-          <button
-            className='btn btn-primary'
-            type='button'
-            data-bs-toggle='collapse'
-            data-bs-target='#answer2'
-            aria-expanded='false'
-            aria-controls='answer2'
-          >
-            What's the mint price?
-          </button>
-        </p>
-        <div className='collapse' id='answer2'>
-          <div className='card card-body'>
-            TBD. Join our discord for more infomation.
-          </div>
-        </div>
-        <p>
-          <button
-            className='btn btn-primary'
-            type='button'
-            data-bs-toggle='collapse'
-            data-bs-target='#answer3'
-            aria-expanded='false'
-            aria-controls='answer3'
-          >
-            Will there be a Whitelist?
-          </button>
-        </p>
-        <div className='collapse' id='answer3'>
-          <div className='card card-body'>
-            Yes, We will have giveaways for WL. Also, active community members
-            who are helpful to each other and bring a positive vibe to the group
-            will be rewarded.
-          </div>
-        </div>
-      </div>
+        </Collapsible><Collapsible trigger=' What is the mint price?' id='faq_Q'>
+          <p id='answers'>
+            TBD. Join our discord see the lastest updates. 
+          </p>
+        </Collapsible></><Collapsible trigger='Will there be a Whitelist?' id='faq_Q'>
+          <p id='answers'>
+          ✅ Yes, We will have giveaways for WL. Also, active community members who are helpful to each other and bring a positive vibe to the group will be rewarded. 🎉 Join our Discord for more details.
+          </p>
+        </Collapsible>
+        <Collapsible trigger='What other benefits do I get?' id='faq_Q'>
+          <p id='answers'>
+          Besides being part of this great community, our holders will have a chance to win exclusive merchandise giveaways 👕  (weekly), and WL of other projects.🚀
+          Most of all, opening a cat café is always our dream.☕  We will team up with local shelters and provide a space for cats to stay in the store with good care. Meanwhile, we help those kitties to find a new home. 🏡 
+          (Will consistently update some videos & pictures for the opening of the store)
+          </p>
+        </Collapsible>
+    </></div>
     );
   };
 
