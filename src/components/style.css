@@ -3,6 +3,9 @@ body{
     background-color: lightsteelblue;
     
 }
+.socialLogos{
+    display: block;
+}
 
 .navbar-nav{
     margin-left: 3rem;
@@ -16,6 +19,10 @@ body{
     color: rgb(24, 124, 129) !important;
     font-size: 20px;
 
+}
+
+#collapseBtn{
+    background-image: url(pics/arrow.png);
 }
 #show_button{
     padding: 2px 25px;
@@ -37,6 +44,11 @@ body{
     border-radius: 10px;
     
 }
+
+#mintBtn:hover{
+    cursor: pointer;
+}
+
 #roadmap{
     text-align: center;
     font-size: 20px;

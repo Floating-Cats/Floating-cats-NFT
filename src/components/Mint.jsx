@@ -41,6 +41,7 @@ function Mint(props) {
           <Row>
             <Col>
               <img
+                id='mintBtn'
                 src='pics/mint-button.png'
                 className='rounded mx-auto d-block'
                 alt=''
