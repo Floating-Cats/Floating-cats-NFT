@@ -1,7 +1,10 @@
 import { useEffect, useState } from 'react';
 import { ethers } from 'ethers';
 
-// import { toast } from 'react-toastify';
+// service imports
+import ConnEthers from '../services/ConnEthers';
+
+import { toast } from 'react-toastify';
 
 function NFTImage({ contract, signer, tokenId, getCount }) {
   // cid from pinata
@@ -36,7 +39,7 @@ function NFTImage({ contract, signer, tokenId, getCount }) {
     const addr = connection.address;
     const result = await contract
       .payToMint(addr, metadataURI, {
-        value: ethers.utils.parseEther('0.05'),
+        value: ethers.utils.parseEther('0.02'),
       })
       .then(() => {
         result.wait();
