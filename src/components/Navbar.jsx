@@ -28,7 +28,7 @@ function Navigation({ provider, userAddr, setUserAddr }) {
       })
       .catch((err) => {
         console.error('❌ Connect to Wallet Request Failed: ', err.message);
-        toast.error(response.message);
+        toast.error('❌ Connect to Wallet Request Failed');
       });
   };
 

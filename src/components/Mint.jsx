@@ -18,26 +18,8 @@ import { toast } from 'react-toastify';
 
 function Mint({ contract, provider, userAddr, signer, totalMinted, getCount }) {
   const [balance, setBalance] = useState('-');
-  // const [metadataURI, setmetadataURI] = useState('');
-  // const [isMinted, setIsMinted] = useState(false);
   const [collectionVisible, setCollectionVisible] = useState(false);
-  // useEffect(() => {
-  //   getMintedStatus();
-  // }, [isMinted]);
-
-  // const getMintedStatus = async () => {
-  //   await contract
-  //     .isContentOwned(metadataURI)
-  //     .then((resp) => {
-  //       setIsMinted(resp);
-  //       // toast.success('🚀 Successfully logged in!');
-  //       console.debug('getMintedStatus Request Successful!');
-  //     })
-  //     .catch((error) => {
-  //       // toast.error(response.message);
-  //       console.error('getMintedStatus Request Failed: ', error.message);
-  //     });
-  // };
+  const [mintAmount, setMintAmount] = useState(1);
 
   const getBalance = () => {
     ConnEthers.getBalance(provider, userAddr)
@@ -54,6 +36,12 @@ function Mint({ contract, provider, userAddr, signer, totalMinted, getCount }) {
   const mintToken = () => {
     setCollectionVisible(true);
     toast.info("🐱 Let's Mint Token!");
+  };
+
+  // TODO: add a component to get mint amount
+  // still in test, get a number input
+  const getMintAmount = () => {
+    return setMintAmount(1);
   };
 
   // get mint
@@ -99,6 +87,7 @@ function Mint({ contract, provider, userAddr, signer, totalMinted, getCount }) {
                       contract={contract}
                       signer={signer}
                       getCount={getCount}
+                      mintAmount={mintAmount}
                     />
                   </div>
                 ))}
@@ -121,7 +110,7 @@ function Mint({ contract, provider, userAddr, signer, totalMinted, getCount }) {
   return <>{getMint()}</>;
 }
 
-function NFTImage({ contract, tokenId, getCount, signer }) {
+function NFTImage({ contract, tokenId, getCount, signer, mintAmount }) {
   const contentId = 'QmSZyYG4JQDd5M5H3e4ZtFh1GGqptR2Yyqo7SLrnYri3Tm';
   const metadataURI = `${contentId}/${tokenId}.json`;
   // const imageURI = `https://gateway.pinata.cloud/ipfs/${contentId}/${tokenId}.png`;
@@ -133,24 +122,32 @@ function NFTImage({ contract, tokenId, getCount, signer }) {
   }, [isMinted]);
 
   const getMintedStatus = async () => {
-    const result = await contract.isContentOwned(metadataURI);
-    console.log(result);
-    setIsMinted(result);
+    const result = await contract.count();
+    console.log(`result > 1 = ${result > 1}, result = ${result}`);
+    setIsMinted(result > 1);
   };
 
   const mintToken = async () => {
     console.log('MintToken01');
-    const connection = contract.connect(signer);
+    // const connection = contract.connect(signer); // connect signer to our contract
     console.log('MintToken02');
-    const addr = connection.address;
-    console.log('MintToken03');
-    const result = await contract.payToMint(addr, metadataURI, {
-      // or here
-      value: ethers.utils.parseEther('0.02'),
-    });
+    // const addr = connection.address; // this returns our contract address
+    // console.log('addr is - ', addr);
+    console.log('MintToken03', mintAmount);
+    const result = await contract.mint(mintAmount);
+
     console.log('MintToken04');
 
-    await result.wait();
+    await result
+      .wait()
+      .then(() => {
+        console.debug(`Successfully Minted ${mintAmount} Tokens!`);
+        toast('🐱 Just Minted!');
+      })
+      .catch((err) => {
+        console.error('❌ Failed To Mint: ', err.message);
+        toast.error('❌ Failed To Mint');
+      });
     console.log('MintToken05');
     getMintedStatus();
     console.log('MintToken06');

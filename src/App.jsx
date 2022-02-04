@@ -19,7 +19,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 // global vars
-const contractAddress = '0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512'; // contract address
+const contractAddress = '0x5FC8d32690cc91D4c39d9d3abcBD16989F875707'; // contract address
 const provider = new ethers.providers.Web3Provider(window.ethereum); // provider provides methods interacting with blockchain
 const signer = provider.getSigner(); // get the end user (us, for example)
 const contract = new ethers.Contract(contractAddress, FCat.abi, signer); // get the smart contract
@@ -40,7 +40,7 @@ function App() {
   // 100/888
   const getCount = async () => {
     const count = await contract.count();
-    console.log(parseInt(count));
+    console.log('getCount(), count = ', parseInt(count));
     setTotalMinted(parseInt(count));
   };
 
