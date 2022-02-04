@@ -2,8 +2,8 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "/Users/andy/Documents/personal/Floating-cats-NFT/contracts/MyNFT.sol": {
-      "lastModificationDate": 1643995915042,
-      "contentHash": "1f5e471f7b84948b4e9af884eac53b3e",
+      "lastModificationDate": 1644013580721,
+      "contentHash": "e9deed2abb9811778923ef3e8049064f",
       "sourceName": "contracts/MyNFT.sol",
       "solcConfig": {
         "version": "0.8.4",
@@ -28,15 +28,36 @@
           }
         }
       },
-      "imports": [
-        "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol",
-        "@openzeppelin/contracts/access/Ownable.sol"
-      ],
+      "imports": [],
       "versionPragmas": [
-        "^0.8.2"
+        "^0.8.2",
+        "^0.8.0",
+        "^0.8.0",
+        "^0.8.0",
+        "^0.8.0",
+        "^0.8.0",
+        "^0.8.0",
+        "^0.8.0",
+        "^0.8.0",
+        "^0.8.0",
+        "^0.8.0",
+        "^0.8.0",
+        "^0.8.0"
       ],
       "artifacts": [
-        "FloatingCats"
+        "Address",
+        "Context",
+        "ERC165",
+        "ERC721",
+        "ERC721Enumerable",
+        "FloatingCats",
+        "IERC165",
+        "IERC721",
+        "IERC721Enumerable",
+        "IERC721Metadata",
+        "IERC721Receiver",
+        "Ownable",
+        "Strings"
       ]
     },
     "/Users/andy/Documents/personal/Floating-cats-NFT/node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol": {
