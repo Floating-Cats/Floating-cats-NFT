@@ -83,7 +83,7 @@ function Navigation({ provider, userAddr, setUserAddr }) {
             ) : (
               <h6>
                 <span className='showAccount'>
-                  {`${userAddr.substring(0, 4)}...${userAddr.substring(
+                  {`${userAddr.substring(0, 5)}...${userAddr.substring(
                     userAddr.length - 4,
                     userAddr.length
                   )}`}

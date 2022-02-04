@@ -139,15 +139,23 @@ function NFTImage({ contract, tokenId, getCount, signer }) {
   };
 
   const mintToken = async () => {
+    console.log('MintToken01');
     const connection = contract.connect(signer);
+    console.log('MintToken02');
     const addr = connection.address;
+    console.log('MintToken03');
     const result = await contract.payToMint(addr, metadataURI, {
+      // or here
       value: ethers.utils.parseEther('0.02'),
     });
+    console.log('MintToken04');
 
     await result.wait();
+    console.log('MintToken05');
     getMintedStatus();
-    getCount();
+    console.log('MintToken06');
+    getCount(); // here
+    console.log('MintToken07');
   };
 
   async function getURI() {
