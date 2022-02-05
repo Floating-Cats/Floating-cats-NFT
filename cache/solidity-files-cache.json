@@ -2,8 +2,8 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "/Users/andy/Documents/personal/Floating-cats-NFT/contracts/MyNFT.sol": {
-      "lastModificationDate": 1644014863335,
-      "contentHash": "b3665ab5dc02df93aa3e9ab980a5d484",
+      "lastModificationDate": 1644034816140,
+      "contentHash": "fd4538b06a568db9c7d5711a23d78ef9",
       "sourceName": "contracts/MyNFT.sol",
       "solcConfig": {
         "version": "0.8.4",

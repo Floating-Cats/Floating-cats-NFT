@@ -37,9 +37,17 @@ function Mint({ contract, provider, userAddr, signer, totalMinted, getCount }) {
   const mintToken = async () => {
     // setCollectionVisible(true);
     toast.info(`🐱 Let's Mint ${mintAmount} Token!`);
-    console.log(contract);
+
+    contract.ownerOf(1).then((result) => {
+      console.log(result);
+    });
+
+    console.log(ethers.utils.parseEther(mintAmount.toString()));
+
     const result = await contract
-      .mint(1)
+      .mint(mintAmount, {
+        value: ethers.utils.parseEther('0.02'),
+      })
       .then(() => {
         console.debug(`Successfully Minted ${mintAmount} Tokens!`);
         toast('🐱 Just Minted!');
@@ -49,7 +57,7 @@ function Mint({ contract, provider, userAddr, signer, totalMinted, getCount }) {
         toast.error('❌ Failed To Mint');
       });
 
-    await result.wait(); // FIXME: Cannot read properties of undefined (reading 'wait')
+    // await result.wait(); // FIXME: Cannot read properties of undefined (reading 'wait')
   };
 
   // TODO: add a component to get mint amount
@@ -90,18 +98,10 @@ function Mint({ contract, provider, userAddr, signer, totalMinted, getCount }) {
                   <button
                     className='enableEthereumButton'
                     onClick={async () => {
-                      const mintedTokens = await contract
-                        .count()
-                        .then((num) => {
-                          console.log('num = ', num);
-                        })
-                        .catch((err) => {
-                          console.log('ERRRRR~~~', err);
-                        });
-                      console.log('mintedTokens = ', mintedTokens);
+                      const mintedTokens = getCount();
                     }}
                   >
-                    Show token URI
+                    getCount()
                   </button>
                 </div>
               </div>
@@ -166,18 +166,27 @@ function NFTImage({ contract, tokenId, getCount, signer, mintAmount }) {
     // const addr = connection.address; // this returns our contract address
     // console.log('addr is - ', addr);
     console.log('MintToken03', mintAmount);
-    const result = await contract.mint(mintAmount);
+    const result = await contract
+      .mint(mintAmount)
+      .then(() => {
+        console.debug(`Successfully Minted ${mintAmount} Tokens! - 01`);
+        toast('🐱 Just Minted!');
+      })
+      .catch((err) => {
+        console.error('❌ Failed To Mint - 01: ', err.message);
+        toast.error('❌ Failed To Mint');
+      });
 
     console.log('MintToken04');
 
     await result
       .wait()
       .then(() => {
-        console.debug(`Successfully Minted ${mintAmount} Tokens!`);
+        console.debug(`Successfully Minted ${mintAmount} Tokens! - 01`);
         toast('🐱 Just Minted!');
       })
       .catch((err) => {
-        console.error('❌ Failed To Mint: ', err.message);
+        console.error('❌ Failed To Mint - 01: ', err.message);
         toast.error('❌ Failed To Mint');
       });
     console.log('MintToken05');
