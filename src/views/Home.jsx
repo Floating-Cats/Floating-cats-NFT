@@ -76,7 +76,7 @@ function Home(props) {
               <img src='pics/shelter.PNG' alt='' width='300' height='200' />
               <p>Shelter Donations</p>
               <p>(We will donate 10 eth to selected shelters)</p>
-              <p>(30% of OS loyaties gose to shelters)</p>
+              <p>(30% of OS loyalties gose to shelters)</p>
             </div>
           </div>
           <div className='row'>
