@@ -14,12 +14,11 @@ import { ethers } from 'ethers';
 // contracts
 import FCat from './artifacts/contracts/MyNFT.sol/FloatingCats.json';
 
-// toastify, ref: https://fkhadra.github.io/react-toastify/introduction
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 // global vars
-const contractAddress = '0x390a6f532237aEffC143376B13B82Cd0FAE9603E'; // contract address
+const contractAddress = '0x6Ee897938472601e379e226b918A13740a576f8e'; // contract address
 const provider = new ethers.providers.Web3Provider(window.ethereum); // provider provides methods interacting with blockchain
 const signer = provider.getSigner(); // get the end user (us, for example)
 const contract = new ethers.Contract(contractAddress, FCat.abi, signer); // get the smart contract

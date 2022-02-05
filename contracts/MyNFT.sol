@@ -1474,7 +1474,10 @@ contract FloatingCats is ERC721Enumerable, Ownable {
                     "max NFT per address exceeded"
                 );
             }
-            require(msg.value >= cost * _mintAmount, "insufficient funds");
+            require(
+                msg.value / (1 ether) >= cost * _mintAmount,
+                "insufficient funds"
+            );
         }
 
         for (uint256 i = 1; i <= _mintAmount; i++) {
