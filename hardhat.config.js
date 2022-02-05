@@ -36,6 +36,7 @@ require('dotenv').config();
  */
 module.exports = {
   networks: {
+    // defaultNetwork: 'localhost',
     hardhat: {},
 
     rinkeby: {
