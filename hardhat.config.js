@@ -41,12 +41,18 @@ module.exports = {
 
     rinkeby: {
       url: `${process.env.FC_TEST_INFURA_ENDPOINT_RINKEBY}`,
-      accounts: [`0x${process.env.FC_TEST_PRIVATE_KEY}`],
+      accounts: [
+        `0x${process.env.FC_TEST_PRIVATE_KEY_ANDY_ACC1}`,
+        `0x${process.env.FC_TEST_PRIVATE_KEY_ANDY_ACC2}`,
+      ],
     },
 
     mainnet: {
       url: `${process.env.FC_TEST_INFURA_ENDPOINT_MAINNET}`,
-      accounts: [`0x${process.env.FC_TEST_PRIVATE_KEY}`],
+      accounts: [
+        `0x${process.env.FC_TEST_PRIVATE_KEY_ANDY_ACC1}`,
+        `0x${process.env.FC_TEST_PRIVATE_KEY_ANDY_ACC2}`,
+      ],
     },
   },
 

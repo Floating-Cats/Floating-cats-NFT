@@ -12,7 +12,7 @@ async function main() {
     'FloatingCats', // name
     'FCAT', // symbol
     // 'ipfs://QmSZyYG4JQDd5M5H3e4ZtFh1GGqptR2Yyqo7SLrnYri3Tm/' // cid, remember the '/' at the end
-    `ipfs://${process.env.REACT_APP_FC_TEST_CID}/` // cid, remember the '/' at the end
+    `ipfs://${process.env.FC_TEST_CID}/` // cid, remember the '/' at the end
   );
 
   await fcat.deployed();
