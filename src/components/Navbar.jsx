@@ -28,23 +28,8 @@ function Navigation({ provider, userAddr, setUserAddr }) {
       })
       .catch((err) => {
         console.error('❌ Connect to Wallet Request Failed: ', err.message);
-        toast.error(response.message);
+        toast.error('❌ Connect to Wallet Request Failed');
       });
-
-    // console.log('Connected account: ', account);
-    // const provider = new ethers.providers.Web3Provider(window.ethereum);
-    // await provider
-    //   ._getAddress(account)
-    //   .then((address) => {
-    //     setUserAddr(address.toString());
-    //     setBtnHidden(true);
-    //     console.debug('Successfully Connected to Wallet!');
-    //     toast('🐱 Wallet Connected!');
-    //   })
-    //   .catch((err) => {
-    //     console.error('❌ Connect to Wallet Request Failed: ', err.message);
-    //     toast.error(response.message);
-    //   });
   };
 
   return (
@@ -98,7 +83,7 @@ function Navigation({ provider, userAddr, setUserAddr }) {
             ) : (
               <h6>
                 <span className='showAccount'>
-                  {`${userAddr.substring(0, 4)}...${userAddr.substring(
+                  {`${userAddr.substring(0, 5)}...${userAddr.substring(
                     userAddr.length - 4,
                     userAddr.length
                   )}`}
