@@ -15,13 +15,13 @@ import { ethers } from 'ethers';
 import FCat from './artifacts/contracts/MyNFT.sol/FloatingCats.json';
 
 // toastify, ref: https://fkhadra.github.io/react-toastify/introduction
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 // global vars
-const contractAddress = '0x5FbDB2315678afecb367f032d93F642f64180aa3'; // contract address
+const contractAddress = '0x390a6f532237aEffC143376B13B82Cd0FAE9603E'; // contract address
 const provider = new ethers.providers.Web3Provider(window.ethereum); // provider provides methods interacting with blockchain
-const signer = provider.getSigner(); // get the end user
+const signer = provider.getSigner(); // get the end user (us, for example)
 const contract = new ethers.Contract(contractAddress, FCat.abi, signer); // get the smart contract
 
 function App() {
@@ -33,14 +33,14 @@ function App() {
         console.debug('App/useEffect Request Successful!');
       })
       .catch((error) => {
-        console.error('AppuseEffect Request Failed: ', error.message);
+        console.error('App/useEffect Request Failed: ', error.message);
       });
   }, []);
 
   // 100/888
   const getCount = async () => {
     const count = await contract.count();
-    console.log(parseInt(count));
+    console.log('getCount(), count = ', parseInt(count));
     setTotalMinted(parseInt(count));
   };
 
@@ -49,7 +49,7 @@ function App() {
       <ToastContainer
         position='top-center'
         theme='dark'
-        autoClose={1000}
+        autoClose={1000} // 1000 ms = 1sec
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick

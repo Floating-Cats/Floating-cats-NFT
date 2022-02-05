@@ -6,26 +6,6 @@ import Collapsible from 'react-collapsible';
 
 // the entry point of our home page
 function Home(props) {
-  const getCollection = () => {
-    return (
-      <>
-        <h1>FLoating Cats NFT Collection</h1>
-        {Array(props.totalMinted + 1)
-          .fill(0)
-          .map((_, i) => (
-            <div key={i}>
-              <NFTImage
-                tokenId={i}
-                contract={props.contract}
-                signer={props.signer}
-                getCount={props.getCount}
-              />
-            </div>
-          ))}
-      </>
-    );
-  };
-
   // get background cloud
   const getBgCloud = () => {
     return (
@@ -189,7 +169,14 @@ function Home(props) {
   return (
     <div>
       {getBgCloud()}
-      <Mint provider={props.provider} userAddr={props.userAddr} />
+      <Mint
+        contract={props.contract}
+        provider={props.provider}
+        userAddr={props.userAddr}
+        signer={props.signer}
+        totalMinted={props.totalMinted}
+        getCount={props.getCount}
+      />
       {getRoadmap()}
       {getTeam()}
       {getFaq()}
