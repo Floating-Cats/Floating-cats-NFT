@@ -4,49 +4,51 @@
 //   etherscanApiKey,
 // } = require('./secrets.json');
 
-require('@nomiclabs/hardhat-ethers');
-require('@nomiclabs/hardhat-etherscan');
+// require('@nomiclabs/hardhat-ethers');
+// require('@nomiclabs/hardhat-etherscan');
 require('@nomiclabs/hardhat-waffle');
-require('@nomiclabs/hardhat-web3');
+// require('@nomiclabs/hardhat-web3');
 require('dotenv').config();
 
 // This is a sample Hardhat task. To learn how to create your own go to
 // https://hardhat.org/guides/create-task.html
-task('accounts', 'Prints the list of accounts', async (taskArgs, hre) => {
-  const accounts = await hre.ethers.getSigners();
+// task('accounts', 'Prints the list of accounts', async (taskArgs, hre) => {
+//   const accounts = await hre.ethers.getSigners();
 
-  for (const account of accounts) {
-    console.log(account.address);
-  }
-});
+//   for (const account of accounts) {
+//     console.log(account.address);
+//   }
+// });
 
 // This is a sample Hardhat task. To learn how to create your own go to
 // https://hardhat.org/guides/create-task.html
-task('balance', "Prints an account's balance")
-  .addParam('account', "The account's address")
-  .setAction(async (taskArgs) => {
-    const account = web3.utils.toChecksumAddress(taskArgs.account);
-    const balance = await web3.eth.getBalance(account);
+// task('balance', "Prints an account's balance")
+//   .addParam('account', "The account's address")
+//   .setAction(async (taskArgs) => {
+//     const account = web3.utils.toChecksumAddress(taskArgs.account);
+//     const balance = await web3.eth.getBalance(account);
 
-    console.log(web3.utils.fromWei(balance, 'ether'), 'ETH');
-  });
+//     console.log(web3.utils.fromWei(balance, 'ether'), 'ETH');
+//   });
 
 /**
  * @type import('hardhat/config').HardhatUserConfig
  */
 module.exports = {
   networks: {
-    // hardhat: {
-    //   chainId: 31337,
-    //   accounts: [
-    //     '0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80',
-    //   ],
-    // },
-    //   rinkeby: {
-    //     url: INFURA_URL,
-    //     accounts: [`0x${owner}`, `0x${alice}`, `0x${bob}`],
-    //   },
+    hardhat: {},
+
+    rinkeby: {
+      url: `${process.env.FC_TEST_INFURA_ENDPOINT_RINKEBY}`,
+      accounts: [`0x${process.env.FC_TEST_PRIVATE_KEY}`],
+    },
+
+    mainnet: {
+      url: `${process.env.FC_TEST_INFURA_ENDPOINT_MAINNET}`,
+      accounts: [`0x${process.env.FC_TEST_PRIVATE_KEY}`],
+    },
   },
+
   solidity: '0.8.4',
   paths: {
     artifacts: './src/artifacts',

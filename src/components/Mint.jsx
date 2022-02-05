@@ -17,6 +17,7 @@ import { toast } from 'react-toastify';
 // import NFTImage from './NFTImage';
 
 function Mint({ contract, provider, userAddr, signer, totalMinted, getCount }) {
+  // const imageURI = `https://gateway.pinata.cloud/ipfs/${process.env.REACT_APP_FC_TEST_CID}/${tokenId}.png`;
   const [balance, setBalance] = useState('-');
   const [collectionVisible, setCollectionVisible] = useState(false);
   const [mintAmount, setMintAmount] = useState(1);
@@ -33,9 +34,22 @@ function Mint({ contract, provider, userAddr, signer, totalMinted, getCount }) {
       });
   };
 
-  const mintToken = () => {
-    setCollectionVisible(true);
-    toast.info("🐱 Let's Mint Token!");
+  const mintToken = async () => {
+    // setCollectionVisible(true);
+    toast.info(`🐱 Let's Mint ${mintAmount} Token!`);
+    console.log(contract);
+    const result = await contract
+      .mint(1)
+      .then(() => {
+        console.debug(`Successfully Minted ${mintAmount} Tokens!`);
+        toast('🐱 Just Minted!');
+      })
+      .catch((err) => {
+        console.error('❌ Failed To Mint: ', err.message);
+        toast.error('❌ Failed To Mint');
+      });
+
+    await result.wait(); // FIXME: Cannot read properties of undefined (reading 'wait')
   };
 
   // TODO: add a component to get mint amount
@@ -70,12 +84,30 @@ function Mint({ contract, provider, userAddr, signer, totalMinted, getCount }) {
                   >
                     Show My Balance
                   </button>
+
+                  {/* test */}
+                  <button
+                    className='enableEthereumButton'
+                    onClick={async () => {
+                      const mintedTokens = await contract
+                        .count()
+                        .then((num) => {
+                          console.log('num = ', num);
+                        })
+                        .catch((err) => {
+                          console.log('ERRRRR~~~', err);
+                        });
+                      console.log('mintedTokens = ', mintedTokens);
+                    }}
+                  >
+                    Show token URI
+                  </button>
                 </div>
               </div>
             </Col>
           </Row>
 
-          {collectionVisible ? (
+          {/* {collectionVisible ? (
             <Row>
               <h1>FLoating Cats NFT Collection</h1>
               {Array(totalMinted + 1)
@@ -101,7 +133,7 @@ function Mint({ contract, provider, userAddr, signer, totalMinted, getCount }) {
             </Row>
           ) : (
             <></>
-          )}
+          )} */}
         </div>
       </>
     );
@@ -110,11 +142,10 @@ function Mint({ contract, provider, userAddr, signer, totalMinted, getCount }) {
   return <>{getMint()}</>;
 }
 
+// TODO: Add a gallery feature
 function NFTImage({ contract, tokenId, getCount, signer, mintAmount }) {
-  const contentId = 'QmSZyYG4JQDd5M5H3e4ZtFh1GGqptR2Yyqo7SLrnYri3Tm';
-  const metadataURI = `${contentId}/${tokenId}.json`;
-  // const imageURI = `https://gateway.pinata.cloud/ipfs/${contentId}/${tokenId}.png`;
-  const imageURI = '../../pics/t-icon.jpg';
+  // const imageURI = `https://gateway.pinata.cloud/ipfs/${REACT_APP_FC_TEST_CID}/${tokenId}.png`;
+  // const imageURI = '../../pics/t-icon.jpg';
 
   const [isMinted, setIsMinted] = useState(false);
   useEffect(() => {

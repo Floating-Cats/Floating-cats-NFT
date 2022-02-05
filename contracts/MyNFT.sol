@@ -1422,14 +1422,14 @@ contract FloatingCats is ERC721Enumerable, Ownable {
     string public notRevealedUri;
 
     uint256 public cost = 0.02 ether;
-    uint256 public maxSupply = 9;
-    uint256 public maxMintAmount = 2;
+    uint256 public maxSupply = 20;
+    uint256 public maxMintAmount = 3;
     // uint256 public maxPerWallet = 100; // TODO: add feature
     uint256 public nftPerAddressLimit = 3;
 
     bool public paused = false; // TODO: ...?
     bool public revealed = true; // TODO: change to false before deployment
-    bool public onlyWhitelisted = true;
+    bool public onlyWhitelisted = false;
 
     address[] public whitelistedAddresses;
     mapping(address => uint256) public addressMintedBalance;

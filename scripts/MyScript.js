@@ -1,19 +1,10 @@
-// We require the Hardhat Runtime Environment explicitly here. This is optional
-// but useful for running the script in a standalone fashion through `node <script>`.
-//
-// When running the script with `npx hardhat run <script>` you'll find the Hardhat
-// Runtime Environment's members available in the global scope.
 const hre = require('hardhat');
-
 require('dotenv').config();
 
 async function main() {
-  // Hardhat always runs the compile task when running scripts with its command
-  // line interface.
-  //
-  // If this script is run directly using `node` you may want to call compile
-  // manually to make sure everything is compiled
-  // await hre.run('compile');
+  // get the acocunt to deploy the contract
+  // const [deployer] = await hre.ethers.getSigners();
+  // console.log('Deploying contracts with the account:', deployer.address);
 
   // We get the contract to deploy
   const FCat = await hre.ethers.getContractFactory('FloatingCats');
@@ -21,7 +12,7 @@ async function main() {
     'FloatingCats', // name
     'FCAT', // symbol
     // 'ipfs://QmSZyYG4JQDd5M5H3e4ZtFh1GGqptR2Yyqo7SLrnYri3Tm/' // cid, remember the '/' at the end
-    `ipfs://${process.env.FC_TEST_CID}/` // cid, remember the '/' at the end
+    `ipfs://${process.env.REACT_APP_FC_TEST_CID}/` // cid, remember the '/' at the end
   );
 
   await fcat.deployed();
@@ -31,8 +22,9 @@ async function main() {
 
 main()
   .then(() => process.exit(0))
-  .catch((error) => {
-    console.error('Error~~! \n', error.message);
+  .catch((err) => {
+    console.error('Error~~! \n', err.message);
+    console.error(err);
     process.exit(1);
   });
 
