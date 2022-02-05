@@ -37,11 +37,11 @@ function Mint({ contract, provider, userAddr, signer, totalMinted, getCount }) {
     // setCollectionVisible(true);
     toast.info(`🐱 Let's Mint ${mintAmount} Token!`);
 
-    // contract.ownerOf(1).then((result) => {
-    //   console.log('1', result);
-    // });
+    contract.ownerOf(1).then((result) => {
+      console.log('1:  ', result);
+    });
 
-    // console.log('3', import.meta.env.VITE_ETHER_COST);
+    console.log('3:  ', import.meta.env.VITE_ETHER_COST);
 
     const result = await contract
       .mint(mintAmount, {
@@ -53,6 +53,7 @@ function Mint({ contract, provider, userAddr, signer, totalMinted, getCount }) {
       })
       .catch((err) => {
         console.error('❌ Failed To Mint: ', err.message);
+        console.error(err);
         toast.error('❌ Failed To Mint');
       });
 

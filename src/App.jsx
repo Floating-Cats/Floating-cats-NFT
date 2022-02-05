@@ -21,6 +21,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 // global vars
 const contractAddress = env.VITE_CONTRACT_ADDR; // contract address
+console.log(contractAddress);
 const provider = new ethers.providers.Web3Provider(window.ethereum); // provider provides methods interacting with blockchain
 const signer = provider.getSigner(); // get the end user (us, for example)
 const contract = new ethers.Contract(contractAddress, FCat.abi, signer); // get the smart contract
