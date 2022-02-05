@@ -4,7 +4,7 @@
 
 [![Twitter URL](https://img.shields.io/twitter/url/https/twitter.com/FloatingCatsNFT.svg?style=social&label=Follow%20%40FloatingCatsNFT)](https://twitter.com/FloatingCatsNFT)
 
-[![community](https://discordapp.com/api/guilds/936119402699567154/widget.png?style=banner2)](https://discord.gg/zdVmAF9b)
+[![Discord](https://discord.com/api/guilds/936119402699567154/widget.png?style=banner4)](https://discord.gg/QND4K6YA)
 
 ### Our Road Map
 
