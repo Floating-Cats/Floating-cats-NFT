@@ -44,6 +44,7 @@ module.exports = {
       accounts: [
         `0x${process.env.FC_TEST_PRIVATE_KEY_ANDY_RINKEBY_ACC1}`,
         `0x${process.env.FC_TEST_PRIVATE_KEY_ANDY_RINKEBY_ACC2}`,
+        `0x${process.env.FC_TEST_PRIVATE_KEY_ANDY_RINKEBY_ACC4}`,
       ],
     },
 
@@ -52,6 +53,7 @@ module.exports = {
       accounts: [
         `0x${process.env.FC_TEST_PRIVATE_KEY_ANDY_RINKEBY_ACC1}`,
         `0x${process.env.FC_TEST_PRIVATE_KEY_ANDY_RINKEBY_ACC2}`,
+        `0x${process.env.FC_TEST_PRIVATE_KEY_ANDY_RINKEBY_ACC4}`,
       ],
     },
   },
