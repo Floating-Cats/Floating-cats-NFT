@@ -38,6 +38,15 @@ function Home(props) {
   // TODO: get banner
   const getBanner = () => {};
 
+  // get tickerOne
+  const getTickerOne = () => {
+    return (
+      <>
+        <marquee>This text will scroll from right to left</marquee>
+      </>
+    );
+  };
+
   // get roadmap
   const getRoadmap = () => {
     return (
@@ -82,8 +91,39 @@ function Home(props) {
     );
   };
 
-  // TODO: get our vision
-  const getVision = () => {};
+  // get about
+
+  const getAbout = () => {
+    return (
+      <div className='' id='about'>
+        <div className='row'>
+          <div className='col' id='about-card'>
+            <h1>What Are Floating Cats ?</h1>
+            <h3>
+              We are a team located in Nagoya, Japan. We love cats. Our goal is
+              to build a strong community in order to help as many cats as
+              possible. Our plan is to team up with local shelters and provide
+              them their needs
+            </h3>
+            <h3>
+              And of course, We are also planning to have weekly/monthly events
+              to help shelters voluntary. And it doesn’t stop there, we’re
+              committed and wish to expand this moment worldwide.
+            </h3>
+          </div>
+          <div className='col'>
+            <img
+              src='pics/About.GIF'
+              className='rounded mx-auto d-block'
+              alt=''
+              width='400'
+              height='400'
+            />
+          </div>
+        </div>
+      </div>
+    );
+  };
 
   // get team
   const getTeam = () => {
@@ -95,16 +135,16 @@ function Home(props) {
           <div className='row'>
             <div className='col'>
               <img src='pics/t-icon.jpg' alt='' />
-              <h2>Founder</h2>
+              <h4>Founder</h4>
               <p></p>
             </div>
             <div className='col'>
               <img src='pics/a-icon.JPEG' alt='' />
-              <h2>Dev</h2>
+              <h4>Dev</h4>
             </div>
             <div className='col'>
               <img src='pics/m-icon.JPEG' alt='' />
-              <h2>Artist</h2>
+              <h4>Artist</h4>
             </div>
           </div>
         </div>
@@ -177,6 +217,8 @@ function Home(props) {
         totalMinted={props.totalMinted}
         getCount={props.getCount}
       />
+      {getTickerOne()}
+      {getAbout()}
       {getRoadmap()}
       {getTeam()}
       {getFaq()}

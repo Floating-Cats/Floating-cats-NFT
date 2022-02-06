@@ -34,7 +34,7 @@ function Navigation({ provider, userAddr, setUserAddr }) {
 
   return (
     <Navbar collapseOnSelect expand='lg' bg='dark' variant='dark'>
-      <Container fluid>
+      <Container>
         <Navbar.Brand>
           <h1>
             <img
@@ -60,7 +60,6 @@ function Navigation({ provider, userAddr, setUserAddr }) {
             <Nav.Link href='#about'>ABOUT</Nav.Link>
             <Nav.Link href='#roadmap'>ROADMAP</Nav.Link>
             <Nav.Link href='#team'>TEAM</Nav.Link>
-
             {!btnHidden ? (
               <button
                 id='show_button'
@@ -71,15 +70,16 @@ function Navigation({ provider, userAddr, setUserAddr }) {
               </button>
             ) : (
               <h6>
-                <span className='showAccount'>
-                  {`${userAddr.substring(0, 5)}...${userAddr.substring(
-                    userAddr.length - 4,
+                <button className='showAccount'>
+                  {`${userAddr.substring(0, 6)}...${userAddr.substring(
+                    userAddr.length - 6,
                     userAddr.length
                   )}`}
-                </span>
+                </button>
               </h6>
             )}
-            <div className='rightside-nav navbar-nav'>
+
+            {/* <div className='rightside-nav navbar-nav'>
               <a
                 target='_blank'
                 href='https://discord.com/invite/6u9ezDyYzV'
@@ -116,7 +116,7 @@ function Navigation({ provider, userAddr, setUserAddr }) {
                   style={{ marginBottom: '5px' }}
                 />
               </a>
-            </div>
+            </div> */}
           </Nav>
         </Navbar.Collapse>
       </Container>
