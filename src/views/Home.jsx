@@ -35,11 +35,26 @@ function Home(props) {
     );
   };
 
-  // TODO: get banner
-  const getBanner = () => {};
+  // get banner
+  const getBanner = () => {
+    return (
+      <div id='bannerPic'>
+        <img src='pics/banner.png'></img>
+      </div>
+    );
+  };
 
   // get tickerOne
   const getTickerOne = () => {
+    return (
+      <>
+        <marquee>This text will scroll from right to left</marquee>
+      </>
+    );
+  };
+
+  // get tickerTwo
+  const getTickerTwo = () => {
     return (
       <>
         <marquee>This text will scroll from right to left</marquee>
@@ -208,7 +223,7 @@ function Home(props) {
 
   return (
     <div>
-      {getBgCloud()}
+      {/* {getBgCloud()} */}
       <Mint
         contract={props.contract}
         provider={props.provider}
@@ -217,8 +232,10 @@ function Home(props) {
         totalMinted={props.totalMinted}
         getCount={props.getCount}
       />
+      {getBanner()}
       {getTickerOne()}
       {getAbout()}
+      {getTickerTwo()}
       {getRoadmap()}
       {getTeam()}
       {getFaq()}

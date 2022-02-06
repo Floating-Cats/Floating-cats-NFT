@@ -75,7 +75,7 @@ function Mint({ contract, provider, userAddr, signer, totalMinted, getCount }) {
             <Col>
               <img
                 id='mintBtn'
-                src='pics/mint-button.png'
+                src='pics/mint-btn.png'
                 className='rounded mx-auto d-block'
                 alt=''
                 width='400'
