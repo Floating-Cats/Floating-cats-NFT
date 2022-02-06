@@ -12,9 +12,8 @@ import Col from 'react-bootstrap/Col';
 import ConnEthers from '../services/ConnEthers';
 
 // other imports
+const env = import.meta.env;
 import { toast } from 'react-toastify';
-
-// import NFTImage from './NFTImage';
 
 function Mint({ contract, provider, userAddr, signer, totalMinted, getCount }) {
   // const imageURI = `https://gateway.pinata.cloud/ipfs/${process.env.REACT_APP_FC_TEST_CID}/${tokenId}.png`;
@@ -39,14 +38,14 @@ function Mint({ contract, provider, userAddr, signer, totalMinted, getCount }) {
     toast.info(`🐱 Let's Mint ${mintAmount} Token!`);
 
     contract.ownerOf(1).then((result) => {
-      console.log(result);
+      console.log('1:  ', result);
     });
 
-    console.log(ethers.utils.parseEther(mintAmount.toString()));
+    console.log('3:  ', import.meta.env.VITE_ETHER_COST);
 
     const result = await contract
       .mint(mintAmount, {
-        value: ethers.utils.parseEther('0.02'),
+        value: ethers.utils.parseEther(import.meta.env.VITE_ETHER_COST),
       })
       .then(() => {
         console.debug(`Successfully Minted ${mintAmount} Tokens!`);
@@ -54,6 +53,7 @@ function Mint({ contract, provider, userAddr, signer, totalMinted, getCount }) {
       })
       .catch((err) => {
         console.error('❌ Failed To Mint: ', err.message);
+        console.error(err);
         toast.error('❌ Failed To Mint');
       });
 
@@ -107,7 +107,7 @@ function Mint({ contract, provider, userAddr, signer, totalMinted, getCount }) {
             </Col>
           </Row>
 
-          {/* {collectionVisible ? (
+          {/* {collxectionVisible ? (
             <Row>
               <h1>FLoating Cats NFT Collection</h1>
               {Array(totalMinted + 1)
