@@ -7,6 +7,7 @@ import Home from './views/Home';
 // components
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import MySpinner from './components/MySpinner';
 
 // to create Web3Provider object and format balance
 import { ethers } from 'ethers';
@@ -27,12 +28,19 @@ const signer = provider.getSigner(); // get the end user (us, for example)
 const contract = new ethers.Contract(contractAddress, FCat.abi, signer); // get the smart contract
 
 function App() {
+  const [loading, setLoading] = useState(true);
   const [userAddr, setUserAddr] = useState('');
   const [totalMinted, setTotalMinted] = useState(0);
   useEffect(() => {
+    setLoading(true);
+
     getCount()
       .then(() => {
         console.debug('App/useEffect Request Successful!');
+        const t1 = Date.now();
+        setTimeout(() => {
+          setLoading(false);
+        }, 2000);
       })
       .catch((error) => {
         console.error('App/useEffect Request Failed: ', error.message);
@@ -49,7 +57,7 @@ function App() {
   return (
     <>
       <ToastContainer
-        position='top-right'
+        position='top-center'
         theme='dark'
         autoClose={1000} // 1000 ms = 1sec
         hideProgressBar={false}
@@ -65,20 +73,26 @@ function App() {
         userAddr={userAddr}
         setUserAddr={setUserAddr}
       />
-      <div>
-        {window.ethereum ? (
-          <Home
-            provider={provider}
-            userAddr={userAddr}
-            contract={contract}
-            signer={signer}
-            totalMinted={totalMinted}
-            getCount={getCount}
-          />
-        ) : (
-          <Install />
-        )}
-      </div>
+      {loading ? (
+        <>
+          <MySpinner />
+        </>
+      ) : (
+        <div>
+          {window.ethereum ? (
+            <Home
+              provider={provider}
+              userAddr={userAddr}
+              contract={contract}
+              signer={signer}
+              totalMinted={totalMinted}
+              getCount={getCount}
+            />
+          ) : (
+            <Install />
+          )}
+        </div>
+      )}
       <Footer />
     </>
   );

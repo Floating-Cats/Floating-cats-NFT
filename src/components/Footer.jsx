@@ -18,11 +18,11 @@ function Footer() {
               {/* <!-- Discord --> */}
               <a
                 className='btn btn-floating m-1'
-                href='pics/discord.png'
+                href='https://discord.com/invite/6u9ezDyYzV'
                 role='button'
               >
                 <img src='pics/discord.png' alt='' width='30' height='30' />
-              </a>
+      </a>
 
               {/* <!-- Opensea --> */}
               <a

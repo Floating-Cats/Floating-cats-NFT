@@ -2,6 +2,7 @@
 
 import Mint from '../components/Mint';
 import NFTImage from '../components/NFTImage';
+import Collapsible from 'react-collapsible';
 
 // the entry point of our home page
 function Home(props) {
@@ -34,8 +35,32 @@ function Home(props) {
     );
   };
 
-  // TODO: get banner
-  const getBanner = () => {};
+  // get banner
+  const getBanner = () => {
+    return (
+      <div id='bannerPic'>
+        <img src='pics/banner.png'></img>
+      </div>
+    );
+  };
+
+  // get tickerOne
+  const getTickerOne = () => {
+    return (
+      <>
+        <marquee>This text will scroll from right to left</marquee>
+      </>
+    );
+  };
+
+  // get tickerTwo
+  const getTickerTwo = () => {
+    return (
+      <>
+        <marquee>This text will scroll from right to left</marquee>
+      </>
+    );
+  };
 
   // get roadmap
   const getRoadmap = () => {
@@ -55,7 +80,7 @@ function Home(props) {
               <img src='pics/shelter.PNG' alt='' width='300' height='200' />
               <p>Shelter Donations</p>
               <p>(We will donate 10 eth to selected shelters)</p>
-              <p>(30% of OS loyaties gose to shelters)</p>
+              <p>(30% of OS loyalties gose to shelters)</p>
             </div>
           </div>
           <div className='row'>
@@ -81,8 +106,39 @@ function Home(props) {
     );
   };
 
-  // TODO: get our vision
-  const getVision = () => {};
+  // get about
+
+  const getAbout = () => {
+    return (
+      <div className='' id='about'>
+        <div className='row'>
+          <div className='col' id='about-card'>
+            <h1>What Are Floating Cats ?</h1>
+            <h3>
+              We are a team located in Nagoya, Japan. We love cats. Our goal is
+              to build a strong community in order to help as many cats as
+              possible. Our plan is to team up with local shelters and provide
+              them their needs
+            </h3>
+            <h3>
+              And of course, We are also planning to have weekly/monthly events
+              to help shelters voluntary. And it doesn’t stop there, we’re
+              committed and wish to expand this moment worldwide.
+            </h3>
+          </div>
+          <div className='col'>
+            <img
+              src='pics/About.GIF'
+              className='rounded mx-auto d-block'
+              alt=''
+              width='400'
+              height='400'
+            />
+          </div>
+        </div>
+      </div>
+    );
+  };
 
   // get team
   const getTeam = () => {
@@ -94,16 +150,16 @@ function Home(props) {
           <div className='row'>
             <div className='col'>
               <img src='pics/t-icon.jpg' alt='' />
-              <h2>Founder</h2>
+              <h4>Founder</h4>
               <p></p>
             </div>
             <div className='col'>
               <img src='pics/a-icon.JPEG' alt='' />
-              <h2>Dev</h2>
+              <h4>Dev</h4>
             </div>
             <div className='col'>
               <img src='pics/m-icon.JPEG' alt='' />
-              <h2>Artist</h2>
+              <h4>Artist</h4>
             </div>
           </div>
         </div>
@@ -115,68 +171,59 @@ function Home(props) {
 
   const getFaq = () => {
     return (
-      <div className='contanier' id='faq'>
+      <div className='container' id='faq'>
         <h1>FAQ's</h1>
-        <p>
-          <button
-            className='btn btn-primary'
-            type='button'
-            data-bs-toggle='collapse'
-            data-bs-target='#answer1'
-            aria-expanded='false'
-            aria-controls='answer1'
-          >
-            How many Floting Cats NFT’s will there be?
-          </button>
-        </p>
-        <div className='collapse' id='answer1'>
-          <div className='card card-body'>
-            8,888 unique pieces (including 15 1/1).
-          </div>
-        </div>
-        <p>
-          <button
-            className='btn btn-primary'
-            type='button'
-            data-bs-toggle='collapse'
-            data-bs-target='#answer2'
-            aria-expanded='false'
-            aria-controls='answer2'
-          >
-            What's the mint price?
-          </button>
-        </p>
-        <div className='collapse' id='answer2'>
-          <div className='card card-body'>
-            TBD. Join our discord for more infomation.
-          </div>
-        </div>
-        <p>
-          <button
-            className='btn btn-primary'
-            type='button'
-            data-bs-toggle='collapse'
-            data-bs-target='#answer3'
-            aria-expanded='false'
-            aria-controls='answer3'
-          >
-            Will there be a Whitelist?
-          </button>
-        </p>
-        <div className='collapse' id='answer3'>
-          <div className='card card-body'>
-            Yes, We will have giveaways for WL. Also, active community members
-            who are helpful to each other and bring a positive vibe to the group
-            will be rewarded.
-          </div>
-        </div>
+        <>
+          <>
+            <Collapsible trigger='What Are Floating Cats?' id='faq_Q'>
+              <p id='answers'>
+                We are a team located in Nagoya, Japan. 🗾 We love cats. Our
+                goal is to build a strong community to help as many cats as
+                possible. We plan to team up with local shelters and provide
+                them with their needs . 🏡 And of course, We are also planning
+                to have weekly/monthly events to help shelters voluntarily. And
+                it doesn’t stop there, we’re committed and wish to expand this
+                moment worldwide. 🌍
+              </p>
+            </Collapsible>
+            <Collapsible
+              trigger='How many Floting Cats NFT’s will there be?'
+              id='faq_Q'
+            >
+              <p id='answers'>
+                There will be 8,888 unique NFT’s including 15 1️⃣OF1️⃣.
+              </p>
+            </Collapsible>
+            <Collapsible trigger=' What is the mint price?' id='faq_Q'>
+              <p id='answers'>TBD. Join our discord see the lastest updates.</p>
+            </Collapsible>
+          </>
+          <Collapsible trigger='Will there be a Whitelist?' id='faq_Q'>
+            <p id='answers'>
+              ✅ Yes, We will have giveaways for WL. Also, active community
+              members who are helpful to each other and bring a positive vibe to
+              the group will be rewarded. 🎉 Join our Discord for more details.
+            </p>
+          </Collapsible>
+          <Collapsible trigger='What other benefits do I get?' id='faq_Q'>
+            <p id='answers'>
+              Besides being part of this great community, our holders will have
+              a chance to win exclusive merchandise giveaways 👕 (weekly), and
+              WL of other projects.🚀 Most of all, opening a cat café is always
+              our dream.☕ We will team up with local shelters and provide a
+              space for cats to stay in the store with good care. Meanwhile, we
+              help those kitties to find a new home. 🏡 (Will consistently
+              update some videos & pictures for the opening of the store)
+            </p>
+          </Collapsible>
+        </>
       </div>
     );
   };
 
   return (
     <div>
-      {getBgCloud()}
+      {/* {getBgCloud()} */}
       <Mint
         contract={props.contract}
         provider={props.provider}
@@ -185,6 +232,10 @@ function Home(props) {
         totalMinted={props.totalMinted}
         getCount={props.getCount}
       />
+      {getBanner()}
+      {getTickerOne()}
+      {getAbout()}
+      {getTickerTwo()}
       {getRoadmap()}
       {getTeam()}
       {getFaq()}

@@ -34,7 +34,7 @@ function Navigation({ provider, userAddr, setUserAddr }) {
 
   return (
     <Navbar collapseOnSelect expand='lg' bg='dark' variant='dark'>
-      <Container fluid>
+      <Container>
         <Navbar.Brand>
           <h1>
             <img
@@ -54,20 +54,8 @@ function Navigation({ provider, userAddr, setUserAddr }) {
           </h1>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls='responsive-navbar-nav' />
-        <Navbar.Collapse id='responsive-navbar-nav'>
-          <Nav className='mr-auto ms-auto'>
-            <button
-              className='navbar-toggler button'
-              // type=''
-              data-bs-toggle='collapse'
-              data-bs-target='#navbarNav'
-              aria-controls='navbarNav'
-              aria-expanded='false'
-              aria-label='Toggle navigation'
-            >
-              <span className='navbar-toggler-icon'></span>
-            </button>
-
+        <Navbar.Collapse className='' id='responsive-navbar-nav'>
+          <Nav className='ms-auto'>
             <Nav.Link href='#mint'>MINT</Nav.Link>
             <Nav.Link href='#about'>ABOUT</Nav.Link>
             <Nav.Link href='#roadmap'>ROADMAP</Nav.Link>
@@ -82,19 +70,24 @@ function Navigation({ provider, userAddr, setUserAddr }) {
               </button>
             ) : (
               <h6>
-                <span className='showAccount'>
-                  {`${userAddr.substring(0, 5)}...${userAddr.substring(
-                    userAddr.length - 4,
+                <button className='showAccount'>
+                  {`${userAddr.substring(0, 6)}...${userAddr.substring(
+                    userAddr.length - 6,
                     userAddr.length
                   )}`}
-                </span>
+                </button>
               </h6>
             )}
-            <div className='rightside-nav navbar-nav'>
-              <a target='_blank' href='#' className='nav-link'>
+
+            {/* <div className='rightside-nav navbar-nav'>
+              <a
+                target='_blank'
+                href='https://discord.com/invite/6u9ezDyYzV'
+                className='nav-link'
+              >
                 <img
                   loading='lazy'
-                  className='socialLogos'
+                  className='socialLogos mx-auto'
                   src='pics/discord.png'
                   width='30'
                   height='30'
@@ -107,7 +100,7 @@ function Navigation({ provider, userAddr, setUserAddr }) {
               >
                 <img
                   loading='lazy'
-                  className='socialLogos'
+                  className='socialLogos mx-auto'
                   src='pics/twitter.png'
                   width='30'
                   height='30'
@@ -116,14 +109,14 @@ function Navigation({ provider, userAddr, setUserAddr }) {
               <a target='_blank' href='#' className='nav-link'>
                 <img
                   loading='lazy'
-                  className='socialLogos'
+                  className='socialLogos mx-auto'
                   src='pics/os-icon.png'
                   width='33'
                   height='33'
                   style={{ marginBottom: '5px' }}
                 />
               </a>
-            </div>
+            </div> */}
           </Nav>
         </Navbar.Collapse>
       </Container>
