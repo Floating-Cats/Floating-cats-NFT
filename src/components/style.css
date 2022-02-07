@@ -56,6 +56,11 @@ body {
   border-top: rgb(87, 66, 58) groove 15px;
   border-bottom: rgb(87, 66, 58) groove 15px;
 }
+
+#mint-bg {
+  width: 100%;
+  height: auto;
+}
 #mintBtn:hover {
   cursor: pointer;
 }
