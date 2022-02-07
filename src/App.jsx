@@ -1,8 +1,16 @@
 import { useEffect, useState } from 'react';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from 'react-router-dom';
 
 // views
 import Install from './views/Install';
 import Home from './views/Home';
+import MintView from './views/MintView';
+import PageNotFound from './views/PageNotFound';
 
 // components
 import Navbar from './components/Navbar';
@@ -37,13 +45,12 @@ function App() {
     getCount()
       .then(() => {
         console.debug('App/useEffect Request Successful!');
-        const t1 = Date.now();
-        setTimeout(() => {
-          setLoading(false);
-        }, 2000);
       })
       .catch((error) => {
         console.error('App/useEffect Request Failed: ', error.message);
+      })
+      .finally(() => {
+        setTimeout(a, 1500);
       });
   }, []);
 
@@ -54,46 +61,56 @@ function App() {
     setTotalMinted(parseInt(count));
   };
 
+  const a = () => {
+    setLoading(false);
+  };
+
   return (
     <>
-      <ToastContainer
-        position='top-center'
-        theme='dark'
-        autoClose={1000} // 1000 ms = 1sec
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-      />
-      <Navbar
-        provider={provider}
-        userAddr={userAddr}
-        setUserAddr={setUserAddr}
-      />
-      {loading ? (
-        <>
-          <MySpinner />
-        </>
-      ) : (
-        <div>
-          {window.ethereum ? (
-            <Home
-              provider={provider}
-              userAddr={userAddr}
-              contract={contract}
-              signer={signer}
-              totalMinted={totalMinted}
-              getCount={getCount}
-            />
-          ) : (
-            <Install />
-          )}
-        </div>
-      )}
-      <Footer />
+      <Router>
+        <ToastContainer
+          position='top-center'
+          theme='dark'
+          autoClose={1000} // 1000 ms = 1sec
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+        />
+        <Navbar
+          provider={provider}
+          userAddr={userAddr}
+          setUserAddr={setUserAddr}
+        />
+        {loading ? (
+          <>
+            <MySpinner />
+          </>
+        ) : (
+          <Switch id='body'>
+            <Route exact path='/'>
+              <Home
+                provider={provider}
+                userAddr={userAddr}
+                contract={contract}
+                signer={signer}
+                totalMinted={totalMinted}
+                getCount={getCount}
+              />
+            </Route>
+            <Route path='/mint'>
+              <MintView />
+            </Route>
+            <Route path='*'>
+              <PageNotFound />
+            </Route>
+          </Switch>
+        )}
+        <Footer />
+      </Router>
     </>
   );
 }
