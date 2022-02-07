@@ -1419,7 +1419,8 @@ contract FloatingCats is ERC721Enumerable, Ownable {
     // variables
     string public baseURI;
     string public baseExtension = ".json";
-    string public notRevealedUri;
+    string public notRevealedUri =
+        "ipfs://QmTFKtyx4CRFC5XXr1GMY5C9PTFjhMVRWKoRe4tTnSb729/hidden.json";
 
     uint256 public cost = 0.02 ether;
     uint256 public maxSupply = 20;

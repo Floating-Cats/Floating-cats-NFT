@@ -25,6 +25,7 @@ describe('FCAT NFT CONTRACT', function () {
   let addr1;
   let addr2;
   let addrs;
+  let tokenId1 = 1;
 
   // `beforeEach` will run before each test, re-deploying the contract every
   // time. It receives a callback, which can be async.
@@ -44,57 +45,155 @@ describe('FCAT NFT CONTRACT', function () {
   });
 
   describe('Deployment', function () {
-    // FIXME: getApproved function always returns 0
+    // FIXME: getApproved function always returns 0x000...000
     // FIXME: isApprovedForAll function?
+    // FIXME: supportsInterface function?
 
-    it('01. Should set the right owner', async function () {
-      expect(await hardhatToken.owner()).to.equal(owner.address);
+    it("01. Should increment owner's addressMintedBalance", async function () {
+      // ownerBalance at contract init deployment should equal totalSupply n initial contract deployment
+      const balance = await hardhatToken.addressMintedBalance(owner.address);
+      expect(process.env.VITE_RESERVED_AMOUNT).to.equal(balance);
     });
 
-    it('02. Should set the right base URI', async function () {
-      const baseURI = await hardhatToken.baseURI();
-      expect(baseURI).to.equal(`ipfs://${process.env.FC_TEST_CID}/`);
-    });
-
-    it('03. Should assign pre-reserved tokens to the owner', async function () {
+    it('02. Should assign pre-reserved tokens to the owner', async function () {
       // ownerBalance at contract init deployment should equal totalSupply n initial contract deployment
       const ownerBalance = await hardhatToken.balanceOf(owner.address);
       expect(await hardhatToken.totalSupply()).to.equal(ownerBalance);
     });
 
-    it("04. Should increment owner's addressMintedBalance", async function () {
-      // ownerBalance at contract init deployment should equal totalSupply n initial contract deployment
-      const addrMintedBalance = await hardhatToken.addressMintedBalance(
-        owner.address
-      );
-      expect(1).to.equal(addrMintedBalance);
-    });
-
-    it('05. Should mint the token ID #1 to the owner', async function () {
-      const addr = await hardhatToken.ownerOf(1);
-      expect(addr).to.equal(owner.address);
-    });
-
-    it('06. Should have a .json base extension', async function () {
+    it('03. Should have a .json base extension', async function () {
       const baseExt = await hardhatToken.baseExtension();
       expect(baseExt).to.equal('.json');
     });
 
-    it('07. Should set the right cost', async function () {
-      const c = await hardhatToken.cost();
-      expect(c / 1e18).to.equal(process.env.VITE_COST);
+    it('04. Should set the right base URI', async function () {
+      const baseURI = await hardhatToken.baseURI();
+      expect(baseURI).to.equal(`ipfs://${process.env.FC_TEST_CID}/`);
     });
 
-    it('08. Should have a count = totalSupply', async function () {
+    it('05. Should set the right cost', async function () {
+      const c = await hardhatToken.cost();
+      expect(c / 1e18).to.equal(parseFloat(process.env.VITE_COST));
+    });
+
+    it('06. Should count the right number of minted tokens', async function () {
       const count = await hardhatToken.count();
       expect(await hardhatToken.totalSupply()).to.equal(count);
     });
 
-    it('09. Should be able to tell a whitelisted user', async function () {
+    it('07. getApproved (TODO)', async function () {
+      // const count = await hardhatToken.count();
+      // expect(await hardhatToken.totalSupply()).to.equal(count);
+    });
+
+    it('08. isApprovedForAll (TODO)', async function () {
+      // const count = await hardhatToken.count();
+      // expect(await hardhatToken.totalSupply()).to.equal(count);
+    });
+
+    it('09. Should be able to tell a whitelisted user  (TODO)', async function () {
       const isW1 = await hardhatToken.isWhitelisted(owner.address);
       const isW2 = await hardhatToken.isWhitelisted(addr1.address);
       const isW3 = await hardhatToken.isWhitelisted(addr2.address);
       expect(isW1 || isW2 || isW3).to.equal(false);
+    });
+
+    it('10. Should set the right maxMintAmount', async function () {
+      const mma = await hardhatToken.maxMintAmount();
+      expect(mma).to.equal(process.env.VITE_MAX_MINT_AMOUNT);
+    });
+
+    it('11. Should set the right maxSupply', async function () {
+      const ms = await hardhatToken.maxSupply();
+      expect(ms).to.equal(process.env.VITE_MAX_SUPPLY);
+    });
+
+    it('12. Should set the right contract name', async function () {
+      const name = await hardhatToken.name();
+      expect(name).to.equal(process.env.VITE_CONTRACT_NAME);
+    });
+
+    it('13. Should set the right nftPerAddressLimit', async function () {
+      const pal = await hardhatToken.nftPerAddressLimit();
+      expect(pal).to.equal(process.env.VITE_NFT_PER_ADDR_LIMIT);
+    });
+
+    it('14. Should set the hidden nft URI', async function () {
+      const uri = await hardhatToken.notRevealedUri();
+      expect(uri).to.equal(process.env.FC_TEST_NOT_REVEAL_URL);
+    });
+
+    it('15. Should return false on onlyWhitelisted for now  (TODO)', async function () {
+      const owl = await hardhatToken.onlyWhitelisted();
+      expect(owl).to.equal(false);
+    });
+
+    it('16. Should set the right owner', async function () {
+      expect(await hardhatToken.owner()).to.equal(owner.address);
+    });
+
+    it('17. Should return the owner address of the token ID#1', async function () {
+      const addrOwner = await hardhatToken.ownerOf(tokenId1);
+      expect(addrOwner).to.equal(owner.address);
+    });
+
+    it('18. Paused function should return false for now  (TODO)', async function () {
+      const p = await hardhatToken.paused();
+      expect(p).to.equal(false);
+    });
+
+    it('19. Revealed function should return true for now  (TODO)', async function () {
+      const r = await hardhatToken.revealed();
+      expect(r).to.equal(true);
+    });
+
+    it('20. supportsInterface (TODO)', async function () {
+      // const addrOwner = await hardhatToken.owner();
+      // expect(addrOwner).to.equal(owner.address);
+    });
+
+    it('21 Should set symbol to FCAT. ', async function () {
+      const symbol = await hardhatToken.symbol();
+      expect(symbol).to.equal(process.env.VITE_CONTRACT_SYMBOL);
+    });
+
+    it('22. Should return token by its index position', async function () {
+      let tokenIdx = tokenId1 - 1;
+      const tokenId = await hardhatToken.tokenByIndex(tokenIdx);
+      expect(tokenId).to.equal(tokenIdx + 1);
+    });
+
+    it('23. Should return token by its index position given owner address', async function () {
+      let tokenIdx = tokenId1 - 1;
+      const tokenId = await hardhatToken.tokenOfOwnerByIndex(
+        owner.address,
+        tokenIdx
+      );
+      expect(tokenId).to.equal(tokenIdx + 1);
+    });
+
+    it('24. Should return the right token URI', async function () {
+      const uri = await hardhatToken.tokenURI(tokenId1);
+      expect(uri).to.equal(
+        `ipfs://${process.env.FC_TEST_CID}/${tokenId1}.json`
+      );
+    });
+
+    it('25. Should return the right total supply amount', async function () {
+      const ts = await hardhatToken.totalSupply();
+      expect(ts).to.equal(process.env.VITE_RESERVED_AMOUNT);
+    });
+
+    it('26. Should return a list of tokenId that this address owns', async function () {
+      const tokenIds = await hardhatToken.walletOfOwner(owner.address);
+      expect(tokenIds.length).to.equal(
+        parseInt(process.env.VITE_RESERVED_AMOUNT)
+      );
+    });
+
+    it('27 whitelistedAddresses  (TODO)', async function () {
+      // const addrs = await hardhatToken.whitelistedAddresses();
+      // expect(addrs).to.equal([]);
     });
   });
 });
