@@ -60,11 +60,25 @@ body {
   cursor: pointer;
 }
 
-#mint-bg {
-  width: 1600px;
-  height: 400px;
+.responsive {
+  width: 100%;
+  height: auto;
 }
 
+#flag {
+  width: 600px;
+  height: 400px;
+}
+#lights {
+  margin-top: -15%;
+}
+#takoyaki {
+  margin-top: -30%;
+}
+
+#ice {
+  margin-left: 5%;
+}
 #mintPage img {
   margin-top: -10%;
   margin-bottom: -20%;

@@ -39,7 +39,16 @@ function Home(props) {
   const getBanner = () => {
     return (
       <div id='bannerPic'>
-        <img src='pics/banner.png'></img>
+        <img src='pics/flag.png' className='responsive' id='flag' />
+        <img src='pics/banner-lights.png' className='responsive' id='lights' />
+        <div className='row'>
+          <div className='col'>
+            <img src='pics/ice.png' alt='' width='200' height='100' id='ice' />
+          </div>
+          <div className='col'>
+            <img src='pics/takoyaki.png' className='responsive' id='takoyaki' />
+          </div>
+        </div>
       </div>
     );
   };
