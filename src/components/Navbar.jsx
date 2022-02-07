@@ -56,7 +56,7 @@ function Navigation({ provider, userAddr, setUserAddr }) {
         <Navbar.Toggle aria-controls='responsive-navbar-nav' />
         <Navbar.Collapse className='' id='responsive-navbar-nav'>
           <Nav className='ms-auto'>
-            <Nav.Link href='#mint'>MINT</Nav.Link>
+            <Nav.Link href='mint'>MINT</Nav.Link>
             <Nav.Link href='#about'>ABOUT</Nav.Link>
             <Nav.Link href='#roadmap'>ROADMAP</Nav.Link>
             <Nav.Link href='#team'>TEAM</Nav.Link>
