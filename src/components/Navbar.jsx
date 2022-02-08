@@ -36,30 +36,28 @@ function Navigation({ provider, userAddr, setUserAddr }) {
   return (
     <Navbar collapseOnSelect expand='lg' bg='dark' variant='dark'>
       <Container>
-        <LinkContainer>
-          <Navbar.Brand>
-            <h1>
-              <img
-                src='pics/icon.png'
-                alt=''
-                width='60'
-                height='60'
-                className='d-inline-block align-text-top'
-              />{' '}
-              <img
-                src='pics/logo.png'
-                alt=''
-                width='200'
-                height='75'
-                className='d-inline-block align-text-top'
-              />
-            </h1>
-          </Navbar.Brand>
-        </LinkContainer>
+        <Navbar.Brand href='/'>
+          <h1>
+            <img
+              src='pics/icon.png'
+              alt=''
+              width='60'
+              height='60'
+              className='d-inline-block align-text-top'
+            />{' '}
+            <img
+              src='pics/logo.png'
+              alt=''
+              width='200'
+              height='75'
+              className='d-inline-block align-text-top'
+            />
+          </h1>
+        </Navbar.Brand>
         <Navbar.Toggle aria-controls='responsive-navbar-nav' />
         <Navbar.Collapse className='' id='responsive-navbar-nav'>
           <Nav className='ms-auto'>
-            <Nav.Link href='mint'>MINT</Nav.Link>
+            <Nav.Link href='/mint'>MINT</Nav.Link>
             <Nav.Link href='#about'>ABOUT</Nav.Link>
             <Nav.Link href='#roadmap'>ROADMAP</Nav.Link>
             <Nav.Link href='#team'>TEAM</Nav.Link>
