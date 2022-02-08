@@ -191,40 +191,101 @@ describe('FCAT NFT CONTRACT', function () {
       );
     });
 
-    it('27 whitelistedAddresses  (TODO)', async function () {
+    it('27. whitelistedAddresses  (TODO)', async function () {
       // const addrs = await hardhatToken.whitelistedAddresses();
       // expect(addrs).to.equal([]);
     });
   });
 });
 
-// describe('Transactions', function () {});
+describe('Transactions', function () {
+  it('01. approve a trasaction from owner of the token to the given address', async function () {
+    const addrs = await approve.approve(/* TODO: to, tokenId */);
+    // expect(???).to.equal(???);
+  });
 
-// it('Mint and transfer an NFT to buyer', async function () {
-//   // buyer at contract init deplyment should have 0 token
-//   let balance = await hardhatTokenInstance.balanceOf(buyer);
-//   expect(balance).to.equal(0);
-//   printTrace(2, 1);
-//   // mint a token with insufficient amount
-//   const mintToken01 = await hardhatTokenInstance.mint(1, {
-//     value: ethers.utils.parseEther('0.01'),
-//   });
-//   // wait until the transaction is mined
-//   await mintToken01.wait();
-//   balance = await hardhatTokenInstance.balanceOf(buyer);
-//   expect(balance).to.equal(0);
-//   printTrace(2, 2);
-//   // mint a token with sufficient amount
-//   const mintToken02 = await hardhatTokenInstance.mint(1, {
-//     value: ethers.utils.parseEther('0.02'),
-//   });
-//   // wait until the transaction is mined
-//   await mintToken02.wait();
-//   let addr = await hardhatTokenInstance.ownerOf(2);
-//   expect(addr).to.equal(buyer);
-//   printTrace(2, 3);
-// });
-// /**
-//  * # Test 03
-//  */
-// it('initializes the contract with the correct values', function () {});
+  it('02. approve  (TODO)', async function () {
+    // const addrs = await hardhatToken.whitelistedAddresses();
+    // expect(addrs).to.equal([]);
+  });
+
+  it('03. approve  (TODO)', async function () {
+    // const addrs = await hardhatToken.whitelistedAddresses();
+    // expect(addrs).to.equal([]);
+  });
+
+  it('04. approve  (TODO)', async function () {
+    // const addrs = await hardhatToken.whitelistedAddresses();
+    // expect(addrs).to.equal([]);
+  });
+
+  it('05. approve  (TODO)', async function () {
+    // const addrs = await hardhatToken.whitelistedAddresses();
+    // expect(addrs).to.equal([]);
+  });
+
+  it('06. approve  (TODO)', async function () {
+    // const addrs = await hardhatToken.whitelistedAddresses();
+    // expect(addrs).to.equal([]);
+  });
+
+  it('07. approve  (TODO)', async function () {
+    // const addrs = await hardhatToken.whitelistedAddresses();
+    // expect(addrs).to.equal([]);
+  });
+
+  it('08. approve  (TODO)', async function () {
+    // const addrs = await hardhatToken.whitelistedAddresses();
+    // expect(addrs).to.equal([]);
+  });
+
+  it('09. approve  (TODO)', async function () {
+    // const addrs = await hardhatToken.whitelistedAddresses();
+    // expect(addrs).to.equal([]);
+  });
+
+  it('10. approve  (TODO)', async function () {
+    // const addrs = await hardhatToken.whitelistedAddresses();
+    // expect(addrs).to.equal([]);
+  });
+
+  it('11. approve  (TODO)', async function () {
+    // const addrs = await hardhatToken.whitelistedAddresses();
+    // expect(addrs).to.equal([]);
+  });
+
+  it('12. approve  (TODO)', async function () {
+    // const addrs = await hardhatToken.whitelistedAddresses();
+    // expect(addrs).to.equal([]);
+  });
+
+  it('13. approve  (TODO)', async function () {
+    // const addrs = await hardhatToken.whitelistedAddresses();
+    // expect(addrs).to.equal([]);
+  });
+
+  it('14. approve  (TODO)', async function () {
+    // const addrs = await hardhatToken.whitelistedAddresses();
+    // expect(addrs).to.equal([]);
+  });
+
+  it('15. approve  (TODO)', async function () {
+    // const addrs = await hardhatToken.whitelistedAddresses();
+    // expect(addrs).to.equal([]);
+  });
+
+  it('16. approve  (TODO)', async function () {
+    // const addrs = await hardhatToken.whitelistedAddresses();
+    // expect(addrs).to.equal([]);
+  });
+
+  it('17. approve  (TODO)', async function () {
+    // const addrs = await hardhatToken.whitelistedAddresses();
+    // expect(addrs).to.equal([]);
+  });
+
+  it('18. approve  (TODO)', async function () {
+    // const addrs = await hardhatToken.whitelistedAddresses();
+    // expect(addrs).to.equal([]);
+  });
+});
