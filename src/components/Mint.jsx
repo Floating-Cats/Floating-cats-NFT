@@ -33,33 +33,6 @@ function Mint({ contract, provider, userAddr, signer, totalMinted, getCount }) {
       });
   };
 
-  const mintToken = async () => {
-    // setCollectionVisible(true);
-    toast.info(`🐱 Let's Mint ${mintAmount} Token!`);
-
-    contract.ownerOf(1).then((result) => {
-      console.log('1:  ', result);
-    });
-
-    console.log('3:  ', import.meta.env.VITE_ETHER_COST);
-
-    const result = await contract
-      .mint(mintAmount, {
-        value: ethers.utils.parseEther(import.meta.env.VITE_ETHER_COST),
-      })
-      .then(() => {
-        console.debug(`Successfully Minted ${mintAmount} Tokens!`);
-        toast('🐱 Just Minted!');
-      })
-      .catch((err) => {
-        console.error('❌ Failed To Mint: ', err.message);
-        console.error(err);
-        toast.error('❌ Failed To Mint');
-      });
-
-    // await result.wait(); // FIXME: Cannot read properties of undefined (reading 'wait')
-  };
-
   // TODO: add a component to get mint amount
   // still in test, get a number input
   const getMintAmount = () => {

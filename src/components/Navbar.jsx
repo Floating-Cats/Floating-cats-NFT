@@ -1,12 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 // imports for bootstrap
-import Row from 'react-bootstrap/Row';
 import Nav from 'react-bootstrap/Nav';
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
 import Navbar from 'react-bootstrap/Navbar';
-import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
-import { LinkContainer } from 'react-router-bootstrap';
 
 // service imports
 import ConnEthers from '../services/ConnEthers';
@@ -17,13 +16,36 @@ import './style.css';
 
 function Navigation({ provider, userAddr, setUserAddr }) {
   const [btnHidden, setBtnHidden] = useState(false);
+  const [balance, setBalance] = useState('-');
+
+  const getBalance = async () => {
+    ConnEthers.getBalance(provider, userAddr)
+      .then((balance) => {
+        setBalance(balance);
+        toast.success('🐱 Balance Fetched!');
+      })
+      .catch((err) => {
+        console.error(err.message);
+        toast.error('❌ Balance Failed to Connect', err.message);
+      });
+  };
 
   const handleOnClick = async () => {
     // get the connected account on the window etheureum object
-    const account = ConnEthers.getAddress(provider)
+    ConnEthers.getAddress(provider)
       .then((address) => {
         setUserAddr(address.toString());
         setBtnHidden(true);
+        ConnEthers.getBalance()
+          .then((bal) => {
+            setBalance(bal);
+            console.log(bal);
+            toast.success('🐱 Balance Fetched!');
+          })
+          .catch((err) => {
+            console.error(err.message);
+            toast.error('❌ Balance Failed to Fetch', err.message);
+          });
         console.debug('Successfully Connected to Wallet!');
         toast('🐱 Wallet Connected!');
       })
@@ -71,12 +93,17 @@ function Navigation({ provider, userAddr, setUserAddr }) {
               </button>
             ) : (
               <h6>
-                <button className='showAccount'>
-                  {`${userAddr.substring(0, 6)}...${userAddr.substring(
-                    userAddr.length - 6,
-                    userAddr.length
-                  )}`}
-                </button>
+                <Col>
+                  <Row>
+                    <button className='showAccount'>
+                      {`${userAddr.substring(0, 6)}...${userAddr.substring(
+                        userAddr.length - 6,
+                        userAddr.length
+                      )}`}
+                    </button>
+                  </Row>
+                  <Row>{`Your balance: ${balance}`}</Row>
+                </Col>
               </h6>
             )}
 

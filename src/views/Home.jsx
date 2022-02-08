@@ -1,7 +1,7 @@
 // components
-
 import Mint from '../components/Mint';
-import NFTImage from '../components/NFTImage';
+
+// other imports
 import Collapsible from 'react-collapsible';
 
 // the entry point of our home page
