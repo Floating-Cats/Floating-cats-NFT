@@ -6,6 +6,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
+import { LinkContainer } from 'react-router-bootstrap';
 
 // service imports
 import ConnEthers from '../services/ConnEthers';
@@ -35,24 +36,26 @@ function Navigation({ provider, userAddr, setUserAddr }) {
   return (
     <Navbar collapseOnSelect expand='lg' bg='dark' variant='dark'>
       <Container>
-        <Navbar.Brand>
-          <h1>
-            <img
-              src='pics/icon.png'
-              alt=''
-              width='60'
-              height='60'
-              className='d-inline-block align-text-top'
-            />{' '}
-            <img
-              src='pics/logo.png'
-              alt=''
-              width='200'
-              height='75'
-              className='d-inline-block align-text-top'
-            />
-          </h1>
-        </Navbar.Brand>
+        <LinkContainer>
+          <Navbar.Brand>
+            <h1>
+              <img
+                src='pics/icon.png'
+                alt=''
+                width='60'
+                height='60'
+                className='d-inline-block align-text-top'
+              />{' '}
+              <img
+                src='pics/logo.png'
+                alt=''
+                width='200'
+                height='75'
+                className='d-inline-block align-text-top'
+              />
+            </h1>
+          </Navbar.Brand>
+        </LinkContainer>
         <Navbar.Toggle aria-controls='responsive-navbar-nav' />
         <Navbar.Collapse className='' id='responsive-navbar-nav'>
           <Nav className='ms-auto'>
