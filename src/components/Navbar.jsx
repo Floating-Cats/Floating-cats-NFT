@@ -57,7 +57,7 @@ function Navigation({ provider, userAddr, setUserAddr }) {
 
   return (
     <Navbar collapseOnSelect expand='lg' bg='dark' variant='dark'>
-      <Container>
+      <Container className='mainNav'>
         <Navbar.Brand href='/'>
           <h1>
             <img

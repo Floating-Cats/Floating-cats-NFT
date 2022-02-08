@@ -233,6 +233,7 @@ function Home(props) {
   return (
     <div>
       {/* {getBgCloud()} */}
+      {getBanner()}
       <Mint
         contract={props.contract}
         provider={props.provider}
@@ -241,7 +242,6 @@ function Home(props) {
         totalMinted={props.totalMinted}
         getCount={props.getCount}
       />
-      {getBanner()}
       {getTickerOne()}
       {getAbout()}
       {getTickerTwo()}

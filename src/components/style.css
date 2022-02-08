@@ -6,6 +6,10 @@ body {
   display: block;
 }
 
+.mainNav {
+  margin-bottom: 2%;
+}
+
 .navbar-toggler-icon {
   background-image: url('../../pics/arrow.png');
 }
