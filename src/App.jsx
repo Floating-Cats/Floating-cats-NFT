@@ -3,7 +3,7 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Redirect,
+  // Redirect,
 } from 'react-router-dom';
 
 // views
@@ -102,7 +102,7 @@ function App() {
               />
             </Route>
             <Route path='/mint'>
-              <MintView />
+              <MintView contract={contract} />
             </Route>
             <Route path='*'>
               <PageNotFound />

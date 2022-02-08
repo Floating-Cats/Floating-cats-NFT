@@ -3,9 +3,17 @@ import { useEffect, useState } from 'react';
 
 // other imports
 const env = import.meta.env;
+import { ethers } from 'ethers';
 import { toast } from 'react-toastify';
 
-const MintView = () => {
+const MintView = ({ contract }) => {
+  const [mintAmount, setMintAmount] = useState(1);
+
+  // TODO: get mint amount from user
+  const getMintAmount = () => {
+    setMintAmount(1);
+  };
+
   const mintToken = async () => {
     // setCollectionVisible(true);
     toast.info(`🐱 Let's Mint ${mintAmount} Token!`);
@@ -14,16 +22,18 @@ const MintView = () => {
       console.log('1:  ', result);
     });
 
-    console.log('3:  ', import.meta.env.VITE_ETHER_COST);
+    console.log('3:  ', env.VITE_COST);
 
     const result = await contract
       .mint(mintAmount, {
-        value: ethers.utils.parseEther(import.meta.env.VITE_ETHER_COST),
+        value: ethers.utils.parseEther(env.VITE_COST),
       })
+      // TODO: Changed this to a pending toaster
       .then(() => {
         console.debug(`Successfully Minted ${mintAmount} Tokens!`);
         toast('🐱 Just Minted!');
       })
+      // TODO: Added a catch to  handle rejected transaction by users
       .catch((err) => {
         console.error('❌ Failed To Mint: ', err.message);
         console.error(err);
