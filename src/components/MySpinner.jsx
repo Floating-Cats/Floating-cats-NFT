@@ -13,7 +13,7 @@ const MySpinner = (props) => {
     <div style={style}>
       <Spinner animation='grow' />
       <br />
-      loading ...
+      Loading ...
     </div>
   );
 };

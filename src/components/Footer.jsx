@@ -22,7 +22,7 @@ function Footer() {
                 role='button'
               >
                 <img src='pics/discord.png' alt='' width='30' height='30' />
-      </a>
+              </a>
 
               {/* <!-- Opensea --> */}
               <a

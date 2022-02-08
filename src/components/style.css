@@ -49,13 +49,90 @@ body {
   font-weight: 550;
 }
 
+.mintPageBg {
+  background-image: url(../../pics/mint-bg-wood.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-top: rgb(87, 66, 58) groove 15px;
+  border-bottom: rgb(87, 66, 58) groove 15px;
+}
+
+#mint-bg {
+  width: 100%;
+  height: auto;
+}
 #mintBtn:hover {
   cursor: pointer;
 }
 
-#mintBtn {
-  width: 500px;
-  height: 250px;
+.responsive {
+  width: 100%;
+  height: auto;
+}
+
+#flag {
+  width: 600px;
+  height: 400px;
+}
+#lights {
+  margin-top: -15%;
+}
+#takoyaki {
+  margin-top: -30%;
+}
+
+#ice {
+  margin-left: 5%;
+}
+#mintPage img {
+  margin-top: -10%;
+  margin-bottom: -20%;
+  max-width: 100%;
+  height: auto;
+}
+
+#mintBtn:hover {
+  /* Start the shake animation and make the animation last for 0.5 seconds */
+  animation: shake 0.5s;
+
+  /* When the animation is finished, start again */
+  animation-iteration-count: infinite;
+}
+
+@keyframes shake {
+  0% {
+    transform: translate(1px, 1px) rotate(0deg);
+  }
+  10% {
+    transform: translate(-1px, -2px) rotate(-1deg);
+  }
+  20% {
+    transform: translate(-3px, 0px) rotate(1deg);
+  }
+  30% {
+    transform: translate(3px, 2px) rotate(0deg);
+  }
+  40% {
+    transform: translate(1px, -1px) rotate(1deg);
+  }
+  50% {
+    transform: translate(-1px, 2px) rotate(-1deg);
+  }
+  60% {
+    transform: translate(-3px, 1px) rotate(0deg);
+  }
+  70% {
+    transform: translate(3px, 1px) rotate(-1deg);
+  }
+  80% {
+    transform: translate(-1px, -1px) rotate(1deg);
+  }
+  90% {
+    transform: translate(1px, 2px) rotate(0deg);
+  }
+  100% {
+    transform: translate(1px, -2px) rotate(-1deg);
+  }
 }
 
 #bannerPic img {
