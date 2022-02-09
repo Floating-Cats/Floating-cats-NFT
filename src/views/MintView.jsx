@@ -1,12 +1,10 @@
 import { useEffect, useState } from 'react';
 
-// component imports
-// import Mint from '../components/Mint';
-
 // bootstrap imports
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
 
 // other imports
 const env = import.meta.env;
@@ -30,7 +28,8 @@ const MintView = ({ contract }) => {
 
   const mintToken = async () => {
     // setCollectionVisible(true);
-    toast.info(`🐱 Let's Mint ${mintAmount} Token!`);
+    // toast.info(`🐱 Let's Mint ${mintAmount} Token!`);
+    alert(`🐱 You will mint ${mintAmount} tokens\n🐱 Hit OK to continue`);
 
     contract.ownerOf(1).then((result) => {
       console.log('1:  ', result);
@@ -39,21 +38,16 @@ const MintView = ({ contract }) => {
     const cost = env.VITE_COST * mintAmount;
     console.log('cost = ', cost);
 
-    const result = await contract
-      .mint(mintAmount, {
+    const result = await toast.promise(
+      contract.mint(mintAmount, {
         value: ethers.utils.parseEther(cost.toString()),
-      })
-      // TODO: Changed this to a pending toaster
-      .then(() => {
-        console.debug(`Successfully Minted ${mintAmount} Tokens!`);
-        toast('🐱 Just Minted!');
-      })
-      // TODO: Added a catch to  handle rejected transaction by users
-      .catch((err) => {
-        console.error('❌ Failed To Mint: ', err.message);
-        console.error(err);
-        toast.error('❌ Failed To Mint');
-      });
+      }),
+      {
+        pending: 'Transaction is pending',
+        success: 'Transaction is approved 👌',
+        error: 'Transaction is rejected 🤯',
+      }
+    );
 
     // await result.wait(); // FIXME: Cannot read properties of undefined (reading 'wait')
   };
@@ -77,7 +71,17 @@ const MintView = ({ contract }) => {
               </Form.Group>
             </Form>
           </Col>
-          <Col xs={9}></Col>
+          <Col xs={9}>
+            {/* <Button
+              onClick={async () => {
+                await contract.count().then((res) => {
+                  toast.promise(res);
+                });
+              }}
+            >
+              Click me
+            </Button> */}
+          </Col>
         </Row>
       </div>
       <div className='mintPageBg'>
