@@ -29,6 +29,10 @@ const ConnectWalletButton = (props) => {
       });
   };
 
+  const printAddr = () => {
+    console.log(account);
+  };
+
   return (
     <>
       <button
@@ -45,12 +49,19 @@ const ConnectWalletButton = (props) => {
       ) : (
         <span>Not connected</span>
       )}
-      <button
+      {/* <button
         id='disconnect_btn'
         className='enableEhereumButton'
         onClick={() => disconnect()}
       >
         Disconnect
+      </button> */}
+      <button
+        id='disconnect_btn'
+        className='enableEhereumButton'
+        onClick={() => printAddr()}
+      >
+        addr
       </button>
     </>
   );
