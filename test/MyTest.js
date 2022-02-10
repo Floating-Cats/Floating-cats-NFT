@@ -27,6 +27,7 @@ describe('FCAT NFT CONTRACT', function () {
   let addrs;
   let tokenId1 = 1;
 
+  // TODO: use beforeEach
   // `beforeEach` will run before each test, re-deploying the contract every
   // time. It receives a callback, which can be async.
   before(async function () {

@@ -87,13 +87,14 @@ function Navigation({ provider, userAddr, setUserAddr }) {
               <div>
                 <Col>
                   <Row>
-                    <button
+                    {/* <button
                       id='show_button'
                       className='enableEthereumButton'
                       onClick={() => handleOnClick()}
                     >
                       Connect your wallet
-                    </button>
+                    </button> */}
+                    <ConnectWalletButton />
                   </Row>
                   <Row>
                     <span>Not Connected</span>
