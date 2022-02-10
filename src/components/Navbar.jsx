@@ -58,7 +58,7 @@ function Navigation({ provider, userAddr, setUserAddr }) {
 
   return (
     <Navbar collapseOnSelect expand='lg' bg='dark' variant='dark' id='Nav'>
-      <Container className='mainNav'>
+      <Container>
         <Navbar.Brand href='/'>
           <h1>
             <img
@@ -79,23 +79,26 @@ function Navigation({ provider, userAddr, setUserAddr }) {
         </Navbar.Brand>
         <Navbar.Toggle aria-controls='responsive-navbar-nav' />
         <Navbar.Collapse className='' id='responsive-navbar-nav'>
-          <Nav className='ms-auto'>
+          <Nav className='me-auto'>
             <Nav.Link href='/mint'>MINT</Nav.Link>
             <Nav.Link href='#about'>ABOUT</Nav.Link>
             <Nav.Link href='#roadmap'>ROADMAP</Nav.Link>
             <Nav.Link href='#team'>TEAM</Nav.Link>
-            {!btnHidden ? (
+          </Nav>
+          <Nav className='ms-auto'>
+            <ConnectWalletButton />
+
+            {/* {!btnHidden ? (
               <div>
                 <Col>
                   <Row>
-                    {/* <button
+                    <button
                       id='show_button'
                       className='enableEthereumButton'
                       onClick={() => handleOnClick()}
                     >
                       Connect your wallet
-                    </button> */}
-                    <ConnectWalletButton />
+                    </button>
                   </Row>
                   <Row>
                     <span>Not Connected</span>
@@ -104,19 +107,14 @@ function Navigation({ provider, userAddr, setUserAddr }) {
               </div>
             ) : (
               <h6>
-                {/* <Col>
-                  <Row> */}
                 <button className='showAccount'>
                   {`${userAddr.substring(0, 6)}...${userAddr.substring(
                     userAddr.length - 6,
                     userAddr.length
                   )}`}
                 </button>
-                {/* </Row> */}
-                {/* <Row id='balance'>{`Your Balance: ${balance}`}</Row> */}
-                {/* </Col> */}
               </h6>
-            )}
+            )} */}
 
             {/* <div className='rightside-nav navbar-nav'>
               <a

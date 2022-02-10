@@ -71,17 +71,7 @@ const MintView = ({ contract }) => {
               </Form.Group>
             </Form>
           </Col>
-          <Col xs={9}>
-            {/* <Button
-              onClick={async () => {
-                await contract.count().then((res) => {
-                  toast.promise(res);
-                });
-              }}
-            >
-              Click me
-            </Button> */}
-          </Col>
+          <Col xs={9}></Col>
         </Row>
       </div>
       <div className='mintPageBg'>
@@ -114,7 +104,7 @@ const MintView = ({ contract }) => {
             </div>
           </div>
         </div>
-        <img src='pics/mint-bg-bt.png' alt='' id='mint-bg' />
+        {/* <img src='pics/mint-bg-bt.png' alt='' id='mint-bg' /> */}
       </div>
     </>
   );
