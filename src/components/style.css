@@ -1,5 +1,5 @@
 body {
-  font-family: 'Gloria Hallelujah', cursive;
+  font-family: 'Rowdies', cursive;
   background-color: #221e1f;
   color: #333;
   height: 100vh;
@@ -11,7 +11,49 @@ body {
   display: block;
 }
 
-#bannerPic {
+#banner {
+  margin-top: 5%;
+}
+
+#bannerText {
+  text-align: left;
+  align-self: center;
+  padding: 5%;
+}
+
+#bannerText h2 {
+  font-size: 50px;
+  color: antiquewhite;
+  font-weight: 900;
+  text-transform: uppercase;
+  font-family: 'Rowdies', cursive;
+}
+
+#bannerText p {
+  font-size: 18px;
+}
+
+#banner img {
+  height: 600px;
+  width: 600px;
+}
+
+a.button {
+  -webkit-appearance: button;
+  -moz-appearance: button;
+  appearance: button;
+
+  text-decoration: none;
+  color: rgb(255, 255, 255);
+  background-color: rgb(108, 74, 231);
+  padding: 15px 32px;
+  border-radius: 10px;
+  transition-duration: 0.4s;
+  box-shadow: 0 15px 16px 0 rgba(0, 0, 0, 0.2), 0 8px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+a.button:hover {
+  opacity: 0.8;
 }
 
 .mainNav {
@@ -36,9 +78,9 @@ body {
 
 .navbar-nav {
   margin-left: 3rem;
-  text-shadow: 1px 1px 1px gray;
+  text-shadow: 1px 1px 1px rgb(177, 176, 176);
   margin-top: -2%;
-  font-weight: 600;
+  font-weight: 300;
   font-size: 18px;
   text-align: center;
 }
@@ -82,7 +124,6 @@ body {
 } */
 
 #mint {
-  margin-top: -23.5%;
 }
 
 .mintPageBg {
@@ -158,11 +199,6 @@ body {
   100% {
     transform: translate(1px, -2px) rotate(-1deg);
   }
-}
-
-#bannerPic img {
-  max-width: 100%;
-  height: auto;
 }
 
 #roadmap {

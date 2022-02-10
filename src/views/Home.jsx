@@ -38,8 +38,23 @@ function Home(props) {
   // get banner
   const getBanner = () => {
     return (
-      <div className='container' id='bannerPic'>
-        <img src='pics/banner-pic.png' className='responsive' id='bannerPic' />
+      <div className='container-md' id='banner'>
+        <div className='row'>
+          <div className='col' id='bannerText'>
+            <h2>Welcome to the floating cats</h2>
+            <p>
+              Floating cat is a 8,888 piece genesis collections Floating on the
+              Ethereum Blockchain. Our goal is to build a strong community to
+              help as many cats as possible.
+            </p>
+            <a href='https://discord.gg/cumFWvqMR8' className='button'>
+              Join Our Discord
+            </a>
+          </div>
+          <div className='col'>
+            <img src='pics/takoyaki.png' />
+          </div>
+        </div>
       </div>
     );
   };
