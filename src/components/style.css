@@ -62,7 +62,6 @@ body {
 
 #mint {
   margin-top: -23%;
-  margin-left: 70%;
 }
 
 .mintPageBg {
@@ -182,6 +181,7 @@ body {
 }
 h1 {
   text-align: center;
+  color: antiquewhite;
 }
 
 marquee {
