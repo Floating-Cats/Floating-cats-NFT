@@ -11,8 +11,11 @@ body {
   display: block;
 }
 
+#bannerPic {
+}
+
 .mainNav {
-  margin-bottom: -1.5%;
+  margin-bottom: -1%;
 }
 
 #Nav {
@@ -61,7 +64,7 @@ body {
 }
 
 #mint {
-  margin-top: -23%;
+  margin-top: -23.5%;
 }
 
 .mintPageBg {

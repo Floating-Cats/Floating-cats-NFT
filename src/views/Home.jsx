@@ -38,7 +38,7 @@ function Home(props) {
   // get banner
   const getBanner = () => {
     return (
-      <div id='bannerPic'>
+      <div className='container' id='bannerPic'>
         <img src='pics/banner-pic.png' className='responsive' id='bannerPic' />
       </div>
     );
