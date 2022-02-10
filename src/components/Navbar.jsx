@@ -84,13 +84,22 @@ function Navigation({ provider, userAddr, setUserAddr }) {
             <Nav.Link href='#roadmap'>ROADMAP</Nav.Link>
             <Nav.Link href='#team'>TEAM</Nav.Link>
             {!btnHidden ? (
-              <button
-                id='show_button'
-                className='enableEthereumButton'
-                onClick={() => handleOnClick()}
-              >
-                Connect your wallet
-              </button>
+              <div>
+                <Col>
+                  <Row>
+                    <button
+                      id='show_button'
+                      className='enableEthereumButton'
+                      onClick={() => handleOnClick()}
+                    >
+                      Connect your wallet
+                    </button>
+                  </Row>
+                  <Row>
+                    <span>Not Connected</span>
+                  </Row>
+                </Col>
+              </div>
             ) : (
               <h6>
                 <Col>
