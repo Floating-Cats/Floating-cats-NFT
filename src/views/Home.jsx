@@ -39,16 +39,7 @@ function Home(props) {
   const getBanner = () => {
     return (
       <div id='bannerPic'>
-        <img src='pics/flag.png' className='responsive' id='flag' />
-        <img src='pics/banner-lights.png' className='responsive' id='lights' />
-        <div className='row'>
-          <div className='col'>
-            <img src='pics/ice.png' alt='' width='200' height='100' id='ice' />
-          </div>
-          <div className='col'>
-            <img src='pics/takoyaki.png' className='responsive' id='takoyaki' />
-          </div>
-        </div>
+        <img src='pics/banner-pic.png' className='responsive' id='bannerPic' />
       </div>
     );
   };
@@ -57,7 +48,7 @@ function Home(props) {
   const getTickerOne = () => {
     return (
       <>
-        <marquee>This text will scroll from right to left</marquee>
+        <marquee>8,888 Unique Cats Floating on Ethereum Blockchain</marquee>
       </>
     );
   };
@@ -244,7 +235,7 @@ function Home(props) {
       />
       {getTickerOne()}
       {getAbout()}
-      {getTickerTwo()}
+      {/* {getTickerTwo()} */}
       {getRoadmap()}
       {getTeam()}
       {getFaq()}

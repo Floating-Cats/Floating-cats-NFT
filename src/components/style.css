@@ -1,13 +1,24 @@
 body {
   font-family: 'Gloria Hallelujah', cursive;
-  background-color: lightsteelblue;
+  background-color: rgb(47, 47, 54);
+  color: #333;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
 }
 .socialLogos {
   display: block;
 }
 
 .mainNav {
-  margin-bottom: 2%;
+  margin-bottom: -1.5%;
+}
+
+#Nav {
+  -webkit-box-shadow: 0 8px 6px -6px #999;
+  -moz-box-shadow: 0 8px 6px -6px #999;
+  box-shadow: 0 10px 6px -6px rgb(78, 76, 68);
 }
 
 .navbar-toggler-icon {
@@ -21,10 +32,6 @@ body {
 
 .navbar-nav li {
   padding: 0 10px;
-}
-.navbar-nav li a {
-  color: rgb(24, 124, 129) !important;
-  font-size: 20px;
 }
 
 #collapseBtn {
@@ -53,6 +60,11 @@ body {
   font-weight: 550;
 }
 
+#mint {
+  margin-top: -23%;
+  margin-left: 70%;
+}
+
 .mintPageBg {
   background-image: url(../../pics/mint-bg-wood.jpg);
   background-repeat: no-repeat;
@@ -65,6 +77,9 @@ body {
   width: 100%;
   height: auto;
 }
+#mintBtn {
+}
+
 #mintBtn:hover {
   cursor: pointer;
 }
@@ -74,20 +89,6 @@ body {
   height: auto;
 }
 
-#flag {
-  width: 600px;
-  height: 400px;
-}
-#lights {
-  margin-top: -15%;
-}
-#takoyaki {
-  margin-top: -30%;
-}
-
-#ice {
-  margin-left: 5%;
-}
 #mintPage img {
   margin-top: -10%;
   margin-bottom: -20%;
@@ -149,7 +150,7 @@ body {
   font-size: 20px;
   font-weight: bold;
   text-shadow: 1px 1px 1px gray;
-  margin-top: 5%;
+  margin-top: 15%;
   border: 0.5rem outset pink;
   outline: 0.5rem solid khaki;
   box-shadow: 0 0 0 2rem skyblue;
@@ -187,12 +188,12 @@ marquee {
   font-size: 30px;
   background-color: rgb(29, 31, 26);
   color: #f1f1f1;
-  font-weight: 600;
-  margin-top: 5%;
+  font-weight: bolder;
   padding: 20px;
-  border-top: 7px solid #fffb21;
-  border-bottom: 7px solid #db891e;
-  transform: rotate(-3deg) skew(-3deg);
+  border-top: 7px ridge #fffb21;
+  border-bottom: 7px ridge #db891e;
+  font-family: 'Coming Soon', cursive;
+  letter-spacing: 3px;
 }
 
 h3 {
@@ -204,10 +205,12 @@ h3 {
 
 h4 {
   margin-top: 3%;
+  color: antiquewhite;
 }
 
 p {
   font-family: 'Coming Soon', cursive;
+  color: antiquewhite;
 }
 
 hr {
@@ -219,20 +222,11 @@ hr {
 }
 
 .bg-dark {
-  background: transparent !important;
+  background: rgb(11, 13, 14) !important;
 }
 
 .bg-dark.scrolled {
   background: #333 !important;
-}
-
-body {
-  background: #00b4ff;
-  color: #333;
-  height: 100vh;
-  margin: 0;
-  padding: 0;
-  overflow-x: hidden;
 }
 
 #background-wrap {

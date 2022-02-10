@@ -56,15 +56,15 @@ function Navigation({ provider, userAddr, setUserAddr }) {
   };
 
   return (
-    <Navbar collapseOnSelect expand='lg' bg='dark' variant='dark'>
+    <Navbar collapseOnSelect expand='lg' bg='dark' variant='dark' id='Nav'>
       <Container className='mainNav'>
         <Navbar.Brand href='/'>
           <h1>
             <img
               src='pics/icon.png'
               alt=''
-              width='60'
-              height='60'
+              width='50'
+              height='50'
               className='d-inline-block align-text-top'
             />{' '}
             <img
