@@ -9,6 +9,7 @@ import Container from 'react-bootstrap/Container';
 
 // service imports
 import ConnEthers from '../services/ConnEthers';
+import ConnectWalletButton from './ConnectWalletButton';
 
 // other imports
 import { toast } from 'react-toastify';
