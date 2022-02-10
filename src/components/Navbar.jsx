@@ -57,22 +57,22 @@ function Navigation({ provider, userAddr, setUserAddr }) {
   };
 
   return (
-    <Navbar collapseOnSelect expand='lg' bg='dark' variant='dark'>
-      <Container>
+    <Navbar collapseOnSelect expand='lg' bg='dark' variant='dark' id='Nav'>
+      <Container className='mainNav'>
         <Navbar.Brand href='/'>
           <h1>
             <img
               src='pics/icon.png'
               alt=''
-              width='60'
-              height='60'
+              width='30'
+              height='30'
               className='d-inline-block align-text-top'
             />{' '}
             <img
               src='pics/logo.png'
               alt=''
               width='200'
-              height='75'
+              height='25'
               className='d-inline-block align-text-top'
             />
           </h1>
@@ -104,17 +104,17 @@ function Navigation({ provider, userAddr, setUserAddr }) {
               </div>
             ) : (
               <h6>
-                <Col>
-                  <Row>
-                    <button className='showAccount'>
-                      {`${userAddr.substring(0, 6)}...${userAddr.substring(
-                        userAddr.length - 6,
-                        userAddr.length
-                      )}`}
-                    </button>
-                  </Row>
-                  <Row>{`Your balance: ${balance}`}</Row>
-                </Col>
+                {/* <Col>
+                  <Row> */}
+                <button className='showAccount'>
+                  {`${userAddr.substring(0, 6)}...${userAddr.substring(
+                    userAddr.length - 6,
+                    userAddr.length
+                  )}`}
+                </button>
+                {/* </Row> */}
+                {/* <Row id='balance'>{`Your Balance: ${balance}`}</Row> */}
+                {/* </Col> */}
               </h6>
             )}
 

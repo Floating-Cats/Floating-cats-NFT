@@ -6,23 +6,16 @@ function Mint() {
   return (
     <>
       <div className='container' id='mint'>
-        <Row>
-          <Col>
-            <a href='/mint'>
-              <img
-                id='mintBtn'
-                src='pics/mint-btn.png'
-                className='rounded mx-auto d-block'
-                alt=''
-                width='400'
-                height='300'
-              />
-            </a>
-          </Col>
-          <Col>
-            <h1>{`Something here?`}</h1>
-          </Col>
-        </Row>
+        <a href='/mint'>
+          <img
+            id='mintBtn'
+            src='pics/mint-btn.png'
+            className='img-fluid logo d-none d-md-block '
+            alt=''
+            width='450'
+            height='350'
+          />
+        </a>
 
         {/* {collxectionVisible ? (
             <Row>

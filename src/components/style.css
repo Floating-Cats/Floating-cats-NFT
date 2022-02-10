@@ -1,9 +1,33 @@
 body {
   font-family: 'Gloria Hallelujah', cursive;
-  background-color: lightsteelblue;
+  background-color: #221e1f;
+  color: #333;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
 }
 .socialLogos {
   display: block;
+}
+
+#bannerPic {
+}
+
+.mainNav {
+  margin-bottom: -1.5%;
+}
+
+#Nav {
+  -webkit-box-shadow: 0 8px 6px -6px #999;
+  -moz-box-shadow: 0 8px 6px -6px #999;
+  box-shadow: 0 10px 6px -6px rgb(20, 20, 19);
+  position: sticky;
+  top: 0;
+}
+
+#Nav img {
+  margin-top: 5%;
 }
 
 .navbar-toggler-icon {
@@ -13,40 +37,52 @@ body {
 .navbar-nav {
   margin-left: 3rem;
   text-shadow: 1px 1px 1px gray;
+  margin-top: -2%;
+  font-weight: 600;
+  font-size: 18px;
+  text-align: center;
 }
 
 .navbar-nav li {
   padding: 0 10px;
-}
-.navbar-nav li a {
-  color: rgb(24, 124, 129) !important;
-  font-size: 20px;
 }
 
 #collapseBtn {
   background-image: url(pics/arrow.png);
 }
 #show_button {
-  padding: 2px 25px;
-  margin-left: 3rem;
+  padding: 2px 30px;
   border-radius: 30px;
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   transition-duration: 0.5s;
   font-family: 'Gloria Hallelujah', cursive;
+  margin-left: 15rem;
 }
 #show_button:hover {
   background-color: #55a759; /* Green */
   color: white;
 }
 .showAccount {
-  padding: 8px 20px;
+  padding: 9px 40px;
   margin-left: 3rem;
+  margin-top: 5px;
   border-radius: 30px;
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   transition-duration: 0.5s;
   font-family: 'Gloria Hallelujah', cursive;
   letter-spacing: 2.5px;
   font-weight: 550;
+  margin-left: 15rem;
+}
+
+/* #balance {
+  margin-left: 35%;
+  margin-top: 3%;
+  color: antiquewhite;
+} */
+
+#mint {
+  margin-top: -23.5%;
 }
 
 .mintPageBg {
@@ -61,6 +97,9 @@ body {
   width: 100%;
   height: auto;
 }
+#mintBtn {
+}
+
 #mintBtn:hover {
   cursor: pointer;
 }
@@ -70,20 +109,6 @@ body {
   height: auto;
 }
 
-#flag {
-  width: 600px;
-  height: 400px;
-}
-#lights {
-  margin-top: -15%;
-}
-#takoyaki {
-  margin-top: -30%;
-}
-
-#ice {
-  margin-left: 5%;
-}
 #mintPage img {
   margin-top: -10%;
   margin-bottom: -20%;
@@ -145,7 +170,7 @@ body {
   font-size: 20px;
   font-weight: bold;
   text-shadow: 1px 1px 1px gray;
-  margin-top: 5%;
+  margin-top: 15%;
   border: 0.5rem outset pink;
   outline: 0.5rem solid khaki;
   box-shadow: 0 0 0 2rem skyblue;
@@ -177,18 +202,19 @@ body {
 }
 h1 {
   text-align: center;
+  color: antiquewhite;
 }
 
 marquee {
   font-size: 30px;
   background-color: rgb(29, 31, 26);
   color: #f1f1f1;
-  font-weight: 600;
-  margin-top: 5%;
+  font-weight: bolder;
   padding: 20px;
-  border-top: 7px solid #fffb21;
-  border-bottom: 7px solid #db891e;
-  transform: rotate(-3deg) skew(-3deg);
+  border-top: 7px ridge #fffb21;
+  border-bottom: 7px ridge #db891e;
+  font-family: 'Coming Soon', cursive;
+  letter-spacing: 3px;
 }
 
 h3 {
@@ -200,10 +226,12 @@ h3 {
 
 h4 {
   margin-top: 3%;
+  color: antiquewhite;
 }
 
 p {
   font-family: 'Coming Soon', cursive;
+  color: antiquewhite;
 }
 
 hr {
@@ -215,20 +243,11 @@ hr {
 }
 
 .bg-dark {
-  background: transparent !important;
+  background: #221e1f !important;
 }
 
 .bg-dark.scrolled {
   background: #333 !important;
-}
-
-body {
-  background: #00b4ff;
-  color: #333;
-  height: 100vh;
-  margin: 0;
-  padding: 0;
-  overflow-x: hidden;
 }
 
 #background-wrap {

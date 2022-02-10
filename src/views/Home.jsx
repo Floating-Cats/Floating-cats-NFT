@@ -38,17 +38,8 @@ function Home(props) {
   // get banner
   const getBanner = () => {
     return (
-      <div id='bannerPic'>
-        <img src='pics/flag.png' className='responsive' id='flag' />
-        <img src='pics/banner-lights.png' className='responsive' id='lights' />
-        <div className='row'>
-          <div className='col'>
-            <img src='pics/ice.png' alt='' width='200' height='100' id='ice' />
-          </div>
-          <div className='col'>
-            <img src='pics/takoyaki.png' className='responsive' id='takoyaki' />
-          </div>
-        </div>
+      <div className='container' id='bannerPic'>
+        <img src='pics/banner-pic.png' className='responsive' id='bannerPic' />
       </div>
     );
   };
@@ -57,7 +48,7 @@ function Home(props) {
   const getTickerOne = () => {
     return (
       <>
-        <marquee>This text will scroll from right to left</marquee>
+        <marquee>8,888 Unique Cats Floating on Ethereum Blockchain</marquee>
       </>
     );
   };
@@ -119,7 +110,7 @@ function Home(props) {
 
   const getAbout = () => {
     return (
-      <div className='' id='about'>
+      <div className='container' id='about'>
         <div className='row'>
           <div className='col' id='about-card'>
             <h1>What Are Floating Cats ?</h1>
@@ -233,6 +224,7 @@ function Home(props) {
   return (
     <div>
       {/* {getBgCloud()} */}
+      {getBanner()}
       <Mint
         contract={props.contract}
         provider={props.provider}
@@ -241,10 +233,9 @@ function Home(props) {
         totalMinted={props.totalMinted}
         getCount={props.getCount}
       />
-      {getBanner()}
       {getTickerOne()}
       {getAbout()}
-      {getTickerTwo()}
+      {/* {getTickerTwo()} */}
       {getRoadmap()}
       {getTeam()}
       {getFaq()}
