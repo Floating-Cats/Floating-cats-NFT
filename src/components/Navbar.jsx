@@ -93,17 +93,17 @@ function Navigation({ provider, userAddr, setUserAddr }) {
               </button>
             ) : (
               <h6>
-                <Col>
-                  <Row>
-                    <button className='showAccount'>
-                      {`${userAddr.substring(0, 6)}...${userAddr.substring(
-                        userAddr.length - 6,
-                        userAddr.length
-                      )}`}
-                    </button>
-                  </Row>
-                  <Row id='balance'>{`Your Balance: ${balance}`}</Row>
-                </Col>
+                {/* <Col>
+                  <Row> */}
+                <button className='showAccount'>
+                  {`${userAddr.substring(0, 6)}...${userAddr.substring(
+                    userAddr.length - 6,
+                    userAddr.length
+                  )}`}
+                </button>
+                {/* </Row> */}
+                {/* <Row id='balance'>{`Your Balance: ${balance}`}</Row> */}
+                {/* </Col> */}
               </h6>
             )}
 
