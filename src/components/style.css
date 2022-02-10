@@ -1,6 +1,6 @@
 body {
   font-family: 'Gloria Hallelujah', cursive;
-  background-color: rgb(47, 47, 54);
+  background-color: #221e1f;
   color: #333;
   height: 100vh;
   margin: 0;
@@ -15,13 +15,19 @@ body {
 }
 
 .mainNav {
-  margin-bottom: -1%;
+  margin-bottom: -1.5%;
 }
 
 #Nav {
   -webkit-box-shadow: 0 8px 6px -6px #999;
   -moz-box-shadow: 0 8px 6px -6px #999;
-  box-shadow: 0 10px 6px -6px rgb(78, 76, 68);
+  box-shadow: 0 10px 6px -6px rgb(20, 20, 19);
+  position: sticky;
+  top: 0;
+}
+
+#Nav img {
+  margin-top: 5%;
 }
 
 .navbar-toggler-icon {
@@ -31,6 +37,7 @@ body {
 .navbar-nav {
   margin-left: 3rem;
   text-shadow: 1px 1px 1px gray;
+  margin-top: -2%;
 }
 
 .navbar-nav li {
@@ -53,7 +60,7 @@ body {
   color: white;
 }
 .showAccount {
-  padding: 8px 20px;
+  padding: 6px 14px;
   margin-left: 3rem;
   border-radius: 30px;
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -61,6 +68,12 @@ body {
   font-family: 'Gloria Hallelujah', cursive;
   letter-spacing: 2.5px;
   font-weight: 550;
+}
+
+#balance {
+  margin-left: 35%;
+  margin-top: 3%;
+  color: antiquewhite;
 }
 
 #mint {
@@ -225,7 +238,7 @@ hr {
 }
 
 .bg-dark {
-  background: rgb(11, 13, 14) !important;
+  background: #221e1f !important;
 }
 
 .bg-dark.scrolled {

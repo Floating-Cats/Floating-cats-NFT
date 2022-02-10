@@ -110,7 +110,7 @@ function Home(props) {
 
   const getAbout = () => {
     return (
-      <div className='' id='about'>
+      <div className='container' id='about'>
         <div className='row'>
           <div className='col' id='about-card'>
             <h1>What Are Floating Cats ?</h1>
