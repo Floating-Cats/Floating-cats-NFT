@@ -123,9 +123,10 @@ body {
 
 #flag {
   width: 100%;
-  max-width: 600px;
+  max-width: 500px;
   height: auto;
   border-radius: 0cm;
+  margin-left: 5%;
 }
 .about-bg {
   background-color: #221e1f;
