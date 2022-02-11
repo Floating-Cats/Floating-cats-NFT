@@ -75,9 +75,9 @@ function Home(props) {
           <div className='w-100'></div>
           <div className='col'>
             <p>
-              Floating Cats is a team located in Nagoya, Japan 🇯🇵 with team
-              members all across the globe. We love cats and believe that it is
-              the existence of cats that give us power to move forward.
+              We are a team located in Nagoya, Japan 🇯🇵 with team members all
+              across the globe. We love cats and believe that it is the
+              existence of cats that give us power to move forward.
             </p>
             <p>
               Our road map is progressed by proactively holding volunteering
@@ -146,17 +146,20 @@ function Home(props) {
 
           <div className='row'>
             <div className='col'>
-              <img src='pics/t-icon.jpg' alt='' />
-              <h4>Founder</h4>
+              <img src='pics/t-icon.png' alt='' />
+              <h4>C.L.</h4>
+              <p>PROJECT LEAD / FOUNDER</p>
               <p></p>
             </div>
             <div className='col'>
               <img src='pics/a-icon.JPEG' alt='' />
-              <h4>Dev</h4>
+              <h4>BLUE-DREAM</h4>
+              <p>LEAD DEV & CYBER SECURITY</p>
             </div>
             <div className='col'>
               <img src='pics/m-icon.JPEG' alt='' />
-              <h4>Artist</h4>
+              <h4>PIMO</h4>
+              <p>CREATIVE ART DIRECTOR</p>
             </div>
           </div>
         </div>
@@ -206,10 +209,11 @@ function Home(props) {
             <p id='answers'>
               Besides being part of this great community, our holders will have
               a chance to win exclusive merchandise giveaways 👕 (weekly), and
-              WL of other projects.🚀 Most of all, opening a cat café is always
-              our dream.☕ We will team up with local shelters and provide a
-              space for cats to stay in the store with good care. Meanwhile, we
-              help those kitties to find a new home. 🏡 (Will consistently
+              WL of other projects.🚀 Most of all, Opening Floating Cats Café in
+              Nagoya has always been our dream. The cafe will partner and assist
+              with local shelters, and provide even more space for those kitties
+              with care and love. Meanwhile, the space is to be served as an
+              interactive way to encourage adoption. 🏡 (Will consistently
               update some videos & pictures for the opening of the store)
             </p>
           </Collapsible>
