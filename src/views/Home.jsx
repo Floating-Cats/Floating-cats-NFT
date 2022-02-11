@@ -75,7 +75,7 @@ function Home(props) {
           <div className='w-100'></div>
           <div className='col'>
             <p>
-              Floating Cats is a team located in Nagoya, Japan🇯🇵 with team
+              Floating Cats is a team located in Nagoya, Japan 🇯🇵 with team
               members all across the globe. We love cats and believe that it is
               the existence of cats that give us power to move forward.
             </p>
@@ -92,24 +92,6 @@ function Home(props) {
       </div>
     );
   };
-
-  // // get tickerOne
-  // const getTickerOne = () => {
-  //   return (
-  //     <>
-  //       <marquee>8,888 Unique Cats Floating on Ethereum Blockchain</marquee>
-  //     </>
-  //   );
-  // };
-
-  // // get tickerTwo
-  // const getTickerTwo = () => {
-  //   return (
-  //     <>
-  //       <marquee>This text will scroll from right to left</marquee>
-  //     </>
-  //   );
-  // };
 
   // get roadmap
   const getRoadmap = () => {
@@ -158,10 +140,10 @@ function Home(props) {
   // get team
   const getTeam = () => {
     return (
-      <>
+      <div className='team-bg'>
         <div className='container' id='team'>
           <h1>TEAM</h1>
-          <hr />
+
           <div className='row'>
             <div className='col'>
               <img src='pics/t-icon.jpg' alt='' />
@@ -178,7 +160,7 @@ function Home(props) {
             </div>
           </div>
         </div>
-      </>
+      </div>
     );
   };
 
@@ -238,7 +220,7 @@ function Home(props) {
 
   return (
     <div>
-      {/* {getBgCloud()} */}
+      {getBgCloud()}
       {getBanner()}
       {/* <Mint
         contract={props.contract}
