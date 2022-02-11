@@ -38,27 +38,58 @@ function Home(props) {
   // get banner
   const getBanner = () => {
     return (
-      <div className='container' id='bannerPic'>
-        <img src='pics/banner-pic.png' className='responsive' id='bannerPic' />
+      <div className='container' id='banner'>
+        <div className='row'>
+          <div className='col-md-7' id='bannerText'>
+            <h2>Welcome to the floating cats</h2>
+            <p>
+              Floating cat is a 8,888 piece genesis collections Floating on the
+              Ethereum Blockchain. Our goal is to build a strong community to
+              help as many cats as possible.
+            </p>
+            <a href='https://discord.gg/cumFWvqMR8' className='button'>
+              Join Our Discord
+            </a>
+          </div>
+          <div className='col'>
+            <img src='pics/takoyaki.png' height='600' width='600' />
+          </div>
+        </div>
       </div>
     );
   };
 
-  // get tickerOne
-  const getTickerOne = () => {
-    return (
-      <>
-        <marquee>8,888 Unique Cats Floating on Ethereum Blockchain</marquee>
-      </>
-    );
-  };
+  // get about
 
-  // get tickerTwo
-  const getTickerTwo = () => {
+  const getAbout = () => {
     return (
-      <>
-        <marquee>This text will scroll from right to left</marquee>
-      </>
+      <div className='about-bg'>
+        <div className='row' id='about'>
+          <div className='col-md-6'>
+            <img src='pics/flag.png' id='flag' height='200' width='500' />
+          </div>
+          <div className='col'>
+            <img src='pics/card-1.png' height='300' width='300' />
+            <img src='pics/card-2.jpeg' height='300' width='300' />
+          </div>
+          <div className='w-100'></div>
+          <div className='col'>
+            <p>
+              Floating Cats is a team located in Nagoya, Japan 🇯🇵 with team
+              members all across the globe. We love cats and believe that it is
+              the existence of cats that give us power to move forward.
+            </p>
+            <p>
+              Our road map is progressed by proactively holding volunteering
+              events to help cats and bringing the community together.
+            </p>
+          </div>
+          <div className='col'>
+            <img src='pics/card-3.png' height='300' width='300' />
+            <img src='pics/card-4.png' height='300' width='300' />
+          </div>
+        </div>
+      </div>
     );
   };
 
@@ -106,47 +137,13 @@ function Home(props) {
     );
   };
 
-  // get about
-
-  const getAbout = () => {
-    return (
-      <div className='container' id='about'>
-        <div className='row'>
-          <div className='col' id='about-card'>
-            <h1>What Are Floating Cats ?</h1>
-            <h3>
-              We are a team located in Nagoya, Japan. We love cats. Our goal is
-              to build a strong community in order to help as many cats as
-              possible. Our plan is to team up with local shelters and provide
-              them their needs
-            </h3>
-            <h3>
-              And of course, We are also planning to have weekly/monthly events
-              to help shelters voluntary. And it doesn’t stop there, we’re
-              committed and wish to expand this moment worldwide.
-            </h3>
-          </div>
-          <div className='col'>
-            <img
-              src='pics/About.GIF'
-              className='rounded mx-auto d-block'
-              alt=''
-              width='400'
-              height='400'
-            />
-          </div>
-        </div>
-      </div>
-    );
-  };
-
   // get team
   const getTeam = () => {
     return (
-      <>
+      <div className='team-bg'>
         <div className='container' id='team'>
           <h1>TEAM</h1>
-          <hr />
+
           <div className='row'>
             <div className='col'>
               <img src='pics/t-icon.jpg' alt='' />
@@ -163,7 +160,7 @@ function Home(props) {
             </div>
           </div>
         </div>
-      </>
+      </div>
     );
   };
 
@@ -223,19 +220,17 @@ function Home(props) {
 
   return (
     <div>
-      {/* {getBgCloud()} */}
+      {getBgCloud()}
       {getBanner()}
-      <Mint
+      {/* <Mint
         contract={props.contract}
         provider={props.provider}
         userAddr={props.userAddr}
         signer={props.signer}
         totalMinted={props.totalMinted}
         getCount={props.getCount}
-      />
-      {getTickerOne()}
+      /> */}
       {getAbout()}
-      {/* {getTickerTwo()} */}
       {getRoadmap()}
       {getTeam()}
       {getFaq()}
