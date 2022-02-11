@@ -1,4 +1,5 @@
 import { defineConfig } from 'vite';
+import tsconfigPaths from 'vite-tsconfig-paths';
 import react from '@vitejs/plugin-react';
 
 export default {
@@ -10,8 +11,10 @@ export default {
       util: 'util',
     },
   },
-  // plugins: [vue()],
-  plugins: [react()],
+  build: {
+    outDir: 'build',
+  },
+  plugins: [tsconfigPaths()],
 };
 
 // // https://vitejs.dev/config/

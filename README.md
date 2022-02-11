@@ -59,9 +59,11 @@ Most of all, opening a cat café is always our dream. We will team up with local
 
 ##### Testing Instructions
 
-- run `npx hardhat test --show-stack-traces --network <some net work>` to run the test, you can ignore the `--show-stack-traces` and specify network using `--network` flag, `localhost` by default.
+- Run `npx hardhat test --show-stack-traces --network <some net work>` to run the test, you can ignore the `--show-stack-traces` and specify network using `--network` flag, it is sets to`localhost` by default but you can use`rinkeby` or the other networks.
   <!-- - run `npx hardhat accounts` to execute hardhat.config.js to print a list of addresses. -->
   <!-- - run `npx hardhat balance --account <0x... address>` to execute hardhat.config.js to print the account balance. -->
+- Backend (contract) will be tested using [Waffle](https://getwaffle.io).
+- Frontend (web) will be tested using [Jest](https://jestjs.io).
 
 ### Members
 
