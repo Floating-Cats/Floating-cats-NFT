@@ -14,7 +14,10 @@ export default {
   build: {
     outDir: 'build',
   },
-  plugins: [tsconfigPaths()],
+  plugins: [react(), tsconfigPaths()],
+  compilerOptions: {
+    types: ['vite/client'],
+  },
 };
 
 // // https://vitejs.dev/config/
