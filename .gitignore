@@ -4,6 +4,19 @@
 # next
 .next/
 
+# https://stackoverflow.com/questions/36918540/gitignore-all-folders-beginning-with-a-period
+# ignore all . files and . folders
+.*
+
+# Dont ignore .gitignore (this file)
+# This is just for verbosity, you can leave it out if
+# .gitignore is already tracked or if you use -f to
+# force-add it if you just created it
+!/.gitignore
+
+# ignore all . folders but include . files
+.*/
+
 # it holds the compiled artifacts (bytecode and metadata), 
 # it’s a good idea to add this directory to your .gitignore
 /artifacts/**/*.json

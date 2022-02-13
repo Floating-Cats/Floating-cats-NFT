@@ -52,7 +52,7 @@ function Home(props) {
             </a>
           </div>
           <div className='col'>
-            <img src='pics/takoyaki.png' height='600' width='600' />
+            <img src='public/takoyaki.png' height='600' width='600' />
           </div>
         </div>
       </div>
@@ -66,11 +66,11 @@ function Home(props) {
       <div className='about-bg'>
         <div className='row' id='about'>
           <div className='col-md-6'>
-            <img src='pics/flag.png' id='flag' height='200' width='500' />
+            <img src='public/flag.png' id='flag' height='200' width='500' />
           </div>
           <div className='col'>
-            <img src='pics/card-1.png' height='300' width='300' />
-            <img src='pics/card-2.jpeg' height='300' width='300' />
+            <img src='public/card-1.png' height='300' width='300' />
+            <img src='public/card-2.jpeg' height='300' width='300' />
           </div>
           <div className='w-100'></div>
           <div className='col'>
@@ -85,8 +85,8 @@ function Home(props) {
             </p>
           </div>
           <div className='col'>
-            <img src='pics/card-3.png' height='300' width='300' />
-            <img src='pics/card-4.png' height='300' width='300' />
+            <img src='public/card-3.png' height='300' width='300' />
+            <img src='public/card-4.png' height='300' width='300' />
           </div>
         </div>
       </div>
@@ -102,13 +102,13 @@ function Home(props) {
           <hr />
           <div className='row'>
             <div className='col'>
-              <img src='pics/cafe.PNG' alt='' width='300' height='200' />
+              <img src='public/cafe.PNG' alt='' width='300' height='200' />
               <p>Opening a Cat Cafe</p>
               <p>(Partner with Shelters)</p>
               <p>(Holders will get free items/discount)</p>
             </div>
             <div className='col'>
-              <img src='pics/shelter.PNG' alt='' width='300' height='200' />
+              <img src='public/shelter.PNG' alt='' width='300' height='200' />
               <p>Shelter Donations</p>
               <p>(We will donate 10 eth to selected shelters)</p>
               <p>(30% of OS loyalties gose to shelters)</p>
@@ -116,18 +116,18 @@ function Home(props) {
           </div>
           <div className='row'>
             <div className='col'>
-              <img src='pics/vault.PNG' alt='' width='300' height='200' />
+              <img src='public/vault.PNG' alt='' width='300' height='200' />
               <p>Community Vault</p>
               <p>(30% of initial sales)</p>
               <p>(30% OS sales)</p>
             </div>
             <div className='col'>
-              <img src='pics/Fcoin.PNG' alt='' width='300' height='200' />
+              <img src='public/Fcoin.PNG' alt='' width='300' height='200' />
               <p>$FLOAT coin utilities</p>
               <p>(Stack coins for future P2E, and in-store purchases)</p>
             </div>
             <div className='col'>
-              <img src='pics/merch.png' alt='' width='300' height='200' />
+              <img src='public/merch.png' alt='' width='300' height='200' />
               <p>Exclusive Merchandise </p>
               <p>(Weekly giveaways)</p>
             </div>
@@ -146,16 +146,16 @@ function Home(props) {
 
           <div className='row'>
             <div className='col'>
-              <img src='pics/t-icon.jpg' alt='' />
+              <img src='public/t-icon.jpg' alt='' />
               <h4>Founder</h4>
               <p></p>
             </div>
             <div className='col'>
-              <img src='pics/a-icon.JPEG' alt='' />
+              <img src='public/a-icon.JPEG' alt='' />
               <h4>Dev</h4>
             </div>
             <div className='col'>
-              <img src='pics/m-icon.JPEG' alt='' />
+              <img src='public/m-icon.JPEG' alt='' />
               <h4>Artist</h4>
             </div>
           </div>

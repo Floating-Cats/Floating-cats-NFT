@@ -62,14 +62,14 @@ function Navigation({ provider, userAddr, setUserAddr }) {
         <Navbar.Brand href='/'>
           <h1>
             <img
-              src='pics/icon.png'
+              src='public/icon.png'
               alt=''
               width='30'
               height='30'
               className='d-inline-block align-text-top'
             />{' '}
             <img
-              src='pics/logo.png'
+              src='public/logo.png'
               alt=''
               width='200'
               height='25'
@@ -125,7 +125,7 @@ function Navigation({ provider, userAddr, setUserAddr }) {
                 <img
                   loading='lazy'
                   className='socialLogos mx-auto'
-                  src='pics/discord.png'
+                  src='public/discord.png'
                   width='30'
                   height='30'
                 />
@@ -138,7 +138,7 @@ function Navigation({ provider, userAddr, setUserAddr }) {
                 <img
                   loading='lazy'
                   className='socialLogos mx-auto'
-                  src='pics/twitter.png'
+                  src='public/twitter.png'
                   width='30'
                   height='30'
                 />
@@ -147,7 +147,7 @@ function Navigation({ provider, userAddr, setUserAddr }) {
                 <img
                   loading='lazy'
                   className='socialLogos mx-auto'
-                  src='pics/os-icon.png'
+                  src='public/os-icon.png'
                   width='33'
                   height='33'
                   style={{ marginBottom: '5px' }}

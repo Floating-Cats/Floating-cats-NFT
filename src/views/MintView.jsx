@@ -75,13 +75,13 @@ const MintView = ({ contract }) => {
         </Row>
       </div>
       <div className='mintPageBg'>
-        <img src='pics/mint-bg-top.png' alt='' id='mint-bg' />
+        <img src='public/mint-bg-top.png' alt='' id='mint-bg' />
         <div className='container' id='mintPage'>
           <div className='row'>
             <div className='col'>
               <img
                 id='mintBtn-blue'
-                src='pics/mint-btn-blue.png'
+                src='public/mint-btn-blue.png'
                 alt=''
                 onClick={() => mintToken()}
               />
@@ -89,7 +89,7 @@ const MintView = ({ contract }) => {
             <div className='col'>
               <img
                 id='mintBtn-red'
-                src='pics/mint-btn-red.png'
+                src='public/mint-btn-red.png'
                 alt=''
                 onClick={() => mintToken()}
               />
@@ -97,14 +97,14 @@ const MintView = ({ contract }) => {
             <div className='col'>
               <img
                 id='mintBtn-yellow'
-                src='pics/mint-btn-yellow.png'
+                src='public/mint-btn-yellow.png'
                 alt=''
                 onClick={() => mintToken()}
               />
             </div>
           </div>
         </div>
-        {/* <img src='pics/mint-bg-bt.png' alt='' id='mint-bg' /> */}
+        {/* <img src='public/mint-bg-bt.png' alt='' id='mint-bg' /> */}
       </div>
     </>
   );

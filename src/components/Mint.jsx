@@ -9,7 +9,7 @@ function Mint() {
         <a href='/mint'>
           <img
             id='mintBtn'
-            src='pics/mint-btn.png'
+            src='public/mint-btn.png'
             className='img-fluid logo d-none d-md-block '
             alt=''
             width='450'
@@ -52,7 +52,7 @@ function Mint() {
 // TODO: Add a gallery feature
 // function NFTImage({ contract, tokenId, getCount, signer, mintAmount }) {
 //   const imageURI = `https://gateway.pinata.cloud/ipfs/${process.env.FC_TEST_CID}/${tokenId}.png`;
-//   const imageURI = '../../pics/t-icon.jpg';
+//   const imageURI = '../../public/t-icon.jpg';
 
 //   const [isMinted, setIsMinted] = useState(false);
 //   useEffect(() => {
@@ -111,7 +111,7 @@ function Mint() {
 //       //{' '}
 //       <img
 //         className='card-img-top'
-//         src={isMinted ? imageURI : 'pics/hidden.jpg'}
+//         src={isMinted ? imageURI : 'public/hidden.jpg'}
 //       ></img>
 //       <div className='card-body'>
 //         <h5 className='card-title'>ID #{tokenId}</h5>

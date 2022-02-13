@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "scripts": {
-    "dev": "next dev",
+    "dev": "next",
     "start": "next start",
     "build": "next build",
     "fc-install": "rm -rf node_modules && rm -rf package-lock.json && npm install",
