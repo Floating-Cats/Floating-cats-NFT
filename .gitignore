@@ -1,6 +1,9 @@
 # npm dependencies
 /node_modules
 
+# next
+.next/
+
 # it holds the compiled artifacts (bytecode and metadata), 
 # it’s a good idea to add this directory to your .gitignore
 /artifacts/**/*.json

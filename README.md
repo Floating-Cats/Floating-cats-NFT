@@ -47,7 +47,7 @@ Most of all, opening a cat café is always our dream. We will team up with local
 ##### Build Command Instructions
 
 - Run `git pull origin main` (and solve merge conflicts).
-- Run `npm install` to install dependencies.
+- Run `npm run fc-install` to install dependencies.
 - Run `npx hardhat compile`. This runs the solidity compiler to convert your code (`./contracts`) into binary. Once succeed you should be able to see the artifacts folder (do not upload this folder) under src folder.
 
 ##### Run Instructions
