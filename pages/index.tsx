@@ -25,12 +25,11 @@ import React, { useState } from 'react';
 
 // imports for next
 import Head from 'next/head';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 
 // page imports
 import Home from './Home';
 import Mint from './Mint';
-import PageNotFound from './PageNotFound';
+import PageNotFound from './404';
 
 // component imports
 import Layout from '../components/Layout';
@@ -59,19 +58,11 @@ const App: React.FunctionComponent = () => {
           rel='stylesheet'
         />
       </Head>
-      <main className='body'>
-        <Layout>
-          <Router>
-            <div className='app-container'>
-              <Routes>
-                <Route path='/' element={Home()} />
-                <Route path='/mint' element={Mint()} />
-                <Route path='*' element={PageNotFound()} />
-              </Routes>
-            </div>
-          </Router>
-        </Layout>
-      </main>
+      <Layout>
+        <main className='body'>
+          <Home />
+        </main>
+      </Layout>
     </div>
   );
   // return (

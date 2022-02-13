@@ -214,14 +214,6 @@ export default function Home() {
     <div>
       {/* {getBgCloud()} */}
       {getBanner()}
-      {/* <Mint
-        contract={props.contract}
-        provider={props.provider}
-        userAddr={props.userAddr}
-        signer={props.signer}
-        totalMinted={props.totalMinted}
-        getCount={props.getCount}
-      /> */}
       {getAbout()}
       {getRoadmap()}
       {getTeam()}

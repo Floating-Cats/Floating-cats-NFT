@@ -7,7 +7,7 @@ export default function Layout({ children }: { children: any }) {
   return (
     <>
       <FCNavbar />
-      <main>{children}</main>
+      <>{children}</>
       <FCFooter />
     </>
   );
