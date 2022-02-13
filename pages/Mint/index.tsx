@@ -1,3 +1,3 @@
 export default function Mint() {
-  return <>Mint Page</>;
+  return <h1>Mint Page</h1>;
 }

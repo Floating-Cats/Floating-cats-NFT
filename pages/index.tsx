@@ -16,15 +16,16 @@
 
 // imports for react
 import React, { useState } from 'react';
-import {
-  Route,
-  Switch,
-  RouteComponentProps,
-  withRouter,
-} from 'react-router-dom';
+// import {
+//   Route,
+//   Switch,
+//   RouteComponentProps,
+//   withRouter,
+// } from 'react-router-dom';
 
 // imports for next
 import Head from 'next/head';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 
 // page imports
 import Home from './Home';
@@ -58,22 +59,19 @@ const App: React.FunctionComponent = () => {
           rel='stylesheet'
         />
       </Head>
-      <Switch>
-        {/* <Switch id='body'>
-          <Layout>
-            <Home />
-          </Layout>
-        </Switch> */}
-        {loading ? (
-          <MySpinner />
-        ) : (
-          <Layout>
-            <Route path='/' component={Home} />
-            <Route path='/mint' component={Mint} />
-            <Route path='*' component={PageNotFound} />
-          </Layout>
-        )}
-      </Switch>
+      <main className='body'>
+        <Layout>
+          <Router>
+            <div className='app-container'>
+              <Routes>
+                <Route path='/' element={Home()} />
+                <Route path='/mint' element={Mint()} />
+                <Route path='*' element={PageNotFound()} />
+              </Routes>
+            </div>
+          </Router>
+        </Layout>
+      </main>
     </div>
   );
   // return (
@@ -89,4 +87,4 @@ const App: React.FunctionComponent = () => {
   // );
 };
 
-export default withRouter(App);
+export default App;
