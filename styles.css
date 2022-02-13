@@ -164,8 +164,8 @@ a.button:hover {
   opacity: 0.8;
 }
 
-#mint {
-}
+/* #mint {
+} */
 
 .mintPageBg {
   background-image: url('public/mint-bg-wood.jpg');
@@ -179,8 +179,8 @@ a.button:hover {
   width: 100%;
   height: auto;
 }
-#mintBtn {
-}
+/* #mintBtn {
+} */
 
 #mintBtn:hover {
   cursor: pointer;
@@ -462,7 +462,7 @@ hr {
   background: -webkit-linear-gradient(top, #fff 5%, #f1f1f1 100%);
   background: -o-linear-gradient(top, #fff 5%, #f1f1f1 100%);
   background: -ms-linear-gradient(top, #fff 5%, #f1f1f1 100%);
-  background: linear-gradient(top, #fff 5%, #f1f1f1 100%);
+  background: linear-gradient(to bottom, #fff 5%, #f1f1f1 100%);
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fff', endColorstr='#f1f1f1',GradientType=0 );
 
   -webkit-border-radius: 100px;

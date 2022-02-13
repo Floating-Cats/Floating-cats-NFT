@@ -8,10 +8,6 @@ import Button from 'react-bootstrap/Button';
 import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
 
-// img imports
-import icon from '../public/icon.png';
-import logo from '../public/logo.png';
-
 // other imports
 import { toast } from 'react-toastify';
 
@@ -22,14 +18,14 @@ export function FCNavbar() {
         <Navbar.Brand href='/'>
           <h1>
             <img
-              src={icon}
+              src={'/icon.png'}
               alt=''
               width='30'
               height='30'
               className='d-inline-block align-text-top'
             />{' '}
             <img
-              src={logo}
+              src={'/logo.png'}
               alt=''
               width='200'
               height='25'
