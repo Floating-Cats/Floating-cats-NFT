@@ -15,7 +15,7 @@
 // );
 
 // imports for react
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 // import {
 //   Route,
 //   Switch,
@@ -28,17 +28,14 @@ import Head from 'next/head';
 
 // page imports
 import Home from './Home';
-import Mint from './Mint';
-import PageNotFound from './404';
 
 // component imports
 import Layout from '../components/Layout';
-import MySpinner from '../components/MySpinner';
 
 const App: React.FunctionComponent = () => {
-  const [loading, setLoading] = useState(true);
   return (
     <div>
+      {/* head */}
       <Head>
         <link rel='icon' type='image/png' href='/icon.png' />
         <meta name='viewport' content='width=device-width, initial-scale=1.0' />
@@ -58,6 +55,8 @@ const App: React.FunctionComponent = () => {
           rel='stylesheet'
         />
       </Head>
+
+      {/* body */}
       <Layout>
         <main className='body'>
           <Home />

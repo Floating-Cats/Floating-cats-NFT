@@ -6,6 +6,8 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
+import Layout from 'components/Layout';
+
 // other imports
 // const env = import.meta.env;
 import { ethers } from 'ethers';
@@ -54,58 +56,60 @@ export default function Mint() {
 
   return (
     <>
-      <div>
-        <Row>
-          <Col xs={1}>
-            <Form>
-              <Form.Group>
-                <Form.Label>Quantity</Form.Label>
-                <Form.Control
-                  required
-                  id='item-quantity'
-                  type='number'
-                  placeholder='a number'
-                  value={mintAmount}
-                  onChange={(e) => setMintAmount(e.target.value)}
+      <Layout>
+        <div>
+          <Row>
+            <Col xs={1}>
+              <Form>
+                <Form.Group>
+                  <Form.Label>Quantity</Form.Label>
+                  <Form.Control
+                    required
+                    id='item-quantity'
+                    type='number'
+                    placeholder='a number'
+                    value={mintAmount}
+                    onChange={(e) => setMintAmount(e.target.value)}
+                  />
+                </Form.Group>
+              </Form>
+            </Col>
+            <Col xs={9}></Col>
+          </Row>
+        </div>
+        <div className='mintPageBg'>
+          <img src='/mint-bg-top.png' alt='' id='mint-bg' />
+          <div className='container' id='mintPage'>
+            <div className='row'>
+              <div className='col'>
+                <img
+                  id='mintBtn-blue'
+                  src='/mint-btn-blue.png'
+                  alt=''
+                  onClick={() => mintToken()}
                 />
-              </Form.Group>
-            </Form>
-          </Col>
-          <Col xs={9}></Col>
-        </Row>
-      </div>
-      <div className='mintPageBg'>
-        <img src='/mint-bg-top.png' alt='' id='mint-bg' />
-        <div className='container' id='mintPage'>
-          <div className='row'>
-            <div className='col'>
-              <img
-                id='mintBtn-blue'
-                src='/mint-btn-blue.png'
-                alt=''
-                onClick={() => mintToken()}
-              />
-            </div>
-            <div className='col'>
-              <img
-                id='mintBtn-red'
-                src='/mint-btn-red.png'
-                alt=''
-                onClick={() => mintToken()}
-              />
-            </div>
-            <div className='col'>
-              <img
-                id='mintBtn-yellow'
-                src='/mint-btn-yellow.png'
-                alt=''
-                onClick={() => mintToken()}
-              />
+              </div>
+              <div className='col'>
+                <img
+                  id='mintBtn-red'
+                  src='/mint-btn-red.png'
+                  alt=''
+                  onClick={() => mintToken()}
+                />
+              </div>
+              <div className='col'>
+                <img
+                  id='mintBtn-yellow'
+                  src='/mint-btn-yellow.png'
+                  alt=''
+                  onClick={() => mintToken()}
+                />
+              </div>
             </div>
           </div>
+          {/* <img src='/mint-bg-bt.png' alt='' id='mint-bg' /> */}
         </div>
-        {/* <img src='/mint-bg-bt.png' alt='' id='mint-bg' /> */}
-      </div>
+      </Layout>
     </>
   );
 }
