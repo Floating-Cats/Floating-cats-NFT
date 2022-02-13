@@ -1,27 +1,4 @@
-// import dynamic from 'next/dynamic';
-
-// const PriorityExample = dynamic(
-//   () => import('../components/connectors/PriorityExample'),
-//   { ssr: false }
-// );
-
-// const MetaMaskCard = dynamic(
-//   () => import('../components/connectors/MetaMaskCard'),
-//   { ssr: false }
-// );
-// const WalletConnectCard = dynamic(
-//   () => import('../components/connectors/WalletConnectCard'),
-//   { ssr: false }
-// );
-
-// imports for react
 import React, { useEffect, useState } from 'react';
-// import {
-//   Route,
-//   Switch,
-//   RouteComponentProps,
-//   withRouter,
-// } from 'react-router-dom';
 
 // imports for next
 import Head from 'next/head';
@@ -31,6 +8,10 @@ import Home from './Home';
 
 // component imports
 import Layout from '../components/Layout';
+
+// other imports
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const App: React.FunctionComponent = () => {
   return (
@@ -57,11 +38,25 @@ const App: React.FunctionComponent = () => {
       </Head>
 
       {/* body */}
-      <Layout>
-        <main className='body'>
-          <Home />
-        </main>
-      </Layout>
+      <>
+        <ToastContainer
+          position='top-center'
+          theme='dark'
+          autoClose={1000} // 1000 ms = 1sec
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+        />
+        <Layout>
+          <main className='body'>
+            <Home />
+          </main>
+        </Layout>
+      </>
     </div>
   );
   // return (
