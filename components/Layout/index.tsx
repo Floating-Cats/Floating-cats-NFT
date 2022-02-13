@@ -3,7 +3,7 @@
 import { FCNavbar } from '../FCNavbar';
 import { FCFooter } from '../FCFooter';
 
-export default function Layout({ children }) {
+export default function Layout({ children }: { children: any }) {
   return (
     <>
       <FCNavbar />

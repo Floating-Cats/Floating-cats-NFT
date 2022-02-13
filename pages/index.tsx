@@ -35,7 +35,7 @@ import PageNotFound from './PageNotFound';
 import Layout from '../components/Layout';
 import MySpinner from '../components/MySpinner';
 
-const App: JSX.Element = () => {
+const App: React.FunctionComponent = () => {
   const [loading, setLoading] = useState(true);
   return (
     <div>
