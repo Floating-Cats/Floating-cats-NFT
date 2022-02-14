@@ -119,7 +119,7 @@ function Home(props) {
             <div className='col'>
               <div className='flip'>
                 <div className='front'>
-                  <img src='pics/shelter.PNG' alt='' width='300' height='200' />
+                  <img src='pics/sandbox.PNG' alt='' width='300' height='200' />
                   <p>Sandbox Coummuity Hub</p>
                 </div>
                 <div className='back'>
@@ -153,7 +153,10 @@ function Home(props) {
               <div className='flipTwo'>
                 <div className='front'>
                   <img src='pics/vault.PNG' alt='' width='300' height='200' />
-                  <p>community vault</p>
+                  <p>
+                    community vault &
+                    <br /> Airdrops
+                  </p>
                 </div>
                 <div className='back'>
                   <h2>Angular</h2>
@@ -168,7 +171,9 @@ function Home(props) {
               <div className='flipTwo'>
                 <div className='front'>
                   <img src='pics/Fcoin.PNG' alt='' width='300' height='200' />
-                  <p>$FLOAT Token</p>
+                  <p>
+                    $FLOAT Token & <br /> P2E development
+                  </p>
                 </div>
                 <div className='back'>
                   <h2>Angular</h2>
