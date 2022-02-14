@@ -34,7 +34,6 @@ function Home(props) {
       </>
     );
   };
-
   // get banner
   const getBanner = () => {
     return (
@@ -100,36 +99,118 @@ function Home(props) {
         <div className='container' id='roadmap'>
           <h1>ROADMAP</h1>
           <hr />
+
           <div className='row'>
             <div className='col'>
-              <img src='pics/cafe.PNG' alt='' width='300' height='200' />
-              <p>Opening a Cat Cafe</p>
-              <p>(Partner with Shelters)</p>
-              <p>(Holders will get free items/discount)</p>
+              <div className='flip'>
+                <div className='front'>
+                  <img src='pics/shelter.PNG' alt='' width='300' height='200' />
+                  <p>Shelter Donations</p>
+                </div>
+                <div className='back'>
+                  <h2>Angular</h2>
+                  <h4>
+                    Good tools make application development quicker and easier
+                    to maintain than if you did everything by hand..
+                  </h4>
+                </div>
+              </div>
             </div>
             <div className='col'>
-              <img src='pics/shelter.PNG' alt='' width='300' height='200' />
-              <p>Shelter Donations</p>
-              <p>(We will donate 10 eth to selected shelters)</p>
-              <p>(30% of OS loyalties gose to shelters)</p>
+              <div className='flip'>
+                <div className='front'>
+                  <img src='pics/shelter.PNG' alt='' width='300' height='200' />
+                  <p>Sandbox Coummuity Hub</p>
+                </div>
+                <div className='back'>
+                  <h2>Angular</h2>
+                  <h4>
+                    Good tools make application development quicker and easier
+                    to maintain than if you did everything by hand..
+                  </h4>
+                </div>
+              </div>
             </div>
           </div>
+
           <div className='row'>
             <div className='col'>
-              <img src='pics/vault.PNG' alt='' width='300' height='200' />
-              <p>Community Vault</p>
-              <p>(30% of initial sales)</p>
-              <p>(30% OS sales)</p>
+              <div className='flipTwo'>
+                <div className='front'>
+                  <img src='pics/merch.PNG' alt='' width='300' height='200' />
+                  <p>Exclusive Merchandises</p>
+                </div>
+                <div className='back'>
+                  <h2>Angular</h2>
+                  <h4>
+                    Good tools make application development quicker and easier
+                    to maintain than if you did everything by hand..
+                  </h4>
+                </div>
+              </div>
             </div>
             <div className='col'>
-              <img src='pics/Fcoin.PNG' alt='' width='300' height='200' />
-              <p>$FLOAT coin utilities</p>
-              <p>(Stack coins for future P2E, and in-store purchases)</p>
+              <div className='flipTwo'>
+                <div className='front'>
+                  <img src='pics/vault.PNG' alt='' width='300' height='200' />
+                  <p>community vault</p>
+                </div>
+                <div className='back'>
+                  <h2>Angular</h2>
+                  <h4>
+                    Good tools make application development quicker and easier
+                    to maintain than if you did everything by hand..
+                  </h4>
+                </div>
+              </div>
             </div>
             <div className='col'>
-              <img src='pics/merch.png' alt='' width='300' height='200' />
-              <p>Exclusive Merchandise </p>
-              <p>(Weekly giveaways)</p>
+              <div className='flipTwo'>
+                <div className='front'>
+                  <img src='pics/Fcoin.PNG' alt='' width='300' height='200' />
+                  <p>$FLOAT Token</p>
+                </div>
+                <div className='back'>
+                  <h2>Angular</h2>
+                  <h4>
+                    Good tools make application development quicker and easier
+                    to maintain than if you did everything by hand..
+                  </h4>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className='row'>
+            <div className='col'>
+              <div className='flip'>
+                <div className='front'>
+                  <img src='pics/cafe.PNG' alt='' width='300' height='200' />
+                  <p>Floating Cat Cafe</p>
+                </div>
+                <div className='back'>
+                  <h2>Angular</h2>
+                  <h4>
+                    Good tools make application development quicker and easier
+                    to maintain than if you did everything by hand..
+                  </h4>
+                </div>
+              </div>
+            </div>
+            <div className='col'>
+              <div className='flip'>
+                <div className='front'>
+                  <img src='pics/shelter.PNG' alt='' width='300' height='200' />
+                  <p>More and Beyound</p>
+                </div>
+                <div className='back'>
+                  <h2>Angular</h2>
+                  <h4>
+                    Good tools make application development quicker and easier
+                    to maintain than if you did everything by hand..
+                  </h4>
+                </div>
+              </div>
             </div>
           </div>
         </div>

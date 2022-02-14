@@ -9,10 +9,12 @@ const MySpinner = (props) => {
     transform: 'translate(-50%, -50%)',
   };
   return (
-    <div style={style}>
-      <Spinner animation='grow' />
-      <br />
-      Loading ...
+    <div id='overlay'>
+      <div style={style}>
+        <Spinner animation='grow' />
+        <br />
+        Loading ...
+      </div>
     </div>
   );
 };

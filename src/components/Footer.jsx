@@ -2,7 +2,7 @@ function Footer() {
   // get footer
   const getFooter = () => {
     return (
-      <>
+      <div id='footer'>
         <footer className='bg-dark text-center text-white'>
           <div className='container p-4 pb-0'>
             <section className='mb-4'>
@@ -53,7 +53,7 @@ function Footer() {
           </div>
           {/* <!-- Copyright --> */}
         </footer>
-      </>
+      </div>
     );
   };
 

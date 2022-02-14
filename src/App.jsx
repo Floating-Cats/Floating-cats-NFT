@@ -78,36 +78,38 @@ function App() {
             draggable
             pauseOnHover
           />
-          <Navbar
-            provider={provider}
-            userAddr={userAddr}
-            setUserAddr={setUserAddr}
-          />
           {loading ? (
             <>
               <MySpinner />
             </>
           ) : (
-            <Switch id='body'>
-              <Route exact path='/'>
-                <Home
-                  provider={provider}
-                  userAddr={userAddr}
-                  contract={contract}
-                  signer={signer}
-                  // totalMinted={totalMinted}
-                  getCount={getCount}
-                />
-              </Route>
-              <Route path='/mint'>
-                <MintView contract={contract} />
-              </Route>
-              <Route path='*'>
-                <PageNotFound />
-              </Route>
-            </Switch>
+            <>
+              <Navbar
+                provider={provider}
+                userAddr={userAddr}
+                setUserAddr={setUserAddr}
+              />
+              <Switch id='body'>
+                <Route exact path='/'>
+                  <Home
+                    provider={provider}
+                    userAddr={userAddr}
+                    contract={contract}
+                    signer={signer}
+                    // totalMinted={totalMinted}
+                    getCount={getCount}
+                  />
+                </Route>
+                <Route path='/mint'>
+                  <MintView contract={contract} />
+                </Route>
+                <Route path='*'>
+                  <PageNotFound />
+                </Route>
+              </Switch>
+              <Footer />
+            </>
           )}
-          <Footer />
         </Router>
       </Web3ReactProvider>
     </>
