@@ -400,9 +400,24 @@ a.button:hover {
   margin-top: 5px;
 }
 
+#roadmap h2 {
+  color: rgb(23, 26, 25);
+  text-shadow: 1.5px 1.5px 1.5px rgb(138, 138, 131);
+  font-family: 'Coming Soon', cursive;
+}
+
 #roadmap h3 {
   margin-top: 100%;
   font-size: 75px;
+  font-weight: 900;
+  text-shadow: 2px 2px 2px rgb(138, 138, 131);
+}
+
+#roadmap h4 {
+  margin-top: 3%;
+  color: rgb(81, 112, 114);
+  font-size: 20px;
+  font-family: 'Coming Soon', cursive;
 }
 #roadmap img {
   width: 300px;
@@ -442,11 +457,6 @@ h3 {
   margin-top: 5%;
   font-family: 'Coming Soon', cursive;
   font-weight: bold;
-}
-
-h4 {
-  margin-top: 3%;
-  color: antiquewhite;
 }
 
 p {

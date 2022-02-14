@@ -108,10 +108,14 @@ function Home(props) {
                   <p>Shelter Donations</p>
                 </div>
                 <div className='back'>
-                  <h2>Angular</h2>
+                  <h2>Q1 - 2022</h2>
+
                   <h4>
-                    Good tools make application development quicker and easier
-                    to maintain than if you did everything by hand..
+                    We will donate <strong>30%</strong> of our earnings to
+                    organizations or groups relevant to animal care. In addition
+                    to that, we plan to partner with these organizations or
+                    groups as we hope to provide their needs and share their
+                    burden, so that more cats can be taken care of. 🏩
                   </h4>
                 </div>
               </div>
@@ -123,10 +127,14 @@ function Home(props) {
                   <p>Sandbox Coummuity Hub</p>
                 </div>
                 <div className='back'>
-                  <h2>Angular</h2>
+                  <h2>Q3 - 2022</h2>
                   <h4>
-                    Good tools make application development quicker and easier
-                    to maintain than if you did everything by hand..
+                    We will build a community hub in the Sandbox for our
+                    community members to socialize and play mini-games! 👾
+                    <br />
+                    <br /> <strong>Sandbox Avatar Development Commences</strong>
+                    <br /> We will make a series of Sandbox avatars. This will
+                    be a free drop for holders. 📦
                   </h4>
                 </div>
               </div>
@@ -137,14 +145,16 @@ function Home(props) {
             <div className='col'>
               <div className='flipTwo'>
                 <div className='front'>
-                  <img src='pics/merch.PNG' alt='' width='300' height='200' />
-                  <p>Exclusive Merchandises</p>
+                  <img src='pics/vault.PNG' alt='' width='300' height='200' />
+                  <p>community vault</p>
                 </div>
                 <div className='back'>
-                  <h2>Angular</h2>
+                  <h2>Q1 - 2022</h2>
                   <h4>
-                    Good tools make application development quicker and easier
-                    to maintain than if you did everything by hand..
+                    <br />
+                    <strong>30%</strong> of the initial sales &
+                    <strong> 30%</strong> of the OS sales will go to the
+                    community wallet for giveawys and event funds. 💰
                   </h4>
                 </div>
               </div>
@@ -152,17 +162,18 @@ function Home(props) {
             <div className='col'>
               <div className='flipTwo'>
                 <div className='front'>
-                  <img src='pics/vault.PNG' alt='' width='300' height='200' />
-                  <p>
-                    community vault &
-                    <br /> Airdrops
-                  </p>
+                  <img src='pics/merch.PNG' alt='' width='300' height='200' />
+                  <p>Exclusive Merchandises</p>
                 </div>
                 <div className='back'>
-                  <h2>Angular</h2>
+                  <h2>Q2 - 2022</h2>
                   <h4>
-                    Good tools make application development quicker and easier
-                    to maintain than if you did everything by hand..
+                    We will release the first colletion of our floating brand.
+                    anything from clothing to lifestyle items will be avalible
+                    for our holders.
+                    <br />
+                    <br />
+                    <strong>‼️ Weekly holders only giveaways 🎁</strong>
                   </h4>
                 </div>
               </div>
@@ -176,10 +187,12 @@ function Home(props) {
                   </p>
                 </div>
                 <div className='back'>
-                  <h2>Angular</h2>
+                  <h2>Q4 - 2022</h2>
                   <h4>
-                    Good tools make application development quicker and easier
-                    to maintain than if you did everything by hand..
+                    <strong>$FLOAT stacking</strong> <br />
+                    The amount depends on the number of NFTs you hold +
+                    contributions you make in the server. $FLOAT can be used to
+                    purchase our merch and in-store items. 🪙
                   </h4>
                 </div>
               </div>
@@ -194,10 +207,17 @@ function Home(props) {
                   <p>Floating Cat Cafe</p>
                 </div>
                 <div className='back'>
-                  <h2>Angular</h2>
+                  <h2>Q1 - 2023</h2>
                   <h4>
-                    Good tools make application development quicker and easier
-                    to maintain than if you did everything by hand..
+                    ☕ Opening Floating Cats Café has always been our dream. The
+                    cafe will partner and assist with local shelters, and
+                    provide space for those kitties with care and love.🧡
+                    Meanwhile, the space is to be served as an interactive way
+                    to encourage adoption.
+                    <br />
+                    <strong>
+                      Hoders will have free items/discounts for every visits. 🎉
+                    </strong>
                   </h4>
                 </div>
               </div>
@@ -209,11 +229,8 @@ function Home(props) {
                   <p>More and Beyound</p>
                 </div>
                 <div className='back'>
-                  <h2>Angular</h2>
-                  <h4>
-                    Good tools make application development quicker and easier
-                    to maintain than if you did everything by hand..
-                  </h4>
+                  <h2>🚀 🔜</h2>
+                  <h4>3D NFT avatar</h4>
                 </div>
               </div>
             </div>
