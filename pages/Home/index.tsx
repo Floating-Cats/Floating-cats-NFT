@@ -56,7 +56,6 @@ export default function Home() {
   };
 
   // get about
-
   const getAbout = () => {
     return (
       <div className='about-bg' id='about'>
@@ -161,7 +160,6 @@ export default function Home() {
   };
 
   // faq
-
   const getFaq = () => {
     return (
       <div className='container' id='faq'>

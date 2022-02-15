@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import type { AppProps /*, AppContext */ } from 'next/app';
 import 'bootstrap/dist/css/bootstrap.css';
 
@@ -11,9 +12,29 @@ import '../styles.css';
 import Layout from '../components/Layout';
 
 function MyApp({ Component, pageProps }: AppProps) {
+  const [chainId, setChainId] = useState<number | any>(null);
+  const [account, setAccount] = useState<string | any>(null);
+  const [error, setError] = useState<string | any>(null);
+  const [isActivating, setIsActivating] = useState<boolean | any>(null);
+  const [isActive, setIsActive] = useState<boolean | any>(null);
+  const [provider, setProvider] = useState<string | any>(null);
+  const [ENSNames, setENSNames] = useState<string | any>(null);
+
+  useEffect(() => {
+    setConnection();
+  }, []);
+
+  const setConnection = () => {
+    return null;
+  };
+
   return (
     <>
-      <Layout>
+      <Layout
+        getText={() => {
+          return 'hi how are you';
+        }}
+      >
         <div>
           {
             // prevent Next.js from trying to render anything on the server

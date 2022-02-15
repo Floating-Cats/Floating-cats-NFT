@@ -8,8 +8,10 @@ import { FCFooter } from '../FCFooter';
 import MySpinner from '../MySpinner';
 
 export default function Layout({
+  getText,
   children,
 }: {
+  getText: () => string;
   children: JSX.Element | JSX.Element[];
 }) {
   const [loading, setLoading] = useState<boolean | any>(true);
