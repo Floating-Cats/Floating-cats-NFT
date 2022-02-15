@@ -1,16 +1,40 @@
 import type { AppProps /*, AppContext */ } from 'next/app';
 import 'bootstrap/dist/css/bootstrap.css';
+
+//
+import { ToastContainer } from 'react-toastify';
+// import toast from '../components/Toast';
+import 'react-toastify/dist/ReactToastify.css';
+
 import '../styles.css';
+
+import Layout from '../components/Layout';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <div>
-      {
-        // prevent Next.js from trying to render anything on the server
-        // unless the window object is defined.
-        typeof window === 'undefined' ? null : <Component {...pageProps} />
-      }
-    </div>
+    <>
+      <Layout>
+        <div>
+          {
+            // prevent Next.js from trying to render anything on the server
+            // unless the window object is defined.
+            typeof window === 'undefined' ? null : <Component {...pageProps} />
+          }
+        </div>
+      </Layout>
+      <ToastContainer
+        position='top-center'
+        theme='dark'
+        autoClose={1000} // 1000 ms = 1sec
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
+    </>
   );
 }
 
