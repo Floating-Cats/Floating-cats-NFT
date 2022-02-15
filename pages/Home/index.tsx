@@ -59,8 +59,8 @@ export default function Home() {
 
   const getAbout = () => {
     return (
-      <div className='about-bg'>
-        <div className='row' id='about'>
+      <div className='about-bg' id='about'>
+        <div className='row'>
           <div className='col-md-6'>
             <img src='/flag.png' id='flag' height='200' width='500' />
           </div>

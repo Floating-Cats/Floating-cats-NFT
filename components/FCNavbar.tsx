@@ -82,12 +82,12 @@ export function FCNavbar() {
       <Container>
         <Navbar.Brand href='/'>{getNavBrand()}</Navbar.Brand>
         <Navbar.Toggle aria-controls='responsive-navbar-nav' />
-        <Navbar.Collapse className='' id='responsive-navbar-nav'>
+        <Navbar.Collapse id='responsive-navbar-nav'>
           <Nav className='me-auto'>
             <Nav.Link href='/Mint'>MINT</Nav.Link>
-            <Nav.Link href='#about'>ABOUT</Nav.Link>
-            <Nav.Link href='#roadmap'>ROADMAP</Nav.Link>
-            <Nav.Link href='#team'>TEAM</Nav.Link>
+            <Nav.Link href='/#about'>ABOUT</Nav.Link>
+            <Nav.Link href='/#roadmap'>ROADMAP</Nav.Link>
+            <Nav.Link href='/#team'>TEAM</Nav.Link>
           </Nav>
           <Nav className='ms-auto'>
             <Button onClick={() => onClickConnectWallet()}>Connect</Button>
