@@ -97,7 +97,7 @@ function Home(props) {
     return (
       <>
         <div className='container' id='roadmap'>
-          <h1>ROADMAP</h1>
+          <h1>FLOATMAP</h1>
           <hr />
 
           <div className='row'>
@@ -169,7 +169,7 @@ function Home(props) {
                   <h2>Q2 - 2022</h2>
                   <h4>
                     We will release the first colletion of our floating brand.
-                    anything from clothing to lifestyle items will be avalible
+                    Anything from clothing to lifestyle items will be avalible
                     for our holders.
                     <br />
                     <br />
@@ -298,7 +298,7 @@ function Home(props) {
               </p>
             </Collapsible>
             <Collapsible trigger=' What is the mint price?' id='faq_Q'>
-              <p id='answers'>TBD. Join our discord see the lastest updates.</p>
+              <p id='answers'>TBD. Join our discord for the latest updates.</p>
             </Collapsible>
           </>
           <Collapsible trigger='Will there be a Whitelist?' id='faq_Q'>

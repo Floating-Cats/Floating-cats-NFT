@@ -439,6 +439,11 @@ a.button:hover {
   color: antiquewhite;
 }
 
+#team h4 {
+  color: antiquewhite;
+  margin-top: 2%;
+}
+
 #team img {
   margin-top: 5%;
   border-radius: 50%;
@@ -505,6 +510,7 @@ hr {
   background-color: rgb(252, 242, 230);
   border-radius: 30px;
   border-style: outset;
+  box-shadow: 1px 1px 1px gray;
 }
 
 .Collapsible__trigger {
