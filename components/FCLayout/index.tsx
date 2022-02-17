@@ -5,9 +5,9 @@ import Head from 'next/head';
 
 import { FCNavbar } from '../FCNavbar';
 import { FCFooter } from '../FCFooter';
-import MySpinner from '../MySpinner';
+import FCSpinner from '../FCSpinner';
 
-export default function Layout({
+export default function FCLayout({
   getText,
   children,
 }: {
@@ -47,7 +47,7 @@ export default function Layout({
       </Head>
       <div className='body'>
         {loading ? (
-          <MySpinner />
+          <FCSpinner />
         ) : (
           <>
             <FCNavbar />

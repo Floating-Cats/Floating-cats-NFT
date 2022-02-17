@@ -9,7 +9,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import '../styles.css';
 
-import Layout from '../components/Layout';
+import FCLayout from '../components/FCLayout';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [chainId, setChainId] = useState<number | any>(null);
@@ -30,7 +30,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   return (
     <>
-      <Layout
+      <FCLayout
         getText={() => {
           return 'hi how are you';
         }}
@@ -42,7 +42,7 @@ function MyApp({ Component, pageProps }: AppProps) {
             typeof window === 'undefined' ? null : <Component {...pageProps} />
           }
         </div>
-      </Layout>
+      </FCLayout>
       <ToastContainer
         position='top-center'
         theme='dark'

@@ -6,7 +6,7 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
-import Layout from 'components/Layout';
+import FCLayout from 'components/FCLayout';
 
 // other imports
 // const env = import.meta.env;

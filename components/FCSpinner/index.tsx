@@ -1,6 +1,6 @@
 import Spinner from 'react-bootstrap/Spinner';
 
-export default function MySpinner() {
+export default function FCSpinner() {
   return (
     <div
       style={{

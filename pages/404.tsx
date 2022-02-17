@@ -1,9 +1,9 @@
-import Layout from '../components/Layout';
+import FCLayout from '../components/FCLayout';
 
 export default function Custom404() {
   return (
-    <Layout>
+    <FCLayout>
       <h1>404 Page Not Found</h1>
-    </Layout>
+    </FCLayout>
   );
 }
