@@ -111,7 +111,7 @@ function Home(props) {
                   <h2>Q1 - 2022</h2>
 
                   <h4>
-                    We will donate <strong>30%</strong> of our earnings to
+                    We will donate <strong>10%</strong> of our earnings to
                     organizations or groups relevant to animal care. In addition
                     to that, we plan to partner with these organizations or
                     groups as we hope to provide their needs and share their
@@ -146,13 +146,14 @@ function Home(props) {
               <div className='flipTwo'>
                 <div className='front'>
                   <img src='pics/vault.PNG' alt='' width='300' height='200' />
-                  <p>community vault</p>
+                  <p>community vault & Giveaways</p>
                 </div>
                 <div className='back'>
                   <h2>Q1 - 2022</h2>
                   <h4>
+                    We will set up a community wallet and giveaway
+                    <strong> 5%</strong> of the initial sales to our holders.
                     <br />
-                    <strong>30%</strong> of the initial sales &
                     <strong> 30%</strong> of the OS sales will go to the
                     community wallet for giveawys and event funds. 💰
                   </h4>
@@ -189,7 +190,7 @@ function Home(props) {
                 <div className='back'>
                   <h2>Q4 - 2022</h2>
                   <h4>
-                    <strong>$FLOAT stacking</strong> <br />
+                    <strong>$FLOAT Staking</strong> <br />
                     The amount depends on the number of NFTs you hold +
                     contributions you make in the server. $FLOAT can be used to
                     purchase our merch and in-store items. 🪙
@@ -230,7 +231,12 @@ function Home(props) {
                 </div>
                 <div className='back'>
                   <h2>🚀 🔜</h2>
-                  <h4>3D NFT avatar</h4>
+                  <ul>
+                    <li>3D Avatar</li>
+                    <li>Mobile Game</li>
+                    <li>Real life Meetups</li>
+                    <li>Travel Givawys</li>
+                  </ul>
                 </div>
               </div>
             </div>
@@ -294,7 +300,7 @@ function Home(props) {
               id='faq_Q'
             >
               <p id='answers'>
-                There will be 8,888 unique NFT’s including 15 1️⃣OF1️⃣.
+                There will be 5,888 unique NFT’s including 15 1️⃣OF1️⃣.
               </p>
             </Collapsible>
             <Collapsible trigger=' What is the mint price?' id='faq_Q'>

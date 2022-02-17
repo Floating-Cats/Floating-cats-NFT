@@ -424,6 +424,11 @@ a.button:hover {
   height: 200px;
 }
 
+#roadmap li {
+  color: #221e1f;
+  font-family: 'Coming Soon', cursive;
+}
+
 .team-bg {
   background-color: #221e1f;
   padding-top: 3%;
