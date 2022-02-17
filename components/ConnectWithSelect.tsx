@@ -2,7 +2,7 @@ import type { Web3ReactHooks } from '@web3-react/core';
 import type { MetaMask } from '@web3-react/metamask';
 import { Network } from '@web3-react/network';
 import { WalletConnect } from '@web3-react/walletconnect';
-import type { WalletLink } from '@web3-react/walletlink';
+// import type { WalletLink } from '@web3-react/walletlink';
 import { useCallback, useState } from 'react';
 import { CHAINS, getAddChainParameters, URLS } from '../chains';
 
@@ -12,8 +12,8 @@ function Select({
   displayDefault,
   chainIds,
 }: {
-  chainId: number;
-  switchChain: (chainId: number) => Promise<void> | undefined;
+  chainId: number | any;
+  switchChain: ((chainId: number) => Promise<void>) | any;
   displayDefault: boolean;
   chainIds: number[];
 }) {
@@ -42,7 +42,7 @@ export function ConnectWithSelect({
   error,
   isActive,
 }: {
-  connector: MetaMask | WalletConnect | WalletLink | Network;
+  connector: MetaMask | WalletConnect | Network /*| WalletLink*/;
   chainId: ReturnType<Web3ReactHooks['useChainId']>;
   isActivating: ReturnType<Web3ReactHooks['useIsActivating']>;
   error: ReturnType<Web3ReactHooks['useError']>;
