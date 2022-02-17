@@ -16,7 +16,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   const [account, setAccount] = useState<string | any>(null);
   const [error, setError] = useState<string | any>(null);
   const [isActivating, setIsActivating] = useState<boolean | any>(null);
-  const [isActive, setIsActive] = useState<boolean | any>(null);
+  const [isActive, setIsActive] = useState<boolean | any>(false);
   const [provider, setProvider] = useState<string | any>(null);
   const [ENSNames, setENSNames] = useState<string | any>(null);
 
@@ -24,8 +24,22 @@ function MyApp({ Component, pageProps }: AppProps) {
     setConnection();
   }, []);
 
-  const setConnection = () => {
-    return null;
+  const setConnection = (
+    chainId: number | any = null,
+    account: String | any = null,
+    error: String | any = null,
+    isActivating: boolean | any = null,
+    isActive: boolean = false,
+    provider: Object | any = null,
+    ENSNames: Object | any = null
+  ) => {
+    setChainId(chainId);
+    setAccount(account);
+    setError(error);
+    setIsActivating(isActivating);
+    setIsActive(isActive);
+    setProvider(provider);
+    setENSNames(ENSNames);
   };
 
   return (

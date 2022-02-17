@@ -5,6 +5,10 @@ import { Chain } from '../Chain';
 import { ConnectWithSelect } from '../ConnectWithSelect';
 import { Status } from '../Status';
 
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
+import ListGroup from 'react-bootstrap/ListGroup';
+
 const {
   useChainId,
   useAccounts,
@@ -37,22 +41,18 @@ export default function WalletConnectCard() {
     console.log(`ENSNames: ${ENSNames}, ${typeof ENSNames}`);
   }
   return (
-    <Card>
-      <div>
-        <b>WalletConnect</b>
-        <Status isActivating={isActivating} error={error} isActive={isActive} />
-        <div style={{ marginBottom: '1rem' }} />
-        <Chain chainId={chainId} />
-        <Accounts accounts={accounts} provider={provider} ENSNames={ENSNames} />
-      </div>
-      <div style={{ marginBottom: '1rem' }} />
-      <ConnectWithSelect
-        connector={walletConnect}
-        chainId={chainId}
-        isActivating={isActivating}
-        error={error}
-        isActive={isActive}
-      />
-    </Card>
+    <>
+      <ListGroup.Item action onClick={() => {}}>
+        <Row>
+          <Col d-flex>
+            <h1>
+              <img src={'../../WalletConnect-icon.svg'} alt='' width='60' />
+            </h1>
+            <h3>Wallet Connect</h3>
+            <h6>Scan with WalletConnect to Connect</h6>
+          </Col>
+        </Row>
+      </ListGroup.Item>
+    </>
   );
 }

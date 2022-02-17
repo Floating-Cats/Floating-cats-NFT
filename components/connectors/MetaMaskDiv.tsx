@@ -1,9 +1,13 @@
-import { hooks, walletConnect } from '../../connectors/walletConnect';
+import { hooks, metaMask } from '../../connectors/metaMask';
 import { Accounts } from '../Accounts';
 import { Card } from '../Card';
 import { Chain } from '../Chain';
 import { ConnectWithSelect } from '../ConnectWithSelect';
 import { Status } from '../Status';
+
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
+import ListGroup from 'react-bootstrap/ListGroup';
 
 const {
   useChainId,
@@ -15,19 +19,19 @@ const {
   useENSNames,
 } = hooks;
 
-export default function WalletConnectCard() {
+export default function MetaMaskCard() {
   const chainId = useChainId();
   const accounts = useAccounts();
   const error = useError();
   const isActivating = useIsActivating();
 
-  const isActive = useIsActive() || false;
+  const isActive = useIsActive();
 
   const provider = useProvider();
   const ENSNames = useENSNames(provider);
 
   if (isActive) {
-    console.log('WalletConnectCard');
+    console.log('MetaMaskCard');
     console.log(`chainId: ${chainId}, ${typeof chainId}`);
     console.log(`accounts: ${accounts}, ${typeof accounts}`);
     console.log(`error: ${error}, ${typeof error}`);
@@ -36,23 +40,20 @@ export default function WalletConnectCard() {
     console.log(`provider: ${provider}, ${typeof provider}`);
     console.log(`ENSNames: ${ENSNames}, ${typeof ENSNames}`);
   }
+
   return (
-    <Card>
-      <div>
-        <b>WalletConnect</b>
-        <Status isActivating={isActivating} error={error} isActive={isActive} />
-        <div style={{ marginBottom: '1rem' }} />
-        <Chain chainId={chainId} />
-        <Accounts accounts={accounts} provider={provider} ENSNames={ENSNames} />
-      </div>
-      <div style={{ marginBottom: '1rem' }} />
-      <ConnectWithSelect
-        connector={walletConnect}
-        chainId={chainId}
-        isActivating={isActivating}
-        error={error}
-        isActive={isActive}
-      />
-    </Card>
+    <>
+      <ListGroup.Item action onClick={() => {}}>
+        <Row>
+          <Col d-flex>
+            <h1>
+              <img src={'../../MetaMask-icon.svg'} alt='' width='60' />
+            </h1>
+            <h3>MetaMask</h3>
+            <h6>Connect to your MetaMask Wallet</h6>
+          </Col>
+        </Row>
+      </ListGroup.Item>
+    </>
   );
 }

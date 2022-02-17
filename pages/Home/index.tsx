@@ -8,7 +8,7 @@ import FCTeam from 'components/FCTeam';
 export default function Home() {
   return (
     <>
-      <FCBgCloud />
+      {/* <FCBgCloud /> */}
       <FCBanner />
       <FCAbout />
       <FCRoadmap />
