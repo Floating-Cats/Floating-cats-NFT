@@ -2,10 +2,10 @@ import type { Web3ReactHooks } from '@web3-react/core';
 import type { MetaMask } from '@web3-react/metamask';
 import { Network } from '@web3-react/network';
 import { WalletConnect } from '@web3-react/walletconnect';
-// import type { WalletLink } from '@web3-react/walletlink';
 import { useCallback, useState } from 'react';
-import { CHAINS, getAddChainParameters, URLS } from '../chains';
+import { CHAINS, getAddChainParameters, URLS } from '../../chains';
 
+// FIXME: comment out if we don't want to switch between networks
 function Select({
   chainId,
   switchChain,
@@ -21,8 +21,8 @@ function Select({
   return (
     <select
       value={chainId}
-      onChange={(e) => {
-        switchChain?.(Number(e.target.value));
+      onChange={(event) => {
+        switchChain?.(Number(event.target.value));
       }}
       disabled={switchChain === undefined}
     >
@@ -41,7 +41,7 @@ function Select({
   );
 }
 
-export function ConnectWithSelect({
+export default function OnClickConnectButton({
   connector,
   chainId,
   isActivating,
@@ -54,10 +54,9 @@ export function ConnectWithSelect({
   error: ReturnType<Web3ReactHooks['useError']>;
   isActive: ReturnType<Web3ReactHooks['useIsActive']>;
 }) {
+  // check if there is a network
   const isNetwork = connector instanceof Network;
   const displayDefault = !isNetwork;
-  // console.log('URLS ~~~ ', URLS);
-  // console.log('CHAINS ~~~ ', CHAINS);
   const chainIds = (isNetwork ? Object.keys(URLS) : Object.keys(CHAINS)).map(
     (chainId) => Number(chainId)
   );
@@ -66,32 +65,6 @@ export function ConnectWithSelect({
     isNetwork ? 1 : -1
   );
 
-  // TODO: comment this out and connect straight to mainnet before deployment
-  const switchChain = useCallback(
-    async (desiredChainId: number) => {
-      setDesiredChainId(desiredChainId);
-      // if we're already connected to the desired chain, return
-      if (desiredChainId === chainId) return;
-      // if they want to connect to the default chain and we're already connected, return
-      if (desiredChainId === -1 && chainId !== undefined) return;
-
-      if (connector instanceof WalletConnect || connector instanceof Network) {
-        await connector.activate(
-          desiredChainId === -1 ? undefined : desiredChainId
-        );
-      } else {
-        await connector.activate(
-          desiredChainId === -1
-            ? undefined
-            : getAddChainParameters(desiredChainId)
-        );
-      }
-    },
-    [connector, chainId]
-  );
-
-  console.log('switchChain ~~ ', switchChain);
-
   if (error) {
     // if an error is caught during connection
     // TODO: add more catches
@@ -99,7 +72,8 @@ export function ConnectWithSelect({
       <div style={{ display: 'flex', flexDirection: 'column' }}>
         <Select
           chainId={desiredChainId}
-          switchChain={switchChain}
+          // switchChain={switchChain}
+          switchChain={null}
           displayDefault={displayDefault}
           chainIds={chainIds}
         />
@@ -127,7 +101,8 @@ export function ConnectWithSelect({
       <div style={{ display: 'flex', flexDirection: 'column' }}>
         <Select
           chainId={desiredChainId === -1 ? -1 : chainId}
-          switchChain={switchChain}
+          // switchChain={switchChain}
+          switchChain={null}
           displayDefault={displayDefault}
           chainIds={chainIds}
         />
@@ -141,7 +116,8 @@ export function ConnectWithSelect({
       <div style={{ display: 'flex', flexDirection: 'column' }}>
         <Select
           chainId={desiredChainId}
-          switchChain={isActivating ? undefined : switchChain}
+          // switchChain={isActivating ? undefined : switchChain}
+          switchChain={null}
           displayDefault={displayDefault}
           chainIds={chainIds}
         />
