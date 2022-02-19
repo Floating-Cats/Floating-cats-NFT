@@ -7,7 +7,7 @@ import Button from 'react-bootstrap/Button';
 import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
 // imports for components
-import FCWalletConnModal from './FCWalletConnModal';
+import FCWalletConnModal from '../../FCWalletConnModal';
 // other imports
 import { toast } from 'react-toastify';
 

@@ -3,8 +3,8 @@
 import { useEffect, useState } from 'react';
 import Head from 'next/head';
 
-import { FCNavbar } from '../FCNavbar';
-import { FCFooter } from '../FCFooter';
+import { FCNavbar } from './FCNavbar';
+import { FCFooter } from './FCFooter';
 import FCSpinner from '../FCSpinner';
 
 export default function FCLayout({
