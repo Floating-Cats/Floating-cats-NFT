@@ -6,15 +6,15 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 
-const MetaMaskDiv = dynamic(() => import('./connectors/MetaMaskDiv'), {
+const MetaMaskDiv = dynamic(() => import('../connectors/MetaMaskDiv'), {
   ssr: false,
 });
 const WalletConnectDiv = dynamic(
-  () => import('./connectors/WalletConnectDiv'),
+  () => import('../connectors/WalletConnectDiv'),
   { ssr: false }
 );
 
-export default function FCWalletConnectModal(props: {
+export default function FCWalletConnModal(props: {
   show: boolean;
   onHide: any;
 }) {
@@ -28,7 +28,7 @@ export default function FCWalletConnectModal(props: {
       <Modal.Header closeButton></Modal.Header>
       <Modal.Body>
         <Row className='justify-content-center'>
-          <ListGroup defaultActiveKey='#link1'>
+          <ListGroup>
             <MetaMaskDiv />
             <WalletConnectDiv />
           </ListGroup>

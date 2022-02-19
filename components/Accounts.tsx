@@ -62,12 +62,14 @@ export function Accounts({
                 <li>
                   {ENSNames?.[i] ??
                     `${account.substring(0, 6)}...${account.substring(
-                      account.length - 6,
+                      account.length - 4,
                       account.length
                     )}`}
                 </li>
                 <li>
-                  {balances?.[i] ? ` (Ξ${formatEther(balances[i])})` : null}
+                  {balances?.[i]
+                    ? ` (Ξ ${parseFloat(formatEther(balances[i])).toFixed(4)})`
+                    : null}
                 </li>
               </ul>
             ))}

@@ -1,6 +1,5 @@
 import { hooks, walletConnect } from '../../connectors/walletConnect';
 import { Accounts } from '../Accounts';
-import { Card } from '../Card';
 import { Chain } from '../Chain';
 import { ConnectWithSelect } from '../ConnectWithSelect';
 import { Status } from '../Status';
@@ -30,16 +29,6 @@ export default function WalletConnectCard() {
   const provider = useProvider();
   const ENSNames = useENSNames(provider);
 
-  if (isActive) {
-    console.log('WalletConnectCard');
-    console.log(`chainId: ${chainId}, ${typeof chainId}`);
-    console.log(`accounts: ${accounts}, ${typeof accounts}`);
-    console.log(`error: ${error}, ${typeof error}`);
-    console.log(`isActivating: ${isActivating}, ${typeof isActivating}`);
-    console.log(`isActive: ${isActive}, ${typeof isActive}`);
-    console.log(`provider: ${provider}, ${typeof provider}`);
-    console.log(`ENSNames: ${ENSNames}, ${typeof ENSNames}`);
-  }
   return (
     <>
       <ListGroup.Item action onClick={() => {}}>
@@ -50,6 +39,32 @@ export default function WalletConnectCard() {
             </h1>
             <h3>Wallet Connect</h3>
             <h6>Scan with WalletConnect to Connect</h6>
+          </Col>
+          <Col>
+            <Status
+              isActivating={isActivating}
+              error={error}
+              isActive={isActive}
+            />
+            <div style={{ marginBottom: '1rem' }} />
+            {isActive ? (
+              <>
+                <Chain chainId={chainId} />
+                <Accounts
+                  accounts={accounts}
+                  provider={provider}
+                  ENSNames={ENSNames}
+                />
+              </>
+            ) : (
+              <ConnectWithSelect
+                connector={walletConnect}
+                chainId={chainId}
+                isActivating={isActivating}
+                error={error}
+                isActive={isActive}
+              />
+            )}
           </Col>
         </Row>
       </ListGroup.Item>

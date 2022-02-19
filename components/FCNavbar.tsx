@@ -7,7 +7,7 @@ import Button from 'react-bootstrap/Button';
 import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
 // imports for components
-import FCWalletConnectModal from './FCWalletConnectModal';
+import FCWalletConnModal from './FCWalletConnModal';
 // other imports
 import { toast } from 'react-toastify';
 
@@ -52,10 +52,7 @@ export function FCNavbar() {
           </Nav>
         </Navbar.Collapse>
       </Container>
-      <FCWalletConnectModal
-        show={showModal}
-        onHide={() => setShowModal(false)}
-      />
+      <FCWalletConnModal show={showModal} onHide={() => setShowModal(false)} />
     </Navbar>
   );
 }
