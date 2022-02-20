@@ -42,17 +42,17 @@ function Select({
 }
 
 export function ConnectWithSelect({
-  connector,
   chainId,
-  isActivating,
   error,
+  isActivating,
   isActive,
+  connector,
 }: {
-  connector: MetaMask | WalletConnect | Network /*| WalletLink*/;
   chainId: ReturnType<Web3ReactHooks['useChainId']>;
-  isActivating: ReturnType<Web3ReactHooks['useIsActivating']>;
   error: ReturnType<Web3ReactHooks['useError']>;
+  isActivating: ReturnType<Web3ReactHooks['useIsActivating']>;
   isActive: ReturnType<Web3ReactHooks['useIsActive']>;
+  connector: MetaMask | WalletConnect | Network /*| WalletLink*/;
 }) {
   const isNetwork = connector instanceof Network;
   const displayDefault = !isNetwork;

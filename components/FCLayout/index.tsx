@@ -8,16 +8,25 @@ import { FCFooter } from './FCFooter';
 import FCSpinner from '../FCSpinner';
 
 export default function FCLayout({
-  getText,
+  setConnection,
   children,
 }: {
-  getText: () => string;
+  setConnection: (
+    chainId: number | any,
+    account: string | any,
+    error: string | any,
+    isActivating: boolean | any,
+    isActive: boolean,
+    provider: object | any,
+    ENSNames: object | any,
+    testMsg: string
+  ) => void;
   children: JSX.Element | JSX.Element[];
 }) {
   const [loading, setLoading] = useState<boolean | any>(true);
   useEffect(() => {
     setLoading(true);
-    setTimeout(loadHomePage, 1500);
+    setTimeout(loadHomePage, 1000);
   }, []);
 
   const loadHomePage = () => {
@@ -50,7 +59,29 @@ export default function FCLayout({
           <FCSpinner />
         ) : (
           <>
-            <FCNavbar />
+            <FCNavbar
+              setConnection={(
+                chainId: number | any = null,
+                account: string | any = null,
+                error: string | any = null,
+                isActivating: boolean | any = null,
+                isActive: boolean = false,
+                provider: object | any = null,
+                ENSNames: object | any = null,
+                testMsg: string
+              ) => {
+                setConnection(
+                  chainId,
+                  account,
+                  error,
+                  isActivating,
+                  isActive,
+                  provider,
+                  ENSNames,
+                  'FCLayout'
+                );
+              }}
+            />
             <main>{children}</main>
             <FCFooter />
           </>

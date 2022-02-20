@@ -11,7 +11,20 @@ import FCWalletConnModal from '../../FCWalletConnModal';
 // other imports
 import { toast } from 'react-toastify';
 
-export function FCNavbar() {
+export function FCNavbar({
+  setConnection,
+}: {
+  setConnection: (
+    chainId: number | any,
+    account: string | any,
+    error: string | any,
+    isActivating: boolean | any,
+    isActive: boolean,
+    provider: object | any,
+    ENSNames: object | any,
+    testMsg: string | any
+  ) => void;
+}) {
   const [showModal, setShowModal] = useState<boolean | any>(false);
 
   const getNavBrand = () => {
@@ -52,7 +65,31 @@ export function FCNavbar() {
           </Nav>
         </Navbar.Collapse>
       </Container>
-      <FCWalletConnModal show={showModal} onHide={() => setShowModal(false)} />
+      <FCWalletConnModal
+        show={showModal}
+        onHide={() => setShowModal(false)}
+        setConnection={(
+          chainId: number | any = null,
+          account: string | any = null,
+          error: string | any = null,
+          isActivating: boolean | any = null,
+          isActive: boolean = false,
+          provider: object | any = null,
+          ENSNames: object | any = null,
+          testMsg: string
+        ) => {
+          setConnection(
+            chainId,
+            account,
+            error,
+            isActivating,
+            isActive,
+            provider,
+            ENSNames,
+            'FCNavbar'
+          );
+        }}
+      />
     </Navbar>
   );
 }

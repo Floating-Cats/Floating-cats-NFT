@@ -47,7 +47,7 @@ function Home(props) {
               Ethereum Blockchain. Our goal is to build a strong community to
               help as many cats as possible.
             </p>
-            <a href='https://discord.gg/cumFWvqMR8' className='button'>
+            <a href='https://discord.gg/floatingcats' className='button'>
               Join Our Discord
             </a>
           </div>

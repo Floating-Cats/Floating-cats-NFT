@@ -18,7 +18,20 @@ const {
   useENSNames,
 } = hooks;
 
-export default function WalletConnectCard() {
+export default function WalletConnectCard({
+  setConnection,
+}: {
+  setConnection: (
+    chainId: number | any,
+    account: string | any,
+    error: string | any,
+    isActivating: boolean | any,
+    isActive: boolean,
+    provider: object | any,
+    ENSNames: object | any,
+    testMsg: string
+  ) => void;
+}) {
   const chainId = useChainId();
   const accounts = useAccounts();
   const error = useError();
@@ -29,11 +42,22 @@ export default function WalletConnectCard() {
   const provider = useProvider();
   const ENSNames = useENSNames(provider);
 
+  setConnection(
+    chainId,
+    accounts,
+    error,
+    isActivating,
+    isActive,
+    provider,
+    ENSNames,
+    'WalletConnect YOOO'
+  );
+
   return (
     <>
       <ListGroup.Item action onClick={() => {}}>
         <Row>
-          <Col d-flex>
+          <Col>
             <h1>
               <img src={'../../WalletConnect-icon.svg'} alt='' width='60' />
             </h1>

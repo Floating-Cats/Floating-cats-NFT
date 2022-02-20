@@ -39,7 +39,7 @@ export default function MetaMaskCard() {
 
   return (
     <Card>
-      <div>
+      {/* <div>
         <b>MetaMask</b>
         <Status isActivating={isActivating} error={error} isActive={isActive} />
         <div style={{ marginBottom: '1rem' }} />
@@ -53,7 +53,7 @@ export default function MetaMaskCard() {
         isActivating={isActivating}
         error={error}
         isActive={isActive}
-      />
+      /> */}
     </Card>
   );
 }

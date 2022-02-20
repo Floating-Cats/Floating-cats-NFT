@@ -19,7 +19,7 @@ export function FCFooter() {
             {/* <!-- Discord --> */}
             <a
               className='btn btn-floating m-1'
-              href='https://discord.com/invite/6u9ezDyYzV'
+              href='https://discord.gg/floatingcats'
               role='button'
             >
               <img src='/discord.png' alt='' width='30' height='30' />

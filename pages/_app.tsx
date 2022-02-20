@@ -20,19 +20,29 @@ function MyApp({ Component, pageProps }: AppProps) {
   const [provider, setProvider] = useState<string | any>(null);
   const [ENSNames, setENSNames] = useState<string | any>(null);
 
-  useEffect(() => {
-    setConnection();
-  }, []);
+  // useEffect(() => {
+  //   setConnection(
+  //     chainId,
+  //     account,
+  //     error,
+  //     isActivating,
+  //     isActive,
+  //     provider,
+  //     ENSNames
+  //   );
+  // }, []);
 
   const setConnection = (
     chainId: number | any = null,
-    account: String | any = null,
-    error: String | any = null,
+    account: string | any = null,
+    error: string | any = null,
     isActivating: boolean | any = null,
     isActive: boolean = false,
-    provider: Object | any = null,
-    ENSNames: Object | any = null
+    provider: object | any = null,
+    ENSNames: object | any = null,
+    testMsg: string
   ) => {
+    console.log(`CALL setConnection() at ${testMsg}!!!!!!!!!!!!!!!!!!!!!!!`);
     setChainId(chainId);
     setAccount(account);
     setError(error);
@@ -42,11 +52,37 @@ function MyApp({ Component, pageProps }: AppProps) {
     setENSNames(ENSNames);
   };
 
+  console.log('_app.tsx');
+  console.log('chainId: ', chainId);
+  console.log('account: ', account);
+  // console.log('error: ', error);
+  // console.log('isActivating: ', isActivating);
+  // console.log('isActive: ', isActive);
+  // console.log('provider: ', provider);
+  // console.log('ENSNames: ', ENSNames);
   return (
     <>
       <FCLayout
-        getText={() => {
-          return 'hi how are you';
+        setConnection={(
+          chainId: number | any = null,
+          account: string | any = null,
+          error: string | any = null,
+          isActivating: boolean | any = null,
+          isActive: boolean = false,
+          provider: object | any = null,
+          ENSNames: object | any = null,
+          testMsg: string | any
+        ) => {
+          setConnection(
+            chainId,
+            account,
+            error,
+            isActivating,
+            isActive,
+            provider,
+            ENSNames,
+            '_app.tsx'
+          );
         }}
       >
         <div>

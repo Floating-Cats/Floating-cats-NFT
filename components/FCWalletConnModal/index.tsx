@@ -14,13 +14,34 @@ const WalletConnectDiv = dynamic(
   { ssr: false }
 );
 
-export default function FCWalletConnModal(props: {
-  show: boolean;
-  onHide: any;
-}) {
+export default function FCWalletConnModal(
+  // props: {
+  //   show: boolean;
+  //   onHide: any;
+  // },
+  {
+    show,
+    onHide,
+    setConnection,
+  }: {
+    show: boolean;
+    onHide: () => void;
+    setConnection: (
+      chainId: number | any,
+      account: string | any,
+      error: string | any,
+      isActivating: boolean | any,
+      isActive: boolean,
+      provider: object | any,
+      ENSNames: object | any,
+      testMsg: string | any
+    ) => void;
+  }
+) {
   return (
     <Modal
-      {...props}
+      show={show}
+      onHide={onHide}
       size='lg'
       aria-labelledby='contained-modal-title-vcenter'
       centered
@@ -29,13 +50,57 @@ export default function FCWalletConnModal(props: {
       <Modal.Body>
         <Row className='justify-content-center'>
           <ListGroup>
-            <MetaMaskDiv />
-            <WalletConnectDiv />
+            <MetaMaskDiv
+              setConnection={(
+                chainId: number | any = null,
+                account: string | any = null,
+                error: string | any = null,
+                isActivating: boolean | any = null,
+                isActive: boolean = false,
+                provider: object | any = null,
+                ENSNames: object | any = null,
+                testMsf: string
+              ) => {
+                setConnection(
+                  chainId,
+                  account,
+                  error,
+                  isActivating,
+                  isActive,
+                  provider,
+                  ENSNames,
+                  'FCWalletConnModal'
+                );
+              }}
+            />
+            <WalletConnectDiv
+              setConnection={(
+                chainId: number | any = null,
+                account: string | any = null,
+                error: string | any = null,
+                isActivating: boolean | any = null,
+                isActive: boolean = false,
+                provider: object | any = null,
+                ENSNames: object | any = null,
+                testMsf: string
+              ) => {
+                setConnection(
+                  chainId,
+                  account,
+                  error,
+                  isActivating,
+                  isActive,
+                  provider,
+                  ENSNames,
+                  'FCWalletConnModal' // TODO: remove all this so it doesn't call fn w/ null params?
+                );
+              }}
+            />
           </ListGroup>
         </Row>
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={props.onHide}>Close</Button>
+        <Button onClick={onHide}>Close</Button>
       </Modal.Footer>
     </Modal>
   );
