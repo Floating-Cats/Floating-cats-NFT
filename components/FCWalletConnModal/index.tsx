@@ -33,8 +33,7 @@ export default function FCWalletConnModal(
       isActivating: boolean | any,
       isActive: boolean,
       provider: object | any,
-      ENSNames: object | any,
-      testMsg: string | any
+      ENSNames: object | any
     ) => void;
   }
 ) {
@@ -58,8 +57,7 @@ export default function FCWalletConnModal(
                 isActivating: boolean | any = null,
                 isActive: boolean = false,
                 provider: object | any = null,
-                ENSNames: object | any = null,
-                testMsf: string
+                ENSNames: object | any = null
               ) => {
                 setConnection(
                   chainId,
@@ -68,8 +66,7 @@ export default function FCWalletConnModal(
                   isActivating,
                   isActive,
                   provider,
-                  ENSNames,
-                  'FCWalletConnModal'
+                  ENSNames
                 );
               }}
             />
@@ -81,8 +78,7 @@ export default function FCWalletConnModal(
                 isActivating: boolean | any = null,
                 isActive: boolean = false,
                 provider: object | any = null,
-                ENSNames: object | any = null,
-                testMsf: string
+                ENSNames: object | any = null
               ) => {
                 setConnection(
                   chainId,
@@ -91,8 +87,7 @@ export default function FCWalletConnModal(
                   isActivating,
                   isActive,
                   provider,
-                  ENSNames,
-                  'FCWalletConnModal' // TODO: remove all this so it doesn't call fn w/ null params?
+                  ENSNames
                 );
               }}
             />

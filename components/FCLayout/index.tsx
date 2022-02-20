@@ -18,8 +18,7 @@ export default function FCLayout({
     isActivating: boolean | any,
     isActive: boolean,
     provider: object | any,
-    ENSNames: object | any,
-    testMsg: string
+    ENSNames: object | any
   ) => void;
   children: JSX.Element | JSX.Element[];
 }) {
@@ -67,8 +66,7 @@ export default function FCLayout({
                 isActivating: boolean | any = null,
                 isActive: boolean = false,
                 provider: object | any = null,
-                ENSNames: object | any = null,
-                testMsg: string
+                ENSNames: object | any = null
               ) => {
                 setConnection(
                   chainId,
@@ -77,8 +75,7 @@ export default function FCLayout({
                   isActivating,
                   isActive,
                   provider,
-                  ENSNames,
-                  'FCLayout'
+                  ENSNames
                 );
               }}
             />

@@ -20,18 +20,23 @@ function MyApp({ Component, pageProps }: AppProps) {
   const [provider, setProvider] = useState<string | any>(null);
   const [ENSNames, setENSNames] = useState<string | any>(null);
 
-  // useEffect(() => {
-  //   setConnection(
-  //     chainId,
-  //     account,
-  //     error,
-  //     isActivating,
-  //     isActive,
-  //     provider,
-  //     ENSNames
-  //   );
-  // }, []);
+  useEffect(
+    () => {
+      setConnection(
+        chainId,
+        account,
+        error,
+        isActivating,
+        isActive,
+        provider,
+        ENSNames
+      );
+    },
+    // rerun the effect if these states change
+    [chainId, account, error, isActivating, isActive, provider, ENSNames]
+  );
 
+  // fetch account information
   const setConnection = (
     chainId: number | any = null,
     account: string | any = null,
@@ -39,10 +44,9 @@ function MyApp({ Component, pageProps }: AppProps) {
     isActivating: boolean | any = null,
     isActive: boolean = false,
     provider: object | any = null,
-    ENSNames: object | any = null,
-    testMsg: string
+    ENSNames: object | any = null
   ) => {
-    console.log(`CALL setConnection() at ${testMsg}!!!!!!!!!!!!!!!!!!!!!!!`);
+    console.log('setConnection()');
     setChainId(chainId);
     setAccount(account);
     setError(error);
@@ -70,8 +74,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           isActivating: boolean | any = null,
           isActive: boolean = false,
           provider: object | any = null,
-          ENSNames: object | any = null,
-          testMsg: string | any
+          ENSNames: object | any = null
         ) => {
           setConnection(
             chainId,
@@ -80,8 +83,7 @@ function MyApp({ Component, pageProps }: AppProps) {
             isActivating,
             isActive,
             provider,
-            ENSNames,
-            '_app.tsx'
+            ENSNames
           );
         }}
       >

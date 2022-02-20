@@ -17,7 +17,6 @@ function Select({
   displayDefault: boolean;
   chainIds: number[];
 }) {
-  console.log('chainIds ~~ ', chainIds);
   return (
     <select
       value={chainId}
@@ -56,8 +55,6 @@ export function ConnectWithSelect({
 }) {
   const isNetwork = connector instanceof Network;
   const displayDefault = !isNetwork;
-  // console.log('URLS ~~~ ', URLS);
-  // console.log('CHAINS ~~~ ', CHAINS);
   const chainIds = (isNetwork ? Object.keys(URLS) : Object.keys(CHAINS)).map(
     (chainId) => Number(chainId)
   );
@@ -89,8 +86,6 @@ export function ConnectWithSelect({
     },
     [connector, chainId]
   );
-
-  console.log('switchChain ~~ ', switchChain);
 
   if (error) {
     // if an error is caught during connection

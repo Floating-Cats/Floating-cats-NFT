@@ -21,8 +21,7 @@ export function FCNavbar({
     isActivating: boolean | any,
     isActive: boolean,
     provider: object | any,
-    ENSNames: object | any,
-    testMsg: string | any
+    ENSNames: object | any
   ) => void;
 }) {
   const [showModal, setShowModal] = useState<boolean | any>(false);
@@ -61,6 +60,9 @@ export function FCNavbar({
             <Nav.Link href='/#team'>TEAM</Nav.Link>
           </Nav>
           <Nav className='ms-auto'>
+            {
+              // change the button to a badge or disbled button after users connects to their wallet
+            }
             <Button onClick={() => setShowModal(true)}>Connect</Button>
           </Nav>
         </Navbar.Collapse>
@@ -75,8 +77,7 @@ export function FCNavbar({
           isActivating: boolean | any = null,
           isActive: boolean = false,
           provider: object | any = null,
-          ENSNames: object | any = null,
-          testMsg: string
+          ENSNames: object | any = null
         ) => {
           setConnection(
             chainId,
@@ -85,8 +86,7 @@ export function FCNavbar({
             isActivating,
             isActive,
             provider,
-            ENSNames,
-            'FCNavbar'
+            ENSNames
           );
         }}
       />

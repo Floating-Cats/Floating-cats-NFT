@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import { hooks, metaMask } from '../../connectors/metaMask';
 import { Accounts } from '../Accounts';
@@ -30,8 +30,7 @@ export default function MetaMaskDiv({
     isActivating: boolean | any,
     isActive: boolean,
     provider: object | any,
-    ENSNames: object | any,
-    testMsg: string
+    ENSNames: object | any
   ) => void;
 }) {
   const chainId = useChainId();
@@ -45,20 +44,21 @@ export default function MetaMaskDiv({
   const ENSNames = useENSNames(provider);
 
   // test
-  const [accs, setAccs] = useState<string[]>([]);
-  const [prov, setProv] = useState<object | any>(null);
-  const [ens, setEns] = useState<object | any>(null);
+  // const [accs, setAccs] = useState<string[]>([]);
+  // const [prov, setProv] = useState<object | any>(null);
+  // const [ens, setEns] = useState<object | any>(null);
 
-  setConnection(
-    chainId,
-    accounts,
-    error,
-    isActivating,
-    isActive,
-    provider,
-    ENSNames,
-    'MetaMaskDiv YIO'
-  );
+  useEffect(() => {
+    setConnection(
+      chainId,
+      accounts,
+      error,
+      isActivating,
+      isActive,
+      provider,
+      ENSNames
+    );
+  }, []);
 
   // console.log('MetaMaskDiv.tsx');
   // console.log('chainId: ', chainId);
@@ -68,25 +68,20 @@ export default function MetaMaskDiv({
   // console.log('isActive: ', isActive);
   // console.log('provider: ', provider);
   // console.log('ENSNames: ', ENSNames);
-
-  const printMe = () => {
-    console.log('Print Me funciton');
-  };
-
   // fetch accounts, provider, ENSNames
-  const setUpAccInfo = async (
-    setupAccs: string[] | any,
-    setupProv: object | any,
-    setupEns: object | any
-  ) => {
-    console.log('setUpAccInfo @ MetaMaskDiv');
-    setAccs(setupAccs);
-    setProv(setupProv);
-    setEns(setupEns);
-  };
+  // const setUpAccInfo = async (
+  //   setupAccs: string[] | any,
+  //   setupProv: object | any,
+  //   setupEns: object | any
+  // ) => {
+  //   console.log('setUpAccInfo @ MetaMaskDiv');
+  //   setAccs(setupAccs);
+  //   setProv(setupProv);
+  //   setEns(setupEns);
+  // };
 
   // fetch chainId, error, isActivating, isActive, connector
-  const setUpConnect = async () => {};
+  // const setUpConnect = async () => {};
 
   // TODO: modify this so it looks better on small device too
 
@@ -113,7 +108,9 @@ export default function MetaMaskDiv({
               accounts={accounts}
               provider={provider}
               ENSNames={ENSNames}
-              setUpAccInfo={setUpAccInfo}
+              // setUpAccInfo={() => {
+              //   setUpAccInfo(accs, prov, ens);
+              // }}
             />
           </Col>
           <Col xs={3}>

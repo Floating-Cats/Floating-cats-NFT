@@ -1,3 +1,5 @@
+import { useState, useEffect } from 'react';
+
 import { hooks, walletConnect } from '../../connectors/walletConnect';
 import { Accounts } from '../Accounts';
 import { Chain } from '../Chain';
@@ -18,7 +20,7 @@ const {
   useENSNames,
 } = hooks;
 
-export default function WalletConnectCard({
+export default function WalletConnectDiv({
   setConnection,
 }: {
   setConnection: (
@@ -28,8 +30,7 @@ export default function WalletConnectCard({
     isActivating: boolean | any,
     isActive: boolean,
     provider: object | any,
-    ENSNames: object | any,
-    testMsg: string
+    ENSNames: object | any
   ) => void;
 }) {
   const chainId = useChainId();
@@ -42,16 +43,34 @@ export default function WalletConnectCard({
   const provider = useProvider();
   const ENSNames = useENSNames(provider);
 
-  setConnection(
-    chainId,
-    accounts,
-    error,
-    isActivating,
-    isActive,
-    provider,
-    ENSNames,
-    'WalletConnect YOOO'
-  );
+  // test
+  // const [accs, setAccs] = useState<string[]>([]);
+  // const [prov, setProv] = useState<object | any>(null);
+  // const [ens, setEns] = useState<object | any>(null);
+
+  useEffect(() => {
+    setConnection(
+      chainId,
+      accounts,
+      error,
+      isActivating,
+      isActive,
+      provider,
+      ENSNames
+    );
+  }, []);
+
+  // // fetch accounts, provider, ENSNames
+  // const setUpAccInfo = async (
+  //   setupAccs: string[] | any,
+  //   setupProv: object | any,
+  //   setupEns: object | any
+  // ) => {
+  //   console.log('setUpAccInfo @ MetaMaskDiv');
+  //   setAccs(setupAccs);
+  //   setProv(setupProv);
+  //   setEns(setupEns);
+  // };
 
   return (
     <>
@@ -78,6 +97,9 @@ export default function WalletConnectCard({
                   accounts={accounts}
                   provider={provider}
                   ENSNames={ENSNames}
+                  // setUpAccInfo={() => {
+                  //   setUpAccInfo(accs, prov, ens);
+                  // }}
                 />
               </>
             ) : (
