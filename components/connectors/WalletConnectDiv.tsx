@@ -43,11 +43,6 @@ export default function WalletConnectDiv({
   const provider = useProvider();
   const ENSNames = useENSNames(provider);
 
-  // test
-  // const [accs, setAccs] = useState<string[]>([]);
-  // const [prov, setProv] = useState<object | any>(null);
-  // const [ens, setEns] = useState<object | any>(null);
-
   useEffect(() => {
     setConnection(
       chainId,
@@ -60,57 +55,42 @@ export default function WalletConnectDiv({
     );
   }, []);
 
-  // // fetch accounts, provider, ENSNames
-  // const setUpAccInfo = async (
-  //   setupAccs: string[] | any,
-  //   setupProv: object | any,
-  //   setupEns: object | any
-  // ) => {
-  //   console.log('setUpAccInfo @ MetaMaskDiv');
-  //   setAccs(setupAccs);
-  //   setProv(setupProv);
-  //   setEns(setupEns);
-  // };
-
   return (
     <>
-      <ListGroup.Item action onClick={() => {}}>
+      <ListGroup.Item>
         <Row>
-          <Col>
+          <Col xs={5}>
             <h1>
               <img src={'../../WalletConnect-icon.svg'} alt='' width='60' />
             </h1>
             <h3>Wallet Connect</h3>
             <h6>Scan with WalletConnect to Connect</h6>
           </Col>
-          <Col>
+          <Col xs={4}>
             <Status
               isActivating={isActivating}
               error={error}
               isActive={isActive}
             />
             <div style={{ marginBottom: '1rem' }} />
-            {isActive ? (
-              <>
-                <Chain chainId={chainId} />
-                <Accounts
-                  accounts={accounts}
-                  provider={provider}
-                  ENSNames={ENSNames}
-                  // setUpAccInfo={() => {
-                  //   setUpAccInfo(accs, prov, ens);
-                  // }}
-                />
-              </>
-            ) : (
-              <ConnectWithSelect
-                connector={walletConnect}
-                chainId={chainId}
-                isActivating={isActivating}
-                error={error}
-                isActive={isActive}
-              />
-            )}
+            <Chain chainId={chainId} />
+            <Accounts
+              accounts={accounts}
+              provider={provider}
+              ENSNames={ENSNames}
+              // setUpAccInfo={() => {
+              //   setUpAccInfo(accs, prov, ens);
+              // }}
+            />
+          </Col>
+          <Col xs={3}>
+            <ConnectWithSelect
+              connector={walletConnect}
+              chainId={chainId}
+              error={error}
+              isActivating={isActivating}
+              isActive={isActive}
+            />
           </Col>
         </Row>
       </ListGroup.Item>

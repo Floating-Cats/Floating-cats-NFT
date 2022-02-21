@@ -43,11 +43,6 @@ export default function MetaMaskDiv({
   const provider = useProvider();
   const ENSNames = useENSNames(provider);
 
-  // test
-  // const [accs, setAccs] = useState<string[]>([]);
-  // const [prov, setProv] = useState<object | any>(null);
-  // const [ens, setEns] = useState<object | any>(null);
-
   useEffect(() => {
     setConnection(
       chainId,
@@ -60,34 +55,10 @@ export default function MetaMaskDiv({
     );
   }, []);
 
-  // console.log('MetaMaskDiv.tsx');
-  // console.log('chainId: ', chainId);
-  // console.log('account: ', accounts);
-  // console.log('error: ', error);
-  // console.log('isActivating: ', isActivating);
-  // console.log('isActive: ', isActive);
-  // console.log('provider: ', provider);
-  // console.log('ENSNames: ', ENSNames);
-  // fetch accounts, provider, ENSNames
-  // const setUpAccInfo = async (
-  //   setupAccs: string[] | any,
-  //   setupProv: object | any,
-  //   setupEns: object | any
-  // ) => {
-  //   console.log('setUpAccInfo @ MetaMaskDiv');
-  //   setAccs(setupAccs);
-  //   setProv(setupProv);
-  //   setEns(setupEns);
-  // };
-
-  // fetch chainId, error, isActivating, isActive, connector
-  // const setUpConnect = async () => {};
-
   // TODO: modify this so it looks better on small device too
-
   return (
     <>
-      <ListGroup.Item action onClick={() => {}}>
+      <ListGroup.Item>
         <Row>
           <Col xs={5}>
             <h1>
@@ -115,11 +86,11 @@ export default function MetaMaskDiv({
           </Col>
           <Col xs={3}>
             <ConnectWithSelect
+              connector={metaMask}
               chainId={chainId}
               error={error}
               isActivating={isActivating}
               isActive={isActive}
-              connector={metaMask}
             />
           </Col>
         </Row>

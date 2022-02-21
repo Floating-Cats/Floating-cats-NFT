@@ -60,8 +60,8 @@ function MyApp({ Component, pageProps }: AppProps) {
   console.log('chainId: ', chainId);
   console.log('account: ', account);
   // console.log('error: ', error);
-  // console.log('isActivating: ', isActivating);
-  // console.log('isActive: ', isActive);
+  console.log('isActivating: ', isActivating);
+  console.log('isActive: ', isActive);
   // console.log('provider: ', provider);
   // console.log('ENSNames: ', ENSNames);
   return (
