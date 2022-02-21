@@ -2,8 +2,8 @@ import FCLayout from '../components/FCLayout';
 
 export default function Custom404() {
   return (
-    <FCLayout>
-      <h1>404 Page Not Found</h1>
-    </FCLayout>
+    <h1 style={{ marginTop: '3rem', marginBottom: '3rem' }}>
+      404 Page Not Found
+    </h1>
   );
 }

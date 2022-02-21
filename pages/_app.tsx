@@ -22,22 +22,29 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   useEffect(
     () => {
-      setConnection(
-        chainId,
-        account,
-        error,
-        isActivating,
-        isActive,
-        provider,
-        ENSNames
-      );
+      if (localStorage.getItem('account') !== null) {
+        setConnection(
+          chainId,
+          account,
+          error,
+          isActivating,
+          isActive,
+          provider,
+          ENSNames
+        );
+        localStorage.setItem('account', account);
+      } else {
+        setAccount(localStorage.getItem('account'));
+        console.log('YOYOYO', account);
+      }
     },
+
     // rerun the effect if these states change
     [chainId, account, error, isActivating, isActive, provider, ENSNames]
   );
 
   // fetch account information
-  const setConnection = (
+  const setConnection = async (
     chainId: number | any = null,
     account: string | any = null,
     error: string | any = null,
@@ -46,7 +53,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     provider: object | any = null,
     ENSNames: object | any = null
   ) => {
-    console.log('setConnection()');
+    // console.log('setConnection()');
     setChainId(chainId);
     setAccount(account);
     setError(error);
@@ -56,13 +63,16 @@ function MyApp({ Component, pageProps }: AppProps) {
     setENSNames(ENSNames);
   };
 
-  console.log('_app.tsx');
+  // for Navbar
+  const navBarParams = { chainId, account };
+
+  console.log('_app.tsx ================================================');
   console.log('chainId: ', chainId);
   console.log('account: ', account);
   // console.log('error: ', error);
   console.log('isActivating: ', isActivating);
   console.log('isActive: ', isActive);
-  // console.log('provider: ', provider);
+  console.log('provider: ', provider);
   // console.log('ENSNames: ', ENSNames);
   return (
     <>

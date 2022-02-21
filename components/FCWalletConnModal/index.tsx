@@ -1,4 +1,6 @@
+import { useState } from 'react';
 import dynamic from 'next/dynamic';
+
 // imports for bootstrap
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
@@ -37,6 +39,53 @@ export default function FCWalletConnModal(
     ) => void;
   }
 ) {
+  const [ConnChainId, setConnChainId] = useState(null);
+  const [ConnAccount, setConnAccount] = useState(null);
+  const [ConnError, setConnError] = useState(null);
+  const [ConnIsActivating, setConnIsActivating] = useState(null);
+  const [ConnIsActive, setConnIsActive] = useState(false);
+  const [ConnProvider, setConnProvider] = useState(null);
+  const [ConnENSNames, setConnENSNames] = useState(null);
+
+  //
+  /**
+   * Fetch account information for MetaMask or WalletConnect. If params
+   * are null, it won't trigger the hook in _app.tsx as well as updating
+   * the account information.
+   *
+   */
+  const setUpConnection = (
+    ConnChainId: number | any = null,
+    ConnAccount: string | any = null,
+    ConnError: string | any = null,
+    ConnIsActivating: boolean | any = null,
+    ConnIsActive: boolean = false,
+    ConnProvider: object | any = null,
+    ConnENSNames: object | any = null
+  ) => {
+    // console.log('setConnection()');
+    if (ConnChainId) {
+      setConnChainId(ConnChainId);
+      setConnAccount(ConnAccount);
+      setConnError(ConnError);
+      setConnIsActivating(ConnIsActivating);
+      setConnIsActive(ConnIsActive);
+      setConnProvider(ConnProvider);
+      setConnENSNames(ConnENSNames);
+
+      // trigger hook
+      setConnection(
+        ConnChainId,
+        ConnAccount,
+        ConnError,
+        ConnIsActivating,
+        ConnIsActive,
+        ConnProvider,
+        ConnENSNames
+      );
+    }
+  };
+
   return (
     <Modal
       show={show}
@@ -50,44 +99,44 @@ export default function FCWalletConnModal(
         <Row className='justify-content-center'>
           <ListGroup>
             <MetaMaskDiv
-              setConnection={(
-                chainId: number | any = null,
-                account: string | any = null,
-                error: string | any = null,
-                isActivating: boolean | any = null,
-                isActive: boolean = false,
-                provider: object | any = null,
-                ENSNames: object | any = null
+              setUpConnection={(
+                ConnChainId: number | any = null,
+                ConnAccount: string | any = null,
+                ConnError: string | any = null,
+                ConnIsActivating: boolean | any = null,
+                ConnIsActive: boolean = false,
+                ConnProvider: object | any = null,
+                ConnENSNames: object | any = null
               ) => {
-                setConnection(
-                  chainId,
-                  account,
-                  error,
-                  isActivating,
-                  isActive,
-                  provider,
-                  ENSNames
+                setUpConnection(
+                  ConnChainId,
+                  ConnAccount,
+                  ConnError,
+                  ConnIsActivating,
+                  ConnIsActive,
+                  ConnProvider,
+                  ConnENSNames
                 );
               }}
             />
             <WalletConnectDiv
-              setConnection={(
-                chainId: number | any = null,
-                account: string | any = null,
-                error: string | any = null,
-                isActivating: boolean | any = null,
-                isActive: boolean = false,
-                provider: object | any = null,
-                ENSNames: object | any = null
+              setUpConnection={(
+                ConnChainId: number | any = null,
+                ConnAccount: string | any = null,
+                ConnError: string | any = null,
+                ConnIsActivating: boolean | any = null,
+                ConnIsActive: boolean = false,
+                ConnProvider: object | any = null,
+                ConnENSNames: object | any = null
               ) => {
-                setConnection(
-                  chainId,
-                  account,
-                  error,
-                  isActivating,
-                  isActive,
-                  provider,
-                  ENSNames
+                setUpConnection(
+                  ConnChainId,
+                  ConnAccount,
+                  ConnError,
+                  ConnIsActivating,
+                  ConnIsActive,
+                  ConnProvider,
+                  ConnENSNames
                 );
               }}
             />

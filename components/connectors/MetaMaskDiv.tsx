@@ -21,9 +21,9 @@ const {
 } = hooks;
 
 export default function MetaMaskDiv({
-  setConnection,
+  setUpConnection,
 }: {
-  setConnection: (
+  setUpConnection: (
     chainId: number | any,
     account: string | any,
     error: string | any,
@@ -43,8 +43,16 @@ export default function MetaMaskDiv({
   const provider = useProvider();
   const ENSNames = useENSNames(provider);
 
+  console.log('MetaMask.tsx ================================================');
+  console.log('chainId: ', chainId);
+  console.log('accounts: ', accounts);
+  console.log('error: ', error);
+  console.log('isActivating: ', isActivating);
+  console.log('isActive: ', isActive);
+  console.log('provider: ', provider);
+
   useEffect(() => {
-    setConnection(
+    setUpConnection(
       chainId,
       accounts,
       error,
@@ -53,7 +61,7 @@ export default function MetaMaskDiv({
       provider,
       ENSNames
     );
-  }, []);
+  }, [chainId, accounts, error, isActivating, isActive, provider, ENSNames]);
 
   // TODO: modify this so it looks better on small device too
   return (
