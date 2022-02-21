@@ -47,7 +47,6 @@ export default function FCWalletConnModal(
   const [ConnProvider, setConnProvider] = useState(null);
   const [ConnENSNames, setConnENSNames] = useState(null);
 
-  //
   /**
    * Fetch account information for MetaMask or WalletConnect. If params
    * are null, it won't trigger the hook in _app.tsx as well as updating
