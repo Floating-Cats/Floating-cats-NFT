@@ -22,7 +22,8 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   useEffect(
     () => {
-      if (localStorage.getItem('account') !== null) {
+      console.log('localstorage, account: ', localStorage.getItem('account'));
+      if (localStorage.getItem('account') === null) {
         setConnection(
           chainId,
           account,
@@ -66,13 +67,13 @@ function MyApp({ Component, pageProps }: AppProps) {
   // for Navbar
   const navBarParams = { chainId, account };
 
-  console.log('_app.tsx ================================================');
-  console.log('chainId: ', chainId);
+  console.log('================================================\n_app.tsx');
+  // console.log('chainId: ', chainId);
   console.log('account: ', account);
   // console.log('error: ', error);
-  console.log('isActivating: ', isActivating);
-  console.log('isActive: ', isActive);
-  console.log('provider: ', provider);
+  // console.log('isActivating: ', isActivating);
+  // console.log('isActive: ', isActive);
+  // console.log('provider: ', provider);
   // console.log('ENSNames: ', ENSNames);
   return (
     <>

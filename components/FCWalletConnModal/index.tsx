@@ -53,7 +53,7 @@ export default function FCWalletConnModal(
    * the account information.
    *
    */
-  const setUpConnection = (
+  const setUpConnection = async (
     ConnChainId: number | any = null,
     ConnAccount: string | any = null,
     ConnError: string | any = null,
@@ -62,8 +62,10 @@ export default function FCWalletConnModal(
     ConnProvider: object | any = null,
     ConnENSNames: object | any = null
   ) => {
-    // console.log('setConnection()');
+    console.log('FCWalletConnModal: setUpConnection()');
     if (ConnChainId) {
+      console.log('TRUE');
+      console.log(ConnAccount);
       setConnChainId(ConnChainId);
       setConnAccount(ConnAccount);
       setConnError(ConnError);
@@ -82,7 +84,9 @@ export default function FCWalletConnModal(
         ConnProvider,
         ConnENSNames
       );
+      return;
     }
+    console.log('FALSE');
   };
 
   return (
@@ -97,27 +101,29 @@ export default function FCWalletConnModal(
       <Modal.Body>
         <Row className='justify-content-center'>
           <ListGroup>
-            <MetaMaskDiv
-              setUpConnection={(
-                ConnChainId: number | any = null,
-                ConnAccount: string | any = null,
-                ConnError: string | any = null,
-                ConnIsActivating: boolean | any = null,
-                ConnIsActive: boolean = false,
-                ConnProvider: object | any = null,
-                ConnENSNames: object | any = null
-              ) => {
-                setUpConnection(
-                  ConnChainId,
-                  ConnAccount,
-                  ConnError,
-                  ConnIsActivating,
-                  ConnIsActive,
-                  ConnProvider,
-                  ConnENSNames
-                );
-              }}
-            />
+            <ListGroup.Item>
+              <MetaMaskDiv
+                setUpConnection={(
+                  ConnChainId: number | any = null,
+                  ConnAccount: string | any = null,
+                  ConnError: string | any = null,
+                  ConnIsActivating: boolean | any = null,
+                  ConnIsActive: boolean = false,
+                  ConnProvider: object | any = null,
+                  ConnENSNames: object | any = null
+                ) => {
+                  setUpConnection(
+                    ConnChainId,
+                    ConnAccount,
+                    ConnError,
+                    ConnIsActivating,
+                    ConnIsActive,
+                    ConnProvider,
+                    ConnENSNames
+                  );
+                }}
+              />
+            </ListGroup.Item>
             <WalletConnectDiv
               setUpConnection={(
                 ConnChainId: number | any = null,
