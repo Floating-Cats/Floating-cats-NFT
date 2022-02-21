@@ -1,5 +1,4 @@
-import type { Web3ReactHooks } from '@web3-react/core';
-import { CHAINS } from '../../../chains';
+import { openInNewTab, onClickUrl } from '../../helpers/TabOpener';
 
 export function FCFooter() {
   return (
@@ -8,41 +7,41 @@ export function FCFooter() {
         <div className='container p-4 pb-0'>
           <section className='mb-4'>
             {/* <!-- Twitter --> */}
-            <a
+            <button
               className='btn btn-floating m-1'
-              href='https://twitter.com/FloatingCatsNFT'
+              onClick={() => {
+                onClickUrl('https://twitter.com/FloatingCatsNFT');
+              }}
               role='button'
             >
               <img src='/twitter.png' alt='' width='30' height='30' />
-            </a>
+            </button>
 
             {/* <!-- Discord --> */}
-            <a
+            <button
               className='btn btn-floating m-1'
-              href='https://discord.gg/floatingcats'
+              onClick={() => {
+                onClickUrl('https://discord.gg/floatingcats');
+              }}
               role='button'
             >
               <img src='/discord.png' alt='' width='30' height='30' />
-            </a>
+            </button>
 
             {/* <!-- Opensea --> */}
-            <a
+            <button
               className='btn btn-floating m-1'
-              href='public/os-icon.png' // TODO: chage url
+              onClick={() => {
+                // TODO: chage url
+                onClickUrl('https://google.com');
+              }}
               role='button'
             >
               <img src='/os-icon.png' alt='' width='33' height='33' />
-            </a>
+            </button>
 
             {/* TODO: add a contract */}
             {/* <!-- Contract --> */}
-            {/* <a
-                className='btn btn-outline-light btn-floating m-1'
-                href='#!'
-                role='button'
-              >
-                <i className='fab fa-contract'></i>
-              </a> */}
           </section>
         </div>
         {/* <!-- Copyright --> */}
