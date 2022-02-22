@@ -1,6 +1,6 @@
 import FCAbout from 'components/FCAbout';
 import FCBanner from 'components/FCBanner';
-import FCBgCloud from 'components/FCBgCloud';
+// import FCBgCloud from 'components/FCBgCloud';
 import FCFAQ from 'components/FCFAQ';
 import FCRoadmap from 'components/FCRoadmap';
 import FCTeam from 'components/FCTeam';

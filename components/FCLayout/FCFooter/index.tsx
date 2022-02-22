@@ -1,4 +1,4 @@
-import { openInNewTab, onClickUrl } from '../../helpers/TabOpener';
+import { onClickUrl } from '../../helpers/TabOpener';
 
 export function FCFooter() {
   return (

@@ -35,22 +35,13 @@ export function Accounts({
   accounts,
   provider,
   ENSNames,
-}: // setUpAccInfo,
-{
+}: {
   accounts: ReturnType<Web3ReactHooks['useAccounts']>;
   provider: ReturnType<Web3ReactHooks['useProvider']>;
   ENSNames: ReturnType<Web3ReactHooks['useENSNames']>;
-  // setUpAccInfo: (
-  //   accs: string[] | any,
-  //   prov: object | any,
-  //   ens: object | any
-  // ) => void;
 }) {
   const balances = useBalances(provider, accounts);
-
   if (accounts === undefined) return null;
-
-  // setUpAccInfo(accounts, provider, ENSNames);
 
   return (
     <div>

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import type { AppProps /*, AppContext */ } from 'next/app';
 import 'bootstrap/dist/css/bootstrap.css';
 
@@ -12,62 +12,59 @@ import '../styles.css';
 import FCLayout from '../components/FCLayout';
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const [chainId, setChainId] = useState<number | any>(null);
-  const [account, setAccount] = useState<string | any>(null);
-  const [error, setError] = useState<string | any>(null);
-  const [isActivating, setIsActivating] = useState<boolean | any>(null);
-  const [isActive, setIsActive] = useState<boolean | any>(false);
-  const [provider, setProvider] = useState<string | any>(null);
-  const [ENSNames, setENSNames] = useState<string | any>(null);
+  const [chainId, setChainId] = useState<number | any>();
+  const [account, setAccount] = useState<string | any>();
+  const [error, setError] = useState<string | any>();
+  const [isActivating, setIsActivating] = useState<boolean | any>();
+  const [isActive, setIsActive] = useState<boolean>(false);
+  const [provider, setProvider] = useState<string | any>();
+  const [ENSNames, setENSNames] = useState<string | any>();
 
-  useEffect(
-    () => {
-      console.log('localstorage, account: ', localStorage.getItem('account'));
-      if (localStorage.getItem('account') === null) {
-        setConnection(
-          chainId,
-          account,
-          error,
-          isActivating,
-          isActive,
-          provider,
-          ENSNames
-        );
-        localStorage.setItem('account', account);
-      } else {
-        setAccount(localStorage.getItem('account'));
-        console.log('YOYOYO', account);
-      }
-    },
+  // useEffect(
+  //   () => {
+  //     localStorage.getItem('account')
+  //       ? setAccount(localStorage.getItem('account'))
+  //       : setConnection(
+  //           chainId,
+  //           account,
+  //           error,
+  //           isActivating,
+  //           isActive,
+  //           provider,
+  //           ENSNames
+  //         );
+  //     localStorage.setItem('account', account);
+  //   },
 
-    // rerun the effect if these states change
-    [chainId, account, error, isActivating, isActive, provider, ENSNames]
-  );
+  //   // rerun the effect if these states change
+  //   [chainId, account, error, isActivating, isActive, provider, ENSNames]
+  // );
 
   // fetch account information
-  const setConnection = async (
-    chainId: number | any = null,
-    account: string | any = null,
-    error: string | any = null,
-    isActivating: boolean | any = null,
-    isActive: boolean = false,
-    provider: object | any = null,
-    ENSNames: object | any = null
-  ) => {
-    // console.log('setConnection()');
-    setChainId(chainId);
-    setAccount(account);
-    setError(error);
-    setIsActivating(isActivating);
-    setIsActive(isActive);
-    setProvider(provider);
-    setENSNames(ENSNames);
-  };
-
+  const setConnection = useCallback(
+    async (
+      chainId: number | any,
+      account: string | any,
+      error: string | any,
+      isActivating: boolean | any,
+      isActive: boolean,
+      provider: object | any,
+      ENSNames: object | any
+    ) => {
+      setChainId(chainId);
+      setAccount(account);
+      setError(error);
+      setIsActivating(isActivating);
+      setIsActive(isActive);
+      setProvider(provider);
+      setENSNames(ENSNames);
+    },
+    [chainId, account, error, isActivating, isActive, provider, ENSNames]
+  );
   // for Navbar
   const navBarParams = { chainId, account };
 
-  console.log('================================================\n_app.tsx');
+  console.log('=========\n_app.tsx');
   // console.log('chainId: ', chainId);
   console.log('account: ', account);
   // console.log('error: ', error);
@@ -79,13 +76,13 @@ function MyApp({ Component, pageProps }: AppProps) {
     <>
       <FCLayout
         setConnection={(
-          chainId: number | any = null,
-          account: string | any = null,
-          error: string | any = null,
-          isActivating: boolean | any = null,
-          isActive: boolean = false,
-          provider: object | any = null,
-          ENSNames: object | any = null
+          chainId: number | any,
+          account: string | any,
+          error: string | any,
+          isActivating: boolean | any,
+          isActive: boolean,
+          provider: object | any,
+          ENSNames: object | any
         ) => {
           setConnection(
             chainId,

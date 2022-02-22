@@ -1,15 +1,18 @@
 import { useState } from 'react';
-// imports for bootstrap
+import dynamic from 'next/dynamic';
+
+// imports for stylings
 import Nav from 'react-bootstrap/Nav';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
-// imports for components
-import FCWalletConnModal from '../../FCWalletConnModal';
-// other imports
 import { toast } from 'react-toastify';
+
+const FCWalletConnModal = dynamic(() => import('../../FCWalletConnModal'), {
+  ssr: false,
+});
 
 export function FCNavbar({
   setConnection,
@@ -71,13 +74,13 @@ export function FCNavbar({
         show={showModal}
         onHide={() => setShowModal(false)}
         setConnection={(
-          chainId: number | any = null,
-          account: string | any = null,
-          error: string | any = null,
-          isActivating: boolean | any = null,
+          chainId: number | any,
+          account: string | any,
+          error: string | any,
+          isActivating: boolean | any,
           isActive: boolean = false,
-          provider: object | any = null,
-          ENSNames: object | any = null
+          provider: object | any,
+          ENSNames: object | any
         ) => {
           setConnection(
             chainId,
