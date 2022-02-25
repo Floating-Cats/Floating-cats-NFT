@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import type { AppProps /*, AppContext */ } from 'next/app';
 import 'bootstrap/dist/css/bootstrap.css';
 
@@ -14,6 +14,16 @@ import FCLayout from '../components/FCLayout';
 import { NavBarInterface } from 'components/helpers/NavBarInterface';
 import { Web3ReactType } from 'components/helpers/Web3ReactType';
 
+interface StorageInterface {
+  chainId: Web3ReactType['chainId'];
+  accounts: Web3ReactType['accounts'];
+  error: Web3ReactType['error'];
+  isActivating: Web3ReactType['isActivating'];
+  isActive: Web3ReactType['isActive'];
+  provider: Web3ReactType['provider'];
+  ENSNames: Web3ReactType['ENSNames'];
+}
+
 function MyApp({ Component, pageProps }: AppProps) {
   const [chainId, setChainId] = useState<Web3ReactType['chainId']>();
   const [accounts, setAccount] = useState<Web3ReactType['accounts']>();
@@ -27,6 +37,60 @@ function MyApp({ Component, pageProps }: AppProps) {
   console.log('=========\n_app.tsx');
   const navBarParams = { accounts, provider };
   console.log({ ...navBarParams });
+
+  useEffect(() => {
+    const initWallet = (JSON.parse(window.localStorage.getItem('wc') || '{}') ||
+      JSON.parse(`{
+  chainId: ${null},
+  accounts: ${null},
+  error: ${null},
+  isActivating: ${null},
+  isActive: ${null},
+  provider: ${null},
+  ENSNames: ${null},
+}`)) as StorageInterface;
+    // const initWallet: StorageInterface = JSON.parse(
+    //   window.localStorage.getItem('wc')
+    // ) || {
+    //   chainId: null,
+    //   accounts: null,
+    //   error: null,
+    //   isActivating: null,
+    //   isActive: null,
+    //   provider: null,
+    //   ENSNames: null,
+    // };
+
+    console.log('{ ...initWallet }');
+    console.log(initWallet);
+    console.log({ ...initWallet }.accounts);
+
+    // if wallet info is fetched
+    if (initWallet.isActive) {
+      setChainId(initWallet.chainId);
+      setAccount(initWallet.accounts);
+      setError(initWallet.error);
+      setIsActivating(initWallet.isActivating);
+      setIsActive(initWallet.isActive);
+      setProvider(initWallet.provider);
+      setENSNames(initWallet.ENSNames);
+    } else {
+      localStorage.setItem('wc', JSON.stringify(initWallet));
+    }
+
+    //     let fetchedWallet = {
+    //       chainId: null,
+    // accounts: null,
+    // error: null,
+    // isActivating: null,
+    // isActive: null,
+    // provider: null,
+    // ENSNames: null
+    //   }
+    //     localStorage.setItem('wc', JSON.stringify(fetchedWallet));
+    //   };
+  }, []);
+
   return (
     <>
       <FCLayout

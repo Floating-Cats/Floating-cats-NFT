@@ -23,7 +23,7 @@ import MetaMaskDiv from 'components/connectors/MetaMaskDiv';
 import WalletConnectDiv from 'components/connectors/WalletConnectDiv';
 
 // helper function
-import { handleOnClick } from 'components/connectors/HandleOnClick';
+import { handleOnClick } from 'components/helpers/HandleOnClick';
 import { NavBarInterface } from 'components/helpers/NavBarInterface';
 import { Web3ReactType } from 'components/helpers/Web3ReactType';
 import Select from 'components/connectors/Select';
@@ -83,7 +83,7 @@ export default function FCWalletConnector({
   const provider = useProvider();
   const ENSNames = useENSNames(provider);
 
-  // lift states up to parent
+  // lift states up to parent + set data to local storage
   useEffect(() => {
     setChainId(chainId);
     setAccount(accounts);
@@ -92,6 +92,27 @@ export default function FCWalletConnector({
     setIsActive(isActive);
     setProvider(provider);
     setENSNames(ENSNames);
+
+    window.localStorage.setItem(
+      'wc',
+      JSON.stringify([
+        {
+          chainId: chainId,
+          accounts: accounts,
+          error: error,
+          isActivating: isActivating,
+          isActive: isActive,
+          provider: provider,
+          ENSNames: ENSNames,
+        },
+      ])
+    );
+
+    // let wallet = window.localStorage.setItem({
+    //   chainId: chainId,
+    //   accounts: accounts,
+    // });
+    return wallet;
   }, [chainId, accounts, error, isActivating, isActive, provider, ENSNames]);
 
   // react hook, useCallback, when user switches chain

@@ -28,7 +28,7 @@ import type { MetaMask } from '@web3-react/metamask';
 import { Network } from '@web3-react/network';
 import { WalletConnect } from '@web3-react/walletconnect';
 import { CHAINS, getAddChainParameters, URLS } from '../../chains';
-import { resetWalletConnector } from 'components/connectors/ResetWalletConnector'; // TODO: filepath?
+import { resetWalletConnector } from 'components/helpers/ResetWalletConnector'; // TODO: filepath?
 
 // web3-react hooks imports
 import { metaMask } from '../../connectors/metaMask';

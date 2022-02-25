@@ -85,6 +85,14 @@ export function FCNavbar({
   console.log('navbar printing navBarParams.accounts ', navBarParams.accounts);
   console.log('navbar printing {...navbarParams} ', { ...navBarParams });
 
+  const setShowModelTo = (
+    e: React.MouseEvent<Element, MouseEvent>,
+    show: boolean
+  ): void => {
+    e.preventDefault();
+    setShowModal(show);
+  };
+
   return (
     <Navbar collapseOnSelect expand='lg' bg='dark' variant='dark' id='Nav'>
       <Container>
@@ -105,14 +113,14 @@ export function FCNavbar({
             {navBarParams.accounts ? (
               <Button
                 variant='outline-light'
-                onClick={() => setShowModal(true)}
+                onClick={(e) => setShowModelTo(e, true)}
               >
                 My Wallet Info
               </Button>
             ) : (
               <Button
                 variant='outline-light'
-                onClick={() => setShowModal(true)}
+                onClick={(e) => setShowModelTo(e, true)}
               >
                 Connect
               </Button>

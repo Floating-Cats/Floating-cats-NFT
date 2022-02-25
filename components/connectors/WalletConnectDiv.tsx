@@ -21,7 +21,7 @@ import { hooks, walletConnect } from 'connectors/walletConnect';
 import { network } from 'connectors/network';
 
 // helper function
-import { handleOnClick } from 'components/connectors/HandleOnClick';
+import { handleOnClick } from 'components/helpers/HandleOnClick';
 import { NavBarInterface } from 'components/helpers/NavBarInterface';
 import { Web3ReactType } from 'components/helpers/Web3ReactType';
 
