@@ -91,7 +91,9 @@ export default function FCWalletConnModal({
         </Row>
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={onHide}>Close</Button>
+        <Button variant='outline-dark' onClick={onHide}>
+          Close
+        </Button>
       </Modal.Footer>
     </Modal>
   );

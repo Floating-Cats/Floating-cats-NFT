@@ -21,7 +21,7 @@ export function Status({
       ) : isActive ? (
         <>🟢 Connected</>
       ) : (
-        <>⚪️ Disconnected</>
+        <>⚪️ Not Connected</>
       )}
     </div>
   );

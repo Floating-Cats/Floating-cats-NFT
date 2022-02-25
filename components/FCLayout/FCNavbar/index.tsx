@@ -103,9 +103,19 @@ export function FCNavbar({
             }
             {/* <Button onClick={() => setShowModal(true)}>Connect</Button> */}
             {navBarParams.accounts ? (
-              <Button onClick={() => setShowModal(true)}>My Wallet Info</Button>
+              <Button
+                variant='outline-light'
+                onClick={() => setShowModal(true)}
+              >
+                My Wallet Info
+              </Button>
             ) : (
-              <Button onClick={() => setShowModal(true)}>Connect</Button>
+              <Button
+                variant='outline-light'
+                onClick={() => setShowModal(true)}
+              >
+                Connect
+              </Button>
             )}
           </Nav>
         </Navbar.Collapse>
