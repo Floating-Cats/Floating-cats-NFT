@@ -17,20 +17,49 @@ const FCWalletConnModal = dynamic(() => import('../../FCWalletConnModal'), {
   ssr: false,
 });
 
-type OnClickConnectType = (
-  chainId: ReturnType<Web3ReactHooks['useChainId']> | any,
-  accounts: ReturnType<Web3ReactHooks['useAccount']> | any,
-  error: ReturnType<Web3ReactHooks['useError']> | any,
-  isActivating: ReturnType<Web3ReactHooks['useIsActivating']> | any,
-  isActive: ReturnType<Web3ReactHooks['useIsActive']> | any,
-  provider: ReturnType<Web3ReactHooks['useProvider']> | any,
-  ENSNames: ReturnType<Web3ReactHooks['useENSNames']> | any
-) => void;
+interface NavBarInterface {
+  accounts: ReturnType<Web3ReactHooks['useAccount']> | any;
+  provider: ReturnType<Web3ReactHooks['useProvider']> | any;
+}
+
+// type OnClickConnectType = (
+//   chainId: ReturnType<Web3ReactHooks['useChainId']> | any,
+//   accounts: ReturnType<Web3ReactHooks['useAccount']> | any,
+//   error: ReturnType<Web3ReactHooks['useError']> | any,
+//   isActivating: ReturnType<Web3ReactHooks['useIsActivating']> | any,
+//   isActive: ReturnType<Web3ReactHooks['useIsActive']> | any,
+//   provider: ReturnType<Web3ReactHooks['useProvider']> | any,
+//   ENSNames: ReturnType<Web3ReactHooks['useENSNames']> | any
+// ) => void;
 
 export function FCNavbar({
-  onClickConnect,
+  navBarParams,
+  setChainId,
+  setAccount,
+  setError,
+  setIsActivating,
+  setIsActive,
+  setProvider,
+  setENSNames,
 }: {
-  onClickConnect: OnClickConnectType;
+  navBarParams: NavBarInterface;
+  setChainId: (chainId: ReturnType<Web3ReactHooks['useChainId']> | any) => void;
+  setAccount: (
+    accounts: ReturnType<Web3ReactHooks['useAccount']> | any
+  ) => void;
+  setError: (error: ReturnType<Web3ReactHooks['useError']> | any) => void;
+  setIsActivating: (
+    isActivating: ReturnType<Web3ReactHooks['useIsActivating']> | any
+  ) => void;
+  setIsActive: (
+    isActive: ReturnType<Web3ReactHooks['useIsActive']> | any
+  ) => void;
+  setProvider: (
+    provider: ReturnType<Web3ReactHooks['useProvider']> | any
+  ) => void;
+  setENSNames: (
+    ENSNames: ReturnType<Web3ReactHooks['useENSNames']> | any
+  ) => void;
 }) {
   const [showModal, setShowModal] = useState<boolean | any>(false);
 
@@ -55,6 +84,9 @@ export function FCNavbar({
     );
   };
 
+  console.log('navbar printing navBarParams.accounts ', navBarParams.accounts);
+  console.log('navbar printing {...navbarParams} ', { ...navBarParams });
+
   return (
     <Navbar collapseOnSelect expand='lg' bg='dark' variant='dark' id='Nav'>
       <Container>
@@ -71,14 +103,25 @@ export function FCNavbar({
             {
               // change the button to a badge or disbled button after users connects to their wallet
             }
-            <Button onClick={() => setShowModal(true)}>Connect</Button>
+            {/* <Button onClick={() => setShowModal(true)}>Connect</Button> */}
+            {navBarParams.accounts ? (
+              <p>DO SOMETHING</p>
+            ) : (
+              <Button onClick={() => setShowModal(true)}>Connect</Button>
+            )}
           </Nav>
         </Navbar.Collapse>
       </Container>
       <FCWalletConnModal
         show={showModal}
         onHide={() => setShowModal(false)}
-        onClickConnect={onClickConnect}
+        setChainId={setChainId}
+        setAccount={setAccount}
+        setError={setError}
+        setIsActivating={setIsActivating}
+        setIsActive={setIsActive}
+        setProvider={setProvider}
+        setENSNames={setENSNames}
       />
     </Navbar>
   );

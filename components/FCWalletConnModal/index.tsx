@@ -40,24 +40,46 @@ const {
   useENSNames,
 } = hooks;
 
-type OnClickConnectType = (
-  chainId: ReturnType<Web3ReactHooks['useChainId']> | any,
-  accounts: ReturnType<Web3ReactHooks['useAccount']> | any,
-  error: ReturnType<Web3ReactHooks['useError']> | any,
-  isActivating: ReturnType<Web3ReactHooks['useIsActivating']> | any,
-  isActive: ReturnType<Web3ReactHooks['useIsActive']> | any,
-  provider: ReturnType<Web3ReactHooks['useProvider']> | any,
-  ENSNames: ReturnType<Web3ReactHooks['useENSNames']> | any
-) => void;
+// type OnClickConnectType = (
+//   chainId: ReturnType<Web3ReactHooks['useChainId']> | any,
+//   accounts: ReturnType<Web3ReactHooks['useAccount']> | any,
+//   error: ReturnType<Web3ReactHooks['useError']> | any,
+//   isActivating: ReturnType<Web3ReactHooks['useIsActivating']> | any,
+//   isActive: ReturnType<Web3ReactHooks['useIsActive']> | any,
+//   provider: ReturnType<Web3ReactHooks['useProvider']> | any,
+//   ENSNames: ReturnType<Web3ReactHooks['useENSNames']> | any
+// ) => void;
 
 export default function FCWalletConnModal({
   show,
   onHide,
-  onClickConnect,
+  setChainId,
+  setAccount,
+  setError,
+  setIsActivating,
+  setIsActive,
+  setProvider,
+  setENSNames,
 }: {
   show: boolean;
   onHide: () => void;
-  onClickConnect: OnClickConnectType;
+  setChainId: (chainId: ReturnType<Web3ReactHooks['useChainId']> | any) => void;
+  setAccount: (
+    accounts: ReturnType<Web3ReactHooks['useAccount']> | any
+  ) => void;
+  setError: (error: ReturnType<Web3ReactHooks['useError']> | any) => void;
+  setIsActivating: (
+    isActivating: ReturnType<Web3ReactHooks['useIsActivating']> | any
+  ) => void;
+  setIsActive: (
+    isActive: ReturnType<Web3ReactHooks['useIsActive']> | any
+  ) => void;
+  setProvider: (
+    provider: ReturnType<Web3ReactHooks['useProvider']> | any
+  ) => void;
+  setENSNames: (
+    ENSNames: ReturnType<Web3ReactHooks['useENSNames']> | any
+  ) => void;
 }) {
   // states of this component
   const [connector, setConnector] = useState<
@@ -80,17 +102,15 @@ export default function FCWalletConnModal({
   const ENSNames = useENSNames(provider);
 
   console.debug('accounts is ', accounts);
-  // useEffect(() => {
-  //   onClickConnect(
-  //     chainId,
-  //     accounts,
-  //     error,
-  //     isActivating,
-  //     isActive,
-  //     provider,
-  //     ENSNames
-  //   );
-  // }, [chainId, accounts, error, isActivating, isActive, provider, ENSNames]);
+  useEffect(() => {
+    setChainId(chainId);
+    setAccount(accounts);
+    setError(error);
+    setIsActivating(isActivating);
+    setIsActive(isActive);
+    setProvider(provider);
+    setENSNames(ENSNames);
+  }, [chainId, accounts, error, isActivating, isActive, provider, ENSNames]);
 
   // react hook, useCallback
   const switchChain = useCallback(
@@ -167,21 +187,15 @@ export default function FCWalletConnModal({
         ? await /*toast.promise(*/
           connector
             .activate(desiredChainId === -1 ? 1 : desiredChainId)
-            // .activate(desiredChainId === -1 ? undefined : desiredChainId)
             .then((res) => {
-              // FIXME: res is just walletconnect object
               console.log('HAHAHA1');
               console.debug('res is ', res);
-              if (accounts) {
-                console.log('Wallet Connected1');
-                toast.success('☑️ Wallet connected1');
-              }
+              toast.success('☑️ Wallet connected1');
             })
             .catch((err) => {
-              console.error('ERROR2~~~', err);
-              toast.error(
-                '⚠️ An error occurred while we connect to your wallet1'
-              );
+              console.error('ERROR1~~~', err);
+              // We need to reset walletconnect if users have closed the modal
+              resetWalletConnector(connector);
             })
         : //   ,
           //   {

@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import type { AppProps /*, AppContext */ } from 'next/app';
 import 'bootstrap/dist/css/bootstrap.css';
 
@@ -36,72 +36,19 @@ function MyApp({ Component, pageProps }: AppProps) {
     ReturnType<Web3ReactHooks['useENSNames']> | any
   >();
 
-  // useEffect(
-  //   () => {
-  //     localStorage.getItem('accounts')
-  //       ? setAccount(localStorage.getItem('accounts'))
-  //       : onClickConnect(
-  //           chainId,
-  //           accounts,
-  //           error,
-  //           isActivating,
-  //           isActive,
-  //           provider,
-  //           ENSNames
-  //         );
-  //     localStorage.setItem('accounts', accounts);
-  //   },
-
-  //   // rerun the effect if these states change
-  //   [chainId, accounts, error, isActivating, isActive, provider, ENSNames]
-  // );
-
-  // fetch account information
-  const onClickConnect = useCallback(
-    async (
-      chainId: ReturnType<Web3ReactHooks['useChainId']> | any,
-      accounts: ReturnType<Web3ReactHooks['useAccount']> | any,
-      error: ReturnType<Web3ReactHooks['useError']> | any,
-      isActivating: ReturnType<Web3ReactHooks['useIsActivating']> | any,
-      isActive: ReturnType<Web3ReactHooks['useIsActive']> | any,
-      provider: ReturnType<Web3ReactHooks['useProvider']> | any,
-      ENSNames: ReturnType<Web3ReactHooks['useENSNames']> | any
-    ) => {
-      setChainId(chainId);
-      setAccount(accounts);
-      setError(error);
-      setIsActivating(isActivating);
-      setIsActive(isActive);
-      setProvider(provider);
-      setENSNames(ENSNames);
-    },
-    [chainId, accounts, error, isActivating, isActive, provider, ENSNames]
-  );
-  // for Navbar
-  const navBarParams = { accounts, provider };
-
   console.log('=========\n_app.tsx');
-  // console.log('chainId: ', chainId);
-  console.log('accounts: ', accounts);
-  // console.log('error: ', error);
-  // console.log('isActivating: ', isActivating);
-  // console.log('isActive: ', isActive);
-  // console.log('provider: ', provider);
-  // console.log('ENSNames: ', ENSNames);
+  const navBarParams = { accounts, provider };
+  console.log({ ...navBarParams });
   return (
     <>
       <FCLayout
-        onClickConnect={() => {
-          onClickConnect(
-            chainId,
-            accounts,
-            error,
-            isActivating,
-            isActive,
-            provider,
-            ENSNames
-          );
-        }}
+        setChainId={setChainId}
+        setAccount={setAccount}
+        setError={setError}
+        setIsActivating={setIsActivating}
+        setIsActive={setIsActive}
+        setProvider={setProvider}
+        setENSNames={setENSNames}
         navBarParams={navBarParams}
       >
         <div>

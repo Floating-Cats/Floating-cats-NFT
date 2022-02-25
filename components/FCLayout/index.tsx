@@ -14,24 +14,46 @@ interface NavBarInterface {
   provider: ReturnType<Web3ReactHooks['useProvider']> | any;
 }
 
-type OnClickConnectType = (
-  chainId: ReturnType<Web3ReactHooks['useChainId']> | any,
-  accounts: ReturnType<Web3ReactHooks['useAccount']> | any,
-  error: ReturnType<Web3ReactHooks['useError']> | any,
-  isActivating: ReturnType<Web3ReactHooks['useIsActivating']> | any,
-  isActive: ReturnType<Web3ReactHooks['useIsActive']> | any,
-  provider: ReturnType<Web3ReactHooks['useProvider']> | any,
-  ENSNames: ReturnType<Web3ReactHooks['useENSNames']> | any
-) => void;
+// type OnClickConnectType = (
+//   chainId: ReturnType<Web3ReactHooks['useChainId']> | any,
+//   accounts: ReturnType<Web3ReactHooks['useAccount']> | any,
+//   error: ReturnType<Web3ReactHooks['useError']> | any,
+//   isActivating: ReturnType<Web3ReactHooks['useIsActivating']> | any,
+//   isActive: ReturnType<Web3ReactHooks['useIsActive']> | any,
+//   provider: ReturnType<Web3ReactHooks['useProvider']> | any,
+//   ENSNames: ReturnType<Web3ReactHooks['useENSNames']> | any
+// ) => void;
 
 export default function FCLayout({
   children,
   navBarParams,
-  onClickConnect,
+  setChainId,
+  setAccount,
+  setError,
+  setIsActivating,
+  setIsActive,
+  setProvider,
+  setENSNames,
 }: {
   children: JSX.Element | JSX.Element[];
   navBarParams: NavBarInterface;
-  onClickConnect: OnClickConnectType;
+  setChainId: (chainId: ReturnType<Web3ReactHooks['useChainId']> | any) => void;
+  setAccount: (
+    accounts: ReturnType<Web3ReactHooks['useAccount']> | any
+  ) => void;
+  setError: (error: ReturnType<Web3ReactHooks['useError']> | any) => void;
+  setIsActivating: (
+    isActivating: ReturnType<Web3ReactHooks['useIsActivating']> | any
+  ) => void;
+  setIsActive: (
+    isActive: ReturnType<Web3ReactHooks['useIsActive']> | any
+  ) => void;
+  setProvider: (
+    provider: ReturnType<Web3ReactHooks['useProvider']> | any
+  ) => void;
+  setENSNames: (
+    ENSNames: ReturnType<Web3ReactHooks['useENSNames']> | any
+  ) => void;
 }) {
   const [loading, setLoading] = useState<boolean | any>(true);
   useEffect(() => {
@@ -43,6 +65,8 @@ export default function FCLayout({
     setLoading(false);
   };
 
+  console.log('=========Layout.tsx');
+  console.log({ ...navBarParams });
   return (
     <>
       <Head>
@@ -69,7 +93,16 @@ export default function FCLayout({
           <FCSpinner />
         ) : (
           <>
-            <FCNavbar onClickConnect={onClickConnect} />
+            <FCNavbar
+              navBarParams={navBarParams}
+              setChainId={setChainId}
+              setAccount={setAccount}
+              setError={setError}
+              setIsActivating={setIsActivating}
+              setIsActive={setIsActive}
+              setProvider={setProvider}
+              setENSNames={setENSNames}
+            />
             <main>{children}</main>
             <FCFooter />
           </>
