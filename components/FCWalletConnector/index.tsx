@@ -27,6 +27,7 @@ import { handleOnClick } from 'components/helpers/HandleOnClick';
 import { NavBarInterface } from 'components/helpers/NavBarInterface';
 import { Web3ReactType } from 'components/helpers/Web3ReactType';
 import Select from 'components/connectors/Select';
+var stringify = require('json-stringify-safe');
 
 export default function FCWalletConnector({
   navBarParams,
@@ -95,7 +96,7 @@ export default function FCWalletConnector({
 
     window.localStorage.setItem(
       'wc',
-      JSON.stringify([
+      stringify([
         {
           chainId: chainId,
           accounts: accounts,

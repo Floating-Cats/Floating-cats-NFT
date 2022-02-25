@@ -40,7 +40,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   useEffect(() => {
     const initWallet = (JSON.parse(window.localStorage.getItem('wc') || '{}') ||
-      JSON.parse(`{
+      JSON.parse(`[{
   chainId: ${null},
   accounts: ${null},
   error: ${null},
@@ -48,7 +48,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   isActive: ${null},
   provider: ${null},
   ENSNames: ${null},
-}`)) as StorageInterface;
+}]`)) as StorageInterface;
     // const initWallet: StorageInterface = JSON.parse(
     //   window.localStorage.getItem('wc')
     // ) || {
@@ -62,18 +62,21 @@ function MyApp({ Component, pageProps }: AppProps) {
     // };
 
     console.log('{ ...initWallet }');
-    console.log(initWallet);
-    console.log({ ...initWallet }.accounts);
+    console.log({ ...initWallet });
 
+    let fetchedWallet = { ...initWallet };
     // if wallet info is fetched
-    if (initWallet.isActive) {
-      setChainId(initWallet.chainId);
-      setAccount(initWallet.accounts);
-      setError(initWallet.error);
-      setIsActivating(initWallet.isActivating);
-      setIsActive(initWallet.isActive);
-      setProvider(initWallet.provider);
-      setENSNames(initWallet.ENSNames);
+    if (fetchedWallet) {
+      console.log(fetchedWallet.accounts);
+      if (fetchedWallet[0].isActive) {
+        setChainId(fetchedWallet[0].chainId);
+        setAccount(fetchedWallet[0].accounts);
+        setError(fetchedWallet[0].error);
+        setIsActivating(fetchedWallet[0].isActivating);
+        setIsActive(fetchedWallet[0].isActive);
+        setProvider(fetchedWallet[0].provider);
+        setENSNames(fetchedWallet[0].ENSNames);
+      }
     } else {
       localStorage.setItem('wc', JSON.stringify(initWallet));
     }
