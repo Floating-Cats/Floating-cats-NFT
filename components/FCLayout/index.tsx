@@ -25,8 +25,10 @@ interface NavBarInterface {
 // ) => void;
 
 export default function FCLayout({
+  // component
   children,
   navBarParams,
+  // web3 react
   setChainId,
   setAccount,
   setError,
@@ -35,8 +37,10 @@ export default function FCLayout({
   setProvider,
   setENSNames,
 }: {
+  // component
   children: JSX.Element | JSX.Element[];
   navBarParams: NavBarInterface;
+  // web3 react
   setChainId: (chainId: ReturnType<Web3ReactHooks['useChainId']> | any) => void;
   setAccount: (
     accounts: ReturnType<Web3ReactHooks['useAccount']> | any

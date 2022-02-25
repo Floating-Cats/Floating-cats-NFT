@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import dynamic from 'next/dynamic';
+// import dynamic from 'next/dynamic';
 
 // imports for stylings
 import Nav from 'react-bootstrap/Nav';
@@ -10,30 +10,25 @@ import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
 import { toast } from 'react-toastify';
 
+// components
+import FCWalletConnModal from 'components/FCWalletConnModal';
+
 // types
 import type { Web3ReactHooks } from '@web3-react/core';
 
-const FCWalletConnModal = dynamic(() => import('../../FCWalletConnModal'), {
-  ssr: false,
-});
+// const FCWalletConnModal = dynamic(() => import('../../FCWalletConnModal'), {
+//   ssr: false,
+// });
 
 interface NavBarInterface {
   accounts: ReturnType<Web3ReactHooks['useAccount']> | any;
   provider: ReturnType<Web3ReactHooks['useProvider']> | any;
 }
 
-// type OnClickConnectType = (
-//   chainId: ReturnType<Web3ReactHooks['useChainId']> | any,
-//   accounts: ReturnType<Web3ReactHooks['useAccount']> | any,
-//   error: ReturnType<Web3ReactHooks['useError']> | any,
-//   isActivating: ReturnType<Web3ReactHooks['useIsActivating']> | any,
-//   isActive: ReturnType<Web3ReactHooks['useIsActive']> | any,
-//   provider: ReturnType<Web3ReactHooks['useProvider']> | any,
-//   ENSNames: ReturnType<Web3ReactHooks['useENSNames']> | any
-// ) => void;
-
 export function FCNavbar({
+  // component
   navBarParams,
+  // web3 react
   setChainId,
   setAccount,
   setError,
@@ -42,7 +37,9 @@ export function FCNavbar({
   setProvider,
   setENSNames,
 }: {
+  // component
   navBarParams: NavBarInterface;
+  // web3 react
   setChainId: (chainId: ReturnType<Web3ReactHooks['useChainId']> | any) => void;
   setAccount: (
     accounts: ReturnType<Web3ReactHooks['useAccount']> | any
@@ -105,7 +102,7 @@ export function FCNavbar({
             }
             {/* <Button onClick={() => setShowModal(true)}>Connect</Button> */}
             {navBarParams.accounts ? (
-              <p>DO SOMETHING</p>
+              <Button onClick={() => setShowModal(true)}>My Wallet Info</Button>
             ) : (
               <Button onClick={() => setShowModal(true)}>Connect</Button>
             )}
@@ -115,6 +112,7 @@ export function FCNavbar({
       <FCWalletConnModal
         show={showModal}
         onHide={() => setShowModal(false)}
+        navBarParams={navBarParams}
         setChainId={setChainId}
         setAccount={setAccount}
         setError={setError}
