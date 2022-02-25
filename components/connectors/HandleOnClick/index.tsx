@@ -7,12 +7,14 @@ import { CHAINS, getAddChainParameters, URLS } from 'chains';
 
 // helper function
 import { resetWalletConnector } from '../ResetWalletConnector';
+import { Web3ReactType } from 'components/helpers/Web3ReactType';
 
 export async function handleOnClick(
-  chainId: ReturnType<Web3ReactHooks['useChainId']>,
-  error: ReturnType<Web3ReactHooks['useError']>,
-  isActivating: ReturnType<Web3ReactHooks['useIsActivating']>,
-  isActive: ReturnType<Web3ReactHooks['useIsActive']>,
+  // web3 react
+  chainId: Web3ReactType['chainId'],
+  error: Web3ReactType['error'],
+  isActivating: Web3ReactType['isActivating'],
+  isActive: Web3ReactType['isActive'],
   connector: MetaMask | WalletConnect | Network /*| WalletLink*/,
   desiredChainId: number | any
 ) {

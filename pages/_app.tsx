@@ -10,31 +10,19 @@ import '../styles.css';
 // components
 import FCLayout from '../components/FCLayout';
 
-// types
-import type { Web3ReactHooks } from '@web3-react/core';
+// helper function
+import { NavBarInterface } from 'components/helpers/NavBarInterface';
+import { Web3ReactType } from 'components/helpers/Web3ReactType';
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const [chainId, setChainId] = useState<
-    ReturnType<Web3ReactHooks['useChainId']> | any
-  >();
-  const [accounts, setAccount] = useState<
-    ReturnType<Web3ReactHooks['useAccount']> | any
-  >();
-  const [error, setError] = useState<
-    ReturnType<Web3ReactHooks['useError']> | any
-  >();
-  const [isActivating, setIsActivating] = useState<
-    ReturnType<Web3ReactHooks['useIsActivating']> | any
-  >();
-  const [isActive, setIsActive] = useState<
-    ReturnType<Web3ReactHooks['useIsActive']> | any
-  >();
-  const [provider, setProvider] = useState<
-    ReturnType<Web3ReactHooks['useProvider']> | any
-  >();
-  const [ENSNames, setENSNames] = useState<
-    ReturnType<Web3ReactHooks['useENSNames']> | any
-  >();
+  const [chainId, setChainId] = useState<Web3ReactType['chainId']>();
+  const [accounts, setAccount] = useState<Web3ReactType['accounts']>();
+  const [error, setError] = useState<Web3ReactType['error']>();
+  const [isActivating, setIsActivating] =
+    useState<Web3ReactType['isActivating']>();
+  const [isActive, setIsActive] = useState<Web3ReactType['isActive']>();
+  const [provider, setProvider] = useState<Web3ReactType['provider']>();
+  const [ENSNames, setENSNames] = useState<Web3ReactType['ENSNames']>();
 
   console.log('=========\n_app.tsx');
   const navBarParams = { accounts, provider };

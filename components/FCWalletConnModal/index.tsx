@@ -15,6 +15,12 @@ import { toast } from 'react-toastify';
 import { Accounts } from '../Accounts';
 import { Chain } from '../Chain';
 import { Status } from '../Status';
+const FCWalletConnector = dynamic(
+  () => import('components/FCWalletConnector'),
+  {
+    ssr: false,
+  }
+);
 
 // ConnectWithSelect.tsx
 import type { Web3ReactHooks } from '@web3-react/core';
@@ -28,21 +34,9 @@ import { resetWalletConnector } from 'components/connectors/ResetWalletConnector
 import { metaMask } from '../../connectors/metaMask';
 import { hooks, walletConnect } from '../../connectors/walletConnect';
 
-const MetaMaskDiv = dynamic(() => import('components/connectors/MetaMaskDiv'), {
-  ssr: false,
-});
-
-const WalletConnectDiv = dynamic(
-  () => import('components/connectors/WalletConnectDiv'),
-  {
-    ssr: false,
-  }
-);
-
-interface NavBarInterface {
-  accounts: ReturnType<Web3ReactHooks['useAccount']> | any;
-  provider: ReturnType<Web3ReactHooks['useProvider']> | any;
-}
+// helper function
+import { NavBarInterface } from 'components/helpers/NavBarInterface';
+import { Web3ReactType } from 'components/helpers/Web3ReactType';
 
 export default function FCWalletConnModal({
   // component
@@ -63,23 +57,13 @@ export default function FCWalletConnModal({
   onHide: () => void;
   navBarParams: NavBarInterface;
   // web3 react
-  setChainId: (chainId: ReturnType<Web3ReactHooks['useChainId']> | any) => void;
-  setAccount: (
-    accounts: ReturnType<Web3ReactHooks['useAccount']> | any
-  ) => void;
-  setError: (error: ReturnType<Web3ReactHooks['useError']> | any) => void;
-  setIsActivating: (
-    isActivating: ReturnType<Web3ReactHooks['useIsActivating']> | any
-  ) => void;
-  setIsActive: (
-    isActive: ReturnType<Web3ReactHooks['useIsActive']> | any
-  ) => void;
-  setProvider: (
-    provider: ReturnType<Web3ReactHooks['useProvider']> | any
-  ) => void;
-  setENSNames: (
-    ENSNames: ReturnType<Web3ReactHooks['useENSNames']> | any
-  ) => void;
+  setChainId: (chainId: Web3ReactType['chainId']) => void;
+  setAccount: (accounts: Web3ReactType['accounts']) => void;
+  setError: (error: Web3ReactType['error']) => void;
+  setIsActivating: (isActivating: Web3ReactType['isActivating']) => void;
+  setIsActive: (isActive: Web3ReactType['isActive']) => void;
+  setProvider: (provider: Web3ReactType['provider']) => void;
+  setENSNames: (ENSNames: Web3ReactType['ENSNames']) => void;
 }) {
   return (
     <Modal
@@ -93,17 +77,7 @@ export default function FCWalletConnModal({
       <Modal.Body>
         <Row>
           <ListGroup>
-            <MetaMaskDiv
-              navBarParams={navBarParams}
-              setChainId={setChainId}
-              setAccount={setAccount}
-              setError={setError}
-              setIsActivating={setIsActivating}
-              setIsActive={setIsActive}
-              setProvider={setProvider}
-              setENSNames={setENSNames}
-            />
-            <WalletConnectDiv
+            <FCWalletConnector
               navBarParams={navBarParams}
               setChainId={setChainId}
               setAccount={setAccount}

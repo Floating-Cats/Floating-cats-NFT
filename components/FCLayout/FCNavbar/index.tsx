@@ -25,6 +25,16 @@ interface NavBarInterface {
   provider: ReturnType<Web3ReactHooks['useProvider']> | any;
 }
 
+type Web3ReactType = {
+  chainId: ReturnType<Web3ReactHooks['useChainId']> | any;
+  accounts: ReturnType<Web3ReactHooks['useAccount']> | any;
+  error: ReturnType<Web3ReactHooks['useError']> | any;
+  isActivating: ReturnType<Web3ReactHooks['useIsActivating']> | any;
+  isActive: ReturnType<Web3ReactHooks['useIsActive']> | any;
+  provider: ReturnType<Web3ReactHooks['useProvider']> | any;
+  ENSNames: ReturnType<Web3ReactHooks['useENSNames']> | any;
+};
+
 export function FCNavbar({
   // component
   navBarParams,
@@ -40,23 +50,14 @@ export function FCNavbar({
   // component
   navBarParams: NavBarInterface;
   // web3 react
-  setChainId: (chainId: ReturnType<Web3ReactHooks['useChainId']> | any) => void;
-  setAccount: (
-    accounts: ReturnType<Web3ReactHooks['useAccount']> | any
-  ) => void;
-  setError: (error: ReturnType<Web3ReactHooks['useError']> | any) => void;
-  setIsActivating: (
-    isActivating: ReturnType<Web3ReactHooks['useIsActivating']> | any
-  ) => void;
-  setIsActive: (
-    isActive: ReturnType<Web3ReactHooks['useIsActive']> | any
-  ) => void;
-  setProvider: (
-    provider: ReturnType<Web3ReactHooks['useProvider']> | any
-  ) => void;
-  setENSNames: (
-    ENSNames: ReturnType<Web3ReactHooks['useENSNames']> | any
-  ) => void;
+  // web3 react
+  setChainId: (chainId: Web3ReactType['chainId']) => void;
+  setAccount: (accounts: Web3ReactType['accounts']) => void;
+  setError: (error: Web3ReactType['error']) => void;
+  setIsActivating: (isActivating: Web3ReactType['isActivating']) => void;
+  setIsActive: (isActive: Web3ReactType['isActive']) => void;
+  setProvider: (provider: Web3ReactType['provider']) => void;
+  setENSNames: (ENSNames: Web3ReactType['ENSNames']) => void;
 }) {
   const [showModal, setShowModal] = useState<boolean | any>(false);
 

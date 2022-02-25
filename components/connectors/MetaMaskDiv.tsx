@@ -22,112 +22,34 @@ import { network } from 'connectors/network';
 
 // helper function
 import { handleOnClick } from 'components/connectors/HandleOnClick';
-
-interface NavBarInterface {
-  accounts: ReturnType<Web3ReactHooks['useAccount']> | any;
-  provider: ReturnType<Web3ReactHooks['useProvider']> | any;
-}
-
-const {
-  useChainId,
-  useAccounts,
-  useError,
-  useIsActivating,
-  useIsActive,
-  useProvider,
-  useENSNames,
-} = hooks;
+import { NavBarInterface } from 'components/helpers/NavBarInterface';
+import { Web3ReactType } from 'components/helpers/Web3ReactType';
 
 export default function MetaMaskDiv({
   // components
   navBarParams,
+  switchChain,
   // web3 react
-  setChainId,
-  setAccount,
-  setError,
-  setIsActivating,
-  setIsActive,
-  setProvider,
-  setENSNames,
+  chainId,
+  accounts,
+  error,
+  isActivating,
+  isActive,
+  provider,
+  ENSNames,
 }: {
   // components
   navBarParams: NavBarInterface;
+  switchChain: (desiredChainId: number) => void;
   // web3 react
-  setChainId: (chainId: ReturnType<Web3ReactHooks['useChainId']> | any) => void;
-  setAccount: (
-    accounts: ReturnType<Web3ReactHooks['useAccount']> | any
-  ) => void;
-  setError: (error: ReturnType<Web3ReactHooks['useError']> | any) => void;
-  setIsActivating: (
-    isActivating: ReturnType<Web3ReactHooks['useIsActivating']> | any
-  ) => void;
-  setIsActive: (
-    isActive: ReturnType<Web3ReactHooks['useIsActive']> | any
-  ) => void;
-  setProvider: (
-    provider: ReturnType<Web3ReactHooks['useProvider']> | any
-  ) => void;
-  setENSNames: (
-    ENSNames: ReturnType<Web3ReactHooks['useENSNames']> | any
-  ) => void;
+  chainId: Web3ReactType['chainId'];
+  accounts: Web3ReactType['accounts'];
+  error: Web3ReactType['error'];
+  isActivating: Web3ReactType['isActivating'];
+  isActive: Web3ReactType['isActive'];
+  provider: Web3ReactType['provider'];
+  ENSNames: Web3ReactType['ENSNames'];
 }) {
-  // component state
-  const [connector, setConnector] = useState<MetaMask | any>(metaMask);
-  const [isNetwork, setIsNetwork] = useState<boolean>(
-    connector instanceof Network
-  );
-  const [desiredChainId, setDesiredChainId] = useState<number>(
-    isNetwork ? 1 : -1
-  );
-  const [displayDefault, setDisplayDefault] = useState<boolean>(!isNetwork);
-  const [chainIds, setChainIds] = useState<number[]>(
-    (isNetwork ? Object.keys(URLS) : Object.keys(CHAINS)).map((chainId) =>
-      Number(chainId)
-    )
-  );
-
-  // web3-react hooks
-  const chainId = useChainId();
-  const accounts = useAccounts();
-  const error = useError();
-  const isActivating = useIsActivating();
-  const isActive = useIsActive();
-  const provider = useProvider();
-  const ENSNames = useENSNames(provider);
-
-  useEffect(() => {
-    setChainId(chainId);
-    setAccount(accounts);
-    setError(error);
-    setIsActivating(isActivating);
-    setIsActive(isActive);
-    setProvider(provider);
-    setENSNames(ENSNames);
-  }, [chainId, accounts, error, isActivating, isActive, provider, ENSNames]);
-
-  // react hook, useCallback, when user switches chain
-  const switchChain = useCallback(
-    async (desiredChainId: number) => {
-      setDesiredChainId(desiredChainId);
-      // if we're already connected to the desired chain, return
-      if (desiredChainId === chainId) return;
-      // if they want to connect to the default chain and we're already connected, return
-      if (desiredChainId === -1 && chainId !== undefined) return;
-
-      if (connector instanceof WalletConnect || connector instanceof Network) {
-        await connector.activate(
-          desiredChainId === -1 ? 1 : desiredChainId
-          // desiredChainId === -1 ? undefined : desiredChainId
-        );
-      } else {
-        await connector.activate(
-          desiredChainId === -1 ? 1 : getAddChainParameters(desiredChainId)
-        );
-      }
-    },
-    [connector, chainId]
-  );
-
   const getHeader = () => {
     return (
       <>
@@ -148,93 +70,20 @@ export default function MetaMaskDiv({
           navBarParams.provider &&
           navBarParams.provider.connection.url === 'metamask' ? (
             <>
-              <ListGroup.Item
-                action
-                onClick={() => {
-                  handleOnClick(
-                    chainId,
-                    error,
-                    isActivating,
-                    isActive,
-                    metaMask,
-                    desiredChainId
-                  );
-                }}
-              >
-                <>
-                  {getHeader()}
-                  <h6>Click to disconnect</h6>
-                </>
-              </ListGroup.Item>
-              <ListGroup.Item>
-                <Select
-                  chainId={desiredChainId}
-                  switchChain={switchChain}
-                  displayDefault={displayDefault}
-                  chainIds={[1, 4]}
-                />
-                <Status
-                  isActivating={isActivating}
-                  error={error}
-                  isActive={isActive}
-                />
-                <div style={{ marginBottom: '1rem' }} />
-                <Chain chainId={chainId} />
-                <Accounts
-                  accounts={accounts}
-                  provider={provider}
-                  ENSNames={ENSNames}
-                />
-              </ListGroup.Item>
+              {getHeader()}
+              <h6>Open your Metamask extension to switch wallet or network</h6>
+              <h6>Or click to disconnect</h6>
             </>
           ) : (
-            // else display none in the modal
-            <></>
+            <>{/* <img src={'../../About.GIF'} alt='' width='60' /> */}</>
           )
         ) : (
           // else no wallet connected at the moment
           <>
-            <ListGroup.Item
-              action
-              onClick={() => {
-                handleOnClick(
-                  chainId,
-                  error,
-                  isActivating,
-                  isActive,
-                  metaMask,
-                  desiredChainId
-                );
-              }}
-            >
-              <>
-                {getHeader()}
-                <h6>Connect to your MetaMask Wallet</h6>
-              </>
-            </ListGroup.Item>
-
-            {/* debug */}
-            <ListGroup.Item>
-              <p>DEBUG</p>
-              <Select
-                chainId={desiredChainId}
-                switchChain={switchChain}
-                displayDefault={displayDefault}
-                chainIds={[1, 4]}
-              />
-              <Status
-                isActivating={isActivating}
-                error={error}
-                isActive={isActive}
-              />
-              <div style={{ marginBottom: '1rem' }} />
-              <Chain chainId={chainId} />
-              <Accounts
-                accounts={accounts}
-                provider={provider}
-                ENSNames={ENSNames}
-              />
-            </ListGroup.Item>
+            <>
+              {getHeader()}
+              <h6>Connect to your MetaMask Wallet</h6>
+            </>
           </>
         )
       }
