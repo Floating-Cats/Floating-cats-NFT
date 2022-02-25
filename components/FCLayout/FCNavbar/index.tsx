@@ -82,9 +82,6 @@ export function FCNavbar({
     );
   };
 
-  console.log('navbar printing navBarParams.accounts ', navBarParams.accounts);
-  console.log('navbar printing {...navbarParams} ', { ...navBarParams });
-
   const setShowModelTo = (
     e: React.MouseEvent<Element, MouseEvent>,
     show: boolean

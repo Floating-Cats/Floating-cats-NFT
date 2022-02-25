@@ -21,7 +21,7 @@ export async function handleOnClick(
   if (error) {
     // TODO: Add toast for feed back
     // Try again?
-    console.log(`if error, ${error}, desiredChainId = ${desiredChainId}`);
+    // console.debug(`if error, ${error}, desiredChainId = ${desiredChainId}`);
     connector instanceof WalletConnect || connector instanceof Network
       ? await connector
           // .activate(desiredChainId === -1 ? undefined : desiredChainId)
@@ -38,16 +38,16 @@ export async function handleOnClick(
         );
   } else if (isActive) {
     // Disconnect
-    console.log(
-      `else if isActive, ${isActive}, desiredChainId = ${desiredChainId}`
-    );
+    // console.debug(
+    //   `else if isActive, ${isActive}, desiredChainId = ${desiredChainId}`
+    // );
     await connector.deactivate();
   } else {
     // Connect
-    console.log(
-      `else isActivating, ${isActivating}, desiredChainId = ${desiredChainId}, connector = ${connector}`
-    );
-    console.debug('connector is ', connector);
+    // console.debug(
+    //   `else isActivating, ${isActivating}, desiredChainId = ${desiredChainId}, connector = ${connector}`
+    // );
+    // console.debug('connector is ', connector);
     connector instanceof WalletConnect || connector instanceof Network
       ? await connector
           .activate(desiredChainId === -1 ? 1 : desiredChainId)

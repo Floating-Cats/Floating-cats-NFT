@@ -69,8 +69,6 @@ export default function FCLayout({
     setLoading(false);
   };
 
-  console.log('=========Layout.tsx');
-  console.log({ ...navBarParams });
   return (
     <>
       <Head>

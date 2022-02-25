@@ -21,6 +21,5 @@ const { usePriorityConnector } = getPriorityConnector(
 
 export default function PriorityExample() {
   const priorityConnector = usePriorityConnector();
-  console.log(`Priority Connector: ${getName(priorityConnector)}`);
   return null;
 }

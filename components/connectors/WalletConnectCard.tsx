@@ -26,16 +26,6 @@ export default function WalletConnectCard() {
   const provider = useProvider();
   const ENSNames = useENSNames(provider);
 
-  if (isActive) {
-    console.log('WalletConnectCard');
-    console.log(`chainId: ${chainId}, ${typeof chainId}`);
-    console.log(`accounts: ${accounts}, ${typeof accounts}`);
-    console.log(`error: ${error}, ${typeof error}`);
-    console.log(`isActivating: ${isActivating}, ${typeof isActivating}`);
-    console.log(`isActive: ${isActive}, ${typeof isActive}`);
-    console.log(`provider: ${provider}, ${typeof provider}`);
-    console.log(`ENSNames: ${ENSNames}, ${typeof ENSNames}`);
-  }
   return (
     <Card>
       <div>

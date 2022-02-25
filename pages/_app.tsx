@@ -34,9 +34,9 @@ function MyApp({ Component, pageProps }: AppProps) {
   const [provider, setProvider] = useState<Web3ReactType['provider']>();
   const [ENSNames, setENSNames] = useState<Web3ReactType['ENSNames']>();
 
-  console.log('=========\n_app.tsx');
+  // console.log('=========\n_app.tsx');
   const navBarParams = { accounts, provider };
-  console.log({ ...navBarParams });
+  // console.log({ ...navBarParams });
 
   useEffect(() => {
     const initWallet = (JSON.parse(window.localStorage.getItem('wc') || '{}') ||
@@ -49,25 +49,15 @@ function MyApp({ Component, pageProps }: AppProps) {
   provider: ${null},
   ENSNames: ${null},
 }]`)) as StorageInterface;
-    // const initWallet: StorageInterface = JSON.parse(
-    //   window.localStorage.getItem('wc')
-    // ) || {
-    //   chainId: null,
-    //   accounts: null,
-    //   error: null,
-    //   isActivating: null,
-    //   isActive: null,
-    //   provider: null,
-    //   ENSNames: null,
-    // };
+    // console.log('{ ...initWallet }');
+    // console.log({ ...initWallet });
+    // console.log(typeof { ...initWallet });
 
-    console.log('{ ...initWallet }');
-    console.log({ ...initWallet });
-
-    let fetchedWallet = { ...initWallet };
+    // FIXME: typescript check error
+    let fetchedWallet: (StorageInterface | any)[] = { ...initWallet };
     // if wallet info is fetched
     if (fetchedWallet) {
-      console.log(fetchedWallet.accounts);
+      console.log(fetchedWallet[0].accounts);
       if (fetchedWallet[0].isActive) {
         setChainId(fetchedWallet[0].chainId);
         setAccount(fetchedWallet[0].accounts);
@@ -80,18 +70,6 @@ function MyApp({ Component, pageProps }: AppProps) {
     } else {
       localStorage.setItem('wc', JSON.stringify(initWallet));
     }
-
-    //     let fetchedWallet = {
-    //       chainId: null,
-    // accounts: null,
-    // error: null,
-    // isActivating: null,
-    // isActive: null,
-    // provider: null,
-    // ENSNames: null
-    //   }
-    //     localStorage.setItem('wc', JSON.stringify(fetchedWallet));
-    //   };
   }, []);
 
   return (
