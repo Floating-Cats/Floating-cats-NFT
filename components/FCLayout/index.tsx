@@ -1,24 +1,37 @@
 import { useEffect, useState } from 'react';
 import Head from 'next/head';
 
+// components
 import { FCNavbar } from './FCNavbar';
 import { FCFooter } from './FCFooter';
 import FCSpinner from '../FCSpinner';
 
+// types
+import type { Web3ReactHooks } from '@web3-react/core';
+
+interface NavBarInterface {
+  accounts: ReturnType<Web3ReactHooks['useAccount']> | any;
+  provider: ReturnType<Web3ReactHooks['useProvider']> | any;
+}
+
+type OnClickConnectType = (
+  chainId: ReturnType<Web3ReactHooks['useChainId']> | any,
+  accounts: ReturnType<Web3ReactHooks['useAccount']> | any,
+  error: ReturnType<Web3ReactHooks['useError']> | any,
+  isActivating: ReturnType<Web3ReactHooks['useIsActivating']> | any,
+  isActive: ReturnType<Web3ReactHooks['useIsActive']> | any,
+  provider: ReturnType<Web3ReactHooks['useProvider']> | any,
+  ENSNames: ReturnType<Web3ReactHooks['useENSNames']> | any
+) => void;
+
 export default function FCLayout({
-  setConnection,
   children,
+  navBarParams,
+  onClickConnect,
 }: {
-  setConnection: (
-    chainId: number | any,
-    account: string | any,
-    error: string | any,
-    isActivating: boolean | any,
-    isActive: boolean,
-    provider: object | any,
-    ENSNames: object | any
-  ) => void;
   children: JSX.Element | JSX.Element[];
+  navBarParams: NavBarInterface;
+  onClickConnect: OnClickConnectType;
 }) {
   const [loading, setLoading] = useState<boolean | any>(true);
   useEffect(() => {
@@ -56,27 +69,7 @@ export default function FCLayout({
           <FCSpinner />
         ) : (
           <>
-            <FCNavbar
-              setConnection={(
-                chainId: number | any,
-                account: string | any,
-                error: string | any,
-                isActivating: boolean | any,
-                isActive: boolean = false,
-                provider: object | any,
-                ENSNames: object | any
-              ) => {
-                setConnection(
-                  chainId,
-                  account,
-                  error,
-                  isActivating,
-                  isActive,
-                  provider,
-                  ENSNames
-                );
-              }}
-            />
+            <FCNavbar onClickConnect={onClickConnect} />
             <main>{children}</main>
             <FCFooter />
           </>

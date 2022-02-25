@@ -13,6 +13,9 @@ import { toast } from 'react-toastify';
 import MetaMaskDiv from '../connectors/MetaMaskDiv';
 import WalletConnectDiv from '../connectors/WalletConnectDiv';
 import FCWalletStatus from '../FCWalletStatus';
+import { Accounts } from '../Accounts';
+import { Chain } from '../Chain';
+import { Status } from '../Status';
 
 // ConnectWithSelect.tsx
 import type { Web3ReactHooks } from '@web3-react/core';
@@ -20,6 +23,7 @@ import type { MetaMask } from '@web3-react/metamask';
 import { Network } from '@web3-react/network';
 import { WalletConnect } from '@web3-react/walletconnect';
 import { CHAINS, getAddChainParameters, URLS } from '../../chains';
+import { resetWalletConnector } from 'components/connectors/ResetWalletConnector'; // TODO: filepath?
 
 // web3-react hooks imports
 import { hooks, metaMask } from '../../connectors/metaMask';
@@ -36,22 +40,24 @@ const {
   useENSNames,
 } = hooks;
 
+type OnClickConnectType = (
+  chainId: ReturnType<Web3ReactHooks['useChainId']> | any,
+  accounts: ReturnType<Web3ReactHooks['useAccount']> | any,
+  error: ReturnType<Web3ReactHooks['useError']> | any,
+  isActivating: ReturnType<Web3ReactHooks['useIsActivating']> | any,
+  isActive: ReturnType<Web3ReactHooks['useIsActive']> | any,
+  provider: ReturnType<Web3ReactHooks['useProvider']> | any,
+  ENSNames: ReturnType<Web3ReactHooks['useENSNames']> | any
+) => void;
+
 export default function FCWalletConnModal({
   show,
   onHide,
-  setConnection,
+  onClickConnect,
 }: {
   show: boolean;
   onHide: () => void;
-  setConnection: (
-    chainId: number | any,
-    account: string | any,
-    error: string | any,
-    isActivating: boolean | any,
-    isActive: boolean,
-    provider: object | any,
-    ENSNames: object | any
-  ) => void;
+  onClickConnect: OnClickConnectType;
 }) {
   // states of this component
   const [connector, setConnector] = useState<
@@ -73,17 +79,18 @@ export default function FCWalletConnModal({
   const provider = useProvider();
   const ENSNames = useENSNames(provider);
 
-  useEffect(() => {
-    setConnection(
-      chainId,
-      accounts,
-      error,
-      isActivating,
-      isActive,
-      provider,
-      ENSNames
-    );
-  }, [chainId, accounts, error, isActivating, isActive, provider, ENSNames]);
+  console.debug('accounts is ', accounts);
+  // useEffect(() => {
+  //   onClickConnect(
+  //     chainId,
+  //     accounts,
+  //     error,
+  //     isActivating,
+  //     isActive,
+  //     provider,
+  //     ENSNames
+  //   );
+  // }, [chainId, accounts, error, isActivating, isActive, provider, ENSNames]);
 
   // react hook, useCallback
   const switchChain = useCallback(
@@ -96,13 +103,15 @@ export default function FCWalletConnModal({
 
       if (connector instanceof WalletConnect || connector instanceof Network) {
         await connector.activate(
-          desiredChainId === -1 ? undefined : desiredChainId
+          desiredChainId === -1 ? 1 : desiredChainId
+          // desiredChainId === -1 ? undefined : desiredChainId
         );
       } else {
         await connector.activate(
-          desiredChainId === -1
-            ? undefined
-            : getAddChainParameters(desiredChainId)
+          desiredChainId === -1 ? 1 : getAddChainParameters(desiredChainId)
+          // desiredChainId === -1
+          //   ? undefined
+          //   : getAddChainParameters(desiredChainId)
         );
       }
     },
@@ -131,9 +140,12 @@ export default function FCWalletConnModal({
       // Try again?
       console.log(`if error, ${error}, desiredChainId = ${desiredChainId}`);
       connector instanceof WalletConnect || connector instanceof Network
-        ? await connector.activate(
-            desiredChainId === -1 ? undefined : desiredChainId
-          )
+        ? await connector
+            .activate(desiredChainId === -1 ? undefined : desiredChainId)
+            .catch((err) => {
+              // We need to reset walletconnect if users have closed the modal
+              resetWalletConnector(connector);
+            })
         : await connector.activate(
             desiredChainId === -1
               ? undefined
@@ -150,15 +162,20 @@ export default function FCWalletConnModal({
       console.log(
         `else isActivating, ${isActivating}, desiredChainId = ${desiredChainId}, connector = ${connector}`
       );
-      console.debug(connector);
+      console.debug('connector is ', connector);
       connector instanceof WalletConnect || connector instanceof Network
         ? await /*toast.promise(*/
           connector
-            .activate(desiredChainId === -1 ? undefined : desiredChainId)
+            .activate(desiredChainId === -1 ? 1 : desiredChainId)
+            // .activate(desiredChainId === -1 ? undefined : desiredChainId)
             .then((res) => {
+              // FIXME: res is just walletconnect object
               console.log('HAHAHA1');
-              console.log(res);
-              toast.success('☑️ Wallet connected1');
+              console.debug('res is ', res);
+              if (accounts) {
+                console.log('Wallet Connected1');
+                toast.success('☑️ Wallet connected1');
+              }
             })
             .catch((err) => {
               console.error('ERROR2~~~', err);
@@ -176,13 +193,16 @@ export default function FCWalletConnModal({
           await /*toast.promise(*/
           connector
             .activate(
-              desiredChainId === -1
-                ? undefined
-                : getAddChainParameters(desiredChainId)
+              desiredChainId === -1 ? 1 : getAddChainParameters(desiredChainId)
             )
+            // .activate(
+            //   desiredChainId === -1
+            //     ? undefined
+            //     : getAddChainParameters(desiredChainId)
+            // )
             .then((res) => {
               console.log('HAHAHA2');
-              console.log(res);
+              console.debug('res is ', res);
               toast.success('☑️ Wallet connected2');
             })
             .catch((err) => {
@@ -209,14 +229,7 @@ export default function FCWalletConnModal({
       aria-labelledby='contained-modal-title-vcenter'
       centered
     >
-      <Modal.Header closeButton>
-        <Select
-          chainId={desiredChainId}
-          switchChain={switchChain}
-          displayDefault={displayDefault}
-          chainIds={[1, 4]}
-        />
-      </Modal.Header>
+      <Modal.Header closeButton></Modal.Header>
       <Modal.Body>
         <Row>
           <ListGroup>
@@ -243,11 +256,20 @@ export default function FCWalletConnModal({
               <WalletConnectDiv />
             </ListGroup.Item>
             <ListGroup.Item>
-              <FCWalletStatus
+              <Select
+                chainId={desiredChainId}
+                switchChain={switchChain}
+                displayDefault={displayDefault}
+                chainIds={[1, 4]}
+              />
+              <Status
                 isActivating={isActivating}
                 error={error}
                 isActive={isActive}
-                chainId={chainId}
+              />
+              <div style={{ marginBottom: '1rem' }} />
+              <Chain chainId={chainId} />
+              <Accounts
                 accounts={accounts}
                 provider={provider}
                 ENSNames={ENSNames}
@@ -278,6 +300,7 @@ function Select({
     <select
       value={chainId}
       onChange={(e) => {
+        e.preventDefault();
         switchChain?.(Number(e.target.value));
       }}
       disabled={switchChain === undefined}
