@@ -4,7 +4,7 @@
 
 [![Twitter URL](https://img.shields.io/twitter/url/https/twitter.com/FloatingCatsNFT.svg?style=social&label=Follow%20%40FloatingCatsNFT)](https://twitter.com/FloatingCatsNFT)
 
-[![Discord](https://discord.com/api/guilds/936119402699567154/widget.png?style=banner4)](https://discord.gg/QND4K6YA)
+[![Discord](https://discord.com/api/guilds/936119402699567154/widget.png?style=banner4)](https://discord.gg/floatingcats)
 
 ### Our Road Map
 
@@ -47,7 +47,7 @@ Most of all, opening a cat café is always our dream. We will team up with local
 ##### Build Command Instructions
 
 - Run `git pull origin main` (and solve merge conflicts).
-- Run `npm install` to install dependencies.
+- Run `npm run fc-refresh` to install dependencies.
 - Run `npx hardhat compile`. This runs the solidity compiler to convert your code (`./contracts`) into binary. Once succeed you should be able to see the artifacts folder (do not upload this folder) under src folder.
 
 ##### Run Instructions

@@ -12,25 +12,25 @@ function Footer() {
                 href='https://twitter.com/FloatingCatsNFT'
                 role='button'
               >
-                <img src='pics/twitter.png' alt='' width='30' height='30' />
+                <img src='public/twitter.png' alt='' width='30' height='30' />
               </a>
 
               {/* <!-- Discord --> */}
               <a
                 className='btn btn-floating m-1'
-                href='https://discord.com/invite/6u9ezDyYzV'
+                href='https://discord.gg/floatingcats'
                 role='button'
               >
-                <img src='pics/discord.png' alt='' width='30' height='30' />
-      </a>
+                <img src='public/discord.png' alt='' width='30' height='30' />
+              </a>
 
               {/* <!-- Opensea --> */}
               <a
                 className='btn btn-floating m-1'
-                href='pics/os-icon.png'
+                href='public/os-icon.png'
                 role='button'
               >
-                <img src='pics/os-icon.png' alt='' width='33' height='33' />
+                <img src='public/os-icon.png' alt='' width='33' height='33' />
               </a>
 
               {/* TODO: add a contract */}

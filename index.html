@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/png" href="/pics/icon.png" />
+    <link rel="icon" type="image/png" href="/public/icon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>Floating Cats</title>
@@ -18,12 +18,13 @@
     <!-- fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
     <link
-      href="https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Coming+Soon&display=swap"
       rel="stylesheet"
     />
     <link
-      href="https://fonts.googleapis.com/css2?family=Coming+Soon&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Rowdies&display=swap"
       rel="stylesheet"
     />
 
@@ -32,6 +33,18 @@
   </head>
   <body>
     <div id="root"></div>
-    <script type="module" src="/src/index.jsx"></script>
+    <script>
+      window.global = window;
+    </script>
+    <script type="module">
+      import process from 'process';
+      import { Buffer } from 'buffer';
+      import EventEmitter from 'events';
+
+      window.Buffer = Buffer;
+      window.process = process;
+      window.EventEmitter = EventEmitter;
+    </script>
+    <script type="module" src="/pages/index.tsx"></script>
   </body>
 </html>

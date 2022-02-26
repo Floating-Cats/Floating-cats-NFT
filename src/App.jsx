@@ -3,7 +3,7 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Redirect,
+  // Redirect,
 } from 'react-router-dom';
 
 // views
@@ -18,6 +18,8 @@ import Footer from './components/Footer';
 import MySpinner from './components/MySpinner';
 
 // to create Web3Provider object and format balance
+import Web3 from 'web3';
+import { Web3ReactProvider } from '@web3-react/core';
 import { ethers } from 'ethers';
 
 // contracts
@@ -38,21 +40,16 @@ const contract = new ethers.Contract(contractAddress, FCat.abi, signer); // get 
 function App() {
   const [loading, setLoading] = useState(true);
   const [userAddr, setUserAddr] = useState('');
-  const [totalMinted, setTotalMinted] = useState(0);
+  // const [totalMinted, setTotalMinted] = useState(0);
   useEffect(() => {
+    console.log('here');
     setLoading(true);
-
-    getCount()
-      .then(() => {
-        console.debug('App/useEffect Request Successful!');
-      })
-      .catch((error) => {
-        console.error('App/useEffect Request Failed: ', error.message);
-      })
-      .finally(() => {
-        setTimeout(a, 1500);
-      });
+    setTimeout(a, 1500);
   }, []);
+
+  const getProvider = (provider) => {
+    return new Web3(provider);
+  };
 
   // 100/888
   const getCount = async () => {
@@ -67,50 +64,52 @@ function App() {
 
   return (
     <>
-      <Router>
-        <ToastContainer
-          position='top-center'
-          theme='dark'
-          autoClose={1000} // 1000 ms = 1sec
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-        />
-        <Navbar
-          provider={provider}
-          userAddr={userAddr}
-          setUserAddr={setUserAddr}
-        />
-        {loading ? (
-          <>
-            <MySpinner />
-          </>
-        ) : (
-          <Switch id='body'>
-            <Route exact path='/'>
-              <Home
-                provider={provider}
-                userAddr={userAddr}
-                contract={contract}
-                signer={signer}
-                totalMinted={totalMinted}
-                getCount={getCount}
-              />
-            </Route>
-            <Route path='/mint'>
-              <MintView />
-            </Route>
-            <Route path='*'>
-              <PageNotFound />
-            </Route>
-          </Switch>
-        )}
-        <Footer />
-      </Router>
+      <Web3ReactProvider getProvider={getProvider}>
+        <Router>
+          <ToastContainer
+            position='top-center'
+            theme='dark'
+            autoClose={1000} // 1000 ms = 1sec
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+          />
+          <Navbar
+            provider={provider}
+            userAddr={userAddr}
+            setUserAddr={setUserAddr}
+          />
+          {loading ? (
+            <>
+              <MySpinner />
+            </>
+          ) : (
+            <Switch id='body'>
+              <Route exact path='/'>
+                <Home
+                  provider={provider}
+                  userAddr={userAddr}
+                  contract={contract}
+                  signer={signer}
+                  // totalMinted={totalMinted}
+                  getCount={getCount}
+                />
+              </Route>
+              <Route path='/mint'>
+                <MintView contract={contract} />
+              </Route>
+              <Route path='*'>
+                <PageNotFound />
+              </Route>
+            </Switch>
+          )}
+          <Footer />
+        </Router>
+      </Web3ReactProvider>
     </>
   );
 }

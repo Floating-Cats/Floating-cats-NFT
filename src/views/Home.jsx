@@ -1,7 +1,7 @@
 // components
-
 import Mint from '../components/Mint';
-import NFTImage from '../components/NFTImage';
+
+// other imports
 import Collapsible from 'react-collapsible';
 
 // the entry point of our home page
@@ -38,27 +38,58 @@ function Home(props) {
   // get banner
   const getBanner = () => {
     return (
-      <div id='bannerPic'>
-        <img src='pics/banner.png'></img>
+      <div className='container' id='banner'>
+        <div className='row'>
+          <div className='col-md-7' id='bannerText'>
+            <h2>Welcome to the floating cats</h2>
+            <p>
+              Floating cat is a 8,888 piece genesis collections Floating on the
+              Ethereum Blockchain. Our goal is to build a strong community to
+              help as many cats as possible.
+            </p>
+            <a href='https://discord.gg/floatingcats' className='button'>
+              Join Our Discord
+            </a>
+          </div>
+          <div className='col'>
+            <img src='public/takoyaki.png' height='600' width='600' />
+          </div>
+        </div>
       </div>
     );
   };
 
-  // get tickerOne
-  const getTickerOne = () => {
-    return (
-      <>
-        <marquee>This text will scroll from right to left</marquee>
-      </>
-    );
-  };
+  // get about
 
-  // get tickerTwo
-  const getTickerTwo = () => {
+  const getAbout = () => {
     return (
-      <>
-        <marquee>This text will scroll from right to left</marquee>
-      </>
+      <div className='about-bg'>
+        <div className='row' id='about'>
+          <div className='col-md-6'>
+            <img src='public/flag.png' id='flag' height='200' width='500' />
+          </div>
+          <div className='col'>
+            <img src='public/card-1.png' height='300' width='300' />
+            <img src='public/card-2.jpeg' height='300' width='300' />
+          </div>
+          <div className='w-100'></div>
+          <div className='col'>
+            <p>
+              Floating Cats is a team located in Nagoya, Japan 🇯🇵 with team
+              members all across the globe. We love cats and believe that it is
+              the existence of cats that give us power to move forward.
+            </p>
+            <p>
+              Our road map is progressed by proactively holding volunteering
+              events to help cats and bringing the community together.
+            </p>
+          </div>
+          <div className='col'>
+            <img src='public/card-3.png' height='300' width='300' />
+            <img src='public/card-4.png' height='300' width='300' />
+          </div>
+        </div>
+      </div>
     );
   };
 
@@ -71,13 +102,13 @@ function Home(props) {
           <hr />
           <div className='row'>
             <div className='col'>
-              <img src='pics/cafe.PNG' alt='' width='300' height='200' />
+              <img src='public/cafe.PNG' alt='' width='300' height='200' />
               <p>Opening a Cat Cafe</p>
               <p>(Partner with Shelters)</p>
               <p>(Holders will get free items/discount)</p>
             </div>
             <div className='col'>
-              <img src='pics/shelter.PNG' alt='' width='300' height='200' />
+              <img src='public/shelter.PNG' alt='' width='300' height='200' />
               <p>Shelter Donations</p>
               <p>(We will donate 10 eth to selected shelters)</p>
               <p>(30% of OS loyalties gose to shelters)</p>
@@ -85,18 +116,18 @@ function Home(props) {
           </div>
           <div className='row'>
             <div className='col'>
-              <img src='pics/vault.PNG' alt='' width='300' height='200' />
+              <img src='public/vault.PNG' alt='' width='300' height='200' />
               <p>Community Vault</p>
               <p>(30% of initial sales)</p>
               <p>(30% OS sales)</p>
             </div>
             <div className='col'>
-              <img src='pics/Fcoin.PNG' alt='' width='300' height='200' />
+              <img src='public/Fcoin.PNG' alt='' width='300' height='200' />
               <p>$FLOAT coin utilities</p>
               <p>(Stack coins for future P2E, and in-store purchases)</p>
             </div>
             <div className='col'>
-              <img src='pics/merch.png' alt='' width='300' height='200' />
+              <img src='public/merch.png' alt='' width='300' height='200' />
               <p>Exclusive Merchandise </p>
               <p>(Weekly giveaways)</p>
             </div>
@@ -106,64 +137,30 @@ function Home(props) {
     );
   };
 
-  // get about
-
-  const getAbout = () => {
-    return (
-      <div className='' id='about'>
-        <div className='row'>
-          <div className='col' id='about-card'>
-            <h1>What Are Floating Cats ?</h1>
-            <h3>
-              We are a team located in Nagoya, Japan. We love cats. Our goal is
-              to build a strong community in order to help as many cats as
-              possible. Our plan is to team up with local shelters and provide
-              them their needs
-            </h3>
-            <h3>
-              And of course, We are also planning to have weekly/monthly events
-              to help shelters voluntary. And it doesn’t stop there, we’re
-              committed and wish to expand this moment worldwide.
-            </h3>
-          </div>
-          <div className='col'>
-            <img
-              src='pics/About.GIF'
-              className='rounded mx-auto d-block'
-              alt=''
-              width='400'
-              height='400'
-            />
-          </div>
-        </div>
-      </div>
-    );
-  };
-
   // get team
   const getTeam = () => {
     return (
-      <>
+      <div className='team-bg'>
         <div className='container' id='team'>
           <h1>TEAM</h1>
-          <hr />
+
           <div className='row'>
             <div className='col'>
-              <img src='pics/t-icon.jpg' alt='' />
+              <img src='public/t-icon.jpg' alt='' />
               <h4>Founder</h4>
               <p></p>
             </div>
             <div className='col'>
-              <img src='pics/a-icon.JPEG' alt='' />
+              <img src='public/a-icon.JPEG' alt='' />
               <h4>Dev</h4>
             </div>
             <div className='col'>
-              <img src='pics/m-icon.JPEG' alt='' />
+              <img src='public/m-icon.JPEG' alt='' />
               <h4>Artist</h4>
             </div>
           </div>
         </div>
-      </>
+      </div>
     );
   };
 
@@ -223,19 +220,17 @@ function Home(props) {
 
   return (
     <div>
-      {/* {getBgCloud()} */}
-      <Mint
+      {getBgCloud()}
+      {getBanner()}
+      {/* <Mint
         contract={props.contract}
         provider={props.provider}
         userAddr={props.userAddr}
         signer={props.signer}
         totalMinted={props.totalMinted}
         getCount={props.getCount}
-      />
-      {getBanner()}
-      {getTickerOne()}
+      /> */}
       {getAbout()}
-      {getTickerTwo()}
       {getRoadmap()}
       {getTeam()}
       {getFaq()}

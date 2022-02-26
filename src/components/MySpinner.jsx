@@ -1,5 +1,4 @@
 import Spinner from 'react-bootstrap/Spinner';
-import React from 'react';
 
 const MySpinner = (props) => {
   const style = {
@@ -13,7 +12,7 @@ const MySpinner = (props) => {
     <div style={style}>
       <Spinner animation='grow' />
       <br />
-      loading ...
+      Loading ...
     </div>
   );
 };

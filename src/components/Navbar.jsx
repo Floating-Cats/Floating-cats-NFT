@@ -1,14 +1,15 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 // imports for bootstrap
-import Row from 'react-bootstrap/Row';
 import Nav from 'react-bootstrap/Nav';
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
 import Navbar from 'react-bootstrap/Navbar';
-import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 
 // service imports
 import ConnEthers from '../services/ConnEthers';
+import ConnectWalletButton from './ConnectWalletButton';
 
 // other imports
 import { toast } from 'react-toastify';
@@ -16,13 +17,36 @@ import './style.css';
 
 function Navigation({ provider, userAddr, setUserAddr }) {
   const [btnHidden, setBtnHidden] = useState(false);
+  const [balance, setBalance] = useState('-');
+
+  const getBalance = async () => {
+    ConnEthers.getBalance(provider, userAddr)
+      .then((balance) => {
+        setBalance(balance);
+        toast.success('🐱 Balance Fetched!');
+      })
+      .catch((err) => {
+        console.error(err.message);
+        toast.error('❌ Balance Failed to Connect', err.message);
+      });
+  };
 
   const handleOnClick = async () => {
     // get the connected account on the window etheureum object
-    const account = ConnEthers.getAddress(provider)
+    ConnEthers.getAddress(provider)
       .then((address) => {
         setUserAddr(address.toString());
         setBtnHidden(true);
+        ConnEthers.getBalance()
+          .then((bal) => {
+            setBalance(bal);
+            console.log(bal);
+            toast.success('🐱 Balance Fetched!');
+          })
+          .catch((err) => {
+            console.error(err.message);
+            toast.error('❌ Balance Failed to Fetch', err.message);
+          });
         console.debug('Successfully Connected to Wallet!');
         toast('🐱 Wallet Connected!');
       })
@@ -33,41 +57,54 @@ function Navigation({ provider, userAddr, setUserAddr }) {
   };
 
   return (
-    <Navbar collapseOnSelect expand='lg' bg='dark' variant='dark'>
+    <Navbar collapseOnSelect expand='lg' bg='dark' variant='dark' id='Nav'>
       <Container>
-        <Navbar.Brand>
+        <Navbar.Brand href='/'>
           <h1>
             <img
-              src='pics/icon.png'
+              src='public/icon.png'
               alt=''
-              width='60'
-              height='60'
+              width='30'
+              height='30'
               className='d-inline-block align-text-top'
             />{' '}
             <img
-              src='pics/logo.png'
+              src='public/logo.png'
               alt=''
               width='200'
-              height='75'
+              height='25'
               className='d-inline-block align-text-top'
             />
           </h1>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls='responsive-navbar-nav' />
         <Navbar.Collapse className='' id='responsive-navbar-nav'>
-          <Nav className='ms-auto'>
-            <Nav.Link href='#mint'>MINT</Nav.Link>
+          <Nav className='me-auto'>
+            <Nav.Link href='/mint'>MINT</Nav.Link>
             <Nav.Link href='#about'>ABOUT</Nav.Link>
             <Nav.Link href='#roadmap'>ROADMAP</Nav.Link>
             <Nav.Link href='#team'>TEAM</Nav.Link>
-            {!btnHidden ? (
-              <button
-                id='show_button'
-                className='enableEthereumButton'
-                onClick={() => handleOnClick()}
-              >
-                Connect your wallet
-              </button>
+          </Nav>
+          <Nav className='ms-auto'>
+            <ConnectWalletButton />
+
+            {/* {!btnHidden ? (
+              <div>
+                <Col>
+                  <Row>
+                    <button
+                      id='show_button'
+                      className='enableEthereumButton'
+                      onClick={() => handleOnClick()}
+                    >
+                      Connect your wallet
+                    </button>
+                  </Row>
+                  <Row>
+                    <span>Not Connected</span>
+                  </Row>
+                </Col>
+              </div>
             ) : (
               <h6>
                 <button className='showAccount'>
@@ -77,7 +114,7 @@ function Navigation({ provider, userAddr, setUserAddr }) {
                   )}`}
                 </button>
               </h6>
-            )}
+            )} */}
 
             {/* <div className='rightside-nav navbar-nav'>
               <a
@@ -88,7 +125,7 @@ function Navigation({ provider, userAddr, setUserAddr }) {
                 <img
                   loading='lazy'
                   className='socialLogos mx-auto'
-                  src='pics/discord.png'
+                  src='public/discord.png'
                   width='30'
                   height='30'
                 />
@@ -101,7 +138,7 @@ function Navigation({ provider, userAddr, setUserAddr }) {
                 <img
                   loading='lazy'
                   className='socialLogos mx-auto'
-                  src='pics/twitter.png'
+                  src='public/twitter.png'
                   width='30'
                   height='30'
                 />
@@ -110,7 +147,7 @@ function Navigation({ provider, userAddr, setUserAddr }) {
                 <img
                   loading='lazy'
                   className='socialLogos mx-auto'
-                  src='pics/os-icon.png'
+                  src='public/os-icon.png'
                   width='33'
                   height='33'
                   style={{ marginBottom: '5px' }}
