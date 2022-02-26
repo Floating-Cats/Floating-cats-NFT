@@ -1,4 +1,3 @@
-import { useState, useEffect, useCallback } from 'react';
 import dynamic from 'next/dynamic';
 
 // imports for styling
@@ -10,29 +9,12 @@ import Button from 'react-bootstrap/Button';
 import { toast } from 'react-toastify';
 
 // components
-// import MetaMaskDiv from '../connectors/MetaMaskDiv';
-// import WalletConnectDiv from '../connectors/WalletConnectDiv';
-import { Accounts } from '../Accounts';
-import { Chain } from '../Chain';
-import { Status } from '../Status';
 const FCWalletConnector = dynamic(
   () => import('components/FCWalletConnector'),
   {
     ssr: false,
   }
 );
-
-// ConnectWithSelect.tsx
-import type { Web3ReactHooks } from '@web3-react/core';
-import type { MetaMask } from '@web3-react/metamask';
-import { Network } from '@web3-react/network';
-import { WalletConnect } from '@web3-react/walletconnect';
-import { CHAINS, getAddChainParameters, URLS } from '../../chains';
-import { resetWalletConnector } from 'components/helpers/ResetWalletConnector'; // TODO: filepath?
-
-// web3-react hooks imports
-import { metaMask } from '../../connectors/metaMask';
-import { hooks, walletConnect } from '../../connectors/walletConnect';
 
 // helper function
 import { NavBarInterface } from 'components/helpers/NavBarInterface';

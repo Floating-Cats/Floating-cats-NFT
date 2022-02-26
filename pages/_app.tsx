@@ -13,16 +13,7 @@ import FCLayout from '../components/FCLayout';
 // helper function
 import { NavBarInterface } from 'components/helpers/NavBarInterface';
 import { Web3ReactType } from 'components/helpers/Web3ReactType';
-
-interface StorageInterface {
-  chainId: Web3ReactType['chainId'];
-  accounts: Web3ReactType['accounts'];
-  error: Web3ReactType['error'];
-  isActivating: Web3ReactType['isActivating'];
-  isActive: Web3ReactType['isActive'];
-  provider: Web3ReactType['provider'];
-  ENSNames: Web3ReactType['ENSNames'];
-}
+import { StorageInterface } from 'components/helpers/StorageInterface';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [chainId, setChainId] = useState<Web3ReactType['chainId']>();
@@ -54,7 +45,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     // console.log(typeof { ...initWallet });
 
     // FIXME: typescript check error
-    let fetchedWallet: (StorageInterface | any)[] = { ...initWallet };
+    const fetchedWallet: (StorageInterface | any)[] = { ...initWallet };
     // if wallet info is fetched
     if (fetchedWallet) {
       console.log(fetchedWallet[0].accounts);

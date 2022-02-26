@@ -2,20 +2,17 @@
 import { useCallback, useEffect, useState } from 'react';
 
 // imports for styling
-import Row from 'react-bootstrap/Row';
 import ListGroup from 'react-bootstrap/ListGroup';
 
 // web3 react
 import { Chain } from '../Chain';
 import { Status } from '../Status';
 import { Accounts } from '../Accounts';
-import { Web3ReactHooks } from '@web3-react/core';
 import { Network } from '@web3-react/network';
 import { MetaMask } from '@web3-react/metamask';
 import { WalletConnect } from '@web3-react/walletconnect';
 import { hooks as mm_hooks, metaMask } from 'connectors/metaMask';
 import { hooks as wc_hooks, walletConnect } from 'connectors/walletConnect';
-import { network } from 'connectors/network';
 import { CHAINS, getAddChainParameters, URLS } from 'chains';
 
 // components
@@ -26,7 +23,6 @@ import WalletConnectDiv from 'components/connectors/WalletConnectDiv';
 import { handleOnClick } from 'components/helpers/HandleOnClick';
 import { NavBarInterface } from 'components/helpers/NavBarInterface';
 import { Web3ReactType } from 'components/helpers/Web3ReactType';
-import Select from 'components/connectors/Select';
 var stringify = require('json-stringify-safe');
 
 export default function FCWalletConnector({
@@ -49,22 +45,26 @@ export default function FCWalletConnector({
   setENSNames: (ENSNames: Web3ReactType['ENSNames']) => void;
 }) {
   // component state
-  const [wallet, setWallet] = useState<string | any>('');
-  const [connector, setConnector] = useState<WalletConnect | any>(
-    wallet === 'mm' ? metaMask : walletConnect
+  const [wallet, setWallet] = useState<string>(
+    navBarParams.provider && navBarParams.provider.connection.url === 'metamask'
+      ? 'mm'
+      : 'wc'
   );
-  const [isNetwork, setIsNetwork] = useState<boolean>(
-    connector instanceof Network
-  );
+
+  let connector: WalletConnect | MetaMask | any =
+    wallet === 'mm' ? metaMask : walletConnect;
+
+  let isNetwork = connector instanceof Network;
+
   const [desiredChainId, setDesiredChainId] = useState<number>(
     isNetwork ? 1 : -1
   );
-  const [displayDefault, setDisplayDefault] = useState<boolean>(!isNetwork);
-  const [chainIds, setChainIds] = useState<number[]>(
-    (isNetwork ? Object.keys(URLS) : Object.keys(CHAINS)).map((chainId) =>
-      Number(chainId)
-    )
-  );
+  // const [displayDefault, setDisplayDefault] = useState<boolean>(!isNetwork);
+  // const [chainIds, setChainIds] = useState<number[]>(
+  //   (isNetwork ? Object.keys(URLS) : Object.keys(CHAINS)).map((chainId) =>
+  //     Number(chainId)
+  //   )
+  // );
 
   // web3 react
   const {
