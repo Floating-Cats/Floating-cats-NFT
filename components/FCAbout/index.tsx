@@ -12,9 +12,9 @@ export default function FCAbout() {
         <div className='w-100'></div>
         <div className='col'>
           <p>
-            Floating Cats is a team located in Nagoya, Japan 🇯🇵 with team
-            members all across the globe. We love cats and believe that it is
-            the existence of cats that give us power to move forward.
+            We are a team located in Nagoya, Japan 🇯🇵 with team members all
+            across the globe. We love cats and believe that it is the existence
+            of cats that give us power to move forward.
           </p>
           <p>
             Our road map is progressed by proactively holding volunteering

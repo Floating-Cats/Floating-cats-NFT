@@ -8,7 +8,7 @@ export default function FCBanner() {
           <div className='col-md-7' id='bannerText'>
             <h2>Welcome to the floating cats</h2>
             <p>
-              Floating cat is a 8,888 piece genesis collections Floating on the
+              Floating cat is a 5,888 piece genesis collections Floating on the
               Ethereum Blockchain. Our goal is to build a strong community to
               help as many cats as possible.
             </p>

@@ -20,11 +20,11 @@ export default function FCFAQ() {
         id='faq_Q-02'
       >
         <p id='answers-02'>
-          There will be 8,888 unique NFT’s including 15 1️⃣OF1️⃣.
+          There will be 5,888 unique NFT’s including 15 1️⃣OF1️⃣.
         </p>
       </Collapsible>
       <Collapsible trigger=' What is the mint price?' id='faq_Q-03'>
-        <p id='answers-03'>TBD. Join our discord see the lastest updates.</p>
+        <p id='answers'>TBD. Join our discord for the latest updates.</p>
       </Collapsible>
       <Collapsible trigger='Will there be a Whitelist?' id='faq_Q-04'>
         <p id='answers-04'>
@@ -37,10 +37,11 @@ export default function FCFAQ() {
         <p id='answers-05'>
           Besides being part of this great community, our holders will have a
           chance to win exclusive merchandise giveaways 👕 (weekly), and WL of
-          other projects.🚀 Most of all, opening a cat café is always our
-          dream.☕ We will team up with local shelters and provide a space for
-          cats to stay in the store with good care. Meanwhile, we help those
-          kitties to find a new home. 🏡 (Will consistently update some videos &
+          other projects.🚀 Most of all, Opening Floating Cats Café in Nagoya
+          has always been our dream. The cafe will partner and assist with local
+          shelters, and provide even more space for those kitties with care and
+          love. Meanwhile, the space is to be served as an interactive way to
+          encourage adoption. 🏡 (Will consistently update some videos &
           pictures for the opening of the store)
         </p>
       </Collapsible>

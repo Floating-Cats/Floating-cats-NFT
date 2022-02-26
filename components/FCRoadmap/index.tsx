@@ -6,34 +6,142 @@ export default function FCRoadmap() {
         <hr />
         <div className='row'>
           <div className='col'>
-            <img src='/cafe.PNG' alt='' width='300' height='200' />
-            <p>Opening a Cat Cafe</p>
-            <p>(Partner with Shelters)</p>
-            <p>(Holders will get free items/discount)</p>
+            <div className='flip'>
+              <div className='front'>
+                <img src='/shelter.PNG' alt='' width='300' height='200' />
+                <p>Shelter Donations</p>
+              </div>
+              <div className='back'>
+                <h2>Q1 - 2022</h2>
+
+                <h4>
+                  We will donate <strong>10%</strong> of our earnings to
+                  organizations or groups relevant to animal care. In addition
+                  to that, we plan to partner with these organizations or groups
+                  as we hope to provide their needs and share their burden, so
+                  that more cats can be taken care of. 🏩
+                </h4>
+              </div>
+            </div>
           </div>
           <div className='col'>
-            <img src='/shelter.PNG' alt='' width='300' height='200' />
-            <p>Shelter Donations</p>
-            <p>(We will donate 10 eth to selected shelters)</p>
-            <p>(30% of OS loyalties gose to shelters)</p>
+            <div className='flip'>
+              <div className='front'>
+                <img src='/sandbox.PNG' alt='' width='300' height='200' />
+                <p>Sandbox Coummuity Hub</p>
+              </div>
+              <div className='back'>
+                <h2>Q3 - 2022</h2>
+                <h4>
+                  We will build a community hub in the Sandbox for our community
+                  members to socialize and play mini-games! 👾
+                  <br />
+                  <br /> <strong>Sandbox Avatar Development Commences</strong>
+                  <br /> We will make a series of Sandbox avatars. This will be
+                  a free drop for holders. 📦
+                </h4>
+              </div>
+            </div>
           </div>
         </div>
         <div className='row'>
           <div className='col'>
-            <img src='/vault.PNG' alt='' width='300' height='200' />
-            <p>Community Vault</p>
-            <p>(30% of initial sales)</p>
-            <p>(30% OS sales)</p>
+            <div className='flipTwo'>
+              <div className='front'>
+                <img src='/vault.PNG' alt='' width='300' height='200' />
+                <p>community vault & Giveaways</p>
+              </div>
+              <div className='back'>
+                <h2>Q1 - 2022</h2>
+                <h4>
+                  We will set up a community wallet and giveaway
+                  <strong> 5%</strong> of the initial sales to our holders.
+                  <br />
+                  <strong> 30%</strong> of the OS sales will go to the community
+                  wallet for giveawys and event funds. 💰
+                </h4>
+              </div>
+            </div>
           </div>
           <div className='col'>
-            <img src='/Fcoin.PNG' alt='' width='300' height='200' />
-            <p>$FLOAT coin utilities</p>
-            <p>(Stack coins for future P2E, and in-store purchases)</p>
+            <div className='flipTwo'>
+              <div className='front'>
+                <img src='/merch.PNG' alt='' width='300' height='200' />
+                <p>Exclusive Merchandises</p>
+              </div>
+              <div className='back'>
+                <h2>Q2 - 2022</h2>
+                <h4>
+                  We will release the first colletion of our floating brand.
+                  Anything from clothing to lifestyle items will be avalible for
+                  our holders.
+                  <br />
+                  <br />
+                  <strong>‼️ Weekly holders only giveaways 🎁</strong>
+                </h4>
+              </div>
+            </div>
           </div>
           <div className='col'>
-            <img src='/merch.png' alt='' width='300' height='200' />
-            <p>Exclusive Merchandise </p>
-            <p>(Weekly giveaways)</p>
+            <div className='flipTwo'>
+              <div className='front'>
+                <img src='/Fcoin.PNG' alt='' width='300' height='200' />
+                <p>
+                  $FLOAT Token & <br /> P2E development
+                </p>
+              </div>
+              <div className='back'>
+                <h2>Q4 - 2022</h2>
+                <h4>
+                  <strong>$FLOAT Staking</strong> <br />
+                  The amount depends on the number of NFTs you hold +
+                  contributions you make in the server. $FLOAT can be used to
+                  purchase our merch and in-store items. 🪙
+                </h4>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className='row'>
+          <div className='col'>
+            <div className='flip'>
+              <div className='front'>
+                <img src='/cafe.PNG' alt='' width='300' height='200' />
+                <p>Floating Cat Cafe</p>
+              </div>
+              <div className='back'>
+                <h2>Q1 - 2023</h2>
+                <h4>
+                  ☕ Opening Floating Cats Café has always been our dream. The
+                  cafe will partner and assist with local shelters, and provide
+                  space for those kitties with care and love.🧡 Meanwhile, the
+                  space is to be served as an interactive way to encourage
+                  adoption.
+                  <br />
+                  <strong>
+                    Hoders will have free items/discounts for every visits. 🎉
+                  </strong>
+                </h4>
+              </div>
+            </div>
+          </div>
+          <div className='col'>
+            <div className='flip'>
+              <div className='front'>
+                <img src='/rocket.PNG' alt='' width='300' height='200' />
+                <p>More and Beyound</p>
+              </div>
+              <div className='back'>
+                <h2>🚀 🔜</h2>
+                <ul>
+                  <li>3D Avatar</li>
+                  <li>Mobile Game</li>
+                  <li>Real life Meetups</li>
+                  <li>Travel Givawys</li>
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
       </div>
