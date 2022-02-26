@@ -41,23 +41,20 @@ function MyApp({ Component, pageProps }: AppProps) {
   ENSNames: ${null},
 }]`)) as StorageInterface;
     // console.log('{ ...initWallet }');
-    // console.log({ ...initWallet });
+    console.log({ ...initWallet });
     // console.log(typeof { ...initWallet });
 
     // FIXME: typescript check error
     const fetchedWallet: (StorageInterface | any)[] = { ...initWallet };
     // if wallet info is fetched
-    if (fetchedWallet) {
-      console.log(fetchedWallet[0].accounts);
-      if (fetchedWallet[0].isActive) {
-        setChainId(fetchedWallet[0].chainId);
-        setAccount(fetchedWallet[0].accounts);
-        setError(fetchedWallet[0].error);
-        setIsActivating(fetchedWallet[0].isActivating);
-        setIsActive(fetchedWallet[0].isActive);
-        setProvider(fetchedWallet[0].provider);
-        setENSNames(fetchedWallet[0].ENSNames);
-      }
+    if (fetchedWallet.length > 0 && fetchedWallet[0].isActive) {
+      setChainId(fetchedWallet[0].chainId);
+      setAccount(fetchedWallet[0].accounts);
+      setError(fetchedWallet[0].error);
+      setIsActivating(fetchedWallet[0].isActivating);
+      setIsActive(fetchedWallet[0].isActive);
+      setProvider(fetchedWallet[0].provider);
+      setENSNames(fetchedWallet[0].ENSNames);
     } else {
       localStorage.setItem('wc', JSON.stringify(initWallet));
     }
