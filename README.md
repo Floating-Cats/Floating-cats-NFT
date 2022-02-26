@@ -8,22 +8,22 @@
 
 ### Our Road Map
 
-- After 100% mint, we will donate to multuple shleters 10 ETH (The community will decide on the shelters).
+- After 100% mint, we will donate 10 ETH to multiple shelters (The community will decide on the shelters).
 - Exclusive Merchandise (Weekly Giveaways)
 - $FLOAT coin utilities
 - Community vault
-- Opening a cat café and partner with shelters (All hodlers will have free items and discount every time they visit the store)
+- Opening a cat café and partner with shelters (All holders will have free items and discount every time they visit the store)
 - **And yes we understand our holders will be all around the world, so we decided to pay for your trip and come to the grand opening!**
 
 ### Our Vision
 
-We are a team locateed in Nagoya, Japan. We love cats. Our goal is to build a strong community in order to help as many cats as possible. Our plan is to team up with local shelters and provide them with the needs (all future updates will be posted on [twitter](https://twitter.com/FloatingCatsNFT)).
+We are a team located in Nagoya, Japan. We love cats. Our goal is to build a strong community in order to help as many cats as possible. Our plan is to team up with local shelters and provide them with the needs (all future updates will be posted on [twitter](https://twitter.com/FloatingCatsNFT)).
 
 And of course, we are also planning to have weekly/monthly events to help shelters voluntary. And it doesn't stop there, we're committed and wish to expand this moment worldwide.
 
 Most of all, opening a cat café is always our dream. We will team up with local shlters and provide a space for cats to stay in the store with good care. Meanwhile, we help those kitties to find a new home.
 
-[We will consistenly update some videos and pictures for the opening of the store.]
+[We will consistently update some videos and pictures for the opening of the store.]
 
 ### Our NFTs
 
@@ -42,31 +42,11 @@ Most of all, opening a cat café is always our dream. We will team up with local
 - ether.js to interact with smart contracts in the browser.
 - openzepplelin to build our industry-standard smart contracts.
 
-### How To Begin
-
-##### Build Command Instructions
-
-- Run `git pull origin main` (and solve merge conflicts).
-- Run `npm run fc-refresh` to install dependencies.
-- Run `npx hardhat compile`. This runs the solidity compiler to convert your code (`./contracts`) into binary. Once succeed you should be able to see the artifacts folder (do not upload this folder) under src folder.
-
-##### Run Instructions
-
-- run `npx hardhat node`. This creates a mock network on localhost and provides a bunch of fake accounts. This should always be running in the background, so we need to open another terminal tab.
-  - Run `npx hardhat run scripts/MyScript.js --network localhost` to deploy our contract, and record the address returned by executing this.
-  - Or run `npx hardhat run scripts/MyScript.js --network rinkeby`
-- run `npm run dev` and go to http://localhost:3000/
-
-##### Testing Instructions
-
-- run `npx hardhat test --show-stack-traces --network <some net work>` to run the test, you can ignore the `--show-stack-traces` and specify network using `--network` flag, `localhost` by default.
-  <!-- - run `npx hardhat accounts` to execute hardhat.config.js to print a list of addresses. -->
-  <!-- - run `npx hardhat balance --account <0x... address>` to execute hardhat.config.js to print the account balance. -->
 
 ### Members
 
 Team Leader/Dev: `Thomas`,
 
-Artist:` Mao`
+Artist: `Mao`
 
 Dev: `Andy` (lin383@wisc.edu)
