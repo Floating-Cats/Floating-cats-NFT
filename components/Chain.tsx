@@ -18,7 +18,7 @@ export function Chain({
           {name === 'Mainnet' ? (
             <>{`${name}(${chainId})`}</>
           ) : (
-            <>{`${name}(${chainId}) - You are on the wrong network!`}</>
+            <>{`${name}(${chainId}) - You are not on the main network, please switch it through your device`}</>
           )}
         </b>
       </div>
