@@ -15,7 +15,11 @@ export function Chain({
       <div>
         Chain:{' '}
         <b>
-          {name} ({chainId})
+          {name === 'Mainnet' ? (
+            <>{`${name}(${chainId})`}</>
+          ) : (
+            <>{`${name}(${chainId}) - You are on the wrong network!`}</>
+          )}
         </b>
       </div>
     );

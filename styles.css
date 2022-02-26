@@ -120,6 +120,24 @@ body {
   height: auto;
 }
 
+#banner button {
+  -webkit-appearance: button;
+  -moz-appearance: button;
+  appearance: button;
+
+  text-decoration: none;
+  color: rgb(255, 255, 255);
+  background-color: rgb(108, 74, 231);
+  padding: 15px 32px;
+  border-radius: 10px;
+  transition-duration: 0.4s;
+  box-shadow: 0 6px 16px 0 rgba(0, 0, 0, 0.2), 0 8px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+#banner button:hover {
+  opacity: 0.8;
+}
+
 #flag {
   width: 100%;
   max-width: 500px;
@@ -145,24 +163,6 @@ body {
 #about img {
   padding: 20px;
   border-radius: 50px;
-}
-
-a.button {
-  -webkit-appearance: button;
-  -moz-appearance: button;
-  appearance: button;
-
-  text-decoration: none;
-  color: rgb(255, 255, 255);
-  background-color: rgb(108, 74, 231);
-  padding: 15px 32px;
-  border-radius: 10px;
-  transition-duration: 0.4s;
-  box-shadow: 0 6px 16px 0 rgba(0, 0, 0, 0.2), 0 8px 20px 0 rgba(0, 0, 0, 0.19);
-}
-
-a.button:hover {
-  opacity: 0.8;
 }
 
 /* #mint {

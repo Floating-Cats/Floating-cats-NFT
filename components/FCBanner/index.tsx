@@ -13,6 +13,7 @@ export default function FCBanner() {
               help as many cats as possible.
             </p>
             <button
+              className='dc-button'
               onClick={() => {
                 onClickUrl('https://discord.gg/floatingcats');
               }}
