@@ -247,7 +247,7 @@ body {
 .flip-card {
   background-color: transparent;
   width: 300px;
-  height: 280px;
+  height: 320px;
   perspective: 1000px;
 }
 
@@ -282,9 +282,9 @@ body {
   background-color: #bbb;
   color: black;
   border-radius: 30px;
-  height: 250px;
+  height: 285px;
   width: 300px;
-  padding: 1em 2em;
+
   background: antiquewhite;
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
@@ -295,7 +295,7 @@ body {
   color: white;
   transform: rotateY(180deg);
   border-radius: 30px;
-  height: 250px;
+  height: 285px;
   width: 300px;
   padding: 1em 2em;
   background: antiquewhite;
@@ -303,7 +303,7 @@ body {
 }
 
 #FC-B {
-  height: 250px;
+  height: 285px;
   width: 460px;
 }
 
@@ -317,13 +317,16 @@ body {
  } */
 
 #roadmap {
-  margin-top: 5%;
   text-align: center;
   font-size: 20px;
   font-weight: bold;
   max-width: 1000px;
   font-size: larger;
   margin-top: 5px;
+}
+
+#roadmap h1 {
+  margin-top: 7%;
 }
 
 #roadmap h2 {
