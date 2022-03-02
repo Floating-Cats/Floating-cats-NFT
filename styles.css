@@ -36,7 +36,10 @@ body {
   font-size: 18px;
   text-align: center;
 }
-
+.nav-link {
+  color: antiquewhite !important;
+  text-shadow: 2px 2px 2px rgb(87, 84, 84);
+}
 .navbar-nav li {
   padding: 0 10px;
 }

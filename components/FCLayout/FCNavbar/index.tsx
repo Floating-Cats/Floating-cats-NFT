@@ -67,7 +67,7 @@ export function FCNavbar({
         <img
           src={'/icon.png'}
           alt=''
-          width='30'
+          width='38'
           height='30'
           className='d-inline-block align-text-top'
         />{' '}
@@ -75,7 +75,7 @@ export function FCNavbar({
           src={'/logo.png'}
           alt=''
           width='200'
-          height='25'
+          height='28'
           className='d-inline-block align-text-top'
         />
       </h1>
@@ -96,7 +96,7 @@ export function FCNavbar({
         <Navbar.Brand href='/'>{getNavBrand()}</Navbar.Brand>
         <Navbar.Toggle aria-controls='responsive-navbar-nav' />
         <Navbar.Collapse id='responsive-navbar-nav'>
-          <Nav className='me-auto'>
+          <Nav className='mx-auto'>
             <Nav.Link href='/Mint'>MINT</Nav.Link>
             <Nav.Link href='/#about'>ABOUT</Nav.Link>
             <Nav.Link href='/#roadmap'>ROADMAP</Nav.Link>
