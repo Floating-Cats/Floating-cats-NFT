@@ -52,6 +52,7 @@ body {
 #collapseBtn {
   background-image: url('public/arrow.png');
 }
+
 #show_button {
   padding: 2px 30px;
   border-radius: 30px;
