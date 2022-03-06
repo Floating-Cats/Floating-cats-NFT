@@ -1,4 +1,4 @@
-import { onClickUrl } from '../helpers/TabOpener';
+import { onClickUrl } from '../../helpers/TabOpener';
 
 export default function FCBanner() {
   return (

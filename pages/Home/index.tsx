@@ -1,10 +1,10 @@
-import FCAbout from 'components/FCAbout';
-import FCBanner from 'components/FCBanner';
-import FCBgCloud from 'components/FCBgCloud';
-import FCDNA from 'components/FCDNA';
-import FCFAQ from 'components/FCFAQ';
-import FCRoadmap from 'components/FCRoadmap';
-import FCTeam from 'components/FCTeam';
+import FCAbout from 'components/FCHome/FCAbout';
+import FCBanner from 'components/FCHome/FCBanner';
+import FCBgCloud from 'components/FCHome/FCBgCloud';
+import FCDNA from 'components/FCHome/FCDNA';
+import FCFAQ from 'components/FCHome/FCFAQ';
+import FCRoadmap from 'components/FCHome/FCRoadmap';
+import FCTeam from 'components/FCHome/FCTeam';
 
 export default function Home() {
   return (

@@ -159,17 +159,7 @@ export default function FCWalletConnector({
           );
         }}
       >
-        <MetaMaskDiv
-          navBarParams={navBarParams}
-          switchChain={switchChain}
-          chainId={chainId}
-          accounts={accounts}
-          error={error}
-          isActivating={isActivating}
-          isActive={isActive}
-          provider={provider}
-          ENSNames={ENSNames}
-        />
+        <MetaMaskDiv navBarParams={navBarParams} />
       </ListGroup.Item>
       <ListGroup.Item
         action
@@ -185,19 +175,8 @@ export default function FCWalletConnector({
           );
         }}
       >
-        <WalletConnectDiv
-          navBarParams={navBarParams}
-          switchChain={switchChain}
-          chainId={chainId}
-          accounts={accounts}
-          error={error}
-          isActivating={isActivating}
-          isActive={isActive}
-          provider={provider}
-          ENSNames={ENSNames}
-        />
+        <WalletConnectDiv navBarParams={navBarParams} />
       </ListGroup.Item>
-      {/* debug */}
       <ListGroup.Item>
         {/* <h5>DEBUG SECTION</h5> */}
         {/* <Select
