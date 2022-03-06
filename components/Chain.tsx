@@ -1,10 +1,10 @@
-import type { Web3ReactHooks } from '@web3-react/core';
 import { CHAINS } from '../chains';
+import { Web3ReactType } from './helpers/Web3ReactType';
 
 export function Chain({
   chainId,
 }: {
-  chainId: ReturnType<Web3ReactHooks['useChainId']>;
+  chainId: ReturnType<Web3ReactType['chainId']>;
 }) {
   if (chainId === undefined) return null;
 

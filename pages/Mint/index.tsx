@@ -13,6 +13,11 @@ import FCLayout from 'components/FCLayout';
 import { ethers } from 'ethers';
 import { toast } from 'react-toastify';
 
+const contractAddress: string = process.env.NEXT_PUBLIC_CONTRACT_ADDR || '';
+const provider: EthereumProvider = new ethers.providers.Web3Provider(
+  window.ethereum
+);
+
 export default function Mint() {
   const [mintAmount, setMintAmount] = useState<number>(1);
 

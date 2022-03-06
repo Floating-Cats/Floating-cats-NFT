@@ -66,8 +66,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     }
     console.log('...done');
 
-    const contractAddress: string = process.env.VITE_CONTRACT_ADDR;
-    console.log('contractAddress = ', contractAddress);
+    console.log('...contract loaded: ', process.env.NEXT_PUBLIC_CONTRACT_ADDR);
   }, []);
 
   return (
