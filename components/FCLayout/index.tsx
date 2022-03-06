@@ -92,6 +92,7 @@ export default function FCLayout({
           rel='stylesheet'
         ></link>
       </Head>
+
       <div className='body'>
         {loading ? (
           <FCSpinner />

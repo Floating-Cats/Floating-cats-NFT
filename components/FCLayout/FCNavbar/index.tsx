@@ -97,7 +97,9 @@ export function FCNavbar({
         <Navbar.Toggle aria-controls='responsive-navbar-nav' />
         <Navbar.Collapse id='responsive-navbar-nav'>
           <Nav className='mx-auto'>
-            <Nav.Link href='/Mint'>MINT</Nav.Link>
+            <Nav.Link href='/Mint' disabled>
+              MINT
+            </Nav.Link>
             <Nav.Link href='/#about'>ABOUT</Nav.Link>
             <Nav.Link href='/#DNA'>DNA</Nav.Link>
             <Nav.Link href='/#roadmap'>ROADMAP</Nav.Link>

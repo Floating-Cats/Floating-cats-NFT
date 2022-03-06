@@ -54,7 +54,7 @@ export default function MetaMaskDiv({
     return (
       <>
         <h1>
-          <img src={'../../MetaMask-icon.svg'} alt='' width='60' />
+          <img src={'/MetaMask-icon.svg'} alt='' width='60' />
         </h1>
         <h3>MetaMask</h3>
       </>

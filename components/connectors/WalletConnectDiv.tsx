@@ -81,7 +81,7 @@ export default function WalletConnectDiv({
     return (
       <>
         <h1>
-          <img src={'../../WalletConnect-icon.svg'} alt='' width='60' />
+          <img src={'/WalletConnect-icon.svg'} alt='' width='60' />
         </h1>
         <h3>Wallet Connect</h3>
       </>
