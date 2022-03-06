@@ -14,7 +14,7 @@ import { ethers } from 'ethers';
 import { toast } from 'react-toastify';
 
 export default function Mint() {
-  const [mintAmount, setMintAmount] = useState<number | any>(1);
+  const [mintAmount, setMintAmount] = useState<number>(1);
 
   // Clear the form on modal close.
   useEffect(() => {
@@ -24,11 +24,18 @@ export default function Mint() {
   /**
    * Initializes the states (mintAmounts) used for the form.
    */
-  const clearForm = () => {
+  const clearForm: () => void = () => {
     setMintAmount(1);
   };
 
-  const mintToken = async () => {
+  const onChangeSetMintAmount: (mint_amount: string) => void = (
+    mint_amount
+  ) => {
+    const amount = parseInt(mint_amount);
+    setMintAmount(amount);
+  };
+
+  const mintToken: () => void = async () => {
     // setCollectionVisible(true);
     // toast.info(`🐱 Let's Mint ${mintAmount} Token!`);
     toast(`🐱 You will mint ${mintAmount} tokens\n🐱 Hit OK to continue`);
@@ -58,7 +65,7 @@ export default function Mint() {
     <>
       <div>
         <Row>
-          <Col xs={1}>
+          <Col xs={2}>
             <Form>
               <Form.Group>
                 <Form.Label>Quantity</Form.Label>
@@ -68,12 +75,12 @@ export default function Mint() {
                   type='number'
                   placeholder='a number'
                   value={mintAmount}
-                  onChange={(e) => setMintAmount(e.target.value)}
+                  onChange={(e) => onChangeSetMintAmount(e.target.value)}
                 />
               </Form.Group>
             </Form>
           </Col>
-          <Col xs={9}></Col>
+          <Col xs={10}></Col>
         </Row>
       </div>
       <div className='mintPageBg'>
@@ -85,7 +92,7 @@ export default function Mint() {
                 id='mintBtn-blue'
                 src='/mint-btn-blue.png'
                 alt=''
-                onClick={() => mintToken()}
+                onClick={mintToken}
               />
             </div>
             <div className='col'>
@@ -93,7 +100,7 @@ export default function Mint() {
                 id='mintBtn-red'
                 src='/mint-btn-red.png'
                 alt=''
-                onClick={() => mintToken()}
+                onClick={mintToken}
               />
             </div>
             <div className='col'>
@@ -101,7 +108,7 @@ export default function Mint() {
                 id='mintBtn-yellow'
                 src='/mint-btn-yellow.png'
                 alt=''
-                onClick={() => mintToken()}
+                onClick={mintToken}
               />
             </div>
           </div>

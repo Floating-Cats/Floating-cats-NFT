@@ -59,7 +59,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       setENSNames(fetchedWallet['ENSNames']);
 
       // styles
-      toast('🐱 Wallet Connected!');
+      // toast('🐱 Wallet Info Fetched!');
     } else {
       // no wallet info
       localStorage.setItem('wc', initStateJSON);
