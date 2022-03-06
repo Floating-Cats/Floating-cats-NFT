@@ -14,6 +14,8 @@ import FCLayout from '../components/FCLayout';
 import { NavBarInterface } from 'components/helpers/NavBarInterface';
 import { Web3ReactType } from 'components/helpers/Web3ReactType';
 import { StorageInterface } from 'components/helpers/StorageInterface';
+import * as E from 'fp-ts/lib/Either';
+import * as t from 'io-ts';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [chainId, setChainId] = useState<Web3ReactType['chainId']>();
