@@ -5,6 +5,7 @@ import { WalletConnect } from '@web3-react/walletconnect';
 import { CHAINS, getAddChainParameters, URLS } from 'chains';
 
 // helper function
+import { toast } from 'react-toastify';
 import { resetWalletConnector } from '../ResetWalletConnector';
 import { Web3ReactType } from 'components/helpers/Web3ReactType';
 
@@ -17,7 +18,16 @@ export async function handleOnClick(
   connector: MetaMask | WalletConnect | Network /*| WalletLink*/,
   desiredChainId: number | any
 ) {
-  if (error) {
+  // empty object check
+  // src: https://stackoverflow.com/a/32108184/13007073
+  const isEmpty: (obj: object | any) => boolean = (obj) => {
+    for (var prop in obj) {
+      if (Object.prototype.hasOwnProperty.call(obj, prop)) return false;
+    }
+    return JSON.stringify(obj) === JSON.stringify({});
+  };
+
+  if (error && !isEmpty(error)) {
     connector instanceof WalletConnect || connector instanceof Network
       ? await connector
           .activate(desiredChainId === -1 ? 1 : desiredChainId)
@@ -27,8 +37,11 @@ export async function handleOnClick(
       : await connector.activate(
           desiredChainId === -1 ? 1 : getAddChainParameters(desiredChainId)
         );
+
+    // toast('No action has taken place!');
   } else if (isActive) {
     await connector.deactivate();
+    toast('Wallet Disconnected!');
   } else {
     connector instanceof WalletConnect || connector instanceof Network
       ? await connector
@@ -41,6 +54,6 @@ export async function handleOnClick(
       : await connector.activate(
           desiredChainId === -1 ? 1 : getAddChainParameters(desiredChainId)
         );
+    // toast('Wallet Connected!');
   }
-  // };
 }
