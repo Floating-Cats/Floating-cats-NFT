@@ -30,7 +30,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   // console.log({ ...navBarParams });
 
   useEffect(() => {
-    const guestInfo: string = JSON.parse(`{
+    const initState: string = JSON.parse(`{
   "chainId": ${null},
   "accounts": ${null},
   "error": ${null},
@@ -41,7 +41,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 }`);
 
     const initWallet: StorageInterface =
-      JSON.parse(window.localStorage.getItem('wc') || '{}') || guestInfo;
+      window.localStorage.getItem('wc') || initState;
     console.log('...initializing your wallet');
 
     // FIXME: typescript check error
@@ -56,7 +56,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       setProvider(fetchedWallet['provider']);
       setENSNames(fetchedWallet['ENSNames']);
     } else {
-      localStorage.setItem('wc', guestInfo);
+      localStorage.setItem('wc', initState);
     }
     console.log('...done');
   }, []);
