@@ -79,6 +79,21 @@ export default function FCWalletConnector({
   const provider = useProvider();
   const ENSNames = useENSNames(provider);
 
+  // stringify helper
+  // https://stackoverflow.com/a/57615112/13007073
+  const getCircularReplacer = () => {
+    const seen = new WeakSet();
+    return (key: any, value: any) => {
+      if (typeof value === 'object' && value !== null) {
+        if (seen.has(value)) {
+          return;
+        }
+        seen.add(value);
+      }
+      return value;
+    };
+  };
+
   // lift states up to parent + set data to local storage
   useEffect(() => {
     setChainId(chainId);
@@ -89,25 +104,22 @@ export default function FCWalletConnector({
     setProvider(provider);
     setENSNames(ENSNames);
 
-    const userInfo: string = JSON.parse(`{
-  "chainId": ${chainId},
-  "accounts": ${accounts},
-  "error": ${error},
-  "isActivating": ${isActivating},
-  "isActive": ${isActive},
-  "provider": ${provider},
-  "ENSNames": ${ENSNames},
-}`);
-
-    window.localStorage.setItem('wc', userInfo);
-
-    // let wallet = window.localStorage.setItem({
-    //   chainId: chainId,
-    //   accounts: accounts,
-    // });
-    // return wallet;
-    // , [chainId, accounts, error, isActivating, isActive, provider, ENSNames]
-  });
+    const userInfo: StorageInterface = {
+      chainId: chainId,
+      accounts: accounts,
+      error: error,
+      isActivating: isActivating,
+      isActive: isActive,
+      provider: provider,
+      ENSNames: ENSNames,
+    };
+    const userInfoJson: string = JSON.stringify(
+      userInfo,
+      getCircularReplacer()
+    );
+    console.log(userInfoJson);
+    window.localStorage.setItem('wc', userInfoJson);
+  }, [chainId, accounts, error, isActivating, isActive, provider, ENSNames]);
 
   // react hook, useCallback, when user switches chain
   const switchChain = useCallback(

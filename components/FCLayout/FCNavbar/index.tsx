@@ -1,5 +1,4 @@
 import { useState } from 'react';
-// import dynamic from 'next/dynamic';
 
 // imports for stylings
 import Nav from 'react-bootstrap/Nav';
@@ -8,17 +7,12 @@ import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
-import { toast } from 'react-toastify';
 
 // components
 import FCWalletConnModal from 'components/FCWalletConnModal';
 
 // types
 import type { Web3ReactHooks } from '@web3-react/core';
-
-// const FCWalletConnModal = dynamic(() => import('../../FCWalletConnModal'), {
-//   ssr: false,
-// });
 
 interface NavBarInterface {
   accounts: ReturnType<Web3ReactHooks['useAccount']> | any;

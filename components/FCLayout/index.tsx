@@ -14,16 +14,6 @@ interface NavBarInterface {
   provider: ReturnType<Web3ReactHooks['useProvider']> | any;
 }
 
-// type OnClickConnectType = (
-//   chainId: ReturnType<Web3ReactHooks['useChainId']> | any,
-//   accounts: ReturnType<Web3ReactHooks['useAccount']> | any,
-//   error: ReturnType<Web3ReactHooks['useError']> | any,
-//   isActivating: ReturnType<Web3ReactHooks['useIsActivating']> | any,
-//   isActive: ReturnType<Web3ReactHooks['useIsActive']> | any,
-//   provider: ReturnType<Web3ReactHooks['useProvider']> | any,
-//   ENSNames: ReturnType<Web3ReactHooks['useENSNames']> | any
-// ) => void;
-
 export default function FCLayout({
   // component
   children,

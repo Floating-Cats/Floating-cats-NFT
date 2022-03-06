@@ -14,8 +14,6 @@ import FCLayout from '../components/FCLayout';
 import { NavBarInterface } from 'components/helpers/NavBarInterface';
 import { Web3ReactType } from 'components/helpers/Web3ReactType';
 import { StorageInterface } from 'components/helpers/StorageInterface';
-import * as E from 'fp-ts/lib/Either';
-import * as t from 'io-ts';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [chainId, setChainId] = useState<Web3ReactType['chainId']>();
@@ -45,13 +43,12 @@ function MyApp({ Component, pageProps }: AppProps) {
     const initWallet: StorageInterface =
       JSON.parse(window.localStorage.getItem('wc') || '{}') || guestInfo;
     console.log('{ ...initWallet }');
+    console.log(initWallet);
     console.log({ ...initWallet });
     // console.log(typeof { ...initWallet });
 
     // FIXME: typescript check error
-    const fetchedWallet: StorageInterface = { ...initWallet }[0];
-    console.log(fetchedWallet);
-    console.log(fetchedWallet['isActive']);
+    const fetchedWallet: StorageInterface = { ...initWallet };
     // if wallet info is fetched
     if (fetchedWallet && fetchedWallet['isActive']) {
       setChainId(fetchedWallet['chainId']);
@@ -62,7 +59,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       setProvider(fetchedWallet['provider']);
       setENSNames(fetchedWallet['ENSNames']);
     } else {
-      localStorage.setItem('wc', JSON.parse(guestInfo));
+      localStorage.setItem('wc', guestInfo);
     }
   }, []);
 
