@@ -8,7 +8,7 @@ export default function FCNDA() {
             <img src='/1of1.png' alt='' />
           </div>
           <div className='col' id='DNAinfo'>
-            <h3>1 of 1</h3>
+            <h3 id='oneofone'>1 of 1</h3>
             <p>QTY: 15</p>
           </div>
         </div>
@@ -17,7 +17,7 @@ export default function FCNDA() {
             <img src='/super-rare.png' alt='' />
           </div>
           <div className='col' id='DNAinfo'>
-            <h3>Super Rare</h3>
+            <h3 id='SR'>Super Rare</h3>
             <p>QTY: 280</p>
           </div>
         </div>
@@ -26,7 +26,7 @@ export default function FCNDA() {
             <img src='/rare.png' alt='' />
           </div>
           <div className='col' id='DNAinfo'>
-            <h3>Rare</h3>
+            <h3 id='rare'>Rare</h3>
             <p>QTY: 883</p>
           </div>
         </div>
@@ -35,7 +35,7 @@ export default function FCNDA() {
             <img src='/semi-rare.png' alt='' />
           </div>
           <div className='col' id='DNAinfo'>
-            <h3>Semi-Rare</h3>
+            <h3 id='Semi'>Semi-Rare</h3>
             <p>QTY: 1766</p>
           </div>
         </div>
@@ -44,7 +44,7 @@ export default function FCNDA() {
             <img src='/common.png' alt='' />
           </div>
           <div className='col' id='DNAinfo'>
-            <h3>Common</h3>
+            <h3 id='Cm'>Common</h3>
             <p>QTY: 2944</p>
           </div>
         </div>
