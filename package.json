@@ -20,7 +20,6 @@
     "@ethersproject/experimental": "^5.5.0",
     "@ethersproject/providers": "^5.5.1",
     "@ethersproject/units": "^5.4.0",
-    "@types/json-stringify-safe": "^5.0.0",
     "@walletconnect/ethereum-provider": "^1.7.1",
     "@web3-react/core": "8.0.10-beta.0",
     "@web3-react/eip1193": "8.0.5-beta.0",

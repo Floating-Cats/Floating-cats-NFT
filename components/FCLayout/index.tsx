@@ -8,21 +8,12 @@ import FCSpinner from '../FCSpinner';
 
 // types
 import type { Web3ReactHooks } from '@web3-react/core';
+import { Web3ReactType } from 'components/helpers/Web3ReactType';
 
 interface NavBarInterface {
   accounts: ReturnType<Web3ReactHooks['useAccount']> | any;
   provider: ReturnType<Web3ReactHooks['useProvider']> | any;
 }
-
-// type OnClickConnectType = (
-//   chainId: ReturnType<Web3ReactHooks['useChainId']> | any,
-//   accounts: ReturnType<Web3ReactHooks['useAccount']> | any,
-//   error: ReturnType<Web3ReactHooks['useError']> | any,
-//   isActivating: ReturnType<Web3ReactHooks['useIsActivating']> | any,
-//   isActive: ReturnType<Web3ReactHooks['useIsActive']> | any,
-//   provider: ReturnType<Web3ReactHooks['useProvider']> | any,
-//   ENSNames: ReturnType<Web3ReactHooks['useENSNames']> | any
-// ) => void;
 
 export default function FCLayout({
   // component
@@ -41,23 +32,13 @@ export default function FCLayout({
   children: JSX.Element | JSX.Element[];
   navBarParams: NavBarInterface;
   // web3 react
-  setChainId: (chainId: ReturnType<Web3ReactHooks['useChainId']> | any) => void;
-  setAccount: (
-    accounts: ReturnType<Web3ReactHooks['useAccount']> | any
-  ) => void;
-  setError: (error: ReturnType<Web3ReactHooks['useError']> | any) => void;
-  setIsActivating: (
-    isActivating: ReturnType<Web3ReactHooks['useIsActivating']> | any
-  ) => void;
-  setIsActive: (
-    isActive: ReturnType<Web3ReactHooks['useIsActive']> | any
-  ) => void;
-  setProvider: (
-    provider: ReturnType<Web3ReactHooks['useProvider']> | any
-  ) => void;
-  setENSNames: (
-    ENSNames: ReturnType<Web3ReactHooks['useENSNames']> | any
-  ) => void;
+  setChainId: (chainId: Web3ReactType['chainId']) => void;
+  setAccount: (accounts: Web3ReactType['accounts']) => void;
+  setError: (error: Web3ReactType['error']) => void;
+  setIsActivating: (isActivating: Web3ReactType['isActivating']) => void;
+  setIsActive: (isActive: Web3ReactType['isActive']) => void;
+  setProvider: (provider: Web3ReactType['provider']) => void;
+  setENSNames: (ENSNames: Web3ReactType['ENSNames']) => void;
 }) {
   const [loading, setLoading] = useState<boolean | any>(true);
   useEffect(() => {
@@ -81,14 +62,16 @@ export default function FCLayout({
           integrity='sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3'
         />
         <link rel='preconnect' href='https://fonts.googleapis.com' />
+
         <link
-          href='https://fonts.googleapis.com/css2?family=Coming+Soon&display=swap'
+          href='https://fonts.googleapis.com/css2?family=Short+Stack&display=swap'
           rel='stylesheet'
-        />
+        ></link>
+
         <link
-          href='https://fonts.googleapis.com/css2?family=Rowdies&display=swap'
+          href='https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap'
           rel='stylesheet'
-        />
+        ></link>
       </Head>
 
       <div className='body'>

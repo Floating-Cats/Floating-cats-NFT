@@ -1,5 +1,4 @@
 import { useState } from 'react';
-// import dynamic from 'next/dynamic';
 
 // imports for stylings
 import Nav from 'react-bootstrap/Nav';
@@ -8,17 +7,12 @@ import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
-import { toast } from 'react-toastify';
 
 // components
 import FCWalletConnModal from 'components/FCWalletConnModal';
 
 // types
 import type { Web3ReactHooks } from '@web3-react/core';
-
-// const FCWalletConnModal = dynamic(() => import('../../FCWalletConnModal'), {
-//   ssr: false,
-// });
 
 interface NavBarInterface {
   accounts: ReturnType<Web3ReactHooks['useAccount']> | any;
@@ -67,7 +61,7 @@ export function FCNavbar({
         <img
           src={'/icon.png'}
           alt=''
-          width='30'
+          width='38'
           height='30'
           className='d-inline-block align-text-top'
         />{' '}
@@ -75,7 +69,7 @@ export function FCNavbar({
           src={'/logo.png'}
           alt=''
           width='200'
-          height='25'
+          height='28'
           className='d-inline-block align-text-top'
         />
       </h1>
@@ -96,11 +90,12 @@ export function FCNavbar({
         <Navbar.Brand href='/'>{getNavBrand()}</Navbar.Brand>
         <Navbar.Toggle aria-controls='responsive-navbar-nav' />
         <Navbar.Collapse id='responsive-navbar-nav'>
-          <Nav className='me-auto'>
+          <Nav className='mx-auto'>
             <Nav.Link href='/Mint' disabled>
               MINT
             </Nav.Link>
             <Nav.Link href='/#about'>ABOUT</Nav.Link>
+            <Nav.Link href='/#DNA'>DNA</Nav.Link>
             <Nav.Link href='/#roadmap'>ROADMAP</Nav.Link>
             <Nav.Link href='/#team'>TEAM</Nav.Link>
           </Nav>

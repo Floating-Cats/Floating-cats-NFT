@@ -23,7 +23,8 @@ import WalletConnectDiv from 'components/connectors/WalletConnectDiv';
 import { handleOnClick } from 'components/helpers/HandleOnClick';
 import { NavBarInterface } from 'components/helpers/NavBarInterface';
 import { Web3ReactType } from 'components/helpers/Web3ReactType';
-var stringify = require('json-stringify-safe');
+import { StorageInterface } from 'components/helpers/StorageInterface';
+// var stringify = require('json-stringify-safe');
 
 export default function FCWalletConnector({
   navBarParams,
@@ -59,12 +60,6 @@ export default function FCWalletConnector({
   const [desiredChainId, setDesiredChainId] = useState<number>(
     isNetwork ? 1 : -1
   );
-  // const [displayDefault, setDisplayDefault] = useState<boolean>(!isNetwork);
-  // const [chainIds, setChainIds] = useState<number[]>(
-  //   (isNetwork ? Object.keys(URLS) : Object.keys(CHAINS)).map((chainId) =>
-  //     Number(chainId)
-  //   )
-  // );
 
   // web3 react
   const {
@@ -84,6 +79,21 @@ export default function FCWalletConnector({
   const provider = useProvider();
   const ENSNames = useENSNames(provider);
 
+  // stringify helper
+  // https://stackoverflow.com/a/57615112/13007073
+  const getCircularReplacer = () => {
+    const seen = new WeakSet();
+    return (key: any, value: any) => {
+      if (typeof value === 'object' && value !== null) {
+        if (seen.has(value)) {
+          return;
+        }
+        seen.add(value);
+      }
+      return value;
+    };
+  };
+
   // lift states up to parent + set data to local storage
   useEffect(() => {
     setChainId(chainId);
@@ -94,26 +104,20 @@ export default function FCWalletConnector({
     setProvider(provider);
     setENSNames(ENSNames);
 
-    window.localStorage.setItem(
-      'wc',
-      stringify([
-        {
-          chainId: chainId,
-          accounts: accounts,
-          error: error,
-          isActivating: isActivating,
-          isActive: isActive,
-          provider: provider,
-          ENSNames: ENSNames,
-        },
-      ])
+    const userInfo: StorageInterface = {
+      chainId: chainId,
+      accounts: accounts,
+      error: error,
+      isActivating: isActivating,
+      isActive: isActive,
+      provider: provider,
+      ENSNames: ENSNames,
+    };
+    const userInfoJson: string = JSON.stringify(
+      userInfo,
+      getCircularReplacer()
     );
-
-    // let wallet = window.localStorage.setItem({
-    //   chainId: chainId,
-    //   accounts: accounts,
-    // });
-    return wallet;
+    window.localStorage.setItem('wc', userInfoJson);
   }, [chainId, accounts, error, isActivating, isActive, provider, ENSNames]);
 
   // react hook, useCallback, when user switches chain
@@ -155,17 +159,7 @@ export default function FCWalletConnector({
           );
         }}
       >
-        <MetaMaskDiv
-          navBarParams={navBarParams}
-          switchChain={switchChain}
-          chainId={chainId}
-          accounts={accounts}
-          error={error}
-          isActivating={isActivating}
-          isActive={isActive}
-          provider={provider}
-          ENSNames={ENSNames}
-        />
+        <MetaMaskDiv navBarParams={navBarParams} />
       </ListGroup.Item>
       <ListGroup.Item
         action
@@ -181,19 +175,8 @@ export default function FCWalletConnector({
           );
         }}
       >
-        <WalletConnectDiv
-          navBarParams={navBarParams}
-          switchChain={switchChain}
-          chainId={chainId}
-          accounts={accounts}
-          error={error}
-          isActivating={isActivating}
-          isActive={isActive}
-          provider={provider}
-          ENSNames={ENSNames}
-        />
+        <WalletConnectDiv navBarParams={navBarParams} />
       </ListGroup.Item>
-      {/* debug */}
       <ListGroup.Item>
         {/* <h5>DEBUG SECTION</h5> */}
         {/* <Select
