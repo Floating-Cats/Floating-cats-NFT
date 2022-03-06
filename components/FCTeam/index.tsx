@@ -14,7 +14,7 @@ export default function FCTeam() {
           <div className='col'>
             <img src='/a-icon.JPEG' alt='' />
             <h4>BLUE-DREAM</h4>
-            <p>LEAD DEV</p>
+            <p>LEAD DEVELOPER</p>
           </div>
           <div className='col'>
             <img src='/m-icon.JPEG' alt='' />
