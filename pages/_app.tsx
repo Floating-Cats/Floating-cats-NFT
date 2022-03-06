@@ -30,33 +30,37 @@ function MyApp({ Component, pageProps }: AppProps) {
   // console.log({ ...navBarParams });
 
   useEffect(() => {
-    const initWallet = (JSON.parse(window.localStorage.getItem('wc') || '{}') ||
-      JSON.parse(`[{
-  chainId: ${null},
-  accounts: ${null},
-  error: ${null},
-  isActivating: ${null},
-  isActive: ${null},
-  provider: ${null},
-  ENSNames: ${null},
-}]`)) as StorageInterface;
+    const guestInfo: string = JSON.parse(`{
+  "chainId": ${null},
+  "accounts": ${null},
+  "error": ${null},
+  "isActivating": ${null},
+  "isActive": ${null},
+  "provider": ${null},
+  "ENSNames": ${null}
+}`);
+
+    const initWallet: StorageInterface =
+      JSON.parse(window.localStorage.getItem('wc') || '{}') || guestInfo;
     console.log('{ ...initWallet }');
     console.log({ ...initWallet });
     // console.log(typeof { ...initWallet });
 
     // FIXME: typescript check error
-    const fetchedWallet: (StorageInterface | any)[] = { ...initWallet };
+    const fetchedWallet: StorageInterface = { ...initWallet }[0];
+    console.log(fetchedWallet);
+    console.log(fetchedWallet['isActive']);
     // if wallet info is fetched
-    if (fetchedWallet.length > 0 && fetchedWallet[0].isActive) {
-      setChainId(fetchedWallet[0].chainId);
-      setAccount(fetchedWallet[0].accounts);
-      setError(fetchedWallet[0].error);
-      setIsActivating(fetchedWallet[0].isActivating);
-      setIsActive(fetchedWallet[0].isActive);
-      setProvider(fetchedWallet[0].provider);
-      setENSNames(fetchedWallet[0].ENSNames);
+    if (fetchedWallet && fetchedWallet['isActive']) {
+      setChainId(fetchedWallet['chainId']);
+      setAccount(fetchedWallet['accounts']);
+      setError(fetchedWallet['error']);
+      setIsActivating(fetchedWallet['isActivating']);
+      setIsActive(fetchedWallet['isActive']);
+      setProvider(fetchedWallet['provider']);
+      setENSNames(fetchedWallet['ENSNames']);
     } else {
-      localStorage.setItem('wc', JSON.stringify(initWallet));
+      localStorage.setItem('wc', JSON.parse(guestInfo));
     }
   }, []);
 

@@ -23,7 +23,8 @@ import WalletConnectDiv from 'components/connectors/WalletConnectDiv';
 import { handleOnClick } from 'components/helpers/HandleOnClick';
 import { NavBarInterface } from 'components/helpers/NavBarInterface';
 import { Web3ReactType } from 'components/helpers/Web3ReactType';
-var stringify = require('json-stringify-safe');
+import { StorageInterface } from 'components/helpers/StorageInterface';
+// var stringify = require('json-stringify-safe');
 
 export default function FCWalletConnector({
   navBarParams,
@@ -59,12 +60,6 @@ export default function FCWalletConnector({
   const [desiredChainId, setDesiredChainId] = useState<number>(
     isNetwork ? 1 : -1
   );
-  // const [displayDefault, setDisplayDefault] = useState<boolean>(!isNetwork);
-  // const [chainIds, setChainIds] = useState<number[]>(
-  //   (isNetwork ? Object.keys(URLS) : Object.keys(CHAINS)).map((chainId) =>
-  //     Number(chainId)
-  //   )
-  // );
 
   // web3 react
   const {
@@ -94,27 +89,25 @@ export default function FCWalletConnector({
     setProvider(provider);
     setENSNames(ENSNames);
 
-    window.localStorage.setItem(
-      'wc',
-      stringify([
-        {
-          chainId: chainId,
-          accounts: accounts,
-          error: error,
-          isActivating: isActivating,
-          isActive: isActive,
-          provider: provider,
-          ENSNames: ENSNames,
-        },
-      ])
-    );
+    const userInfo: string = JSON.parse(`{
+  "chainId": ${chainId},
+  "accounts": ${accounts},
+  "error": ${error},
+  "isActivating": ${isActivating},
+  "isActive": ${isActive},
+  "provider": ${provider},
+  "ENSNames": ${ENSNames},
+}`);
+
+    window.localStorage.setItem('wc', userInfo);
 
     // let wallet = window.localStorage.setItem({
     //   chainId: chainId,
     //   accounts: accounts,
     // });
-    return wallet;
-  }, [chainId, accounts, error, isActivating, isActive, provider, ENSNames]);
+    // return wallet;
+    // , [chainId, accounts, error, isActivating, isActive, provider, ENSNames]
+  });
 
   // react hook, useCallback, when user switches chain
   const switchChain = useCallback(
