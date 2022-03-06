@@ -65,6 +65,9 @@ function MyApp({ Component, pageProps }: AppProps) {
       localStorage.setItem('wc', initStateJSON);
     }
     console.log('...done');
+
+    const contractAddress: string = process.env.VITE_CONTRACT_ADDR;
+    console.log('contractAddress = ', contractAddress);
   }, []);
 
   return (

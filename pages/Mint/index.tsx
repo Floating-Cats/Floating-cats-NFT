@@ -71,9 +71,9 @@ export default function Mint() {
                 <Form.Label>Quantity</Form.Label>
                 <Form.Control
                   required
-                  id='item-quantity'
+                  id='mint-quantity'
                   type='number'
-                  placeholder='a number'
+                  // placeholder='a number'
                   value={mintAmount}
                   onChange={(e) => onChangeSetMintAmount(e.target.value)}
                 />
