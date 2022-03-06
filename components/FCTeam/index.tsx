@@ -12,12 +12,12 @@ export default function FCTeam() {
             <p></p>
           </div>
           <div className='col'>
-            <img src='/a-icon.JPEG' alt='' />
+            <img src='/a-icon.png' alt='' />
             <h4>BLUE-DREAM</h4>
             <p>LEAD DEV</p>
           </div>
           <div className='col'>
-            <img src='/m-icon.JPEG' alt='' />
+            <img src='/m-icon.png' alt='' />
             <h4>PIMO</h4>
             <p>CREATIVE ART DIRECTOR</p>
           </div>
