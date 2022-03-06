@@ -42,10 +42,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 
     const initWallet: StorageInterface =
       JSON.parse(window.localStorage.getItem('wc') || '{}') || guestInfo;
-    console.log('{ ...initWallet }');
-    console.log(initWallet);
-    console.log({ ...initWallet });
-    // console.log(typeof { ...initWallet });
+    console.log('...initializing your wallet');
 
     // FIXME: typescript check error
     const fetchedWallet: StorageInterface = { ...initWallet };
@@ -61,6 +58,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     } else {
       localStorage.setItem('wc', guestInfo);
     }
+    console.log('...done');
   }, []);
 
   return (

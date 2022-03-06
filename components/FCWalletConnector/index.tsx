@@ -117,7 +117,6 @@ export default function FCWalletConnector({
       userInfo,
       getCircularReplacer()
     );
-    console.log(userInfoJson);
     window.localStorage.setItem('wc', userInfoJson);
   }, [chainId, accounts, error, isActivating, isActive, provider, ENSNames]);
 
