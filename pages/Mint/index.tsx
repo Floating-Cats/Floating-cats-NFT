@@ -25,13 +25,17 @@ export default function Mint({
   const { NEXT_PUBLIC_MAX_MINT_AMOUNT } = process.env; // env vars
   const { NEXT_PUBLIC_CONTRACT_ADDR } = process.env; // env vars
   const { NEXT_PUBLIC_COST } = process.env; // env vars
+  const { FC_TEST_INFURA_ENDPOINT_RINKEBY } = process.env;
+  const web3 = new Web3(FC_TEST_INFURA_ENDPOINT_RINKEBY);
 
   // vars for mint action
   const contractAddress: string = NEXT_PUBLIC_CONTRACT_ADDR || '';
   const mintPrice: number = parseFloat(NEXT_PUBLIC_COST || '0.06'); // TODO: change this to real mint price
   const [mintAmount, setMintAmount] = useState<number>(1);
+
   const [contract, setContract] = useState<ethers.Contract>(
-    new ethers.Contract(contractAddress, FCat.abi, provider)
+    // new ethers.Contract(contractAddress, FCat.abi, provider)
+    web3.eth.contract(FCat.abi).at(accounts[0])
   );
 
   // const provider: EthereumProvider = new ethers.providers.Web3Provider(
@@ -79,12 +83,12 @@ export default function Mint({
     setContract(new ethers.Contract(contractAddress, FCat.abi, provider));
 
     // check if contract signer is set
-    if (!accounts.length || !contract.signer) {
-      toast.error(
-        '⚠️: Your wallet cannot be read while we connect you to the ethereum server.\nNo action has taken place.'
-      );
-      return;
-    }
+    // if (!accounts.length || !contract.signer) {
+    //   toast.error(
+    //     '⚠️: Your wallet cannot be read while we connect you to the ethereum server.\nNo action has taken place.'
+    //   );
+    //   return;
+    // }
 
     // check if provider is set
     if (isObjEmpty(provider)) {
@@ -113,6 +117,9 @@ export default function Mint({
     );
     // await result.wait(); // FIXME: Cannot read properties of undefined (reading 'wait')
   };
+
+  console.debug('contract balance = ');
+  console.log(contract.balanceOf(accounts[0]));
 
   return (
     <>
