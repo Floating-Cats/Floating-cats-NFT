@@ -6,7 +6,7 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 
 // other imports
-import { ethers } from 'ethers';
+// import { Contract, ethers } from 'ethers';
 import { toast } from 'react-toastify';
 
 // contracts
@@ -15,6 +15,8 @@ import FCat from 'pages/artifacts/contracts/MyNFT.sol/FloatingCats.json';
 // helpers
 import { isObjEmpty } from 'components/helpers/isObjEmpty';
 import { NavBarInterface } from 'components/helpers/NavBarInterface';
+import Web3 from 'web3';
+import { Contract } from 'web3-eth-contract';
 
 export default function Mint({
   navBarParams,
@@ -25,17 +27,20 @@ export default function Mint({
   const { NEXT_PUBLIC_MAX_MINT_AMOUNT } = process.env; // env vars
   const { NEXT_PUBLIC_CONTRACT_ADDR } = process.env; // env vars
   const { NEXT_PUBLIC_COST } = process.env; // env vars
-  const { FC_TEST_INFURA_ENDPOINT_RINKEBY } = process.env;
-  const web3 = new Web3(FC_TEST_INFURA_ENDPOINT_RINKEBY);
 
   // vars for mint action
   const contractAddress: string = NEXT_PUBLIC_CONTRACT_ADDR || '';
   const mintPrice: number = parseFloat(NEXT_PUBLIC_COST || '0.06'); // TODO: change this to real mint price
   const [mintAmount, setMintAmount] = useState<number>(1);
 
-  const [contract, setContract] = useState<ethers.Contract>(
-    // new ethers.Contract(contractAddress, FCat.abi, provider)
-    web3.eth.contract(FCat.abi).at(accounts[0])
+  const web3 = new Web3(provider);
+  console.log(web3);
+
+  console.debug('FCat.abi');
+  console.log({ ...FCat.abi });
+  const contract: Contract = new web3.eth.Contract(
+    JSON.parse(JSON.stringify([...FCat.abi])),
+    accounts[0]
   );
 
   // const provider: EthereumProvider = new ethers.providers.Web3Provider(
@@ -44,6 +49,7 @@ export default function Mint({
 
   console.debug('...contract connected');
   console.log(contract);
+  console.log(contract.defaultBlock);
 
   console.debug('...accounts');
   console.log(accounts);
@@ -80,7 +86,7 @@ export default function Mint({
     // greeting (remove this?)
     greetingMsg();
 
-    setContract(new ethers.Contract(contractAddress, FCat.abi, provider));
+    // setContract(new ethers.Contract(contractAddress, FCat.abi, provider));
 
     // check if contract signer is set
     // if (!accounts.length || !contract.signer) {
@@ -119,7 +125,7 @@ export default function Mint({
   };
 
   console.debug('contract balance = ');
-  console.log(contract.balanceOf(accounts[0]));
+  console.log(contract.methods.balanceOf(accounts[0]));
 
   return (
     <>

@@ -43,7 +43,8 @@
     "react-dom": "17.0.2",
     "react-toastify": "^8.1.1",
     "stream-browserify": "^3.0.0",
-    "util": "^0.12.4"
+    "util": "^0.12.4",
+    "web3": "^1.7.1"
   },
   "devDependenciesComments": {
     "//1": "Packages that are under devDependencies are mainly used for the development purposes and ignored while building the production build.",
