@@ -6,11 +6,12 @@ export default function FCBanner() {
       <div className='container' id='banner'>
         <div className='row'>
           <div className='col-md-7' id='bannerText'>
-            <h2>Welcome to the floating cats</h2>
+            <h2>Floating Cats</h2>
             <p>
-              Floating cat is a 5,888 piece genesis collections Floating on the
-              Ethereum Blockchain. Our goal is to build a strong community to
-              help as many cats as possible.
+              5,888 piece genesis collections floating on the Ethereum
+              Blockchain. Our project is aimed at developing a brand that
+              represents the values of our community and bridges the gap between
+              the web3 and physical worlds.
             </p>
             <button
               className='dc-button'

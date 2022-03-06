@@ -1,8 +1,15 @@
 export default function FCNDA() {
   return (
-    <div className='container' id='DNA'>
-      <h1>DNA</h1>
-      <div className='DNA-bg'>
+    <div className='DNA-bg'>
+      <div className='container' id='DNA'>
+        <h1>DNA</h1>
+        <p id='DNA-info'>
+          WHAT ARE DNA?
+          <br />
+          Floating Cats are split up into 5 types of DNA. With more than 240
+          traits, your neko will
+        </p>
+
         <div className='row'>
           <div className='col'>
             <img src='/1of1.png' alt='' />

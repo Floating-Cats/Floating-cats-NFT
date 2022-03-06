@@ -99,8 +99,8 @@ export function FCNavbar({
           <Nav className='mx-auto'>
             <Nav.Link href='/Mint'>MINT</Nav.Link>
             <Nav.Link href='/#about'>ABOUT</Nav.Link>
-            <Nav.Link href='/#roadmap'>ROADMAP</Nav.Link>
             <Nav.Link href='/#DNA'>DNA</Nav.Link>
+            <Nav.Link href='/#roadmap'>ROADMAP</Nav.Link>
             <Nav.Link href='/#team'>TEAM</Nav.Link>
           </Nav>
           <Nav className='ms-auto'>

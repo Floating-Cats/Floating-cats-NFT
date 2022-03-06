@@ -81,14 +81,16 @@ export default function FCLayout({
           integrity='sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3'
         />
         <link rel='preconnect' href='https://fonts.googleapis.com' />
+
         <link
-          href='https://fonts.googleapis.com/css2?family=Coming+Soon&display=swap'
+          href='https://fonts.googleapis.com/css2?family=Short+Stack&display=swap'
           rel='stylesheet'
-        />
+        ></link>
+
         <link
-          href='https://fonts.googleapis.com/css2?family=Rowdies&display=swap'
+          href='https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap'
           rel='stylesheet'
-        />
+        ></link>
       </Head>
       <div className='body'>
         {loading ? (

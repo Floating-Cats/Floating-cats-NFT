@@ -14,8 +14,8 @@ export default function Home() {
       <FCAbout />
       <FCRoadmap />
       <FCDNA />
-      <FCTeam />
       <FCFAQ />
+      <FCTeam />
     </>
   );
 }
