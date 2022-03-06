@@ -7,7 +7,7 @@ export default function FCAbout() {
         </div>
         <div className='col'>
           <img src='/card-1.png' height='300' width='300' />
-          <img src='/card-2.jpeg' height='300' width='300' />
+          <img src='/card-2.PNG' height='300' width='300' />
         </div>
         <div className='w-100'></div>
         <div className='col'>

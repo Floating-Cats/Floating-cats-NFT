@@ -67,7 +67,7 @@ export function FCNavbar({
         <img
           src={'/icon.png'}
           alt=''
-          width='30'
+          width='38'
           height='30'
           className='d-inline-block align-text-top'
         />{' '}
@@ -75,7 +75,7 @@ export function FCNavbar({
           src={'/logo.png'}
           alt=''
           width='200'
-          height='25'
+          height='28'
           className='d-inline-block align-text-top'
         />
       </h1>
@@ -102,6 +102,7 @@ export function FCNavbar({
             </Nav.Link>
             <Nav.Link href='/#about'>ABOUT</Nav.Link>
             <Nav.Link href='/#roadmap'>ROADMAP</Nav.Link>
+            <Nav.Link href='/#DNA'>DNA</Nav.Link>
             <Nav.Link href='/#team'>TEAM</Nav.Link>
           </Nav>
           <Nav className='ms-auto'>

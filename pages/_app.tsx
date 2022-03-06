@@ -40,7 +40,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   provider: ${null},
   ENSNames: ${null},
 }]`)) as StorageInterface;
-    // console.log('{ ...initWallet }');
+    console.log('{ ...initWallet }');
     console.log({ ...initWallet });
     // console.log(typeof { ...initWallet });
 
