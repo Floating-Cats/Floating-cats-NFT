@@ -21,7 +21,7 @@ export default function FCAbout() {
             events to help cats and bringing the community together.
           </p>
         </div>
-        <div className='col'>
+        <div className='col d-md-none d-lg-block'>
           <img src='/card-3.png' height='300' width='300' />
           <img src='/card-4.png' height='300' width='300' />
         </div>

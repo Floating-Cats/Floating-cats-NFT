@@ -44,7 +44,7 @@ export function Accounts({
   if (accounts === undefined) return null;
 
   return (
-    <div>
+    <div id='acc-info'>
       Accounts:{' '}
       <b>
         {accounts.length === 0
