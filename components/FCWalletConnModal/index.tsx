@@ -10,7 +10,7 @@ import { toast } from 'react-toastify';
 
 // components
 const FCWalletConnector = dynamic(
-  () => import('components/FCWalletConnector'),
+  () => import('components/FCWalletConnModal/FCWalletConnector'),
   {
     ssr: false,
   }

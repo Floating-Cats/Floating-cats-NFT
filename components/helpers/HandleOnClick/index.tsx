@@ -8,6 +8,7 @@ import { CHAINS, getAddChainParameters, URLS } from 'chains';
 import { toast } from 'react-toastify';
 import { resetWalletConnector } from '../ResetWalletConnector';
 import { Web3ReactType } from 'components/helpers/Web3ReactType';
+import { isObjEmpty } from '../isObjEmpty';
 
 export async function handleOnClick(
   // web3 react
@@ -18,16 +19,7 @@ export async function handleOnClick(
   connector: MetaMask | WalletConnect | Network /*| WalletLink*/,
   desiredChainId: number | any
 ) {
-  // empty object check
-  // src: https://stackoverflow.com/a/32108184/13007073
-  const isEmpty: (obj: object | any) => boolean = (obj) => {
-    for (var prop in obj) {
-      if (Object.prototype.hasOwnProperty.call(obj, prop)) return false;
-    }
-    return JSON.stringify(obj) === JSON.stringify({});
-  };
-
-  if (error && !isEmpty(error)) {
+  if (error && !isObjEmpty(error)) {
     connector instanceof WalletConnect || connector instanceof Network
       ? await connector
           .activate(desiredChainId === -1 ? 1 : desiredChainId)

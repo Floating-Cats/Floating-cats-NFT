@@ -1,13 +1,13 @@
-import type { Web3ReactHooks } from '@web3-react/core';
+import { Web3ReactType } from './helpers/Web3ReactType';
 
 export function Status({
   isActivating,
   error,
   isActive,
 }: {
-  isActivating: ReturnType<Web3ReactHooks['useIsActivating']>;
-  error: ReturnType<Web3ReactHooks['useError']>;
-  isActive: ReturnType<Web3ReactHooks['useIsActive']>;
+  error: ReturnType<Web3ReactType['error']>;
+  isActivating: ReturnType<Web3ReactType['isActivating']>;
+  isActive: ReturnType<Web3ReactType['isActive']>;
 }) {
   return (
     <div id='connect-status'>

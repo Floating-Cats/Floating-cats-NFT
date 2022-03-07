@@ -5,9 +5,9 @@ import { useCallback, useEffect, useState } from 'react';
 import ListGroup from 'react-bootstrap/ListGroup';
 
 // web3 react
-import { Chain } from '../Chain';
-import { Status } from '../Status';
-import { Accounts } from '../Accounts';
+import { Chain } from '../../Chain';
+import { Status } from '../../Status';
+import { Accounts } from '../../Accounts';
 import { Network } from '@web3-react/network';
 import { MetaMask } from '@web3-react/metamask';
 import { WalletConnect } from '@web3-react/walletconnect';
@@ -16,8 +16,8 @@ import { hooks as wc_hooks, walletConnect } from 'connectors/walletConnect';
 import { CHAINS, getAddChainParameters, URLS } from 'chains';
 
 // components
-import MetaMaskDiv from 'components/connectors/MetaMaskDiv';
-import WalletConnectDiv from 'components/connectors/WalletConnectDiv';
+import MetaMaskDiv from 'components/FCWalletConnModal/FCWalletConnector/MetaMaskDiv';
+import WalletConnectDiv from 'components/FCWalletConnModal/FCWalletConnector/WalletConnectDiv';
 
 // helper function
 import { handleOnClick } from 'components/helpers/HandleOnClick';

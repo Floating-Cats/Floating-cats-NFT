@@ -39,6 +39,7 @@ module.exports = {
     // defaultNetwork: 'localhost',
     hardhat: {},
 
+    // testing network
     rinkeby: {
       url: `${process.env.FC_TEST_INFURA_ENDPOINT_RINKEBY}`,
       accounts: [
@@ -48,6 +49,7 @@ module.exports = {
       ],
     },
 
+    // main network
     mainnet: {
       url: `${process.env.FC_TEST_INFURA_ENDPOINT_MAINNET}`,
       accounts: [

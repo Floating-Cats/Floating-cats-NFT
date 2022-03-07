@@ -45,7 +45,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       initStateJSON;
 
     const fetchedWallet: StorageInterface = JSON.parse(initWallet);
-    console.log('...initializing your wallet');
+    console.debug('...initializing your wallet');
     console.debug(fetchedWallet);
 
     // if wallet info is fetched
@@ -59,12 +59,17 @@ function MyApp({ Component, pageProps }: AppProps) {
       setENSNames(fetchedWallet['ENSNames']);
 
       // styles
-      toast('🐱 Wallet Connected!');
+      // toast('🐱 Wallet Info Fetched!');
     } else {
       // no wallet info
       localStorage.setItem('wc', initStateJSON);
     }
-    console.log('...done');
+    console.debug('...done');
+
+    console.log(
+      '...contract loaded at ',
+      process.env.NEXT_PUBLIC_CONTRACT_ADDR
+    );
   }, []);
 
   return (
@@ -83,14 +88,16 @@ function MyApp({ Component, pageProps }: AppProps) {
           {
             // prevent Next.js from trying to render anything on the server
             // unless the window object is defined.
-            typeof window === 'undefined' ? null : <Component {...pageProps} />
+            typeof window === 'undefined' ? null : (
+              <Component {...pageProps} navBarParams={navBarParams} />
+            )
           }
         </div>
       </FCLayout>
       <ToastContainer
         position='top-center'
         theme='dark'
-        autoClose={750} // 1000 ms = 1sec
+        autoClose={2000} // 1000 ms = 1sec
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick
