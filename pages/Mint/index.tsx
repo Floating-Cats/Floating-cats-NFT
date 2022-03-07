@@ -6,7 +6,7 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 
 // other imports
-// import { Contract, ethers } from 'ethers';
+import { ethers } from 'ethers';
 import { toast } from 'react-toastify';
 
 // contracts
@@ -34,15 +34,16 @@ export default function Mint({
   const [mintAmount, setMintAmount] = useState<number>(1);
 
   const web3 = new Web3(provider);
+  // const web3 = new Web3(window.ethereum);
   console.log(web3);
 
   console.debug('FCat.abi');
   console.log({ ...FCat.abi });
+
   const contract: Contract = new web3.eth.Contract(
     JSON.parse(JSON.stringify([...FCat.abi])),
-    accounts[0]
+    accounts ? accounts[0] : ''
   );
-
   // const provider: EthereumProvider = new ethers.providers.Web3Provider(
   //   window.ethereum
   // );
@@ -56,6 +57,7 @@ export default function Mint({
 
   console.debug('...provider');
   console.log(provider);
+
   /**
    * Initializes the states (mintAmounts) used for the form.
    */
@@ -83,6 +85,7 @@ export default function Mint({
   };
 
   const mintToken: () => void = async () => {
+    // await window.ethereum.enable();
     // greeting (remove this?)
     greetingMsg();
 
@@ -111,21 +114,23 @@ export default function Mint({
     }
 
     const cost: number = mintPrice * mintAmount;
-    await toast.promise(
-      contract.mint(mintAmount, {
-        value: ethers.utils.parseEther(cost.toString()),
-      }),
-      {
-        pending: 'Transaction is pending',
-        success: 'Transaction is approved 👌',
-        error: 'Transaction is rejected 🤯',
-      }
-    );
+    // await toast.promise(
+    //   contract.mint(mintAmount, {
+    //     value: ethers.utils.parseEther(cost.toString()),
+    //   }),
+    //   {
+    //     pending: 'Transaction is pending',
+    //     success: 'Transaction is approved 👌',
+    //     error: 'Transaction is rejected 🤯',
+    //   }
+    // );
     // await result.wait(); // FIXME: Cannot read properties of undefined (reading 'wait')
   };
 
-  console.debug('contract balance = ');
-  console.log(contract.methods.balanceOf(accounts[0]));
+  console.debug('contract methods = ');
+  // console.log(contract.methods.balanceOf(accounts[0]).call());
+  console.log(contract.methods);
+  console.log(contract.methods.count());
 
   return (
     <>
