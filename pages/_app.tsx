@@ -41,8 +41,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   useEffect(() => {
     const initWallet: string =
-      JSON.parse(JSON.stringify(localStorage.getItem('wc')) || '{}') ||
-      initStateJSON;
+      JSON.stringify(localStorage.getItem('wc') || {}) || initStateJSON;
 
     const fetchedWallet: StorageInterface = JSON.parse(initWallet);
     console.debug('...initializing your wallet');
