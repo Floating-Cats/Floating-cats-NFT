@@ -3,7 +3,7 @@ import type { AppProps /*, AppContext */ } from 'next/app';
 import 'bootstrap/dist/css/bootstrap.css';
 
 // styling
-import { ToastContainer } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import '../styles.css';
 
@@ -28,24 +28,26 @@ function MyApp({ Component, pageProps }: AppProps) {
   // console.log('=========\n_app.tsx');
   const navBarParams = { accounts, provider };
   // console.log({ ...navBarParams });
+  const initState: StorageInterface = {
+    chainId: null,
+    accounts: null,
+    error: null,
+    isActivating: null,
+    isActive: null,
+    provider: null,
+    ENSNames: null,
+  };
+  const initStateJSON: string = JSON.stringify(initState);
 
   useEffect(() => {
-    const initState: string = JSON.parse(`{
-  "chainId": ${null},
-  "accounts": ${null},
-  "error": ${null},
-  "isActivating": ${null},
-  "isActive": ${null},
-  "provider": ${null},
-  "ENSNames": ${null}
-}`);
+    const initWallet: string =
+      JSON.parse(JSON.stringify(localStorage.getItem('wc')) || '{}') ||
+      initStateJSON;
 
-    const initWallet: StorageInterface =
-      window.localStorage.getItem('wc') || initState;
-    console.log('...initializing your wallet');
+    const fetchedWallet: StorageInterface = JSON.parse(initWallet);
+    console.debug('...initializing your wallet');
+    console.debug(fetchedWallet);
 
-    // FIXME: typescript check error
-    const fetchedWallet: StorageInterface = { ...initWallet };
     // if wallet info is fetched
     if (fetchedWallet && fetchedWallet['isActive']) {
       setChainId(fetchedWallet['chainId']);
@@ -55,10 +57,19 @@ function MyApp({ Component, pageProps }: AppProps) {
       setIsActive(fetchedWallet['isActive']);
       setProvider(fetchedWallet['provider']);
       setENSNames(fetchedWallet['ENSNames']);
+
+      // styles
+      // toast('🐱 Wallet Info Fetched!');
     } else {
-      localStorage.setItem('wc', initState);
+      // no wallet info
+      localStorage.setItem('wc', initStateJSON);
     }
-    console.log('...done');
+    console.debug('...done');
+
+    console.log(
+      '...contract loaded at ',
+      process.env.NEXT_PUBLIC_CONTRACT_ADDR
+    );
   }, []);
 
   return (
@@ -77,14 +88,16 @@ function MyApp({ Component, pageProps }: AppProps) {
           {
             // prevent Next.js from trying to render anything on the server
             // unless the window object is defined.
-            typeof window === 'undefined' ? null : <Component {...pageProps} />
+            typeof window === 'undefined' ? null : (
+              <Component {...pageProps} navBarParams={navBarParams} />
+            )
           }
         </div>
       </FCLayout>
       <ToastContainer
         position='top-center'
         theme='dark'
-        autoClose={1000} // 1000 ms = 1sec
+        autoClose={2000} // 1000 ms = 1sec
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick

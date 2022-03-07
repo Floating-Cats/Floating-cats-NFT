@@ -7,12 +7,11 @@ import { FCFooter } from './FCFooter';
 import FCSpinner from '../FCSpinner';
 
 // types
-import type { Web3ReactHooks } from '@web3-react/core';
 import { Web3ReactType } from 'components/helpers/Web3ReactType';
 
 interface NavBarInterface {
-  accounts: ReturnType<Web3ReactHooks['useAccount']> | any;
-  provider: ReturnType<Web3ReactHooks['useProvider']> | any;
+  accounts: ReturnType<Web3ReactType['chainId']> | any;
+  provider: ReturnType<Web3ReactType['provider']> | any;
 }
 
 export default function FCLayout({

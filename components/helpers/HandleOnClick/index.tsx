@@ -5,8 +5,10 @@ import { WalletConnect } from '@web3-react/walletconnect';
 import { CHAINS, getAddChainParameters, URLS } from 'chains';
 
 // helper function
+import { toast } from 'react-toastify';
 import { resetWalletConnector } from '../ResetWalletConnector';
 import { Web3ReactType } from 'components/helpers/Web3ReactType';
+import { isObjEmpty } from '../isObjEmpty';
 
 export async function handleOnClick(
   // web3 react
@@ -17,7 +19,7 @@ export async function handleOnClick(
   connector: MetaMask | WalletConnect | Network /*| WalletLink*/,
   desiredChainId: number | any
 ) {
-  if (error) {
+  if (error && !isObjEmpty(error)) {
     connector instanceof WalletConnect || connector instanceof Network
       ? await connector
           .activate(desiredChainId === -1 ? 1 : desiredChainId)
@@ -27,8 +29,11 @@ export async function handleOnClick(
       : await connector.activate(
           desiredChainId === -1 ? 1 : getAddChainParameters(desiredChainId)
         );
+
+    // toast('No action has taken place!');
   } else if (isActive) {
     await connector.deactivate();
+    toast('Wallet Disconnected!');
   } else {
     connector instanceof WalletConnect || connector instanceof Network
       ? await connector
@@ -41,6 +46,6 @@ export async function handleOnClick(
       : await connector.activate(
           desiredChainId === -1 ? 1 : getAddChainParameters(desiredChainId)
         );
+    // toast('Wallet Connected!');
   }
-  // };
 }

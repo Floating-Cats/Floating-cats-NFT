@@ -5,9 +5,9 @@ import { useCallback, useEffect, useState } from 'react';
 import ListGroup from 'react-bootstrap/ListGroup';
 
 // web3 react
-import { Chain } from '../Chain';
-import { Status } from '../Status';
-import { Accounts } from '../Accounts';
+import { Chain } from '../../Chain';
+import { Status } from '../../Status';
+import { Accounts } from '../../Accounts';
 import { Network } from '@web3-react/network';
 import { MetaMask } from '@web3-react/metamask';
 import { WalletConnect } from '@web3-react/walletconnect';
@@ -16,15 +16,14 @@ import { hooks as wc_hooks, walletConnect } from 'connectors/walletConnect';
 import { CHAINS, getAddChainParameters, URLS } from 'chains';
 
 // components
-import MetaMaskDiv from 'components/connectors/MetaMaskDiv';
-import WalletConnectDiv from 'components/connectors/WalletConnectDiv';
+import MetaMaskDiv from 'components/FCWalletConnModal/FCWalletConnector/MetaMaskDiv';
+import WalletConnectDiv from 'components/FCWalletConnModal/FCWalletConnector/WalletConnectDiv';
 
 // helper function
 import { handleOnClick } from 'components/helpers/HandleOnClick';
 import { NavBarInterface } from 'components/helpers/NavBarInterface';
 import { Web3ReactType } from 'components/helpers/Web3ReactType';
 import { StorageInterface } from 'components/helpers/StorageInterface';
-// var stringify = require('json-stringify-safe');
 
 export default function FCWalletConnector({
   navBarParams,
@@ -56,7 +55,6 @@ export default function FCWalletConnector({
     wallet === 'mm' ? metaMask : walletConnect;
 
   let isNetwork = connector instanceof Network;
-
   const [desiredChainId, setDesiredChainId] = useState<number>(
     isNetwork ? 1 : -1
   );
@@ -79,7 +77,7 @@ export default function FCWalletConnector({
   const provider = useProvider();
   const ENSNames = useENSNames(provider);
 
-  // stringify helper
+  // stringify helper to avoid 'circular structure type error'
   // https://stackoverflow.com/a/57615112/13007073
   const getCircularReplacer = () => {
     const seen = new WeakSet();
@@ -113,11 +111,15 @@ export default function FCWalletConnector({
       provider: provider,
       ENSNames: ENSNames,
     };
+    // FIXME: MetaMask: 'ethereum._metamask' exposes
+    //        non-standard, experimental methods.
+    //        They may be removed or changed without warning.
+    // see here: https://stackoverflow.com/questions/4816099
     const userInfoJson: string = JSON.stringify(
-      userInfo,
+      { ...userInfo },
       getCircularReplacer()
     );
-    window.localStorage.setItem('wc', userInfoJson);
+    localStorage.setItem('wc', userInfoJson);
   }, [chainId, accounts, error, isActivating, isActive, provider, ENSNames]);
 
   // react hook, useCallback, when user switches chain

@@ -1,10 +1,14 @@
-import type { BigNumber } from '@ethersproject/bignumber';
-import { formatEther } from '@ethersproject/units';
-import type { Web3ReactHooks } from '@web3-react/core';
 import { useEffect, useState } from 'react';
 
+// web3 react
+import type { BigNumber } from '@ethersproject/bignumber';
+import { formatEther } from '@ethersproject/units';
+
+// helpers
+import { Web3ReactType } from './helpers/Web3ReactType';
+
 function useBalances(
-  provider?: ReturnType<Web3ReactHooks['useProvider']>,
+  provider?: ReturnType<Web3ReactType['provider']>,
   accounts?: string[]
 ): BigNumber[] | undefined {
   const [balances, setBalances] = useState<BigNumber[] | undefined>();
@@ -36,9 +40,9 @@ export function Accounts({
   provider,
   ENSNames,
 }: {
-  accounts: ReturnType<Web3ReactHooks['useAccounts']>;
-  provider: ReturnType<Web3ReactHooks['useProvider']>;
-  ENSNames: ReturnType<Web3ReactHooks['useENSNames']>;
+  accounts: ReturnType<Web3ReactType['accounts']>;
+  provider: ReturnType<Web3ReactType['provider']>;
+  ENSNames: ReturnType<Web3ReactType['ENSNames']>;
 }) {
   const balances = useBalances(provider, accounts);
   if (accounts === undefined) return null;
@@ -49,9 +53,9 @@ export function Accounts({
       <b>
         {accounts.length === 0
           ? 'None'
-          : accounts?.map((account, i) => (
+          : accounts?.map((acc: string, i: number) => (
               <ul
-                key={account}
+                key={acc}
                 style={{
                   margin: 0,
                   overflow: 'hidden',
@@ -60,9 +64,9 @@ export function Accounts({
               >
                 <li>
                   {ENSNames?.[i] ??
-                    `${account.substring(0, 6)}...${account.substring(
-                      account.length - 4,
-                      account.length
+                    `${acc.substring(0, 6)}...${acc.substring(
+                      acc.length - 4,
+                      acc.length
                     )}`}
                 </li>
                 <li>

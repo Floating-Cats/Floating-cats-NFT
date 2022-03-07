@@ -11,23 +11,9 @@ import Container from 'react-bootstrap/Container';
 // components
 import FCWalletConnModal from 'components/FCWalletConnModal';
 
-// types
-import type { Web3ReactHooks } from '@web3-react/core';
-
-interface NavBarInterface {
-  accounts: ReturnType<Web3ReactHooks['useAccount']> | any;
-  provider: ReturnType<Web3ReactHooks['useProvider']> | any;
-}
-
-type Web3ReactType = {
-  chainId: ReturnType<Web3ReactHooks['useChainId']> | any;
-  accounts: ReturnType<Web3ReactHooks['useAccount']> | any;
-  error: ReturnType<Web3ReactHooks['useError']> | any;
-  isActivating: ReturnType<Web3ReactHooks['useIsActivating']> | any;
-  isActive: ReturnType<Web3ReactHooks['useIsActive']> | any;
-  provider: ReturnType<Web3ReactHooks['useProvider']> | any;
-  ENSNames: ReturnType<Web3ReactHooks['useENSNames']> | any;
-};
+// helpers
+import { Web3ReactType } from 'components/helpers/Web3ReactType';
+import { NavBarInterface } from 'components/helpers/NavBarInterface';
 
 export function FCNavbar({
   // component
