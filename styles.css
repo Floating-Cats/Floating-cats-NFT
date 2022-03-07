@@ -44,6 +44,10 @@ body {
   padding: 0 10px;
 }
 
+#navmint {
+  cursor: url('public/ComingSoon.png');
+}
+
 .bg-dark {
   background: #221e1f !important;
 }
@@ -82,7 +86,24 @@ body {
   margin-left: 15rem;
   font-size: 15px;
 }
-
+h5 {
+  text-align: center;
+  font-family: 'Fredoka One', cursive;
+  margin-top: 2%;
+}
+#acc-info {
+  font-family: 'Fredoka One', cursive;
+  margin-top: 2%;
+  list-style-type: none;
+}
+#connect-status {
+  text-align: center;
+  font-family: 'Fredoka One', cursive;
+  margin-top: 2%;
+}
+#chain {
+  font-family: 'Fredoka One', cursive;
+}
 /* #balance {
   margin-left: 35%;
   margin-top: 3%;
@@ -454,7 +475,7 @@ body {
 
 #team h4 {
   color: antiquewhite;
-  margin-top: 2%;
+  margin-top: 5%;
 }
 
 #team img {

@@ -62,7 +62,6 @@ export default function FCRoadmap() {
                   <h4>
                     We will set up a community wallet and giveaway
                     <strong> 5%</strong> of the initial sales to our holders.
-                    <br />
                     <strong> 30%</strong> of the OS sales will go to the
                     community wallet for giveawys and event funds. 💰
                   </h4>
@@ -83,7 +82,6 @@ export default function FCRoadmap() {
                     We will release the first colletion of our floating brand.
                     Anything from clothing to lifestyle items will be avalible
                     for our holders.
-                    <br />
                     <br />
                     <strong>‼️ Weekly holders only giveaways 🎁</strong>
                   </h4>
@@ -147,12 +145,10 @@ export default function FCRoadmap() {
                 </div>
                 <div className='flip-card-back' id='FC-B'>
                   <h2>🚀 🔜</h2>
-                  <ul>
-                    <li>3D Avatar</li>
-                    <li>Mobile Game</li>
-                    <li>Real life Meetups</li>
-                    <li>Travel Givawys</li>
-                  </ul>
+                  <h4> - 3D Avatar</h4>
+                  <h4> - Mobile Game</h4>
+                  <h4> - Real-life meetups</h4>
+                  <h4> - Metaverse integration</h4>
                 </div>
               </div>
             </div>

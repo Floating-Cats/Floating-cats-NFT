@@ -12,7 +12,7 @@ export function Chain({
 
   if (name) {
     return (
-      <div>
+      <div id='chain'>
         Chain:{' '}
         <b>
           {name === 'Mainnet' ? (
