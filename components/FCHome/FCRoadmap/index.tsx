@@ -6,7 +6,7 @@ export default function FCRoadmap() {
         <hr />
         <div className='row'>
           <div className='col'>
-            <div className='flip-card'>
+            <div className='flip-card ms-auto'>
               <div className='flip-card-inner' id='FCI-B'>
                 <div className='flip-card-front' id='FC-B'>
                   <img src='/shelter.PNG' alt='' width='300' height='200' />
@@ -17,10 +17,9 @@ export default function FCRoadmap() {
 
                   <h4>
                     We will donate <strong>10%</strong> of our earnings to
-                    organizations or groups relevant to animal care. In addition
-                    to that, we plan to partner with these organizations or
-                    groups as we hope to provide their needs and share their
-                    burden, so that more cats can be taken care of. 🏩
+                    organizations or groups relevant to animal care. We plan to
+                    partner with organizations provide their needs and share
+                    their burden. 🏩
                   </h4>
                 </div>
               </div>
@@ -37,10 +36,8 @@ export default function FCRoadmap() {
                   <h2>Q3 - 2022</h2>
                   <h4>
                     We will build a community hub in the Sandbox for our
-                    community members to socialize and play mini-games! 👾
-                    <br /> <strong>Sandbox Avatar Development Commences</strong>
-                    <br /> We will make a series of Sandbox avatars. This will
-                    be airdrop for holders.📦
+                    community members to socialize and play mini-games! 👾 We
+                    will also planing on making a series of Sandbox avatars. 📦
                   </h4>
                 </div>
               </div>
@@ -113,7 +110,7 @@ export default function FCRoadmap() {
         </div>
         <div className='row'>
           <div className='col'>
-            <div className='flip-card'>
+            <div className='flip-card ms-auto'>
               <div className='flip-card-inner' id='FCI-B'>
                 <div className='flip-card-front' id='FC-B'>
                   <img src='/cafe.PNG' alt='' width='300' height='200' />
@@ -122,15 +119,10 @@ export default function FCRoadmap() {
                 <div className='flip-card-back' id='FC-B'>
                   <h2>Q1 - 2023</h2>
                   <h4>
-                    ☕ Opening Floating Cats Café has always been our dream. The
-                    cafe will partner and assist with local shelters, and
-                    provide space for those kitties with care and love.🧡
-                    Meanwhile, the space is to be served as an interactive way
-                    to encourage adoption.
-                    <br />
-                    <strong>
-                      Hoders will have free items/discounts for every visits. 🎉
-                    </strong>
+                    The cafe will partner and assist with shelters, and provide
+                    space for those kitties with care and love.🧡 Meanwhile, the
+                    space is to be served as an interactive way to encourage
+                    adoption.
                   </h4>
                 </div>
               </div>
