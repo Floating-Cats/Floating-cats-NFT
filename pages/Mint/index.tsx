@@ -27,36 +27,35 @@ export default function Mint({
   const { NEXT_PUBLIC_MAX_MINT_AMOUNT } = process.env; // env vars
   const { NEXT_PUBLIC_CONTRACT_ADDR } = process.env; // env vars
   const { NEXT_PUBLIC_COST } = process.env; // env vars
+  const { NEXT_PUBLIC_FC_TEST_INFURA_ENDPOINT_RINKEBY } = process.env; // env vars
 
   // vars for mint action
   const contractAddress: string = NEXT_PUBLIC_CONTRACT_ADDR || '';
   const mintPrice: number = parseFloat(NEXT_PUBLIC_COST || '0.06'); // TODO: change this to real mint price
   const [mintAmount, setMintAmount] = useState<number>(1);
 
-  const web3 = new Web3(provider);
-  // const web3 = new Web3(window.ethereum);
-  console.log(web3);
-
-  console.debug('FCat.abi');
-  console.log({ ...FCat.abi });
+  const web3 = new Web3(
+    new Web3.providers.HttpProvider(
+      NEXT_PUBLIC_FC_TEST_INFURA_ENDPOINT_RINKEBY || ''
+    )
+  );
 
   const contract: Contract = new web3.eth.Contract(
     JSON.parse(JSON.stringify([...FCat.abi])),
-    accounts ? accounts[0] : ''
+    contractAddress,
+    {
+      from: accounts ? accounts[0] : '',
+      // gasPrice: gasPrice,
+    }
   );
-  // const provider: EthereumProvider = new ethers.providers.Web3Provider(
-  //   window.ethereum
-  // );
 
-  console.debug('...contract connected');
-  console.log(contract);
-  console.log(contract.defaultBlock);
-
-  console.debug('...accounts');
-  console.log(accounts);
-
-  console.debug('...provider');
-  console.log(provider);
+  console.debug('contract count = ');
+  contract.methods
+    .count()
+    .call()
+    .then(function (result: string) {
+      console.log(result);
+    });
 
   /**
    * Initializes the states (mintAmounts) used for the form.
@@ -114,23 +113,26 @@ export default function Mint({
     }
 
     const cost: number = mintPrice * mintAmount;
-    // await toast.promise(
-    //   contract.mint(mintAmount, {
-    //     value: ethers.utils.parseEther(cost.toString()),
-    //   }),
-    //   {
-    //     pending: 'Transaction is pending',
-    //     success: 'Transaction is approved 👌',
-    //     error: 'Transaction is rejected 🤯',
-    //   }
-    // );
+    console.log('cost = ');
+    console.log(cost);
+    console.log(cost.toString());
+    console.log(web3.utils.toWei(cost.toString(), 'ether'));
+    // console.log(ethers.utils.parseEther(cost.toString()));
+    await toast.promise(
+      contract.methods
+        .mint(mintAmount)
+        .send({ from: accounts ? accounts[0] : '' })
+        .then(function (result: string) {
+          console.log(result);
+        }),
+      {
+        pending: 'Transaction is pending',
+        success: 'Transaction is approved 👌',
+        error: 'Transaction is rejected 🤯',
+      }
+    );
     // await result.wait(); // FIXME: Cannot read properties of undefined (reading 'wait')
   };
-
-  console.debug('contract methods = ');
-  // console.log(contract.methods.balanceOf(accounts[0]).call());
-  console.log(contract.methods);
-  console.log(contract.methods.count());
 
   return (
     <>
