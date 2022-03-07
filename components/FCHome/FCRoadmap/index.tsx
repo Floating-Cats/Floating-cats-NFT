@@ -9,7 +9,7 @@ export default function FCRoadmap() {
             <div className='flip-card ms-auto'>
               <div className='flip-card-inner' id='FCI-B'>
                 <div className='flip-card-front' id='FC-B'>
-                  <img src='/shelter.PNG' alt='' width='300' height='200' />
+                  <img src='/shelter.png' alt='' width='300' height='200' />
                   <p>Shelter Donations</p>
                 </div>
                 <div className='flip-card-back' id='FC-B'>
@@ -29,7 +29,7 @@ export default function FCRoadmap() {
             <div className='flip-card'>
               <div className='flip-card-inner' id='FCI-B'>
                 <div className='flip-card-front' id='FC-B'>
-                  <img src='/sandbox.PNG' alt='' width='300' height='200' />
+                  <img src='/sandbox.png' alt='' width='300' height='200' />
                   <p>Sandbox Coummuity Hub</p>
                 </div>
                 <div className='flip-card-back' id='FC-B'>
@@ -49,7 +49,7 @@ export default function FCRoadmap() {
             <div className='flip-card'>
               <div className='flip-card-inner'>
                 <div className='flip-card-front'>
-                  <img src='/vault.PNG' alt='' width='300' height='200' />
+                  <img src='/vault.png' alt='' width='300' height='200' />
                   <p>
                     community vault & <br /> Giveaways
                   </p>
@@ -70,7 +70,7 @@ export default function FCRoadmap() {
             <div className='flip-card'>
               <div className='flip-card-inner'>
                 <div className='flip-card-front'>
-                  <img src='/merch.PNG' alt='' width='300' height='200' />
+                  <img src='/merch.png' alt='' width='300' height='200' />
                   <p>Exclusive Merchandises</p>
                 </div>
                 <div className='flip-card-back'>
@@ -90,7 +90,7 @@ export default function FCRoadmap() {
             <div className='flip-card'>
               <div className='flip-card-inner'>
                 <div className='flip-card-front'>
-                  <img src='/Fcoin.PNG' alt='' width='300' height='200' />
+                  <img src='/Fcoin.png' alt='' width='300' height='200' />
                   <p>
                     $FLOAT Token & <br /> P2E development
                   </p>
@@ -113,7 +113,7 @@ export default function FCRoadmap() {
             <div className='flip-card ms-auto'>
               <div className='flip-card-inner' id='FCI-B'>
                 <div className='flip-card-front' id='FC-B'>
-                  <img src='/cafe.PNG' alt='' width='300' height='200' />
+                  <img src='/cafe.png' alt='' width='300' height='200' />
                   <p>Floating Cat Cafe</p>
                 </div>
                 <div className='flip-card-back' id='FC-B'>
@@ -132,7 +132,7 @@ export default function FCRoadmap() {
             <div className='flip-card'>
               <div className='flip-card-inner' id='FCI-B'>
                 <div className='flip-card-front' id='FC-B'>
-                  <img src='/rocket.PNG' alt='' width='300' height='200' />
+                  <img src='/rocket.png' alt='' width='300' height='200' />
                   <p>More and Beyound</p>
                 </div>
                 <div className='flip-card-back' id='FC-B'>

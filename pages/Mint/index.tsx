@@ -44,7 +44,7 @@ export default function Mint({
   const provider = new Web3.providers.HttpProvider(
     NEXT_PUBLIC_INFURA_ENDPOINT_RINKEBY || ''
   );
-  // const web3 = new Web3(provider);
+  const web3 = new Web3(provider);
 
   // ################### set up middleware
 
@@ -58,25 +58,25 @@ export default function Mint({
     NEXT_PUBLIC_RINKEBY_PKEY_ACC4
   );
 
-  const privKey1: string = Buffer.from(
-    NEXT_PUBLIC_RINKEBY_PKEY_ACC1,
-    'hex'
-  ).toString();
-  const privKey4: string = Buffer.from(
-    NEXT_PUBLIC_RINKEBY_PKEY_ACC4,
-    'hex'
-  ).toString();
+  // const privKey1: string = Buffer.from(
+  //   NEXT_PUBLIC_RINKEBY_PKEY_ACC1,
+  //   'hex'
+  // ).toString();
+  // const privKey4: string = Buffer.from(
+  //   NEXT_PUBLIC_RINKEBY_PKEY_ACC4,
+  //   'hex'
+  // ).toString();
 
-  console.log('privKey1 = ', privKey1);
-  console.log('privKey4 = ', privKey4);
+  // console.log('privKey1 = ', privKey1);
+  // console.log('privKey4 = ', privKey4);
 
   // create web3.js middleware that signs transactions locally
   // https://forum.openzeppelin.com/t/binance-testnet-deployment-error-could-not-create-addresses-from-your-mnemonic-or-private-key-s/5438/5
-  const localKeyProvider = new HDWalletProvider({
-    privateKeys: [privKey1, privKey4],
-    providerOrUrl: provider,
-  });
-  const web3 = new Web3(localKeyProvider);
+  // const localKeyProvider = new HDWalletProvider({
+  //   privateKeys: [privKey1, privKey4],
+  //   providerOrUrl: provider,
+  // });
+  // const web3 = new Web3(localKeyProvider);
   // const myAccount = web3.eth.accounts.privateKeyToAccount(privKey1);
 
   const contract: Contract = new web3.eth.Contract(
