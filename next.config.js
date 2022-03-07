@@ -12,10 +12,7 @@ module.exports = {
     disableStaticImages: true,
   },
   trailingSlash: true,
-  exportPathMap: async function (
-    defaultPathMap,
-    { dev, dir, outDir, distDir, buildId }
-  ) {
+  exportPathMap: async function () {
     return {
       '/': { page: '/' },
       '/mint': { page: '/mint' },
