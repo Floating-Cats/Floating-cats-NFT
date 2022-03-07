@@ -52,7 +52,6 @@ function MyApp({ Component, pageProps }: AppProps) {
         JSON.stringify(localStorage.getItem('wc') || '{}') || initStateJSON;
       fetchedWallet = JSON.parse(initWallet);
     }
-
     console.debug('...initializing your wallet');
     console.debug(fetchedWallet);
 
