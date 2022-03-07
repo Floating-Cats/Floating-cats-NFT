@@ -10,7 +10,7 @@ export function Status({
   isActive: ReturnType<Web3ReactType['isActive']>;
 }) {
   return (
-    <div>
+    <div id='connect-status'>
       {error ? (
         <>
           🔴 {error.name ?? 'Error'}

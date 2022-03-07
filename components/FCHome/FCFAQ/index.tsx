@@ -5,6 +5,7 @@ export default function FCFAQ() {
   return (
     <div className='container' id='faq'>
       <h1>FAQ's</h1>
+      <hr />
       <Collapsible trigger='What Are Floating Cats?' id='faq_Q-01'>
         <p id='answers-01'>
           We are a team located in Nagoya, Japan. 🗾 We love cats. Our goal is
@@ -41,8 +42,7 @@ export default function FCFAQ() {
           has always been our dream. The cafe will partner and assist with local
           shelters, and provide even more space for those kitties with care and
           love. Meanwhile, the space is to be served as an interactive way to
-          encourage adoption. 🏡 (Will consistently update some videos &
-          pictures for the opening of the store)
+          encourage adoption. 🏡
         </p>
       </Collapsible>
     </div>
