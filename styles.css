@@ -174,10 +174,10 @@ h5 {
 
 #flag {
   width: 100%;
-  max-width: 500px;
+  max-width: 450px;
   height: auto;
   border-radius: 0cm;
-  margin-left: 5%;
+  margin-bottom: 5%;
 }
 
 .about-bg {
@@ -187,16 +187,25 @@ h5 {
   padding-bottom: 3%;
 }
 
-#about p {
-  padding-left: 20%;
-  padding-right: 20%;
-  font-weight: 800;
-  font-size: 20px;
+#about h1 {
+  margin-bottom: 5%;
+  color: antiquewhite;
 }
 
-#about img {
+#about p {
+  padding-left: 10%;
+  padding-right: 10%;
+  font-weight: 800;
+  font-size: 20px;
+  text-align: center;
+}
+
+#cards img {
   padding: 20px;
   border-radius: 50px;
+  width: 100%;
+  max-width: 250px;
+  height: auto;
 }
 
 /* #mint {
@@ -430,8 +439,8 @@ h5 {
   border-style: outset;
   border-radius: 20px;
   padding: 7px;
-  margin-left: 15%;
-  margin-right: 15%;
+  margin-left: 20%;
+  margin-right: 20%;
 
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
