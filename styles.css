@@ -96,6 +96,11 @@ h5 {
   margin-top: 2%;
   list-style-type: none;
 }
+
+#acc-info p {
+  color: #221e1f;
+}
+
 #connect-status {
   text-align: center;
   font-family: 'Fredoka One', cursive;

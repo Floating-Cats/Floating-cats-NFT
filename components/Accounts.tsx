@@ -54,27 +54,16 @@ export function Accounts({
         {accounts.length === 0
           ? 'None'
           : accounts?.map((acc: string, i: number) => (
-              <ul
-                key={acc}
-                style={{
-                  margin: 0,
-                  overflow: 'hidden',
-                  textOverflow: 'ellipsis',
-                }}
-              >
-                <li>
-                  {ENSNames?.[i] ??
-                    `${acc.substring(0, 6)}...${acc.substring(
-                      acc.length - 4,
-                      acc.length
-                    )}`}
-                </li>
-                <li>
-                  {balances?.[i]
-                    ? ` (Ξ ${parseFloat(formatEther(balances[i])).toFixed(4)})`
-                    : null}
-                </li>
-              </ul>
+              <p>
+                {ENSNames?.[i] ??
+                  `${acc.substring(0, 6)}...${acc.substring(
+                    acc.length - 4,
+                    acc.length
+                  )}`}
+                {balances?.[i]
+                  ? ` (Ξ ${parseFloat(formatEther(balances[i])).toFixed(4)})`
+                  : null}
+              </p>
             ))}
       </b>
     </div>

@@ -40,11 +40,18 @@ function MyApp({ Component, pageProps }: AppProps) {
   const initStateJSON: string = JSON.stringify(initState);
 
   useEffect(() => {
-    const initWallet: string =
-      JSON.parse(JSON.stringify(localStorage.getItem('wc')) || '{}') ||
-      initStateJSON;
-
-    const fetchedWallet: StorageInterface = JSON.parse(initWallet);
+    let initWallet: string = '{}';
+    let fetchedWallet: StorageInterface = initState;
+    try {
+      initWallet =
+        JSON.parse(JSON.stringify(localStorage.getItem('wc')) || '{}') ||
+        initStateJSON;
+      fetchedWallet = JSON.parse(initWallet);
+    } catch (error) {
+      initWallet =
+        JSON.stringify(localStorage.getItem('wc') || '{}') || initStateJSON;
+      fetchedWallet = JSON.parse(initWallet);
+    }
     console.debug('...initializing your wallet');
     console.debug(fetchedWallet);
 
