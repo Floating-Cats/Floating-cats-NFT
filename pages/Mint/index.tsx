@@ -31,7 +31,7 @@ export default function Mint({
   const { NEXT_PUBLIC_MAX_MINT_AMOUNT } = process.env;
   const { NEXT_PUBLIC_CONTRACT_ADDR } = process.env;
   const { NEXT_PUBLIC_COST } = process.env;
-  const { NEXT_PUBLIC_FC_TEST_INFURA_ENDPOINT_RINKEBY } = process.env;
+  const { NEXT_PUBLIC_INFURA_ENDPOINT_RINKEBY } = process.env;
   const { NEXT_PUBLIC_RINKEBY_PKEY_ACC1 } = process.env;
   const { NEXT_PUBLIC_RINKEBY_PKEY_ACC4 } = process.env;
 
@@ -42,7 +42,7 @@ export default function Mint({
 
   // ################### set up provider and contract
   const provider = new Web3.providers.HttpProvider(
-    NEXT_PUBLIC_FC_TEST_INFURA_ENDPOINT_RINKEBY || ''
+    NEXT_PUBLIC_INFURA_ENDPOINT_RINKEBY || ''
   );
   // const web3 = new Web3(provider);
 

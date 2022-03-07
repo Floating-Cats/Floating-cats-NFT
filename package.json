@@ -5,7 +5,7 @@
   "author": "Floating Cats Team <floatingcatsnft@gmail.com>",
   "description": "We are a team located in Nagoya, Japan. We love cats. Our goal is to build a strong community in order to help as many cats as possible.",
   "scripts": {
-    "dev": "next",
+    "dev": "next -p 8545",
     "start": "next start",
     "build": "next build",
     "fc-refresh": "rm -rf node_modules && rm -rf package-lock.json && npm install",
