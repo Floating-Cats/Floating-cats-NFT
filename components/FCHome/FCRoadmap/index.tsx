@@ -6,7 +6,7 @@ export default function FCRoadmap() {
         <hr />
         <div className='row'>
           <div className='col'>
-            <div className='flip-card ms-auto'>
+            <div className='flip-card mx-auto'>
               <div className='flip-card-inner' id='FCI-B'>
                 <div className='flip-card-front' id='FC-B'>
                   <img src='/shelter.png' alt='' width='300' height='200' />
@@ -26,27 +26,7 @@ export default function FCRoadmap() {
             </div>
           </div>
           <div className='col'>
-            <div className='flip-card'>
-              <div className='flip-card-inner' id='FCI-B'>
-                <div className='flip-card-front' id='FC-B'>
-                  <img src='/sandbox.png' alt='' width='300' height='200' />
-                  <p>Sandbox Coummuity Hub</p>
-                </div>
-                <div className='flip-card-back' id='FC-B'>
-                  <h2>Q3 - 2022</h2>
-                  <h4>
-                    We will build a community hub in the Sandbox for our
-                    community members to socialize and play mini-games! 👾 We
-                    will also planing on making a series of Sandbox avatars. 📦
-                  </h4>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className='row'>
-          <div className='col'>
-            <div className='flip-card'>
+            <div className='flip-card mx-auto'>
               <div className='flip-card-inner'>
                 <div className='flip-card-front'>
                   <img src='/vault.png' alt='' width='300' height='200' />
@@ -67,7 +47,7 @@ export default function FCRoadmap() {
             </div>
           </div>
           <div className='col'>
-            <div className='flip-card'>
+            <div className='flip-card mx-auto'>
               <div className='flip-card-inner'>
                 <div className='flip-card-front'>
                   <img src='/merch.png' alt='' width='300' height='200' />
@@ -86,8 +66,29 @@ export default function FCRoadmap() {
               </div>
             </div>
           </div>
+        </div>
+        <div className='row'>
           <div className='col'>
-            <div className='flip-card'>
+            <div className='flip-card mx-auto'>
+              <div className='flip-card-inner' id='FCI-B'>
+                <div className='flip-card-front' id='FC-B'>
+                  <img src='/sandbox.png' alt='' width='300' height='200' />
+                  <p>Sandbox Coummuity Hub</p>
+                </div>
+                <div className='flip-card-back' id='FC-B'>
+                  <h2>Q3 - 2022</h2>
+                  <h4>
+                    We will build a community hub in the Sandbox for our
+                    community members to socialize and play mini-games! 👾 We
+                    will also planing on making a series of Sandbox avatars. 📦
+                  </h4>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className='col'>
+            <div className='flip-card mx-auto'>
               <div className='flip-card-inner'>
                 <div className='flip-card-front'>
                   <img src='/Fcoin.png' alt='' width='300' height='200' />
@@ -107,10 +108,8 @@ export default function FCRoadmap() {
               </div>
             </div>
           </div>
-        </div>
-        <div className='row'>
           <div className='col'>
-            <div className='flip-card ms-auto'>
+            <div className='flip-card mx-auto'>
               <div className='flip-card-inner' id='FCI-B'>
                 <div className='flip-card-front' id='FC-B'>
                   <img src='/cafe.png' alt='' width='300' height='200' />
@@ -124,23 +123,6 @@ export default function FCRoadmap() {
                     space is to be served as an interactive way to encourage
                     adoption.
                   </h4>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className='col'>
-            <div className='flip-card'>
-              <div className='flip-card-inner' id='FCI-B'>
-                <div className='flip-card-front' id='FC-B'>
-                  <img src='/rocket.png' alt='' width='300' height='200' />
-                  <p>More and Beyound</p>
-                </div>
-                <div className='flip-card-back' id='FC-B'>
-                  <h2>🚀 🔜</h2>
-                  <h4> - 3D Avatar</h4>
-                  <h4> - Mobile Game</h4>
-                  <h4> - Real-life meetups</h4>
-                  <h4> - Metaverse integration</h4>
                 </div>
               </div>
             </div>
