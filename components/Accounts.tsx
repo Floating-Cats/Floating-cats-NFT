@@ -54,7 +54,7 @@ export function Accounts({
         {accounts.length === 0
           ? 'None'
           : accounts?.map((acc: string, i: number) => (
-              <p>
+              <p key={acc}>
                 {ENSNames?.[i] ??
                   `${acc.substring(0, 6)}...${acc.substring(
                     acc.length - 4,
