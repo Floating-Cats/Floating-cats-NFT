@@ -4,10 +4,13 @@
   "version": "1.0.0",
   "author": "Floating Cats Team <floatingcatsnft@gmail.com>",
   "description": "We are a team located in Nagoya, Japan. We love cats. Our goal is to build a strong community in order to help as many cats as possible.",
+  "homepage": "http://floatingcats.io",
   "scripts": {
-    "dev": "next",
+    "dev": "next -p 8545",
     "start": "next start",
     "build": "next build",
+    "export": "next export",
+    "fc-build": "rm -rf .next/ && npm run build && npm run export",
     "fc-refresh": "rm -rf node_modules && rm -rf package-lock.json && npm install",
     "preview": "next preview"
   },
@@ -20,6 +23,7 @@
     "@ethersproject/experimental": "^5.5.0",
     "@ethersproject/providers": "^5.5.1",
     "@ethersproject/units": "^5.4.0",
+    "@truffle/hdwallet-provider": "^2.0.3",
     "@walletconnect/ethereum-provider": "^1.7.1",
     "@web3-react/core": "8.0.10-beta.0",
     "@web3-react/eip1193": "8.0.5-beta.0",

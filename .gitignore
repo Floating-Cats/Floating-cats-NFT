@@ -3,6 +3,9 @@
 
 # next
 .next/
+out/
+out.zip
+Archive.zip
 
 # https://stackoverflow.com/questions/36918540/gitignore-all-folders-beginning-with-a-period
 # ignore all . files and . folders

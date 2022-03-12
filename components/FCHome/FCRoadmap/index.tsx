@@ -6,10 +6,10 @@ export default function FCRoadmap() {
         <hr />
         <div className='row'>
           <div className='col'>
-            <div className='flip-card'>
+            <div className='flip-card mx-auto'>
               <div className='flip-card-inner' id='FCI-B'>
                 <div className='flip-card-front' id='FC-B'>
-                  <img src='/shelter.PNG' alt='' width='300' height='200' />
+                  <img src='/shelter.png' alt='' width='300' height='200' />
                   <p>Shelter Donations</p>
                 </div>
                 <div className='flip-card-back' id='FC-B'>
@@ -17,42 +17,19 @@ export default function FCRoadmap() {
 
                   <h4>
                     We will donate <strong>10%</strong> of our earnings to
-                    organizations or groups relevant to animal care. In addition
-                    to that, we plan to partner with these organizations or
-                    groups as we hope to provide their needs and share their
-                    burden, so that more cats can be taken care of. 🏩
+                    organizations or groups relevant to animal care. We plan to
+                    partner with organizations provide their needs and share
+                    their burden. 🏩
                   </h4>
                 </div>
               </div>
             </div>
           </div>
           <div className='col'>
-            <div className='flip-card'>
-              <div className='flip-card-inner' id='FCI-B'>
-                <div className='flip-card-front' id='FC-B'>
-                  <img src='/sandbox.PNG' alt='' width='300' height='200' />
-                  <p>Sandbox Coummuity Hub</p>
-                </div>
-                <div className='flip-card-back' id='FC-B'>
-                  <h2>Q3 - 2022</h2>
-                  <h4>
-                    We will build a community hub in the Sandbox for our
-                    community members to socialize and play mini-games! 👾
-                    <br /> <strong>Sandbox Avatar Development Commences</strong>
-                    <br /> We will make a series of Sandbox avatars. This will
-                    be airdrop for holders.📦
-                  </h4>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className='row'>
-          <div className='col'>
-            <div className='flip-card'>
+            <div className='flip-card mx-auto'>
               <div className='flip-card-inner'>
                 <div className='flip-card-front'>
-                  <img src='/vault.PNG' alt='' width='300' height='200' />
+                  <img src='/vault.png' alt='' width='300' height='200' />
                   <p>
                     community vault & <br /> Giveaways
                   </p>
@@ -70,10 +47,10 @@ export default function FCRoadmap() {
             </div>
           </div>
           <div className='col'>
-            <div className='flip-card'>
+            <div className='flip-card mx-auto'>
               <div className='flip-card-inner'>
                 <div className='flip-card-front'>
-                  <img src='/merch.PNG' alt='' width='300' height='200' />
+                  <img src='/merch.png' alt='' width='300' height='200' />
                   <p>Exclusive Merchandises</p>
                 </div>
                 <div className='flip-card-back'>
@@ -89,11 +66,32 @@ export default function FCRoadmap() {
               </div>
             </div>
           </div>
+        </div>
+        <div className='row'>
           <div className='col'>
-            <div className='flip-card'>
+            <div className='flip-card mx-auto'>
+              <div className='flip-card-inner' id='FCI-B'>
+                <div className='flip-card-front' id='FC-B'>
+                  <img src='/sandbox.png' alt='' width='300' height='200' />
+                  <p>Sandbox Coummuity Hub</p>
+                </div>
+                <div className='flip-card-back' id='FC-B'>
+                  <h2>Q3 - 2022</h2>
+                  <h4>
+                    We will build a community hub in the Sandbox for our
+                    community members to socialize and play mini-games! 👾 We
+                    will also planing on making a series of Sandbox avatars. 📦
+                  </h4>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className='col'>
+            <div className='flip-card mx-auto'>
               <div className='flip-card-inner'>
                 <div className='flip-card-front'>
-                  <img src='/Fcoin.PNG' alt='' width='300' height='200' />
+                  <img src='/Fcoin.png' alt='' width='300' height='200' />
                   <p>
                     $FLOAT Token & <br /> P2E development
                   </p>
@@ -110,45 +108,21 @@ export default function FCRoadmap() {
               </div>
             </div>
           </div>
-        </div>
-        <div className='row'>
           <div className='col'>
-            <div className='flip-card'>
+            <div className='flip-card mx-auto'>
               <div className='flip-card-inner' id='FCI-B'>
                 <div className='flip-card-front' id='FC-B'>
-                  <img src='/cafe.PNG' alt='' width='300' height='200' />
+                  <img src='/cafe.png' alt='' width='300' height='200' />
                   <p>Floating Cat Cafe</p>
                 </div>
                 <div className='flip-card-back' id='FC-B'>
                   <h2>Q1 - 2023</h2>
                   <h4>
-                    ☕ Opening Floating Cats Café has always been our dream. The
-                    cafe will partner and assist with local shelters, and
-                    provide space for those kitties with care and love.🧡
-                    Meanwhile, the space is to be served as an interactive way
-                    to encourage adoption.
-                    <br />
-                    <strong>
-                      Hoders will have free items/discounts for every visits. 🎉
-                    </strong>
+                    The cafe will partner and assist with shelters, and provide
+                    space for those kitties with care and love.🧡 Meanwhile, the
+                    space is to be served as an interactive way to encourage
+                    adoption.
                   </h4>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className='col'>
-            <div className='flip-card'>
-              <div className='flip-card-inner' id='FCI-B'>
-                <div className='flip-card-front' id='FC-B'>
-                  <img src='/rocket.PNG' alt='' width='300' height='200' />
-                  <p>More and Beyound</p>
-                </div>
-                <div className='flip-card-back' id='FC-B'>
-                  <h2>🚀 🔜</h2>
-                  <h4> - 3D Avatar</h4>
-                  <h4> - Mobile Game</h4>
-                  <h4> - Real-life meetups</h4>
-                  <h4> - Metaverse integration</h4>
                 </div>
               </div>
             </div>

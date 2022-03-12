@@ -16,10 +16,7 @@ export default function FCFAQ() {
           and wish to expand this moment worldwide. 🌍
         </p>
       </Collapsible>
-      <Collapsible
-        trigger='How many Floting Cats NFT’s will there be?'
-        id='faq_Q-02'
-      >
+      <Collapsible trigger='How many NFTs will there be?' id='faq_Q-02'>
         <p id='answers-02'>
           There will be 5,888 unique NFT’s including 15 1️⃣OF1️⃣.
         </p>

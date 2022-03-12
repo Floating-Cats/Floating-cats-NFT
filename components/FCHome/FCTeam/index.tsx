@@ -6,18 +6,18 @@ export default function FCTeam() {
 
         <div className='row'>
           <div className='col'>
-            <img src='/t-icon.png' alt='' />
+            <img src='/icon-thomas.png' alt='' />
             <h4>C.L.</h4>
             <p>PROJECT LEAD / FOUNDER</p>
             <p></p>
           </div>
           <div className='col'>
-            <img src='/a-icon.png' alt='' />
+            <img src='/icon-andy.png' alt='' />
             <h4>BLUE-DREAM</h4>
             <p>LEAD DEVELOPER</p>
           </div>
           <div className='col'>
-            <img src='/m-icon.png' alt='' />
+            <img src='/icon-mao.png' alt='' />
             <h4>PIMO</h4>
             <p>CREATIVE ART DIRECTOR</p>
           </div>

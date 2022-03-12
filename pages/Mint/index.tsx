@@ -17,46 +17,84 @@ import { isObjEmpty } from 'components/helpers/isObjEmpty';
 import { NavBarInterface } from 'components/helpers/NavBarInterface';
 import Web3 from 'web3';
 import { Contract } from 'web3-eth-contract';
+import HDWalletProvider from '@truffle/hdwallet-provider';
 
 export default function Mint({
   navBarParams,
 }: {
   navBarParams: NavBarInterface;
 }) {
-  const { accounts, provider } = navBarParams; // params
-  const { NEXT_PUBLIC_MAX_MINT_AMOUNT } = process.env; // env vars
-  const { NEXT_PUBLIC_CONTRACT_ADDR } = process.env; // env vars
-  const { NEXT_PUBLIC_COST } = process.env; // env vars
+  // ################### nav bar params
+  const { accounts /*provider*/ } = navBarParams; // params
 
-  // vars for mint action
+  // ################### env vars
+  const { NEXT_PUBLIC_MAX_MINT_AMOUNT } = process.env;
+  const { NEXT_PUBLIC_CONTRACT_ADDR } = process.env;
+  const { NEXT_PUBLIC_COST } = process.env;
+  const { NEXT_PUBLIC_INFURA_ENDPOINT_RINKEBY } = process.env;
+  const { NEXT_PUBLIC_RINKEBY_PKEY_ACC1 } = process.env;
+  const { NEXT_PUBLIC_RINKEBY_PKEY_ACC4 } = process.env;
+
+  // ################### vars for mint action
   const contractAddress: string = NEXT_PUBLIC_CONTRACT_ADDR || '';
   const mintPrice: number = parseFloat(NEXT_PUBLIC_COST || '0.06'); // TODO: change this to real mint price
   const [mintAmount, setMintAmount] = useState<number>(1);
 
+  // ################### set up provider and contract
+  const provider = new Web3.providers.HttpProvider(
+    NEXT_PUBLIC_INFURA_ENDPOINT_RINKEBY || ''
+  );
   const web3 = new Web3(provider);
-  // const web3 = new Web3(window.ethereum);
-  console.log(web3);
 
-  console.debug('FCat.abi');
-  console.log({ ...FCat.abi });
+  // ################### set up middleware
+
+  // get hex keys
+  console.log(
+    'NEXT_PUBLIC_RINKEBY_PKEY_ACC1 = ',
+    NEXT_PUBLIC_RINKEBY_PKEY_ACC1
+  );
+  console.log(
+    'NEXT_PUBLIC_RINKEBY_PKEY_ACC4 = ',
+    NEXT_PUBLIC_RINKEBY_PKEY_ACC4
+  );
+
+  // const privKey1: string = Buffer.from(
+  //   NEXT_PUBLIC_RINKEBY_PKEY_ACC1,
+  //   'hex'
+  // ).toString();
+  // const privKey4: string = Buffer.from(
+  //   NEXT_PUBLIC_RINKEBY_PKEY_ACC4,
+  //   'hex'
+  // ).toString();
+
+  // console.log('privKey1 = ', privKey1);
+  // console.log('privKey4 = ', privKey4);
+
+  // create web3.js middleware that signs transactions locally
+  // https://forum.openzeppelin.com/t/binance-testnet-deployment-error-could-not-create-addresses-from-your-mnemonic-or-private-key-s/5438/5
+  // const localKeyProvider = new HDWalletProvider({
+  //   privateKeys: [privKey1, privKey4],
+  //   providerOrUrl: provider,
+  // });
+  // const web3 = new Web3(localKeyProvider);
+  // const myAccount = web3.eth.accounts.privateKeyToAccount(privKey1);
 
   const contract: Contract = new web3.eth.Contract(
     JSON.parse(JSON.stringify([...FCat.abi])),
-    accounts ? accounts[0] : ''
+    contractAddress,
+    {
+      from: accounts ? accounts[0] : '',
+      // gasPrice: gasPrice,
+    }
   );
-  // const provider: EthereumProvider = new ethers.providers.Web3Provider(
-  //   window.ethereum
-  // );
 
-  console.debug('...contract connected');
-  console.log(contract);
-  console.log(contract.defaultBlock);
-
-  console.debug('...accounts');
-  console.log(accounts);
-
-  console.debug('...provider');
-  console.log(provider);
+  console.debug('contract count = ');
+  contract.methods
+    .count()
+    .call()
+    .then(function (result: string) {
+      console.log(result);
+    });
 
   /**
    * Initializes the states (mintAmounts) used for the form.
@@ -114,23 +152,26 @@ export default function Mint({
     }
 
     const cost: number = mintPrice * mintAmount;
-    // await toast.promise(
-    //   contract.mint(mintAmount, {
-    //     value: ethers.utils.parseEther(cost.toString()),
-    //   }),
-    //   {
-    //     pending: 'Transaction is pending',
-    //     success: 'Transaction is approved 👌',
-    //     error: 'Transaction is rejected 🤯',
-    //   }
-    // );
+    console.log('cost = ');
+    console.log(cost);
+    console.log(cost.toString());
+    console.log(web3.utils.toWei(cost.toString(), 'ether'));
+    // console.log(ethers.utils.parseEther(cost.toString()));
+    await toast.promise(
+      contract.methods
+        .mint(mintAmount)
+        .send({ from: accounts ? accounts[0] : '' })
+        .then(function (result: string) {
+          console.log(result);
+        }),
+      {
+        pending: 'Transaction is pending',
+        success: 'Transaction is approved 👌',
+        error: 'Transaction is rejected 🤯',
+      }
+    );
     // await result.wait(); // FIXME: Cannot read properties of undefined (reading 'wait')
   };
-
-  console.debug('contract methods = ');
-  // console.log(contract.methods.balanceOf(accounts[0]).call());
-  console.log(contract.methods);
-  console.log(contract.methods.count());
 
   return (
     <>

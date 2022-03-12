@@ -81,8 +81,8 @@ export function FCNavbar({
               MINT
             </Nav.Link>
             <Nav.Link href='/#about'>ABOUT</Nav.Link>
-            <Nav.Link href='/#DNA'>DNA</Nav.Link>
             <Nav.Link href='/#roadmap'>ROADMAP</Nav.Link>
+            <Nav.Link href='/#DNA'>DNA</Nav.Link>
             <Nav.Link href='/#team'>TEAM</Nav.Link>
           </Nav>
           <Nav className='ms-auto'>

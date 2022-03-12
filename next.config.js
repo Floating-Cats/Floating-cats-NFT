@@ -11,4 +11,11 @@ module.exports = {
   images: {
     disableStaticImages: true,
   },
+  trailingSlash: true,
+  exportPathMap: async function () {
+    return {
+      '/': { page: '/' },
+      '/mint': { page: '/mint' },
+    };
+  },
 };
