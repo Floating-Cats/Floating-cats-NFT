@@ -65,7 +65,7 @@ export default function Mint({ mintParams }: { mintParams: MintInterface }) {
     }
   );
 
-  console.debug('FCatContract count = ');
+  // console.debug('FCatContract count = ');
   FCatContract.methods
     .count()
     .call()
@@ -84,6 +84,10 @@ export default function Mint({ mintParams }: { mintParams: MintInterface }) {
     setAddrForWL(addr);
   };
 
+  const clearForm: () => void = () => {
+    setAddrForWL('');
+  };
+
   // TODO: need check
   const onSubmitCheckWL: () => void = () => {
     try {
@@ -93,14 +97,22 @@ export default function Mint({ mintParams }: { mintParams: MintInterface }) {
         .then(function (result: boolean) {
           if (!result) {
             toast(`The address is NOT on our whitelist!`);
+            clearForm();
             return;
           } else {
             toast(`The address is on the whitelist!`);
+            clearForm();
             return;
           }
         });
     } catch (err: any) {
-      toast.error(`Something went wrong!\n ${err}`);
+      if (err) {
+        if (err.code == 'INVALID_ARGUMENT')
+          toast.error(`"${err.value}" is not a valid wallet address.`);
+        else
+          toast.error(`Oops! Something went wrong, error code = ${err.code}`);
+      }
+      clearForm();
       console.error('Error~~~ ', err);
     }
   };
@@ -117,7 +129,7 @@ export default function Mint({ mintParams }: { mintParams: MintInterface }) {
     // toast(`🐱 Let's getti!🐱`);
   };
 
-  console.log(FCatContract);
+  // console.log(FCatContract);
 
   const mintToken: () => void = async () => {
     // console.log('cost = ');
@@ -125,12 +137,12 @@ export default function Mint({ mintParams }: { mintParams: MintInterface }) {
     // console.log(web3.utils.toWei(cost.toString(), 'ether'));
     try {
       if (!signer) {
-        toast.error('No wallet connected');
+        toast.error('Oops! No wallet connected');
         return;
       }
 
       if (signer === '') {
-        toast.error('No wallet connected');
+        toast.error('Oops! No wallet connected');
         return;
       }
 
@@ -144,14 +156,16 @@ export default function Mint({ mintParams }: { mintParams: MintInterface }) {
       // check if provider is set
       if (isObjEmpty(provider)) {
         toast.error(
-          '⚠️: Something went wrong with your wallet provider while we connect you to the ethereum server.\nNo action has taken place.'
+          '⚠️: Oops! Something went wrong with your wallet provider while we connect you to the ethereum server.\nNo action has taken place.'
         );
         return;
       }
 
       // check if mint price is set
       if (!mintPrice) {
-        toast.error('⚠️: Cannot read mint cost.\nNo action has taken place.');
+        toast.error(
+          '⚠️: Oops! Cannot read mint cost.\nNo action has taken place.'
+        );
         return;
       }
 
@@ -249,7 +263,7 @@ export default function Mint({ mintParams }: { mintParams: MintInterface }) {
       //   }
       // );
     } catch (err) {
-      toast.error(`Oops! Something went wrong.\nError Message: {${err}}`);
+      toast.error(`Oops! Something went wrong.\n${err}`);
       console.error('Error~~~', err);
       return;
     }
@@ -298,7 +312,8 @@ export default function Mint({ mintParams }: { mintParams: MintInterface }) {
                   required
                   id='check-wl-form'
                   type='text'
-                  placeholder='0xabcde...12345'
+                  placeholder='0xabcde...12345 (your wallet address)'
+                  value={AddrForWL}
                   onChange={(e) => onChangeSetAddr(e.target.value)}
                 />
                 <Button
