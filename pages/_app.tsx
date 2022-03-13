@@ -11,7 +11,7 @@ import '../styles.css';
 import FCLayout from '../components/FCLayout';
 
 // helper function
-import { NavBarInterface } from 'components/helpers/NavBarInterface';
+import { NavBarInterface } from 'components/helpers/ParamsInterface';
 import { Web3ReactType } from 'components/helpers/Web3ReactType';
 import { StorageInterface } from 'components/helpers/StorageInterface';
 
@@ -27,6 +27,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   // console.log('=========\n_app.tsx');
   const navBarParams = { accounts, provider };
+  const mintParams = { chainId, accounts, provider };
   // console.log({ ...navBarParams });
   const initState: StorageInterface = {
     chainId: null,
@@ -96,7 +97,7 @@ function MyApp({ Component, pageProps }: AppProps) {
             // prevent Next.js from trying to render anything on the server
             // unless the window object is defined.
             typeof window === 'undefined' ? null : (
-              <Component {...pageProps} navBarParams={navBarParams} />
+              <Component {...pageProps} mintParams={mintParams} />
             )
           }
         </div>

@@ -13,7 +13,7 @@ import FCWalletConnModal from 'components/FCWalletConnModal';
 
 // helpers
 import { Web3ReactType } from 'components/helpers/Web3ReactType';
-import { NavBarInterface } from 'components/helpers/NavBarInterface';
+import { NavBarInterface } from 'components/helpers/ParamsInterface';
 
 export function FCNavbar({
   // component

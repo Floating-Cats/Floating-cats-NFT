@@ -19,6 +19,7 @@ export async function handleOnClick(
   connector: MetaMask | WalletConnect | Network /*| WalletLink*/,
   desiredChainId: number | any
 ) {
+  console.debug(`desiredChainId = ${desiredChainId}`);
   if (error && !isObjEmpty(error)) {
     connector instanceof WalletConnect || connector instanceof Network
       ? await connector

@@ -1,4 +1,4 @@
-import { NavBarInterface } from 'components/helpers/NavBarInterface';
+import { NavBarInterface } from 'components/helpers/ParamsInterface';
 
 export default function MetaMaskDiv({
   navBarParams,

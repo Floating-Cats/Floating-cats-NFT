@@ -4,6 +4,10 @@ import { useEffect, useState } from 'react';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
+import InputGroup from 'react-bootstrap/InputGroup';
+import FormLabel from 'react-bootstrap/FormLabel';
+import FormControl from 'react-bootstrap/FormControl';
 
 // other imports
 import { ethers } from 'ethers';
@@ -14,94 +18,60 @@ import FCat from 'pages/artifacts/contracts/MyNFT.sol/FloatingCats.json';
 
 // helpers
 import { isObjEmpty } from 'components/helpers/isObjEmpty';
-import { NavBarInterface } from 'components/helpers/NavBarInterface';
+import { MintInterface } from 'components/helpers/ParamsInterface';
 import Web3 from 'web3';
-import { Contract } from 'web3-eth-contract';
-import HDWalletProvider from '@truffle/hdwallet-provider';
+var Tx = require('ethereumjs-tx');
+import { Contract } from 'web3-eth-contract'; // for typechecking
+import { Account } from 'web3/eth/accounts';
 
-export default function Mint({
-  navBarParams,
-}: {
-  navBarParams: NavBarInterface;
-}) {
-  // ################### nav bar params
-  const { accounts /*provider*/ } = navBarParams; // params
+// ################### imports for env vars
+const { NEXT_PUBLIC_MAX_MINT_AMOUNT } = process.env;
+const { NEXT_PUBLIC_CONTRACT_ADDR } = process.env;
+const { NEXT_PUBLIC_COST } = process.env;
+const { NEXT_PUBLIC_INFURA_ENDPOINT_RINKEBY } = process.env;
 
-  // ################### env vars
-  const { NEXT_PUBLIC_MAX_MINT_AMOUNT } = process.env;
-  const { NEXT_PUBLIC_CONTRACT_ADDR } = process.env;
-  const { NEXT_PUBLIC_COST } = process.env;
-  const { NEXT_PUBLIC_INFURA_ENDPOINT_RINKEBY } = process.env;
-  const { NEXT_PUBLIC_RINKEBY_PKEY_ACC1 } = process.env;
-  const { NEXT_PUBLIC_RINKEBY_PKEY_ACC4 } = process.env;
+// ################### setup for provider and contract
+const provider = new Web3.providers.HttpProvider(
+  NEXT_PUBLIC_INFURA_ENDPOINT_RINKEBY || ''
+);
+const web3 = new Web3(provider);
 
-  // ################### vars for mint action
+export default function Mint({ mintParams }: { mintParams: MintInterface }) {
+  const { chainId, accounts /*provider*/ } = mintParams; // params
+  web3.eth.defaultAccount = accounts ? accounts[0] : ''; // set default account
+  const signer: string = web3.eth.defaultAccount || '';
   const contractAddress: string = NEXT_PUBLIC_CONTRACT_ADDR || '';
-  const mintPrice: number = parseFloat(NEXT_PUBLIC_COST || '0.06'); // TODO: change this to real mint price
+  const mintPrice: number = parseFloat(NEXT_PUBLIC_COST || '0.04'); // TODO: change this to real mint price
   const [mintAmount, setMintAmount] = useState<number>(1);
+  const [supply, setSupply] = useState<string>('-');
+  const [AddrForWL, setAddrForWL] = useState<string>('');
+  const web3Account: Account | any = web3.eth.accounts.create();
+  const privKey: string = web3Account.privateKey;
+  // TODO: check whitelist
 
-  // ################### set up provider and contract
-  const provider = new Web3.providers.HttpProvider(
-    NEXT_PUBLIC_INFURA_ENDPOINT_RINKEBY || ''
-  );
-  const web3 = new Web3(provider);
+  // const privKey1: Buffer = Buffer.from(privKey, 'hex');
 
-  // ################### set up middleware
+  // console.log(`pkey=${privKey} pkey=${privKey1.toString()}`);
 
-  // get hex keys
-  console.log(
-    'NEXT_PUBLIC_RINKEBY_PKEY_ACC1 = ',
-    NEXT_PUBLIC_RINKEBY_PKEY_ACC1
-  );
-  console.log(
-    'NEXT_PUBLIC_RINKEBY_PKEY_ACC4 = ',
-    NEXT_PUBLIC_RINKEBY_PKEY_ACC4
-  );
-
-  // const privKey1: string = Buffer.from(
-  //   NEXT_PUBLIC_RINKEBY_PKEY_ACC1,
-  //   'hex'
-  // ).toString();
-  // const privKey4: string = Buffer.from(
-  //   NEXT_PUBLIC_RINKEBY_PKEY_ACC4,
-  //   'hex'
-  // ).toString();
-
-  // console.log('privKey1 = ', privKey1);
-  // console.log('privKey4 = ', privKey4);
-
-  // create web3.js middleware that signs transactions locally
-  // https://forum.openzeppelin.com/t/binance-testnet-deployment-error-could-not-create-addresses-from-your-mnemonic-or-private-key-s/5438/5
-  // const localKeyProvider = new HDWalletProvider({
-  //   privateKeys: [privKey1, privKey4],
-  //   providerOrUrl: provider,
-  // });
-  // const web3 = new Web3(localKeyProvider);
-  // const myAccount = web3.eth.accounts.privateKeyToAccount(privKey1);
-
-  const contract: Contract = new web3.eth.Contract(
+  const FCatContract: Contract = new web3.eth.Contract(
     JSON.parse(JSON.stringify([...FCat.abi])),
     contractAddress,
     {
-      from: accounts ? accounts[0] : '',
-      // gasPrice: gasPrice,
+      from: signer,
+      // gasPrice: web3.utils.toHex(20),
+      // gasPrice: '20000000000',
+      gasPrice: '8000000000',
+      gas: 4700000,
     }
   );
 
-  console.debug('contract count = ');
-  contract.methods
+  console.debug('FCatContract count = ');
+  FCatContract.methods
     .count()
     .call()
     .then(function (result: string) {
-      console.log(result);
+      setSupply(result);
     });
-
-  /**
-   * Initializes the states (mintAmounts) used for the form.
-   */
-  const clearForm: () => void = () => {
-    setMintAmount(1);
-  };
 
   const onChangeSetMintAmount: (mint_amount: string) => void = (
     mint_amount
@@ -110,66 +80,179 @@ export default function Mint({
     setMintAmount(amount);
   };
 
+  const onChangeSetAddr: (addr: string) => void = (addr) => {
+    setAddrForWL(addr);
+  };
+
+  const onSubmitSetWLStatus: () => void = () => {
+    FCatContract.methods
+      .isWhitelisted(AddrForWL)
+      .call()
+      .then(function (result: boolean) {
+        if (!result) {
+          toast(`The address is NOT on our whitelist!`);
+          return;
+        } else {
+          toast(`The address is on the whitelist!`);
+          return;
+        }
+      });
+  };
+
   const greetingMsg: () => void = () => {
     mintAmount < 10
       ? alert(`
 🐱 You will mint ${mintAmount} tokens🐱\n
-🐱   Hit OK to continue   🐱`)
+🐱 Hit OK/Close to continue 🐱`)
       : alert(`
 🐱 You will mint ${mintAmount} tokens🐱\n
-🐱   Hit OK to continue     🐱`);
+🐱 Hit OK/Close to continue 🐱`);
 
     // toast(`🐱 Let's getti!🐱`);
   };
 
+  console.log(FCatContract);
+
   const mintToken: () => void = async () => {
-    // await window.ethereum.enable();
-    // greeting (remove this?)
-    greetingMsg();
-
-    // setContract(new ethers.Contract(contractAddress, FCat.abi, provider));
-
-    // check if contract signer is set
-    // if (!accounts.length || !contract.signer) {
-    //   toast.error(
-    //     '⚠️: Your wallet cannot be read while we connect you to the ethereum server.\nNo action has taken place.'
-    //   );
-    //   return;
-    // }
-
-    // check if provider is set
-    if (isObjEmpty(provider)) {
-      toast.error(
-        '⚠️: Something went wrong with your wallet provider while we connect you to the ethereum server.\nNo action has taken place.'
-      );
-      return;
-    }
-
-    // check if mint price is set
-    if (!mintPrice) {
-      toast.error('⚠️: Cannot read mint cost.\nNo action has taken place.');
-      return;
-    }
-
-    const cost: number = mintPrice * mintAmount;
-    console.log('cost = ');
-    console.log(cost);
-    console.log(cost.toString());
-    console.log(web3.utils.toWei(cost.toString(), 'ether'));
-    // console.log(ethers.utils.parseEther(cost.toString()));
-    await toast.promise(
-      contract.methods
-        .mint(mintAmount)
-        .send({ from: accounts ? accounts[0] : '' })
-        .then(function (result: string) {
-          console.log(result);
-        }),
-      {
-        pending: 'Transaction is pending',
-        success: 'Transaction is approved 👌',
-        error: 'Transaction is rejected 🤯',
+    // console.log('cost = ');
+    // console.log(cost);
+    // console.log(web3.utils.toWei(cost.toString(), 'ether'));
+    try {
+      if (!signer) {
+        toast.error('No wallet connected');
+        return;
       }
-    );
+
+      if (signer === '') {
+        toast.error('No wallet connected');
+        return;
+      }
+
+      // if (chainId !== 1) {
+      //   toast.error(
+      //     "You're not on the main network, please switch your network"
+      //   );
+      //   return;
+      // }
+
+      // check if provider is set
+      if (isObjEmpty(provider)) {
+        toast.error(
+          '⚠️: Something went wrong with your wallet provider while we connect you to the ethereum server.\nNo action has taken place.'
+        );
+        return;
+      }
+
+      // check if mint price is set
+      if (!mintPrice) {
+        toast.error('⚠️: Cannot read mint cost.\nNo action has taken place.');
+        return;
+      }
+
+      greetingMsg(); // greeting (remove this?)
+      const cost: string = (mintPrice * mintAmount).toString();
+      const nonce = await web3.eth.getTransactionCount(
+        contractAddress,
+        'latest'
+      ); //get latest nonce
+      // console.log(nonce);
+
+      // the transaction
+      const tx = {
+        to: contractAddress,
+        // nonce: nonce,
+        gasPrice: '20000000000',
+        gas: '21000',
+        from: signer,
+        gasLimit: web3.utils.toHex('21204'),
+        value: '1000000000000000000',
+        // maxPriorityFeePerGas: 2999999987,
+        data: FCatContract.methods.mint(mintAmount).encodeABI(),
+      };
+
+      // according to
+      // https://docs.alchemy.com/alchemy/tutorials/how-to-create-an-nft/how-to-mint-a-nft
+      // const signedTx = await web3.eth.accounts.signTransaction(tx, privKey);
+      // const transactionReceipt = await web3.eth.sendSignedTransaction(
+      //   signedTx.rawTransaction || ''
+      // );
+
+      // console.log(`Transaction receipt: ${JSON.stringify(transactionReceipt)}`);
+
+      web3.eth.accounts.signTransaction(tx, privKey).then((signedTx) => {
+        web3.eth
+          .sendSignedTransaction(signedTx.rawTransaction || '')
+          .on('confirmation', (confirmationNumber, receipt) => {
+            console.log('confirmation: ' + confirmationNumber);
+          })
+          .on('transactionHash', (hash) => {
+            console.log('hash');
+            console.log(hash);
+          })
+          .on('receipt', (receipt) => {
+            console.log('reciept');
+            console.log(receipt);
+          })
+          .on('error', console.error);
+      });
+
+      // await toast.promise(
+      //   FCatContract.methods
+      //     .mint(mintAmount)
+      //     .send({
+      //       from: signer,
+      //       // to: NEXT_PUBLIC_CONTRACT_ADDR,
+      //       value: web3.utils.toWei(cost, 'ether'),
+      //       // gas: 39000,
+      //       // chainId: 1,
+      //     })
+      //     // .then(function (result: string) {
+      //     //   console.log(`result = ${result}`);
+      //     // }),
+      //     .then((receipt: string) => {
+      //       // receipt can also be a new contract instance, when coming from a "contract.deploy({...}).send()"
+      //       console.log(`receipt = ${receipt}`);
+      //       // Build the transaction
+      //       const txObject = {
+      //         nonce: web3.utils.toHex(nonce),
+      //         to: contractAddress,
+      //         value: web3.utils.toHex(web3.utils.toWei('0', 'ether')),
+      //         gasLimit: web3.utils.toHex(2100000),
+      //         gasPrice: web3.utils.toHex(web3.utils.toWei('6', 'gwei')),
+      //         data: FCatContract.methods.mint(mintAmount).encodeABI(),
+      //       };
+      //       // Sign the transaction
+      //       const tx = new Tx(txObject);
+      //       tx.sign(privKey1);
+
+      //       const serializedTx = tx.serialize();
+      //       const raw = '0x' + serializedTx.toString('hex');
+
+      //       // Broadcast the transaction
+      //       const transaction = web3.eth.sendSignedTransaction(
+      //         raw,
+      //         (err, tx) => {
+      //           console.log(tx);
+      //         }
+      //       );
+      //     }),
+      //   {
+      //     pending: 'Transaction is pending',
+      //     success: 'Transaction is approved 👌',
+      //     error: 'Transaction is rejected 🤯',
+      //   }
+      // );
+    } catch (err) {
+      toast.error(`Oops! Something went wrong.\nError Message: {${err}}`);
+      console.error('Error~~~', err);
+      return;
+    }
+    // Error: Could not create addresses from your mnemonic or private key(s).
+    // Please check that your inputs are correct.
+
+    // Unhandled Promise Rejection: Error: Returned error:
+    // The method eth_sendTransaction does not exist/is not available
+
     // await result.wait(); // FIXME: Cannot read properties of undefined (reading 'wait')
   };
 
@@ -194,7 +277,34 @@ export default function Mint({
               </Form.Group>
             </Form>
           </Col>
-          <Col xs={10}></Col>
+          <Col xs={5}>
+            <Row>
+              <h1>{`${supply} / 5888` /* change 5888 to env var */}</h1>
+            </Row>
+          </Col>
+          <Col xs={5}>
+            <Row>
+              <h3>Check Whitelist</h3>
+            </Row>
+            <Row>
+              <InputGroup className='mb-3'>
+                <FormControl
+                  required
+                  id='check-wl-form'
+                  type='text'
+                  placeholder='0xabcde...12345'
+                  onChange={(e) => onChangeSetAddr(e.target.value)}
+                />
+                <Button
+                  variant='secondary'
+                  id='check-wl-btn'
+                  onClick={onSubmitSetWLStatus}
+                >
+                  GO
+                </Button>
+              </InputGroup>
+            </Row>
+          </Col>
         </Row>
       </div>
       <div className='mintPageBg'>

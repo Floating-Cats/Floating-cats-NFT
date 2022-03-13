@@ -17,7 +17,7 @@ const FCWalletConnector = dynamic(
 );
 
 // helper function
-import { NavBarInterface } from 'components/helpers/NavBarInterface';
+import { NavBarInterface } from 'components/helpers/ParamsInterface';
 import { Web3ReactType } from 'components/helpers/Web3ReactType';
 
 export default function FCWalletConnModal({

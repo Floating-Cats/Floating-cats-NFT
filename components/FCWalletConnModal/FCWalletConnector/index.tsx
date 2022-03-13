@@ -21,7 +21,7 @@ import WalletConnectDiv from 'components/FCWalletConnModal/FCWalletConnector/Wal
 
 // helper function
 import { handleOnClick } from 'components/helpers/HandleOnClick';
-import { NavBarInterface } from 'components/helpers/NavBarInterface';
+import { NavBarInterface } from 'components/helpers/ParamsInterface';
 import { Web3ReactType } from 'components/helpers/Web3ReactType';
 import { StorageInterface } from 'components/helpers/StorageInterface';
 
