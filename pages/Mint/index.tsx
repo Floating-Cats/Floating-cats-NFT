@@ -20,7 +20,7 @@ import FCat from 'pages/artifacts/contracts/MyNFT.sol/FloatingCats.json';
 import { isObjEmpty } from 'components/helpers/isObjEmpty';
 import { MintInterface } from 'components/helpers/ParamsInterface';
 import Web3 from 'web3';
-import TX from 'ethereumjs-tx';
+var Tx = require('ethereumjs-tx').Transaction;
 import { Contract } from 'web3-eth-contract'; // for typechecking
 import { Account } from 'web3/eth/accounts';
 
@@ -30,20 +30,21 @@ const { NEXT_PUBLIC_CONTRACT_ADDR } = process.env;
 const { NEXT_PUBLIC_COST } = process.env;
 const { NEXT_PUBLIC_INFURA_ENDPOINT_RINKEBY } = process.env;
 
-// ################### setup for provider and contract
-const provider = new Web3.providers.HttpProvider(
-  NEXT_PUBLIC_INFURA_ENDPOINT_RINKEBY || ''
-);
-const web3 = new Web3(provider);
-
-interface SignedTxParams {
-  to: string;
-  value: string;
-  data: Buffer;
-}
+// interface SignedTxParams {
+//   to: string;
+//   value: string;
+//   data: Buffer;
+// }
 
 export default function Mint({ mintParams }: { mintParams: MintInterface }) {
-  const { chainId, accounts /*provider*/ } = mintParams; // params
+  const { chainId, accounts, provider } = mintParams; // params
+
+  // ################### setup for provider and contract
+  let RinkebyProvider = new Web3.providers.HttpProvider(
+    NEXT_PUBLIC_INFURA_ENDPOINT_RINKEBY || ''
+  );
+  let web3 = new Web3(RinkebyProvider);
+
   web3.eth.defaultAccount = accounts ? accounts[0] : ''; // set default account
   const signer: string = web3.eth.defaultAccount || '';
   const contractAddress: string = NEXT_PUBLIC_CONTRACT_ADDR || '';
@@ -51,14 +52,10 @@ export default function Mint({ mintParams }: { mintParams: MintInterface }) {
   const [mintAmount, setMintAmount] = useState<number>(1);
   const [supply, setSupply] = useState<string>('-');
   const [AddrForWL, setAddrForWL] = useState<string>('');
-
-  // generate privkey to sign the contract
+  // FIXME: generate privkey to sign the contract
   const web3Account: Account | any = web3.eth.accounts.create();
   const privKey: string = web3Account ? web3Account.privateKey : '';
-  // TODO: check whitelist
-
   // const privKey1: Buffer = Buffer.from(privKey, 'hex');
-
   // console.log(`pkey=${privKey} pkey=${privKey1.toString()}`);
 
   const FCatContract: Contract = new web3.eth.Contract(
@@ -66,8 +63,8 @@ export default function Mint({ mintParams }: { mintParams: MintInterface }) {
     contractAddress,
     {
       from: signer,
-      gasPrice: '8000000000',
-      gas: 4700000,
+      // gasPrice: web3.utils.toWei('0.00000001', 'ether'),
+      // gas: 4700000,
     }
   );
 
@@ -93,7 +90,7 @@ export default function Mint({ mintParams }: { mintParams: MintInterface }) {
 
   /**
    * Set the mint amount state for mint function
-   * @param mint_amount
+   * @param mint_amount - amount of NFT to mint, an integer of string type
    * @returns void
    */
   const onChangeSetMintAmount: (mint_amount: string) => void = (mint_amount) =>
@@ -133,22 +130,22 @@ export default function Mint({ mintParams }: { mintParams: MintInterface }) {
     }
   };
 
+  /**
+   * Alert user before mint action
+   *
+   * @returns void
+   */
   const greetingMsg: () => void = () => {
-    mintAmount < 10
-      ? alert(`
-🐱 You will mint ${mintAmount} tokens🐱\n
-🐱 Hit OK/Close to continue 🐱`)
-      : alert(`
+    alert(`
 🐱 You will mint ${mintAmount} tokens🐱\n
 🐱 Hit OK/Close to continue 🐱`);
   };
 
-  // console.log(FCatContract);
-
+  /**
+   *
+   * @returns
+   */
   const mintToken: () => void = async () => {
-    // console.log('cost = ');
-    // console.log(cost);
-    // console.log(web3.utils.toWei(cost.toString(), 'ether'));
     try {
       if (!signer) {
         toast.error('Oops! No wallet connected');
@@ -168,7 +165,7 @@ export default function Mint({ mintParams }: { mintParams: MintInterface }) {
       // }
 
       // check if provider is set
-      if (isObjEmpty(provider)) {
+      if (isObjEmpty(RinkebyProvider)) {
         toast.error(
           '⚠️: Oops! Something went wrong with your wallet provider while we connect you to the ethereum server.\nNo action has taken place.'
         );
@@ -183,179 +180,74 @@ export default function Mint({ mintParams }: { mintParams: MintInterface }) {
         return;
       }
 
-      greetingMsg(); // greeting (remove this?)
+      greetingMsg();
+
       const cost: string = (mintPrice * mintAmount).toString();
-      const nonce = await web3.eth.getTransactionCount(
-        contractAddress,
-        'latest'
-      ); //get latest nonce
-      // console.log(nonce);
+      if ((window as any).ethereum) {
+        await (window as any).ethereum.send('eth_requestAccounts');
+        (window as any).web3 = new Web3((window as any).ethereum);
+
+        var accounts = await web3.eth.getAccounts();
+        console.log(accounts);
+      }
 
       // define raw transaction
       const tx = {
         from: signer,
         to: contractAddress,
+        contractAddress: contractAddress,
+        gas: web3.utils.toHex('4700000'),
+        chainId: chainId,
+        value: web3.utils.toWei(cost, 'ether'),
+        // value: '0x00',
         // nonce: nonce,
-        gas: '21204',
-        // gasPrice: '20000000000',
+        // gasPrice: web3.utils.toHex(web3.utils.toWei('10', 'gwei')),
         // gasLimit: web3.utils.toHex('21204'),
-        // value: '1000000000000000000',
         // maxPriorityFeePerGas: 2999999987,
         data: FCatContract.methods.mint(mintAmount).encodeABI(),
       };
+      const signedTx = await web3.eth.accounts.signTransaction(
+        tx,
+        '3720286db559b9a30f7c7b96370544717c0bc21c9ae5daf0520087caec393a14'
+      );
+      console.log('signedTx = ', signedTx);
 
-      // according to
-      // https://docs.alchemy.com/alchemy/tutorials/how-to-create-an-nft/how-to-mint-a-nft
-      // const signedTx = await web3.eth.accounts.signTransaction(tx, privKey);
-      // console.log('signedTx = ', signedTx);
-      // const transactionReceipt = await web3.eth.sendSignedTransaction(
-      //   signedTx.rawTransaction || ''
-      // );
+      /*
+          Unlocking an account on a remote node is unsafe for two reasons:
+          - you expose your password
+          - anyone that has access to the node can transfer funds from the unlocked account.
 
-      // console.log(`Transaction receipt: ${JSON.stringify(transactionReceipt)}`);
-
-      // according to
-      // https://medium.com/finnovate-io/how-do-i-sign-transactions-with-web3-f90a853904a2
-      // await web3.eth.accounts
-      //   // sign transaction locally
-      //   .signTransaction(tx, privKey)
-      //   .then((signedTx) => {
-      //     // send out the signed transaction
-      //     const sentTx = web3.eth.sendSignedTransaction(
-      //       signedTx.rawTransaction || ''
-      //     );
-      //     console.log(signedTx);
-      //     console.log(sentTx);
-      //     sentTx.on('receipt', (receipt) => {
-      //       // do something when receipt comes back
-      //       console.log('reciept');
-      //       console.debug(receipt);
-      //     });
-      //     sentTx.on('error', (err) => {
-      //       // do something on transaction error
-      //       console.log('error');
-      //       console.error(err);
-      //     });
-      // })
-      // .catch((err) => {
-      //   // do something when promise fails
-      // });
-
-      // according to
-      // https://ethereum.stackexchange.com/a/68062
-      const sendRawTx = async (params: SignedTxParams) => {
-        const web3 = await getOrInitializeWeb3();
-        const from = signer;
-        const nonce = await web3.eth.getTransactionCount(from);
-        const gasLimit = web3.utils.toHex(3000000);
-        const gasPrice = web3.utils.toHex(5 * 1e9); // 5 gwei
-        const txParams = {
-          from,
-          nonce,
-          gasLimit,
-          gasPrice,
-          to: params.to,
-          value: params.value || 0,
-          data: params.data,
-        };
-        const tx = new TX(txParams);
-        tx.sign(Buffer.from(privKey, 'hex'));
-        const serializedTx = tx.serialize();
-        console.log('serializedTx : ', serializedTx);
-        return new Promise((resolve, reject) => {
-          web3.eth
-            .sendSignedTransaction(`0x${serializedTx.toString('hex')}`)
-            .on('receipt', (r) => {
-              console.log('Received Receipt', r);
-              resolve(r);
-            })
-            .on('confirmation', console.log)
-            .on('transactionHash', console.log)
-            .on('error', reject);
-        });
-      };
-
-      const getOrInitializeWeb3: () => Promise<Web3> = () => {
-        if (this.web3) {
-          return this.web3;
+          So, we do
+          - sign transaction locally -> signTransaction, works
+              > 
+              {
+                messageHash: "0x30c39c246af9cea6b62c1d084afb36808ab70dd51e0379f7ed768fb4712ba238"
+                r: "0xc969db1c873d495c2657da4dea4d540ccc5792a062152123ce019c21318ec069"
+                rawTransaction: "0xf88701843d517ce38252d4942c854a380af77cbd0273e6ff1ebedb9b57ae92eb80a4a0712d6800000000000000000000000000000000000000000000000000000000000000012ca0c969db1c873d495c2657da4dea4d540ccc5792a062152123ce019c21318ec069a04417b50811721f6392f1775403595be9ad50662109392c9594356c7ead87bb8e"
+                s: "0x4417b50811721f6392f1775403595be9ad50662109392c9594356c7ead87bb8e"
+                transactionHash: "0x1f3dc8217888b00bfc93a905387b859f73f4f4270f763598a216aae95b9e8eca"
+                v: "0x2c"
+              }
+              >
+          - send it as a raw transaction to the remote node (Infura), sendSignedTransaction, doesn't work, insufficient funds for gas
+      */
+      await toast.promise(
+        web3.eth
+          .sendSignedTransaction(signedTx.rawTransaction || '')
+          .then((transactionReceipt) => {
+            console.log('receipt = ', transactionReceipt);
+          }),
+        {
+          pending: 'Transaction is pending',
+          success: 'Transaction is approved 👌',
+          error: 'Transaction is rejected 🤯',
         }
-
-        const httpProvider = new HttpProvider(this.web3ProviderArgs);
-        this.web3 = new Web3(httpProvider);
-
-        if (this.accountPrivateKey) {
-          const account = this.web3.eth.accounts.privateKeyToAccount(
-            `0x${this.accountPrivateKey}`
-          );
-          if (account.address !== this.accountAddress) {
-            throw new Error(`Invalid Eth crypto key pair`);
-          }
-
-          this.web3.eth.accounts.wallet.add(account);
-          this.web3.defaultAccount = account.address;
-        }
-
-        return this.web3;
-      };
-
-      // await toast.promise(
-      //   FCatContract.methods
-      //     .mint(mintAmount)
-      //     .send({
-      //       from: signer,
-      //       // to: NEXT_PUBLIC_CONTRACT_ADDR,
-      //       value: web3.utils.toWei(cost, 'ether'),
-      //       // gas: 39000,
-      //       // chainId: 1,
-      //     })
-      //     // .then(function (result: string) {
-      //     //   console.log(`result = ${result}`);
-      //     // }),
-      //     .then((receipt: string) => {
-      //       // receipt can also be a new contract instance, when coming from a "contract.deploy({...}).send()"
-      //       console.log(`receipt = ${receipt}`);
-      //       // Build the transaction
-      //       const txObject = {
-      //         nonce: web3.utils.toHex(nonce),
-      //         to: contractAddress,
-      //         value: web3.utils.toHex(web3.utils.toWei('0', 'ether')),
-      //         gasLimit: web3.utils.toHex(2100000),
-      //         gasPrice: web3.utils.toHex(web3.utils.toWei('6', 'gwei')),
-      //         data: FCatContract.methods.mint(mintAmount).encodeABI(),
-      //       };
-      //       // Sign the transaction
-      //       const tx = new Tx(txObject);
-      //       tx.sign(privKey1);
-
-      //       const serializedTx = tx.serialize();
-      //       const raw = '0x' + serializedTx.toString('hex');
-
-      //       // Broadcast the transaction
-      //       const transaction = web3.eth.sendSignedTransaction(
-      //         raw,
-      //         (err, tx) => {
-      //           console.log(tx);
-      //         }
-      //       );
-      //     }),
-      //   {
-      //     pending: 'Transaction is pending',
-      //     success: 'Transaction is approved 👌',
-      //     error: 'Transaction is rejected 🤯',
-      //   }
-      // );
+      );
     } catch (err) {
       toast.error(`⚠️: Oops! Something went wrong.\n${err}`);
       console.error('Error~~~', err);
       return;
     }
-    // Error: Could not create addresses from your mnemonic or private key(s).
-    // Please check that your inputs are correct.
-
-    // Unhandled Promise Rejection: Error: Returned error:
-    // The method eth_sendTransaction does not exist/is not available
-
-    // await result.wait(); // FIXME: Cannot read properties of undefined (reading 'wait')
   };
 
   return (
