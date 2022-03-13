@@ -43,7 +43,30 @@ export default function Mint({ mintParams }: { mintParams: MintInterface }) {
   let RinkebyProvider = new Web3.providers.HttpProvider(
     NEXT_PUBLIC_INFURA_ENDPOINT_RINKEBY || ''
   );
-  let web3 = new Web3(RinkebyProvider);
+  let web3 = new Web3((window as any).web3.currentProvider);
+  // let web3 = new Web3(RinkebyProvider);
+  window.addEventListener('load', async () => {
+    // Modern dapp browsers...
+    if (window.ethereum) {
+      window.web3 = new Web3(window.ethereum);
+      try {
+        // Request account access if needed
+        await window.ethereum.enable();
+      } catch (error) {
+        // User denied account access...
+      }
+    }
+    // Legacy dapp browsers...
+    else if (window.web3) {
+      window.web3 = new Web3(web3.currentProvider);
+    }
+    // Non-dapp browsers...
+    else {
+      console.log(
+        'Non-Ethereum browser detected. You should consider trying MetaMask!'
+      );
+    }
+  });
 
   web3.eth.defaultAccount = accounts ? accounts[0] : ''; // set default account
   const signer: string = web3.eth.defaultAccount || '';
@@ -51,6 +74,7 @@ export default function Mint({ mintParams }: { mintParams: MintInterface }) {
   const mintPrice: number = parseFloat(NEXT_PUBLIC_COST || '0.02'); // TODO: change this to real mint price
   const [mintAmount, setMintAmount] = useState<number>(1);
   const [supply, setSupply] = useState<string>('-');
+  const [maxSupply, setMaxSupply] = useState('-');
   const [AddrForWL, setAddrForWL] = useState<string>('');
   // FIXME: generate privkey to sign the contract
   const web3Account: Account | any = web3.eth.accounts.create();
@@ -72,7 +96,12 @@ export default function Mint({ mintParams }: { mintParams: MintInterface }) {
   FCatContract.methods
     .count()
     .call()
-    .then((result: string) => setSupply(result));
+    .then((supply: string) => setSupply(supply));
+
+  FCatContract.methods
+    .maxSupply()
+    .call()
+    .then((maxSup: string) => setMaxSupply(maxSup));
 
   /**
    * clear form is called when you want the text field of the form to be refreshed
@@ -119,7 +148,13 @@ export default function Mint({ mintParams }: { mintParams: MintInterface }) {
     } catch (err: any) {
       if (err) {
         if (err.code == 'INVALID_ARGUMENT')
-          toast.error(`⚠️: "${err.value}" is not a valid wallet address.`);
+          toast.error(
+            `⚠️: "${
+              err.value.length > 10
+                ? err.value.substring(0, 10) + '...'
+                : err.value
+            }" is not a valid wallet address.`
+          );
         else
           toast.error(
             `⚠️: Oops! Something went wrong, error code = ${err.code}`
@@ -183,13 +218,10 @@ export default function Mint({ mintParams }: { mintParams: MintInterface }) {
       greetingMsg();
 
       const cost: string = (mintPrice * mintAmount).toString();
-      if ((window as any).ethereum) {
-        await (window as any).ethereum.send('eth_requestAccounts');
-        (window as any).web3 = new Web3((window as any).ethereum);
-
-        var accounts = await web3.eth.getAccounts();
-        console.log(accounts);
-      }
+      // TODO: request permission from the user to get their accounts
+      await (window as any).ethereum.enable();
+      // await web3.eth.getAccounts().then(console.log);
+      await web3.eth.requestAccounts().then(console.log); // wont work on HttpProvidder
 
       // define raw transaction
       const tx = {
@@ -231,18 +263,18 @@ export default function Mint({ mintParams }: { mintParams: MintInterface }) {
               >
           - send it as a raw transaction to the remote node (Infura), sendSignedTransaction, doesn't work, insufficient funds for gas
       */
-      await toast.promise(
-        web3.eth
-          .sendSignedTransaction(signedTx.rawTransaction || '')
-          .then((transactionReceipt) => {
-            console.log('receipt = ', transactionReceipt);
-          }),
-        {
-          pending: 'Transaction is pending',
-          success: 'Transaction is approved 👌',
-          error: 'Transaction is rejected 🤯',
-        }
-      );
+      // await toast.promise(
+      //   web3.eth
+      //     .sendSignedTransaction(signedTx.rawTransaction || '')
+      //     .then((transactionReceipt) => {
+      //       console.log('receipt = ', transactionReceipt);
+      //     }),
+      //   {
+      //     pending: 'Transaction is pending',
+      //     success: 'Transaction is approved 👌',
+      //     error: 'Transaction is rejected 🤯',
+      //   }
+      // );
     } catch (err) {
       toast.error(`⚠️: Oops! Something went wrong.\n${err}`);
       console.error('Error~~~', err);
@@ -273,7 +305,7 @@ export default function Mint({ mintParams }: { mintParams: MintInterface }) {
           </Col>
           <Col xs={5}>
             <Row>
-              <h1>{`${supply} / 5888` /* change 5888 to env var */}</h1>
+              <h1>{`${supply} / ${maxSupply}` /* change 5888 to env var */}</h1>
             </Row>
           </Col>
           <Col xs={5}>
