@@ -168,39 +168,39 @@ export default function Mint({ mintParams }: { mintParams: MintInterface }) {
         to: contractAddress,
         // nonce: nonce,
         gasPrice: '20000000000',
-        gas: '21000',
+        gas: '21204',
         from: signer,
-        gasLimit: web3.utils.toHex('21204'),
-        value: '1000000000000000000',
+        // gasLimit: web3.utils.toHex('21204'),
+        // value: '1000000000000000000',
         // maxPriorityFeePerGas: 2999999987,
         data: FCatContract.methods.mint(mintAmount).encodeABI(),
       };
 
       // according to
       // https://docs.alchemy.com/alchemy/tutorials/how-to-create-an-nft/how-to-mint-a-nft
-      // const signedTx = await web3.eth.accounts.signTransaction(tx, privKey);
-      // const transactionReceipt = await web3.eth.sendSignedTransaction(
-      //   signedTx.rawTransaction || ''
-      // );
+      const signedTx = await web3.eth.accounts.signTransaction(tx, privKey);
+      const transactionReceipt = await web3.eth.sendSignedTransaction(
+        signedTx.rawTransaction || ''
+      );
 
-      // console.log(`Transaction receipt: ${JSON.stringify(transactionReceipt)}`);
+      console.log(`Transaction receipt: ${JSON.stringify(transactionReceipt)}`);
 
-      web3.eth.accounts.signTransaction(tx, privKey).then((signedTx) => {
-        web3.eth
-          .sendSignedTransaction(signedTx.rawTransaction || '')
-          .on('confirmation', (confirmationNumber, receipt) => {
-            console.log('confirmation: ' + confirmationNumber);
-          })
-          .on('transactionHash', (hash) => {
-            console.log('hash');
-            console.log(hash);
-          })
-          .on('receipt', (receipt) => {
-            console.log('reciept');
-            console.log(receipt);
-          })
-          .on('error', console.error);
-      });
+      // web3.eth.accounts.signTransaction(tx, privKey).then((signedTx) => {
+      //   web3.eth
+      //     .sendSignedTransaction(signedTx.rawTransaction || '')
+      //     .on('confirmation', (confirmationNumber, receipt) => {
+      //       console.log('confirmation: ' + confirmationNumber);
+      //     })
+      //     .on('transactionHash', (hash) => {
+      //       console.log('hash');
+      //       console.log(hash);
+      //     })
+      //     .on('receipt', (receipt) => {
+      //       console.log('reciept');
+      //       console.log(receipt);
+      //     })
+      //     .on('error', console.error);
+      // });
 
       // await toast.promise(
       //   FCatContract.methods
