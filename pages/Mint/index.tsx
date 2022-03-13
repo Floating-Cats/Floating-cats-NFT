@@ -20,7 +20,7 @@ import FCat from 'pages/artifacts/contracts/MyNFT.sol/FloatingCats.json';
 import { isObjEmpty } from 'components/helpers/isObjEmpty';
 import { MintInterface } from 'components/helpers/ParamsInterface';
 import Web3 from 'web3';
-var Tx = require('ethereumjs-tx');
+import TX from 'ethereumjs-tx';
 import { Contract } from 'web3-eth-contract'; // for typechecking
 import { Account } from 'web3/eth/accounts';
 
@@ -36,17 +36,25 @@ const provider = new Web3.providers.HttpProvider(
 );
 const web3 = new Web3(provider);
 
+interface SignedTxParams {
+  to: string;
+  value: string;
+  data: Buffer;
+}
+
 export default function Mint({ mintParams }: { mintParams: MintInterface }) {
   const { chainId, accounts /*provider*/ } = mintParams; // params
   web3.eth.defaultAccount = accounts ? accounts[0] : ''; // set default account
   const signer: string = web3.eth.defaultAccount || '';
   const contractAddress: string = NEXT_PUBLIC_CONTRACT_ADDR || '';
-  const mintPrice: number = parseFloat(NEXT_PUBLIC_COST || '0.04'); // TODO: change this to real mint price
+  const mintPrice: number = parseFloat(NEXT_PUBLIC_COST || '0.02'); // TODO: change this to real mint price
   const [mintAmount, setMintAmount] = useState<number>(1);
   const [supply, setSupply] = useState<string>('-');
   const [AddrForWL, setAddrForWL] = useState<string>('');
+
+  // generate privkey to sign the contract
   const web3Account: Account | any = web3.eth.accounts.create();
-  const privKey: string = web3Account.privateKey;
+  const privKey: string = web3Account ? web3Account.privateKey : '';
   // TODO: check whitelist
 
   // const privKey1: Buffer = Buffer.from(privKey, 'hex');
@@ -58,8 +66,6 @@ export default function Mint({ mintParams }: { mintParams: MintInterface }) {
     contractAddress,
     {
       from: signer,
-      // gasPrice: web3.utils.toHex(20),
-      // gasPrice: '20000000000',
       gasPrice: '8000000000',
       gas: 4700000,
     }
@@ -69,26 +75,34 @@ export default function Mint({ mintParams }: { mintParams: MintInterface }) {
   FCatContract.methods
     .count()
     .call()
-    .then(function (result: string) {
-      setSupply(result);
-    });
+    .then((result: string) => setSupply(result));
 
-  const onChangeSetMintAmount: (mint_amount: string) => void = (
-    mint_amount
-  ) => {
-    const amount = parseInt(mint_amount);
-    setMintAmount(amount);
-  };
+  /**
+   * clear form is called when you want the text field of the form to be refreshed
+   * @returns void
+   */
+  const clearForm: () => void = () => setAddrForWL('');
 
-  const onChangeSetAddr: (addr: string) => void = (addr) => {
-    setAddrForWL(addr);
-  };
+  /**
+   * Set the wallet address state for later check WL function
+   *
+   * @param addr - wallet address to chech if it is whitelisted
+   * @returns void
+   */
+  const onChangeSetAddr: (addr: string) => void = (addr) => setAddrForWL(addr);
 
-  const clearForm: () => void = () => {
-    setAddrForWL('');
-  };
+  /**
+   * Set the mint amount state for mint function
+   * @param mint_amount
+   * @returns void
+   */
+  const onChangeSetMintAmount: (mint_amount: string) => void = (mint_amount) =>
+    setMintAmount(parseInt(mint_amount));
 
-  // TODO: need check
+  /**
+   * Check if the address set by the hook is on the WL.
+   * @returns void
+   */
   const onSubmitCheckWL: () => void = () => {
     try {
       FCatContract.methods
@@ -96,11 +110,11 @@ export default function Mint({ mintParams }: { mintParams: MintInterface }) {
         .call()
         .then(function (result: boolean) {
           if (!result) {
-            toast(`The address is NOT on our whitelist!`);
+            toast(`⚠️: Oops! The Address Is NOT on Our Whitelist!`);
             clearForm();
             return;
           } else {
-            toast(`The address is on the whitelist!`);
+            toast(`🐱 Hi Good Neko! The Address Is on Our Whitelist!`);
             clearForm();
             return;
           }
@@ -108,9 +122,11 @@ export default function Mint({ mintParams }: { mintParams: MintInterface }) {
     } catch (err: any) {
       if (err) {
         if (err.code == 'INVALID_ARGUMENT')
-          toast.error(`"${err.value}" is not a valid wallet address.`);
+          toast.error(`⚠️: "${err.value}" is not a valid wallet address.`);
         else
-          toast.error(`Oops! Something went wrong, error code = ${err.code}`);
+          toast.error(
+            `⚠️: Oops! Something went wrong, error code = ${err.code}`
+          );
       }
       clearForm();
       console.error('Error~~~ ', err);
@@ -125,8 +141,6 @@ export default function Mint({ mintParams }: { mintParams: MintInterface }) {
       : alert(`
 🐱 You will mint ${mintAmount} tokens🐱\n
 🐱 Hit OK/Close to continue 🐱`);
-
-    // toast(`🐱 Let's getti!🐱`);
   };
 
   // console.log(FCatContract);
@@ -177,13 +191,13 @@ export default function Mint({ mintParams }: { mintParams: MintInterface }) {
       ); //get latest nonce
       // console.log(nonce);
 
-      // the transaction
+      // define raw transaction
       const tx = {
+        from: signer,
         to: contractAddress,
         // nonce: nonce,
-        gasPrice: '20000000000',
         gas: '21204',
-        from: signer,
+        // gasPrice: '20000000000',
         // gasLimit: web3.utils.toHex('21204'),
         // value: '1000000000000000000',
         // maxPriorityFeePerGas: 2999999987,
@@ -192,29 +206,97 @@ export default function Mint({ mintParams }: { mintParams: MintInterface }) {
 
       // according to
       // https://docs.alchemy.com/alchemy/tutorials/how-to-create-an-nft/how-to-mint-a-nft
-      const signedTx = await web3.eth.accounts.signTransaction(tx, privKey);
-      const transactionReceipt = await web3.eth.sendSignedTransaction(
-        signedTx.rawTransaction || ''
-      );
+      // const signedTx = await web3.eth.accounts.signTransaction(tx, privKey);
+      // console.log('signedTx = ', signedTx);
+      // const transactionReceipt = await web3.eth.sendSignedTransaction(
+      //   signedTx.rawTransaction || ''
+      // );
 
-      console.log(`Transaction receipt: ${JSON.stringify(transactionReceipt)}`);
+      // console.log(`Transaction receipt: ${JSON.stringify(transactionReceipt)}`);
 
-      // web3.eth.accounts.signTransaction(tx, privKey).then((signedTx) => {
-      //   web3.eth
-      //     .sendSignedTransaction(signedTx.rawTransaction || '')
-      //     .on('confirmation', (confirmationNumber, receipt) => {
-      //       console.log('confirmation: ' + confirmationNumber);
-      //     })
-      //     .on('transactionHash', (hash) => {
-      //       console.log('hash');
-      //       console.log(hash);
-      //     })
-      //     .on('receipt', (receipt) => {
+      // according to
+      // https://medium.com/finnovate-io/how-do-i-sign-transactions-with-web3-f90a853904a2
+      // await web3.eth.accounts
+      //   // sign transaction locally
+      //   .signTransaction(tx, privKey)
+      //   .then((signedTx) => {
+      //     // send out the signed transaction
+      //     const sentTx = web3.eth.sendSignedTransaction(
+      //       signedTx.rawTransaction || ''
+      //     );
+      //     console.log(signedTx);
+      //     console.log(sentTx);
+      //     sentTx.on('receipt', (receipt) => {
+      //       // do something when receipt comes back
       //       console.log('reciept');
-      //       console.log(receipt);
-      //     })
-      //     .on('error', console.error);
+      //       console.debug(receipt);
+      //     });
+      //     sentTx.on('error', (err) => {
+      //       // do something on transaction error
+      //       console.log('error');
+      //       console.error(err);
+      //     });
+      // })
+      // .catch((err) => {
+      //   // do something when promise fails
       // });
+
+      // according to
+      // https://ethereum.stackexchange.com/a/68062
+      const sendRawTx = async (params: SignedTxParams) => {
+        const web3 = await getOrInitializeWeb3();
+        const from = signer;
+        const nonce = await web3.eth.getTransactionCount(from);
+        const gasLimit = web3.utils.toHex(3000000);
+        const gasPrice = web3.utils.toHex(5 * 1e9); // 5 gwei
+        const txParams = {
+          from,
+          nonce,
+          gasLimit,
+          gasPrice,
+          to: params.to,
+          value: params.value || 0,
+          data: params.data,
+        };
+        const tx = new TX(txParams);
+        tx.sign(Buffer.from(privKey, 'hex'));
+        const serializedTx = tx.serialize();
+        console.log('serializedTx : ', serializedTx);
+        return new Promise((resolve, reject) => {
+          web3.eth
+            .sendSignedTransaction(`0x${serializedTx.toString('hex')}`)
+            .on('receipt', (r) => {
+              console.log('Received Receipt', r);
+              resolve(r);
+            })
+            .on('confirmation', console.log)
+            .on('transactionHash', console.log)
+            .on('error', reject);
+        });
+      };
+
+      const getOrInitializeWeb3: () => Promise<Web3> = () => {
+        if (this.web3) {
+          return this.web3;
+        }
+
+        const httpProvider = new HttpProvider(this.web3ProviderArgs);
+        this.web3 = new Web3(httpProvider);
+
+        if (this.accountPrivateKey) {
+          const account = this.web3.eth.accounts.privateKeyToAccount(
+            `0x${this.accountPrivateKey}`
+          );
+          if (account.address !== this.accountAddress) {
+            throw new Error(`Invalid Eth crypto key pair`);
+          }
+
+          this.web3.eth.accounts.wallet.add(account);
+          this.web3.defaultAccount = account.address;
+        }
+
+        return this.web3;
+      };
 
       // await toast.promise(
       //   FCatContract.methods
@@ -263,7 +345,7 @@ export default function Mint({ mintParams }: { mintParams: MintInterface }) {
       //   }
       // );
     } catch (err) {
-      toast.error(`Oops! Something went wrong.\n${err}`);
+      toast.error(`⚠️: Oops! Something went wrong.\n${err}`);
       console.error('Error~~~', err);
       return;
     }
