@@ -84,19 +84,25 @@ export default function Mint({ mintParams }: { mintParams: MintInterface }) {
     setAddrForWL(addr);
   };
 
-  const onSubmitSetWLStatus: () => void = () => {
-    FCatContract.methods
-      .isWhitelisted(AddrForWL)
-      .call()
-      .then(function (result: boolean) {
-        if (!result) {
-          toast(`The address is NOT on our whitelist!`);
-          return;
-        } else {
-          toast(`The address is on the whitelist!`);
-          return;
-        }
-      });
+  // TODO: need check
+  const onSubmitCheckWL: () => void = () => {
+    try {
+      FCatContract.methods
+        .isWhitelisted(AddrForWL)
+        .call()
+        .then(function (result: boolean) {
+          if (!result) {
+            toast(`The address is NOT on our whitelist!`);
+            return;
+          } else {
+            toast(`The address is on the whitelist!`);
+            return;
+          }
+        });
+    } catch (err: any) {
+      toast.error(`Something went wrong!\n ${err}`);
+      console.error('Error~~~ ', err);
+    }
   };
 
   const greetingMsg: () => void = () => {
@@ -298,7 +304,7 @@ export default function Mint({ mintParams }: { mintParams: MintInterface }) {
                 <Button
                   variant='secondary'
                   id='check-wl-btn'
-                  onClick={onSubmitSetWLStatus}
+                  onClick={onSubmitCheckWL}
                 >
                   GO
                 </Button>
