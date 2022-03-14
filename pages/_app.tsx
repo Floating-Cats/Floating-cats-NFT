@@ -15,7 +15,7 @@ import { NavBarInterface } from 'components/helpers/ParamsInterface';
 import { Web3ReactType } from 'components/helpers/Web3ReactType';
 import { StorageInterface } from 'components/helpers/StorageInterface';
 
-function MyApp({ Component, pageProps }: AppProps) {
+function MyApp({ Component, pageProps }: AppProps): JSX.Element {
   const [chainId, setChainId] = useState<Web3ReactType['chainId']>();
   const [accounts, setAccount] = useState<Web3ReactType['accounts']>();
   const [error, setError] = useState<Web3ReactType['error']>();
@@ -63,6 +63,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       setError(fetchedWallet['error']);
       setIsActivating(fetchedWallet['isActivating']);
       setIsActive(fetchedWallet['isActive']);
+
       setProvider(fetchedWallet['provider']);
       setENSNames(fetchedWallet['ENSNames']);
 
