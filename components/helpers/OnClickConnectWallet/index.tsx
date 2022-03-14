@@ -10,7 +10,7 @@ import { resetWalletConnector } from '../ResetWalletConnector';
 import { Web3ReactType } from 'components/helpers/Web3ReactType';
 import { isObjEmpty } from '../isObjEmpty';
 
-export async function handleOnClick(
+export async function OnClickConnectWallet(
   // web3 react
   chainId: Web3ReactType['chainId'],
   error: Web3ReactType['error'],

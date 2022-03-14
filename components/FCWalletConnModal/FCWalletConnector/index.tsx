@@ -20,7 +20,7 @@ import MetaMaskDiv from 'components/FCWalletConnModal/FCWalletConnector/MetaMask
 import WalletConnectDiv from 'components/FCWalletConnModal/FCWalletConnector/WalletConnectDiv';
 
 // helper function
-import { handleOnClick } from 'components/helpers/HandleOnClick';
+import { OnClickConnectWallet } from 'components/helpers/OnClickConnectWallet';
 import { NavBarInterface } from 'components/helpers/ParamsInterface';
 import { Web3ReactType } from 'components/helpers/Web3ReactType';
 import { StorageInterface } from 'components/helpers/StorageInterface';
@@ -151,7 +151,7 @@ export default function FCWalletConnector({
         action
         onClick={() => {
           setWallet('mm');
-          handleOnClick(
+          OnClickConnectWallet(
             chainId,
             error,
             isActivating,
@@ -167,7 +167,7 @@ export default function FCWalletConnector({
         action
         onClick={() => {
           setWallet('wc');
-          handleOnClick(
+          OnClickConnectWallet(
             chainId,
             error,
             isActivating,
