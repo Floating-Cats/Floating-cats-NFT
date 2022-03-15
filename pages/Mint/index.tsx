@@ -180,7 +180,7 @@ export default function Mint({
       <div id='mintPageBg'>
         <div className='' id='mintPage'>
           <div id='mintInfo'>
-            <h1>0 / 5888 Adpoted</h1>
+            <h1>0 / 5888 Adopted</h1>
             <button id='checkWL'>Check Whitelist</button>
             <div id='priceInfo'>
               <h4>Pre-Sale: 0.04 Ξ</h4>
