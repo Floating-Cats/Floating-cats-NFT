@@ -211,38 +211,84 @@ h5 {
 /* #mint {
 } */
 
-.mintPageBg {
-  background-image: url('public/mint-bg-wood.jpg');
-  background-repeat: no-repeat;
+/* #mintPageBg {
+  background-image: url('public/mint-bg.png');
   background-size: cover;
-  border-top: rgb(87, 66, 58) groove 15px;
-  border-bottom: rgb(87, 66, 58) groove 15px;
-}
-
-#mint-bg {
+  background-repeat: no-repeat;
+  background-position: center;
   width: 100%;
+  max-width: 2480px;
   height: auto;
-}
-/* #mintBtn {
 } */
+#mint-quantity {
+  width: 10%;
+  text-align: center;
+  border-radius: 16px;
+  display: inline-flex;
+  margin-left: 2%;
+}
+#mintPage {
+}
 
-#mintBtn:hover {
+#mintPage h1 {
+  margin-bottom: 2%;
+}
+#mintInfo {
+  background-image: url('public/mint-bg.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 100%;
+  max-width: 2480px;
+  height: auto;
+  padding-bottom: 30%;
+  padding-top: 10%;
+}
+#priceInfo {
+  margin-bottom: 3%;
+  font-family: 'Fredoka One', cursive;
+}
+
+#checkWL {
+  text-transform: uppercase;
+  background-color: rgb(255, 255, 255);
+  border-radius: 16px;
+  border: 4px solid rgb(26, 27, 28);
+  font-weight: bold;
+  margin: 3%;
+  padding: 14px 40px;
+}
+
+#mintbtn {
+  display: inline-flex;
+  text-transform: uppercase;
+  background-color: rgb(255, 255, 255);
+  border-radius: 16px;
+  border: 4px solid rgb(26, 27, 28);
+  font-weight: bold;
+  padding: 14px 40px;
+  margin-top: 3%;
+}
+
+#mintbtn:hover {
   cursor: pointer;
 }
-
+#mintPage form {
+  font-size: 20px;
+  max-width: 64em;
+  margin: auto;
+  text-align: center;
+}
 .responsive {
   width: 100%;
   height: auto;
 }
 
-#mintPage img {
-  margin-top: -10%;
-  margin-bottom: -20%;
-  max-width: 100%;
-  height: auto;
+#mintPage {
+  text-align: center;
 }
 
-#mintBtn:hover {
+#mintbtn:hover {
   /* Start the shake animation and make the animation last for 0.5 seconds */
   animation: shake 0.5s;
 
@@ -728,7 +774,7 @@ hr {
 
 footer {
   clear: both;
-  position: relative;
   bottom: 0;
   width: 100%;
+  flex-shrink: 0;
 }

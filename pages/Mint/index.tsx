@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import FCBgCloud from 'components/FCHome/FCBgCloud';
 
 // bootstrap imports
 import Row from 'react-bootstrap/Row';
@@ -17,7 +18,7 @@ import { isObjEmpty } from 'components/helpers/isObjEmpty';
 import { NavBarInterface } from 'components/helpers/NavBarInterface';
 import Web3 from 'web3';
 import { Contract } from 'web3-eth-contract';
-import HDWalletProvider from '@truffle/hdwallet-provider';
+// import HDWalletProvider from '@truffle/hdwallet-provider';
 
 export default function Mint({
   navBarParams,
@@ -175,9 +176,16 @@ export default function Mint({
 
   return (
     <>
-      <div>
-        <Row>
-          <Col xs={2}>
+      <FCBgCloud />
+      <div id='mintPageBg'>
+        <div className='' id='mintPage'>
+          <div id='mintInfo'>
+            <h1>0 / 5888 Adpoted</h1>
+            <button id='checkWL'>Check Whitelist</button>
+            <div id='priceInfo'>
+              <h4>Pre-Sale: 0.04 Ξ</h4>
+              <h4>Max 5 per wallet</h4>
+            </div>
             <Form>
               <Form.Group>
                 <Form.Label>Quantity</Form.Label>
@@ -193,41 +201,11 @@ export default function Mint({
                 />
               </Form.Group>
             </Form>
-          </Col>
-          <Col xs={10}></Col>
-        </Row>
-      </div>
-      <div className='mintPageBg'>
-        <img src='/mint-bg-top.png' alt='' id='mint-bg' />
-        <div className='container' id='mintPage'>
-          <div className='row'>
-            <div className='col'>
-              <img
-                id='mintBtn-blue'
-                src='/mint-btn-blue.png'
-                alt=''
-                onClick={mintToken}
-              />
-            </div>
-            <div className='col'>
-              <img
-                id='mintBtn-red'
-                src='/mint-btn-red.png'
-                alt=''
-                onClick={mintToken}
-              />
-            </div>
-            <div className='col'>
-              <img
-                id='mintBtn-yellow'
-                src='/mint-btn-yellow.png'
-                alt=''
-                onClick={mintToken}
-              />
-            </div>
+            <button id='mintbtn' onClick={mintToken}>
+              Mint
+            </button>
           </div>
         </div>
-        {/* <img src='/mint-bg-bt.png' alt='' id='mint-bg' /> */}
       </div>
     </>
   );
