@@ -1,10 +1,4 @@
-import { NavBarInterface } from 'components/helpers/ParamsInterface';
-
-export default function WalletConnectDiv({
-  navBarParams,
-}: {
-  navBarParams: NavBarInterface;
-}) {
+export default function WalletConnectDiv() {
   const getHeader = () => {
     return (
       <>
@@ -18,27 +12,15 @@ export default function WalletConnectDiv({
 
   return (
     <>
+      {getHeader()}
+      <h6>Open your phone to switch wallet or network</h6>
+      <h6>Or click to disconnect</h6>
       {
-        // if an account is connected
-        navBarParams.accounts ? (
-          // if the provider exists and user connects via 'wallet connect'
-          navBarParams.provider &&
-          navBarParams.provider.connection.url === 'eip-1193:' ? (
-            <>
-              {getHeader()}
-              <h6>Open your phone to switch wallet or network</h6>
-              <h6>Or click to disconnect</h6>
-            </>
-          ) : (
-            <></>
-          )
-        ) : (
-          // else no wallet connected at the moment
-          <>
-            {getHeader()}
-            <h6>Scan with WalletConnect to Connect</h6>
-          </>
-        )
+        // else no wallet connected at the moment
+        // <>
+        //   {getHeader()}
+        //   <h6>Scan with WalletConnect to Connect</h6>
+        // </>
       }
     </>
   );

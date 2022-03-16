@@ -46,20 +46,6 @@ export default function Mint({
   // let signer: string = accounts ? accounts[0] : '';
   // console.log(signer);
 
-  // const context = useWeb3React<Web3Provider>();
-  // const {
-  //   connector,
-  //   library,
-  //   chainId,
-  //   account,
-  //   activate,
-  //   deactivate,
-  //   active,
-  //   error,
-  // } = context;
-
-  // c
-
   /**
    * Alert user before executing mint action
    *
