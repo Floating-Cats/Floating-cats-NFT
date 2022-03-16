@@ -8,10 +8,13 @@ import { formatEther } from '@ethersproject/units';
 import { Web3ReactType } from './helpers/Web3ReactType';
 
 function useBalances(
-  provider?: ReturnType<Web3ReactType['provider']>,
+  provider?: Web3ReactType['provider'],
   accounts?: string[]
 ): BigNumber[] | undefined {
   const [balances, setBalances] = useState<BigNumber[] | undefined>();
+  // console.log('USE BALANCE');
+  // console.log(`provider = `, typeof provider);
+  // console.log(provider);
 
   useEffect(() => {
     if (provider && accounts?.length) {
@@ -40,9 +43,9 @@ export function Accounts({
   provider,
   ENSNames,
 }: {
-  accounts: ReturnType<Web3ReactType['accounts']>;
-  provider: ReturnType<Web3ReactType['provider']>;
-  ENSNames: ReturnType<Web3ReactType['ENSNames']>;
+  accounts: Web3ReactType['accounts'];
+  provider: Web3ReactType['provider'];
+  ENSNames: Web3ReactType['ENSNames'];
 }) {
   const balances = useBalances(provider, accounts);
   if (accounts === undefined) return null;

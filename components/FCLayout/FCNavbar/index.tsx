@@ -15,31 +15,48 @@ import FCWalletConnModal from 'components/FCWalletConnModal';
 import { Web3ReactType } from 'components/helpers/Web3ReactType';
 import { NavBarInterface } from 'components/helpers/ParamsInterface';
 
-export function FCNavbar({
+// web3 react
+import { useWeb3React } from '@web3-react/core';
+import { Web3Provider } from '@ethersproject/providers';
+
+export function FCNavbar({}: // component
+// navBarParams,
+// web3 react
+// setChainId,
+// setAccount,
+// setError,
+// setIsActivating,
+// setIsActive,
+// setProvider,
+// setENSNames,
+{
   // component
-  navBarParams,
+  // navBarParams: NavBarInterface;
   // web3 react
-  setChainId,
-  setAccount,
-  setError,
-  setIsActivating,
-  setIsActive,
-  setProvider,
-  setENSNames,
-}: {
-  // component
-  navBarParams: NavBarInterface;
-  // web3 react
-  // web3 react
-  setChainId: (chainId: Web3ReactType['chainId']) => void;
-  setAccount: (accounts: Web3ReactType['accounts']) => void;
-  setError: (error: Web3ReactType['error']) => void;
-  setIsActivating: (isActivating: Web3ReactType['isActivating']) => void;
-  setIsActive: (isActive: Web3ReactType['isActive']) => void;
-  setProvider: (provider: Web3ReactType['provider']) => void;
-  setENSNames: (ENSNames: Web3ReactType['ENSNames']) => void;
+  // setChainId: (chainId: Web3ReactType['chainId']) => void;
+  // setAccount: (accounts: Web3ReactType['accounts']) => void;
+  // setError: (error: Web3ReactType['error']) => void;
+  // setIsActivating: (isActivating: Web3ReactType['isActivating']) => void;
+  // setIsActive: (isActive: Web3ReactType['isActive']) => void;
+  // setProvider: (provider: Web3ReactType['provider']) => void;
+  // setENSNames: (ENSNames: Web3ReactType['ENSNames']) => void;
 }) {
   const [showModal, setShowModal] = useState<boolean | any>(false);
+
+  // web3 react
+  const context = useWeb3React<Web3Provider>();
+  const {
+    connector,
+    library,
+    chainId,
+    account,
+    activate,
+    deactivate,
+    active,
+    error,
+  } = context;
+
+  console.log(context);
 
   const getNavBrand = () => {
     return (
@@ -77,7 +94,7 @@ export function FCNavbar({
         <Navbar.Toggle aria-controls='responsive-navbar-nav' />
         <Navbar.Collapse id='responsive-navbar-nav'>
           <Nav className='mx-auto'>
-            <Nav.Link href='' id='navmint'>
+            <Nav.Link href='/mint' id='navmint'>
               MINT
             </Nav.Link>
             <Nav.Link href='/#about'>ABOUT</Nav.Link>
@@ -90,7 +107,7 @@ export function FCNavbar({
               // change the button to a badge or disbled button after users connects to their wallet
             }
             {/* <Button onClick={() => setShowModal(true)}>Connect</Button> */}
-            {navBarParams.accounts ? (
+            {account ? (
               <Button
                 variant='outline-light'
                 onClick={(e) => setShowModelTo(e, true)}
@@ -111,14 +128,14 @@ export function FCNavbar({
       <FCWalletConnModal
         show={showModal}
         onHide={() => setShowModal(false)}
-        navBarParams={navBarParams}
-        setChainId={setChainId}
-        setAccount={setAccount}
-        setError={setError}
-        setIsActivating={setIsActivating}
-        setIsActive={setIsActive}
-        setProvider={setProvider}
-        setENSNames={setENSNames}
+        // navBarParams={navBarParams}
+        // setChainId={setChainId}
+        // setAccount={setAccount}
+        // setError={setError}
+        // setIsActivating={setIsActivating}
+        // setIsActive={setIsActive}
+        // setProvider={setProvider}
+        // setENSNames={setENSNames}
       />
     </Navbar>
   );

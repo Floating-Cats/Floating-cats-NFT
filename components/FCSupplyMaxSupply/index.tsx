@@ -21,14 +21,14 @@ export default function FCSupplyMaxSupply({
   //   .call()
   //   .then((supply: string) => setSupply(supply));
   // console.log(FCatContract.count());
-  const getCount = async () => {
-    try {
-      let count = await FCatContract.count();
-      setSupply(count);
-    } catch {
-      return '-';
-    }
-  };
+  // const getCount = async () => {
+  //   try {
+  //     let count = await FCatContract.count();
+  //     setSupply(count);
+  //   } catch {
+  //     return '-';
+  //   }
+  // };
 
   // FCatContract.methods
   //   .maxSupply()
