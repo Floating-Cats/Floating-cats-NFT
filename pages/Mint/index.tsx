@@ -181,7 +181,13 @@ export default function Mint({
         <div className='' id='mintPage'>
           <div id='mintInfo'>
             <h1>0 / 5888 Adopted</h1>
-            <button id='checkWL'>Check Whitelist</button>
+            <button
+              data-toggle='modal'
+              data-target='#exampleModal'
+              id='checkWL'
+            >
+              Check Whitelist
+            </button>
             <div id='priceInfo'>
               <h4>Pre-Sale: 0.04 Ξ</h4>
               <h4>Max 5 per wallet</h4>
