@@ -127,12 +127,12 @@ export default function Mint(): JSX.Element {
         toast.error('Oops! No wallet connected');
         return;
       }
-      // if (chainId !== 1) {
-      //   toast.error(
-      //     "You're not on the main network, please switch your network"
-      //   );
-      //   return;
-      // }
+      if (chainId !== 1) {
+        toast.error(
+          "You're not on the main network, please switch your network"
+        );
+        return;
+      }
       if (isObjEmpty(library)) {
         toast.error(
           '⚠️: Oops! Something went wrong with your wallet provider while we connect you to the ethereum server.\nNo action has taken place.'

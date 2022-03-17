@@ -36,7 +36,7 @@
     "@web3-react/portis-connector": "latest",
     "@web3-react/torus-connector": "latest",
     "@web3-react/trezor-connector": "latest",
-    "@web3-react/types": "latest",
+    "@web3-react/types": "^8.0.10-beta.0",
     "@web3-react/walletconnect": "latest",
     "@web3-react/walletconnect-connector": "latest",
     "@web3-react/walletlink-connector": "latest",
