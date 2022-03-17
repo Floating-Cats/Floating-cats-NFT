@@ -121,44 +121,45 @@ export default function Mint(): JSX.Element {
    * @returns void
    */
   const mintToken: () => void = async () => {
-    try {
-      /* check before mint */
-      if (!FCatSigner || !active) {
-        toast.error('Oops! No wallet connected');
-        return;
-      }
-      if (chainId !== 1) {
-        toast.error(
-          "You're not on the main network, please switch your network"
-        );
-        return;
-      }
-      if (isObjEmpty(library)) {
-        toast.error(
-          '⚠️: Oops! Something went wrong with your wallet provider while we connect you to the ethereum server.\nNo action has taken place.'
-        );
-        return;
-      }
+    alert('Mint is not live');
+    // try {
+    //   /* check before mint */
+    //   if (!FCatSigner || !active) {
+    //     toast.error('Oops! No wallet connected');
+    //     return;
+    //   }
+    //   if (chainId !== 1) {
+    //     toast.error(
+    //       "You're not on the main network, please switch your network"
+    //     );
+    //     return;
+    //   }
+    //   if (isObjEmpty(library)) {
+    //     toast.error(
+    //       '⚠️: Oops! Something went wrong with your wallet provider while we connect you to the ethereum server.\nNo action has taken place.'
+    //     );
+    //     return;
+    //   }
 
-      /* alert */
-      greetingMsg();
+    //   /* alert */
+    //   greetingMsg();
 
-      /* mint */
-      await toast.promise(
-        FCatContract.mint(mintAmount, {
-          value: ethers.utils.parseEther('0.02'),
-        }),
-        {
-          pending: 'Transaction is pending',
-          success: 'Transaction is approved 👌',
-          error: 'Transaction is rejected 🤯',
-        }
-      );
-    } catch (err) {
-      toast.error(`⚠️: Oops! Something went wrong.\n${err}`);
-      console.error('Error~~~', err);
-      return;
-    }
+    //   /* mint */
+    //   await toast.promise(
+    //     FCatContract.mint(mintAmount, {
+    //       value: ethers.utils.parseEther('0.02'),
+    //     }),
+    //     {
+    //       pending: 'Transaction is pending',
+    //       success: 'Transaction is approved 👌',
+    //       error: 'Transaction is rejected 🤯',
+    //     }
+    //   );
+    // } catch (err) {
+    //   toast.error(`⚠️: Oops! Something went wrong.\n${err}`);
+    //   console.error('Error~~~', err);
+    //   return;
+    // }
   };
 
   return (
