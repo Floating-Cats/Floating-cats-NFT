@@ -1,10 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import FCBgCloud from 'components/FCHome/FCBgCloud';
 
 // bootstrap imports
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
+import Popover from 'react-bootstrap/Popover';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 
 // other imports
 import { ethers } from 'ethers';
@@ -15,16 +15,15 @@ import FCat from 'pages/artifacts/contracts/MyNFT.sol/FloatingCats.json';
 
 // components
 import FCWhiteListModal from 'components/FCWhiteListModal';
-import FCMintAmountForm from 'components/FCMintAmountForm';
 
 import { Contract } from 'ethers';
 
 // helpers
 // import { Account } from 'web3/eth/accounts'; // for typechecking
 // import Contract from 'web3/eth/contract'; // for typechecking
-import { isObjEmpty } from 'components/helpers/isObjEmpty';
 import { useWeb3React } from '@web3-react/core';
 import { JsonRpcSigner } from '@ethersproject/providers';
+import { isObjEmpty } from 'components/helpers/isObjEmpty';
 
 // imports for env vars
 const { NEXT_PUBLIC_COST } = process.env;
@@ -121,46 +120,57 @@ export default function Mint(): JSX.Element {
    * @returns void
    */
   const mintToken: () => void = async () => {
-    alert('Mint is not live');
-    // try {
-    //   /* check before mint */
-    //   if (!FCatSigner || !active) {
-    //     toast.error('Oops! No wallet connected');
-    //     return;
-    //   }
-    //   if (chainId !== 1) {
-    //     toast.error(
-    //       "You're not on the main network, please switch your network"
-    //     );
-    //     return;
-    //   }
-    //   if (isObjEmpty(library)) {
-    //     toast.error(
-    //       '⚠️: Oops! Something went wrong with your wallet provider while we connect you to the ethereum server.\nNo action has taken place.'
-    //     );
-    //     return;
-    //   }
+    try {
+      /* check before mint */
+      if (!FCatSigner || !active) {
+        toast.error('Oops! No wallet connected');
+        return;
+      }
+      if (chainId !== 1) {
+        toast.error(
+          "You're not on the main network, please switch your network"
+        );
+        return;
+      }
+      if (isObjEmpty(library)) {
+        toast.error(
+          '⚠️: Oops! Something went wrong with your wallet provider while we connect you to the ethereum server.\nNo action has taken place.'
+        );
+        return;
+      }
 
-    //   /* alert */
-    //   greetingMsg();
+      /* alert */
+      greetingMsg();
 
-    //   /* mint */
-    //   await toast.promise(
-    //     FCatContract.mint(mintAmount, {
-    //       value: ethers.utils.parseEther('0.02'),
-    //     }),
-    //     {
-    //       pending: 'Transaction is pending',
-    //       success: 'Transaction is approved 👌',
-    //       error: 'Transaction is rejected 🤯',
-    //     }
-    //   );
-    // } catch (err) {
-    //   toast.error(`⚠️: Oops! Something went wrong.\n${err}`);
-    //   console.error('Error~~~', err);
-    //   return;
-    // }
+      /* mint */
+      await toast.promise(
+        FCatContract.mint(mintAmount, {
+          value: ethers.utils.parseEther('0.02'),
+        }),
+        {
+          pending: 'Transaction is pending',
+          success: 'Transaction is approved 👌',
+          error: 'Transaction is rejected 🤯',
+        }
+      );
+    } catch (err) {
+      toast.error(`⚠️: Oops! Something went wrong.\n${err}`);
+      console.error('Error~~~', err);
+      return;
+    }
   };
+
+  // temporary whitelist check
+  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  const tempMintPopover = (
+    <Popover id='popover-basic'>
+      <Popover.Header as='h3'>Mint is not live</Popover.Header>
+      <Popover.Body style={{ justifyContent: 'center' }}>
+        <img src='/Hidden.gif' height={222} />
+      </Popover.Body>
+    </Popover>
+  );
+  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   return (
     <>
@@ -196,9 +206,16 @@ export default function Mint(): JSX.Element {
                 />
               </Form.Group>
             </Form>
-            <button id='mintbtn' onClick={mintToken}>
+            {/* <button id='mintbtn' onClick={mintToken}>
               Mint
-            </button>
+            </button> */}
+            <OverlayTrigger
+              trigger='click'
+              placement='bottom'
+              overlay={tempMintPopover}
+            >
+              <button id='mintbtn'>Mint</button>
+            </OverlayTrigger>
           </div>
         </div>
         <FCWhiteListModal
