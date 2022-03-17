@@ -56,7 +56,7 @@ export default function FCRoadmap() {
                 <div className='flip-card-back'>
                   <h2>Q2 - 2022</h2>
                   <h4>
-                    We will release the first colletion of our floating brand.
+                    We will release the first collection of our floating brand.
                     Anything from clothing to lifestyle items will be avalible
                     for our holders.
                     <br />

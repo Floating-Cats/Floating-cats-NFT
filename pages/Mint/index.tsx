@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import FCBgCloud from 'components/FCHome/FCBgCloud';
 
 // bootstrap imports
 import Row from 'react-bootstrap/Row';
@@ -12,172 +13,173 @@ import { toast } from 'react-toastify';
 // contracts
 import FCat from 'pages/artifacts/contracts/MyNFT.sol/FloatingCats.json';
 
+// components
+import FCWhiteListModal from 'components/FCWhiteListModal';
+import FCMintAmountForm from 'components/FCMintAmountForm';
+
+import { Contract } from 'ethers';
+
 // helpers
+// import { Account } from 'web3/eth/accounts'; // for typechecking
+// import Contract from 'web3/eth/contract'; // for typechecking
 import { isObjEmpty } from 'components/helpers/isObjEmpty';
-import { NavBarInterface } from 'components/helpers/NavBarInterface';
-import Web3 from 'web3';
-import { Contract } from 'web3-eth-contract';
-import HDWalletProvider from '@truffle/hdwallet-provider';
+import { useWeb3React } from '@web3-react/core';
+import { JsonRpcSigner } from '@ethersproject/providers';
 
-export default function Mint({
-  navBarParams,
-}: {
-  navBarParams: NavBarInterface;
-}) {
-  // ################### nav bar params
-  const { accounts /*provider*/ } = navBarParams; // params
+// imports for env vars
+const { NEXT_PUBLIC_COST } = process.env;
+const { NEXT_PUBLIC_MAX_SUPPLY } = process.env;
+const { NEXT_PUBLIC_CONTRACT_ADDR } = process.env;
+const { NEXT_PUBLIC_MAX_MINT_AMOUNT } = process.env;
+const { NEXT_PUBLIC_INFURA_PROJECT_ID } = process.env;
 
-  // ################### env vars
-  const { NEXT_PUBLIC_MAX_MINT_AMOUNT } = process.env;
-  const { NEXT_PUBLIC_CONTRACT_ADDR } = process.env;
-  const { NEXT_PUBLIC_COST } = process.env;
-  const { NEXT_PUBLIC_INFURA_ENDPOINT_RINKEBY } = process.env;
-  const { NEXT_PUBLIC_RINKEBY_PKEY_ACC1 } = process.env;
-  const { NEXT_PUBLIC_RINKEBY_PKEY_ACC4 } = process.env;
+export default function Mint(): JSX.Element {
+  // import provider library
+  const {
+    connector,
+    library,
+    chainId,
+    account,
+    activate,
+    deactivate,
+    active,
+    error,
+  } = useWeb3React();
 
-  // ################### vars for mint action
-  const contractAddress: string = NEXT_PUBLIC_CONTRACT_ADDR || '';
-  const mintPrice: number = parseFloat(NEXT_PUBLIC_COST || '0.06'); // TODO: change this to real mint price
+  // react hooks
+  const [showModal, setShowModal] = useState<boolean>(false);
   const [mintAmount, setMintAmount] = useState<number>(1);
+  const [supply, setSupply] = useState<string>('-');
 
-  // ################### set up provider and contract
-  const provider = new Web3.providers.HttpProvider(
-    NEXT_PUBLIC_INFURA_ENDPOINT_RINKEBY || ''
-  );
-  const web3 = new Web3(provider);
+  // get contract address
+  const contractAddress: string = NEXT_PUBLIC_CONTRACT_ADDR || '';
+  // get signer
+  const FCatSigner: JsonRpcSigner | any = library
+    ? library.getSigner()
+    : undefined;
 
-  // ################### set up middleware
-
-  // get hex keys
-  console.log(
-    'NEXT_PUBLIC_RINKEBY_PKEY_ACC1 = ',
-    NEXT_PUBLIC_RINKEBY_PKEY_ACC1
-  );
-  console.log(
-    'NEXT_PUBLIC_RINKEBY_PKEY_ACC4 = ',
-    NEXT_PUBLIC_RINKEBY_PKEY_ACC4
-  );
-
-  // const privKey1: string = Buffer.from(
-  //   NEXT_PUBLIC_RINKEBY_PKEY_ACC1,
-  //   'hex'
-  // ).toString();
-  // const privKey4: string = Buffer.from(
-  //   NEXT_PUBLIC_RINKEBY_PKEY_ACC4,
-  //   'hex'
-  // ).toString();
-
-  // console.log('privKey1 = ', privKey1);
-  // console.log('privKey4 = ', privKey4);
-
-  // create web3.js middleware that signs transactions locally
-  // https://forum.openzeppelin.com/t/binance-testnet-deployment-error-could-not-create-addresses-from-your-mnemonic-or-private-key-s/5438/5
-  // const localKeyProvider = new HDWalletProvider({
-  //   privateKeys: [privKey1, privKey4],
-  //   providerOrUrl: provider,
-  // });
-  // const web3 = new Web3(localKeyProvider);
-  // const myAccount = web3.eth.accounts.privateKeyToAccount(privKey1);
-
-  const contract: Contract = new web3.eth.Contract(
-    JSON.parse(JSON.stringify([...FCat.abi])),
+  // init contract
+  let FCatContract: Contract = new ethers.Contract(
     contractAddress,
-    {
-      from: accounts ? accounts[0] : '',
-      // gasPrice: gasPrice,
-    }
+    FCat.abi,
+    new ethers.providers.InfuraProvider(
+      'rinkeby',
+      NEXT_PUBLIC_INFURA_PROJECT_ID
+    )
   );
+  // console.log('contract with provider - ', FCatContract);
 
-  console.debug('contract count = ');
-  contract.methods
-    .count()
-    .call()
-    .then(function (result: string) {
-      console.log(result);
-    });
+  if (FCatSigner)
+    FCatContract = new ethers.Contract(contractAddress, FCat.abi, FCatSigner);
+  // console.log('contract with signer   - ', FCatContract);
 
   /**
-   * Initializes the states (mintAmounts) used for the form.
+   *
+   * @param e
+   * @param show
    */
-  const clearForm: () => void = () => {
-    setMintAmount(1);
+  const setShowModelTo = (
+    e: React.MouseEvent<Element, MouseEvent>,
+    show: boolean
+  ): void => {
+    e.preventDefault();
+    setShowModal(show);
   };
-
-  const onChangeSetMintAmount: (mint_amount: string) => void = (
-    mint_amount
-  ) => {
-    const amount = parseInt(mint_amount);
-    setMintAmount(amount);
+  /**
+   * get the number of supply count
+   */
+  const getCount = async () => {
+    try {
+      let count = await FCatContract.count();
+      setSupply(count);
+    } catch {
+      setSupply('-');
+    }
   };
-
+  if (supply === '-') getCount();
+  /**
+   * Alert user before executing mint action
+   *
+   * @returns void
+   */
   const greetingMsg: () => void = () => {
-    mintAmount < 10
-      ? alert(`
+    alert(`
 🐱 You will mint ${mintAmount} tokens🐱\n
-🐱   Hit OK to continue   🐱`)
-      : alert(`
-🐱 You will mint ${mintAmount} tokens🐱\n
-🐱   Hit OK to continue     🐱`);
-
-    // toast(`🐱 Let's getti!🐱`);
+🐱 Hit OK/Close to continue 🐱`);
   };
+  /**
+   * Set mint amount
+   *
+   * @returns void
+   */
+  const onChangeSetMintAmount: (val: string) => void = (val) =>
+    setMintAmount(parseInt(val));
 
+  /**
+   * Execute mint action
+   *
+   * @returns void
+   */
   const mintToken: () => void = async () => {
-    // await window.ethereum.enable();
-    // greeting (remove this?)
-    greetingMsg();
-
-    // setContract(new ethers.Contract(contractAddress, FCat.abi, provider));
-
-    // check if contract signer is set
-    // if (!accounts.length || !contract.signer) {
-    //   toast.error(
-    //     '⚠️: Your wallet cannot be read while we connect you to the ethereum server.\nNo action has taken place.'
-    //   );
-    //   return;
-    // }
-
-    // check if provider is set
-    if (isObjEmpty(provider)) {
-      toast.error(
-        '⚠️: Something went wrong with your wallet provider while we connect you to the ethereum server.\nNo action has taken place.'
-      );
-      return;
-    }
-
-    // check if mint price is set
-    if (!mintPrice) {
-      toast.error('⚠️: Cannot read mint cost.\nNo action has taken place.');
-      return;
-    }
-
-    const cost: number = mintPrice * mintAmount;
-    console.log('cost = ');
-    console.log(cost);
-    console.log(cost.toString());
-    console.log(web3.utils.toWei(cost.toString(), 'ether'));
-    // console.log(ethers.utils.parseEther(cost.toString()));
-    await toast.promise(
-      contract.methods
-        .mint(mintAmount)
-        .send({ from: accounts ? accounts[0] : '' })
-        .then(function (result: string) {
-          console.log(result);
-        }),
-      {
-        pending: 'Transaction is pending',
-        success: 'Transaction is approved 👌',
-        error: 'Transaction is rejected 🤯',
+    try {
+      /* check before mint */
+      if (!FCatSigner || !active) {
+        toast.error('Oops! No wallet connected');
+        return;
       }
-    );
-    // await result.wait(); // FIXME: Cannot read properties of undefined (reading 'wait')
+      // if (chainId !== 1) {
+      //   toast.error(
+      //     "You're not on the main network, please switch your network"
+      //   );
+      //   return;
+      // }
+      if (isObjEmpty(library)) {
+        toast.error(
+          '⚠️: Oops! Something went wrong with your wallet provider while we connect you to the ethereum server.\nNo action has taken place.'
+        );
+        return;
+      }
+
+      /* alert */
+      greetingMsg();
+
+      /* mint */
+      await toast.promise(
+        FCatContract.mint(mintAmount, {
+          value: ethers.utils.parseEther('0.02'),
+        }),
+        {
+          pending: 'Transaction is pending',
+          success: 'Transaction is approved 👌',
+          error: 'Transaction is rejected 🤯',
+        }
+      );
+    } catch (err) {
+      toast.error(`⚠️: Oops! Something went wrong.\n${err}`);
+      console.error('Error~~~', err);
+      return;
+    }
   };
 
   return (
     <>
-      <div>
-        <Row>
-          <Col xs={2}>
+      <FCBgCloud />
+      <div id='mintPageBg'>
+        <div className='' id='mintPage'>
+          <div id='mintInfo'>
+            <h1>{`${supply} / ${NEXT_PUBLIC_MAX_SUPPLY} Adopted`}</h1>
+            <button
+              data-toggle='modal'
+              data-target='#exampleModal'
+              id='checkWL'
+              onClick={(e) => setShowModelTo(e, true)}
+            >
+              Check Whitelist
+            </button>
+            <div id='priceInfo'>
+              <h4>{`Pre-Sale: ${NEXT_PUBLIC_COST} Ξ`}</h4>
+              <h4>{`Max ${NEXT_PUBLIC_MAX_MINT_AMOUNT} per wallet`}</h4>
+            </div>
             <Form>
               <Form.Group>
                 <Form.Label>Quantity</Form.Label>
@@ -193,41 +195,16 @@ export default function Mint({
                 />
               </Form.Group>
             </Form>
-          </Col>
-          <Col xs={10}></Col>
-        </Row>
-      </div>
-      <div className='mintPageBg'>
-        <img src='/mint-bg-top.png' alt='' id='mint-bg' />
-        <div className='container' id='mintPage'>
-          <div className='row'>
-            <div className='col'>
-              <img
-                id='mintBtn-blue'
-                src='/mint-btn-blue.png'
-                alt=''
-                onClick={mintToken}
-              />
-            </div>
-            <div className='col'>
-              <img
-                id='mintBtn-red'
-                src='/mint-btn-red.png'
-                alt=''
-                onClick={mintToken}
-              />
-            </div>
-            <div className='col'>
-              <img
-                id='mintBtn-yellow'
-                src='/mint-btn-yellow.png'
-                alt=''
-                onClick={mintToken}
-              />
-            </div>
+            <button id='mintbtn' onClick={mintToken}>
+              Mint
+            </button>
           </div>
         </div>
-        {/* <img src='/mint-bg-bt.png' alt='' id='mint-bg' /> */}
+        <FCWhiteListModal
+          show={showModal}
+          onHide={() => setShowModal(false)}
+          FCatContract={FCatContract}
+        />
       </div>
     </>
   );

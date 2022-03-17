@@ -1,10 +1,8 @@
 import React from 'react';
 
-// page imports
+// components
 import Home from './Home';
 
-const App: React.FunctionComponent = () => {
+export default function FCatApp(): JSX.Element {
   return <Home />;
-};
-
-export default App;
+}

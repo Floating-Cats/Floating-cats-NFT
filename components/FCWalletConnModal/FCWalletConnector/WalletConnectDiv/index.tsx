@@ -1,10 +1,9 @@
-import { NavBarInterface } from 'components/helpers/NavBarInterface';
+import { useWeb3React } from '@web3-react/core';
 
-export default function WalletConnectDiv({
-  navBarParams,
-}: {
-  navBarParams: NavBarInterface;
-}) {
+export default function WalletConnectDiv() {
+  const { active, library } = useWeb3React();
+  const provider = library && library.connection ? library.connection.url : '';
+
   const getHeader = () => {
     return (
       <>
@@ -20,18 +19,14 @@ export default function WalletConnectDiv({
     <>
       {
         // if an account is connected
-        navBarParams.accounts ? (
-          // if the provider exists and user connects via 'wallet connect'
-          navBarParams.provider &&
-          navBarParams.provider.connection.url === 'eip-1193:' ? (
+        active ? (
+          provider === 'eip-1193:' ? (
             <>
               {getHeader()}
               <h6>Open your phone to switch wallet or network</h6>
               <h6>Or click to disconnect</h6>
             </>
-          ) : (
-            <></>
-          )
+          ) : null
         ) : (
           // else no wallet connected at the moment
           <>

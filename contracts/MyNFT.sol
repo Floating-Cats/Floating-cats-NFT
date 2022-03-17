@@ -1459,23 +1459,23 @@ contract FloatingCats is ERC721Enumerable, Ownable {
 
         // tests before transaction
         uint256 supply = totalSupply();
-        require(_mintAmount > 0, "need to mint at least 1 NFT");
+        require(_mintAmount > 0, "Need to mint at least 1 NFT");
         require(
             _mintAmount <= maxMintAmount,
-            "max mint amount per session exceeded"
+            "Max mint amount per session exceeded"
         );
-        require(supply + _mintAmount <= maxSupply, "max NFT limit exceeded");
+        require(supply + _mintAmount <= maxSupply, "Max NFT limit exceeded");
 
         if (msg.sender != owner()) {
             if (onlyWhitelisted == true) {
-                require(isWhitelisted(msg.sender), "user is not whitelisted");
+                require(isWhitelisted(msg.sender), "User is not whitelisted");
                 uint256 ownerMintedCount = addressMintedBalance[msg.sender];
                 require(
                     ownerMintedCount + _mintAmount <= nftPerAddressLimit,
-                    "max NFT per address exceeded"
+                    "Max NFT per address exceeded"
                 );
             }
-            require(msg.value >= cost * _mintAmount, "insufficient funds");
+            require(msg.value >= cost * _mintAmount, "Insufficient funds");
         }
 
         for (uint256 i = 1; i <= _mintAmount; i++) {

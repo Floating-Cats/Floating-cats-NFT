@@ -2,8 +2,6 @@ import { useState } from 'react';
 
 // imports for stylings
 import Nav from 'react-bootstrap/Nav';
-import Col from 'react-bootstrap/Col';
-import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
@@ -11,35 +9,14 @@ import Container from 'react-bootstrap/Container';
 // components
 import FCWalletConnModal from 'components/FCWalletConnModal';
 
-// helpers
-import { Web3ReactType } from 'components/helpers/Web3ReactType';
-import { NavBarInterface } from 'components/helpers/NavBarInterface';
+// web3 react
+import { useWeb3React } from '@web3-react/core';
 
-export function FCNavbar({
-  // component
-  navBarParams,
+export function FCNavbar() {
+  const [showModal, setShowModal] = useState<boolean>(false);
+
   // web3 react
-  setChainId,
-  setAccount,
-  setError,
-  setIsActivating,
-  setIsActive,
-  setProvider,
-  setENSNames,
-}: {
-  // component
-  navBarParams: NavBarInterface;
-  // web3 react
-  // web3 react
-  setChainId: (chainId: Web3ReactType['chainId']) => void;
-  setAccount: (accounts: Web3ReactType['accounts']) => void;
-  setError: (error: Web3ReactType['error']) => void;
-  setIsActivating: (isActivating: Web3ReactType['isActivating']) => void;
-  setIsActive: (isActive: Web3ReactType['isActive']) => void;
-  setProvider: (provider: Web3ReactType['provider']) => void;
-  setENSNames: (ENSNames: Web3ReactType['ENSNames']) => void;
-}) {
-  const [showModal, setShowModal] = useState<boolean | any>(false);
+  const { account } = useWeb3React();
 
   const getNavBrand = () => {
     return (
@@ -77,7 +54,7 @@ export function FCNavbar({
         <Navbar.Toggle aria-controls='responsive-navbar-nav' />
         <Navbar.Collapse id='responsive-navbar-nav'>
           <Nav className='mx-auto'>
-            <Nav.Link href='' id='navmint'>
+            <Nav.Link href='/mint' id='navmint'>
               MINT
             </Nav.Link>
             <Nav.Link href='/#about'>ABOUT</Nav.Link>
@@ -86,11 +63,7 @@ export function FCNavbar({
             <Nav.Link href='/#team'>TEAM</Nav.Link>
           </Nav>
           <Nav className='ms-auto'>
-            {
-              // change the button to a badge or disbled button after users connects to their wallet
-            }
-            {/* <Button onClick={() => setShowModal(true)}>Connect</Button> */}
-            {navBarParams.accounts ? (
+            {account ? (
               <Button
                 variant='outline-light'
                 onClick={(e) => setShowModelTo(e, true)}
@@ -108,18 +81,7 @@ export function FCNavbar({
           </Nav>
         </Navbar.Collapse>
       </Container>
-      <FCWalletConnModal
-        show={showModal}
-        onHide={() => setShowModal(false)}
-        navBarParams={navBarParams}
-        setChainId={setChainId}
-        setAccount={setAccount}
-        setError={setError}
-        setIsActivating={setIsActivating}
-        setIsActive={setIsActive}
-        setProvider={setProvider}
-        setENSNames={setENSNames}
-      />
+      <FCWalletConnModal show={showModal} onHide={() => setShowModal(false)} />
     </Navbar>
   );
 }
