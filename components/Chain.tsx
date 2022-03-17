@@ -1,11 +1,8 @@
+import { useWeb3React } from '@web3-react/core';
 import { CHAINS } from '../chains';
-import { Web3ReactType } from './helpers/Web3ReactType';
 
-export function Chain({
-  chainId,
-}: {
-  chainId: ReturnType<Web3ReactType['chainId']>;
-}) {
+export function Chain() {
+  const { chainId } = useWeb3React();
   if (chainId === undefined) return null;
 
   const name = chainId ? CHAINS[chainId]?.name : undefined;
@@ -14,20 +11,19 @@ export function Chain({
     return (
       <div id='chain'>
         Chain:{' '}
+        <span role='img' aria-label='chain'>
+          ⛓{' '}
+        </span>
         <b>
           {name === 'Mainnet' ? (
             <>{`${name}(${chainId})`}</>
           ) : (
-            <>{`${name}(${chainId}) - You are not on the main network, please switch it through your device`}</>
+            <>{`${name}(${chainId}) - You are not on the main network, please switch to Mainnet through your device`}</>
           )}
         </b>
       </div>
     );
   }
 
-  return (
-    <div>
-      Chain Id: <b>{chainId}</b>
-    </div>
-  );
+  return <></>;
 }

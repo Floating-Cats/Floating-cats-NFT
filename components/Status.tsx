@@ -1,14 +1,8 @@
+import { useWeb3React } from '@web3-react/core';
 import { Web3ReactType } from './helpers/Web3ReactType';
 
-export function Status({
-  isActivating,
-  error,
-  isActive,
-}: {
-  error: ReturnType<Web3ReactType['error']>;
-  isActivating: ReturnType<Web3ReactType['isActivating']>;
-  isActive: ReturnType<Web3ReactType['isActive']>;
-}) {
+export function Status() {
+  const { error, active } = useWeb3React();
   return (
     <div id='connect-status'>
       {error ? (
@@ -16,9 +10,7 @@ export function Status({
           🔴 {error.name ?? 'Error'}
           {error.message ? `: ${error.message}` : null}
         </>
-      ) : isActivating ? (
-        <>🟡 Connecting</>
-      ) : isActive ? (
+      ) : active ? (
         <>🟢 Connected</>
       ) : (
         <>⚪️ Not Connected</>
@@ -26,3 +18,7 @@ export function Status({
     </div>
   );
 }
+
+// : isActivating ? (
+//         <>🟡 Connecting</>
+//       )

@@ -1,9 +1,9 @@
-import { NavBarInterface } from 'components/helpers/ParamsInterface';
+import { useWeb3React } from '@web3-react/core';
 
-export default function MetaMaskDiv({}: // navBarParams,
-{
-  // navBarParams: NavBarInterface;
-}) {
+export default function MetaMaskDiv() {
+  const { active, library } = useWeb3React();
+  const provider = library && library.connection ? library.connection.url : '';
+
   const getHeader = () => {
     return (
       <>
@@ -18,28 +18,22 @@ export default function MetaMaskDiv({}: // navBarParams,
   return (
     <>
       {
-        // // if an account is connected
-        // navBarParams.accounts ? (
-        //   // if the provider exists and user connects via 'metamask'
-        //   navBarParams.provider &&
-        //   navBarParams.provider.connection.url === 'metamask' ? (
-        <>
-          {getHeader()}
-          <h6>Open your Metamask extension to switch wallet or network</h6>
-          <h6>Or click to disconnect</h6>
-        </>
-        // ) : (
-        // <></>
-        // )
-        // ) : (
-        //   // else no wallet connected at the moment
-        //   <>
-        //     <>
-        //       {getHeader()}
-        //       <h6>Connect to your MetaMask Wallet</h6>
-        //     </>
-        //   </>
-        // )
+        // if an account is connected
+        active ? (
+          provider === 'metamask' ? (
+            <>
+              {getHeader()}
+              <h6>Open your Metamask extension to switch wallet or network</h6>
+              <h6>Or click to disconnect</h6>
+            </>
+          ) : null
+        ) : (
+          // else no wallet connected at the moment
+          <>
+            {getHeader()}
+            <h6>Connect to your MetaMask Wallet</h6>
+          </>
+        )
       }
     </>
   );

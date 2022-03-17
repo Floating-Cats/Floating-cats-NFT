@@ -1,74 +1,52 @@
 import { useEffect, useState } from 'react';
 
 // web3 react
-import type { BigNumber } from '@ethersproject/bignumber';
+import { useWeb3React } from '@web3-react/core';
 import { formatEther } from '@ethersproject/units';
 
-// helpers
-import { Web3ReactType } from './helpers/Web3ReactType';
+export function Accounts() {
+  const { active, account, library, chainId } = useWeb3React();
 
-function useBalances(
-  provider?: Web3ReactType['provider'],
-  accounts?: string[]
-): BigNumber[] | undefined {
-  const [balances, setBalances] = useState<BigNumber[] | undefined>();
-  // console.log('USE BALANCE');
-  // console.log(`provider = `, typeof provider);
-  // console.log(provider);
-
-  useEffect(() => {
-    if (provider && accounts?.length) {
+  const [balance, setBalance] = useState<string>();
+  useEffect((): any => {
+    if (!!account && !!library) {
       let stale = false;
 
-      void Promise.all(
-        accounts.map((account) => provider.getBalance(account))
-      ).then((balances) => {
-        if (!stale) {
-          setBalances(balances);
-        }
-      });
+      library
+        .getBalance(account)
+        .then((balance: any) => {
+          if (!stale) {
+            setBalance(balance);
+          }
+        })
+        .catch(() => {
+          if (!stale) {
+            setBalance('');
+          }
+        });
 
       return () => {
         stale = true;
-        setBalances(undefined);
+        setBalance(undefined);
       };
     }
-  }, [provider, accounts]);
+  }, [account, library, chainId]); // ensures refresh if referential identity of library doesn't change across chainIds
 
-  return balances;
-}
-
-export function Accounts({
-  accounts,
-  provider,
-  ENSNames,
-}: {
-  accounts: Web3ReactType['accounts'];
-  provider: Web3ReactType['provider'];
-  ENSNames: Web3ReactType['ENSNames'];
-}) {
-  const balances = useBalances(provider, accounts);
-  if (accounts === undefined) return null;
-
-  return (
-    <div id='acc-info'>
-      Accounts:{' '}
-      <b>
-        {accounts.length === 0
-          ? 'None'
-          : accounts?.map((acc: string, i: number) => (
-              <p key={acc}>
-                {ENSNames?.[i] ??
-                  `${acc.substring(0, 6)}...${acc.substring(
-                    acc.length - 4,
-                    acc.length
-                  )}`}
-                {balances?.[i]
-                  ? ` (Ξ ${parseFloat(formatEther(balances[i])).toFixed(4)})`
-                  : null}
-              </p>
-            ))}
-      </b>
-    </div>
-  );
+  return active ? (
+    <>
+      <div id='acc-info'>
+        <span>Balance: </span>
+        <span role='img' aria-label='gold'>
+          💰
+        </span>
+        <span>
+          {balance === null
+            ? 'Error'
+            : balance
+            ? `Ξ${formatEther(balance)}`
+            : ''}
+        </span>
+      </div>
+    </>
+  ) : null;
 }

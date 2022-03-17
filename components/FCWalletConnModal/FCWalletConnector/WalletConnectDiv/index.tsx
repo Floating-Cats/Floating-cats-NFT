@@ -1,4 +1,9 @@
+import { useWeb3React } from '@web3-react/core';
+
 export default function WalletConnectDiv() {
+  const { active, library } = useWeb3React();
+  const provider = library && library.connection ? library.connection.url : '';
+
   const getHeader = () => {
     return (
       <>
@@ -12,15 +17,23 @@ export default function WalletConnectDiv() {
 
   return (
     <>
-      {getHeader()}
-      <h6>Open your phone to switch wallet or network</h6>
-      <h6>Or click to disconnect</h6>
       {
-        // else no wallet connected at the moment
-        // <>
-        //   {getHeader()}
-        //   <h6>Scan with WalletConnect to Connect</h6>
-        // </>
+        // if an account is connected
+        active ? (
+          provider === 'eip-1193:' ? (
+            <>
+              {getHeader()}
+              <h6>Open your phone to switch wallet or network</h6>
+              <h6>Or click to disconnect</h6>
+            </>
+          ) : null
+        ) : (
+          // else no wallet connected at the moment
+          <>
+            {getHeader()}
+            <h6>Scan with WalletConnect to Connect</h6>
+          </>
+        )
       }
     </>
   );

@@ -5,9 +5,9 @@ import { useCallback, useEffect, useState } from 'react';
 import ListGroup from 'react-bootstrap/ListGroup';
 
 // web3 react
-// import { Chain } from '../../Chain';
-// import { Status } from '../../Status';
-// import { Accounts } from '../../Accounts';
+import { Chain } from '../../Chain';
+import { Status } from '../../Status';
+import { Accounts } from '../../Accounts';
 // import { Network } from '@web3-react/network';
 // import { MetaMask } from '@web3-react/metamask';
 // import { WalletConnect } from '@web3-react/walletconnect';
@@ -28,10 +28,14 @@ import {
   UnsupportedChainIdError,
 } from '@web3-react/core';
 import {
+  InjectedConnector,
   NoEthereumProviderError,
   UserRejectedRequestError as UserRejectedRequestErrorInjected,
 } from '@web3-react/injected-connector';
-import { UserRejectedRequestError as UserRejectedRequestErrorWalletConnect } from '@web3-react/walletconnect-connector';
+import {
+  UserRejectedRequestError as UserRejectedRequestErrorWalletConnect,
+  WalletConnectConnector,
+} from '@web3-react/walletconnect-connector';
 import { UserRejectedRequestError as UserRejectedRequestErrorFrame } from '@web3-react/frame-connector';
 import { Web3Provider } from '@ethersproject/providers';
 import { formatEther } from '@ethersproject/units';
@@ -117,44 +121,70 @@ export default function FCWalletConnector() {
   // handle logic to connect in reaction to certain events on the injected ethereum provider, if it exists
   useInactiveListener(!triedEager || !!activatingConnector);
 
+  const onClickConnectWallet: (currentConnector, name) => void = (
+    currentConnector,
+    name
+  ) => {
+    setActivatingConnector(currentConnector);
+    activate(connectorsByName[name], (error) => {
+      if (error) {
+        setActivatingConnector(undefined);
+        console.log('ERROR~~~', error);
+      }
+    });
+  };
+
   return (
     <>
-      {/* <ListGroup.Item action onClick={() => {}} className='borderless'>
-        <MetaMaskDiv />
-      </ListGroup.Item> */}
-      {Object.keys(connectorsByName).map((name) => {
-        const currentConnector = connectorsByName[name];
-        const activating = currentConnector === activatingConnector;
-        const connected = currentConnector === connector;
-        const disabled =
-          !triedEager || !!activatingConnector || connected || !!error;
-
-        console.log('here');
-        console.log('connectorsByName[name] = ', connectorsByName[name]);
-        return (
-          <ListGroup.Item
-            action
-            className='borderless'
-            onClick={() => {
-              setActivatingConnector(currentConnector);
-              activate(connectorsByName[name], (error) => {
-                if (error) {
-                  setActivatingConnector(undefined);
-                  console.log('ERROR~~~', error);
+      {
+        /* if no wallet is connected */
+        !active ? (
+          Object.keys(connectorsByName).map((name: string) => {
+            const currentConnector = connectorsByName[name];
+            const activating = currentConnector === activatingConnector;
+            const connected = currentConnector === connector;
+            const disabled =
+              !triedEager || !!activatingConnector || connected || !!error;
+            return (
+              <ListGroup.Item
+                action
+                key={name}
+                onClick={() => {
+                  onClickConnectWallet(currentConnector, name);
+                }}
+              >
+                {
+                  // metamask
+                  name === ConnectorNames.Injected ? (
+                    <MetaMaskDiv />
+                  ) : // wallet connect
+                  name === ConnectorNames.WalletConnect ? (
+                    <WalletConnectDiv />
+                  ) : null
                 }
-              });
-            }}
-          >
-            {name === ConnectorNames.Injected ? (
-              <MetaMaskDiv />
-            ) : name === ConnectorNames.WalletConnect ? (
-              <WalletConnectDiv />
-            ) : (
-              <></>
-            )}
+              </ListGroup.Item>
+            );
+          })
+        ) : active || error ? (
+          /* if a wallet is connected */
+
+          <ListGroup.Item action onClick={() => deactivate()}>
+            {
+              // metamask
+              library &&
+              library.connection &&
+              library.connection.url === 'metamask' ? (
+                <MetaMaskDiv />
+              ) : // wallet connect
+              library &&
+                library.connection &&
+                library.connection.url === 'eip-1193:' ? (
+                <WalletConnectDiv />
+              ) : null
+            }
           </ListGroup.Item>
-        );
-      })}
+        ) : null
+      }
 
       <ListGroup.Item>
         {/* <h5>DEBUG SECTION</h5> */}
@@ -165,10 +195,9 @@ export default function FCWalletConnector() {
           chainIds={[1, 4]}
         /> */}
         <h5>Account Status</h5>
-        {/* <Status isActivating={isActivating} error={error} isActive={isActive} /> */}
-        <div style={{ marginBottom: '1rem' }} />
-        {/* <Chain chainId={chainId} /> */}
-        {/* <Accounts accounts={accounts} provider={provider} ENSNames={ENSNames} /> */}
+        <Status />
+        <Chain />
+        <Accounts />
       </ListGroup.Item>
     </>
   );
