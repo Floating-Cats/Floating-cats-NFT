@@ -1,11 +1,6 @@
-import FCLayout from '../components/FCLayout';
-
-export default function Custom404() {
+export default function Custom404(): JSX.Element {
   return (
     <>
-      {
-        // TODO: change marginY to center the text
-      }
       <div className='my-5'>
         <h1>404 Page Not Found</h1>
       </div>

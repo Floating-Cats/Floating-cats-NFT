@@ -1,7 +1,8 @@
 // react
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 
 // imports for styling
+import { toast } from 'react-toastify';
 import ListGroup from 'react-bootstrap/ListGroup';
 
 // components
@@ -14,6 +15,7 @@ import WalletConnectDiv from 'components/FCWalletConnModal/FCWalletConnector/Wal
 
 // web3 react
 import { useWeb3React } from '@web3-react/core';
+import { Web3Provider } from '@ethersproject/providers';
 import { useEagerConnect, useInactiveListener } from '../../../hooks';
 import {
   injected,
@@ -30,7 +32,6 @@ import {
   // portis,
   // torus,
 } from '../../../connectors';
-import { toast } from 'react-toastify';
 
 enum ConnectorNames {
   Injected = 'Injected',
@@ -102,7 +103,6 @@ export default function FCWalletConnector() {
         toast.error('⚠️ An error occurred during connection! ', error);
       }
     });
-    toast('🦄 Wallet Connected!');
   };
 
   const onClickDisconnectWallet: () => void = () => {

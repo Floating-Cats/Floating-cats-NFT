@@ -11,25 +11,12 @@ import FCWalletConnModal from 'components/FCWalletConnModal';
 
 // web3 react
 import { useWeb3React } from '@web3-react/core';
-import { Web3Provider } from '@ethersproject/providers';
 
 export function FCNavbar() {
   const [showModal, setShowModal] = useState<boolean | any>(false);
 
   // web3 react
-  const context = useWeb3React<Web3Provider>();
-  const {
-    connector,
-    library,
-    chainId,
-    account,
-    activate,
-    deactivate,
-    active,
-    error,
-  } = context;
-
-  console.log(context);
+  const { account } = useWeb3React();
 
   const getNavBrand = () => {
     return (

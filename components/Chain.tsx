@@ -25,5 +25,5 @@ export function Chain() {
     );
   }
 
-  return <></>;
+  return null;
 }

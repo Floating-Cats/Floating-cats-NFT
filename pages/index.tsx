@@ -1,42 +1,15 @@
 import React from 'react';
-import { useEffect, useState } from 'react';
-import type { AppProps /*, AppContext */ } from 'next/app';
+
+// components
+import Home from './Home';
 
 // styling
 import { ToastContainer } from 'react-toastify';
 
-// components
-import Home from './Home';
-import FCLayout from '../components/FCLayout';
-
-import { Web3ReactProvider, useWeb3React } from '@web3-react/core';
-import { Web3Provider } from '@ethersproject/providers';
-
-const getLibrary: (
-  provider?: any,
-  connector?: any // AbstractConnectorInterface
-) => any = (provider, connector) => {
-  return new Web3Provider(provider);
-};
-
-function App(): JSX.Element {
-  const context = useWeb3React<Web3Provider>();
-  const {
-    connector,
-    library,
-    chainId,
-    account,
-    activate,
-    deactivate,
-    active,
-    error,
-  } = context;
-
+export default function FCatApp(): JSX.Element {
   return (
     <>
-      <FCLayout>
-        <Home />
-      </FCLayout>
+      <Home />
       <ToastContainer
         position='top-center'
         theme='dark'
@@ -50,19 +23,5 @@ function App(): JSX.Element {
         pauseOnHover
       />
     </>
-  );
-}
-
-export default function ({ pageProps }: AppProps) {
-  return (
-    <Web3ReactProvider getLibrary={getLibrary}>
-      <div>
-        {
-          // prevent Next.js from trying to render anything on the server
-          // unless the window object is defined.
-          typeof window === 'undefined' ? null : <App {...pageProps} />
-        }
-      </div>
-    </Web3ReactProvider>
   );
 }

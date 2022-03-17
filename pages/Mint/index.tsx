@@ -33,11 +33,7 @@ const { NEXT_PUBLIC_INFURA_ENDPOINT_RINKEBY } = process.env;
 const { FC_TEST_INFURA_PROJECT_ID } = process.env;
 const { FC_TEST_INFURA_SECRET } = process.env;
 
-export default function Mint({
-  mintParams,
-}: {
-  mintParams: MintInterface;
-}): JSX.Element {
+export default function Mint(): JSX.Element {
   const mintPrice: number = parseFloat(NEXT_PUBLIC_COST || '');
   const contractAddress: string = NEXT_PUBLIC_CONTRACT_ADDR || '';
   const [mintAmount, setMintAmount] = useState<number>(1);

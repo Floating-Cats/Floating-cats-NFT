@@ -1,18 +1,10 @@
-import dynamic from 'next/dynamic';
-
 // imports for styling
 import Row from 'react-bootstrap/Row';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 
-// components
-// const FCWalletConnector = dynamic(
-//   () => import('components/FCWalletConnModal/FCWalletConnector'),
-//   {
-//     ssr: false,
-//   }
-// );
+// connector
 import FCWalletConnector from './FCWalletConnector';
 
 export default function FCWalletConnModal({

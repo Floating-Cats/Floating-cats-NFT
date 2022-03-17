@@ -10,7 +10,7 @@ export default function FCLayout({
 }: {
   children: JSX.Element | JSX.Element[];
 }) {
-  const [loading, setLoading] = useState<boolean | any>(true);
+  const [loading, setLoading] = useState<boolean>(true);
   useEffect(() => {
     setLoading(true);
     setTimeout(loadHomePage, 1000);
