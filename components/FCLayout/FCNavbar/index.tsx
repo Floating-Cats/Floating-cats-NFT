@@ -13,7 +13,7 @@ import FCWalletConnModal from 'components/FCWalletConnModal';
 import { useWeb3React } from '@web3-react/core';
 
 export function FCNavbar() {
-  const [showModal, setShowModal] = useState<boolean | any>(false);
+  const [showModal, setShowModal] = useState<boolean>(false);
 
   // web3 react
   const { account } = useWeb3React();

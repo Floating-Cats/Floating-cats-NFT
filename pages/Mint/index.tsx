@@ -14,9 +14,10 @@ import { toast } from 'react-toastify';
 import FCat from 'pages/artifacts/contracts/MyNFT.sol/FloatingCats.json';
 
 // components
-import FCSupplyMaxSupply from 'components/FCSupplyMaxSupply';
-import FCWhiteListForm from 'components/FCWhiteListForm';
+import FCWhiteListModal from 'components/FCWhiteListModal';
 import FCMintAmountForm from 'components/FCMintAmountForm';
+
+import { Contract } from 'ethers';
 
 // helpers
 // import { Account } from 'web3/eth/accounts'; // for typechecking
@@ -26,13 +27,14 @@ import { useWeb3React } from '@web3-react/core';
 import { JsonRpcSigner } from '@ethersproject/providers';
 
 // imports for env vars
+const { NEXT_PUBLIC_COST } = process.env;
+const { NEXT_PUBLIC_MAX_SUPPLY } = process.env;
 const { NEXT_PUBLIC_CONTRACT_ADDR } = process.env;
 const { NEXT_PUBLIC_MAX_MINT_AMOUNT } = process.env;
+const { NEXT_PUBLIC_INFURA_PROJECT_ID } = process.env;
 
 export default function Mint(): JSX.Element {
-  const contractAddress: string = NEXT_PUBLIC_CONTRACT_ADDR || '';
-  const [mintAmount, setMintAmount] = useState<number>(1);
-
+  // import provider library
   const {
     connector,
     library,
@@ -43,19 +45,59 @@ export default function Mint(): JSX.Element {
     active,
     error,
   } = useWeb3React();
-  console.log(library);
 
-  let FCatSigner: JsonRpcSigner | any = library
+  // react hooks
+  const [showModal, setShowModal] = useState<boolean>(false);
+  const [mintAmount, setMintAmount] = useState<number>(1);
+  const [supply, setSupply] = useState<string>('-');
+
+  // get contract address
+  const contractAddress: string = NEXT_PUBLIC_CONTRACT_ADDR || '';
+  // get signer
+  const FCatSigner: JsonRpcSigner | any = library
     ? library.getSigner()
     : undefined;
-  console.log(FCatSigner);
 
-  let FCatContract = new ethers.Contract(contractAddress, FCat.abi, library);
+  // init contract
+  let FCatContract: Contract = new ethers.Contract(
+    contractAddress,
+    FCat.abi,
+    new ethers.providers.InfuraProvider(
+      'rinkeby',
+      NEXT_PUBLIC_INFURA_PROJECT_ID
+    )
+  );
+  console.log('contract with provider - ', FCatContract);
 
-  if (FCatSigner) {
+  if (FCatSigner)
     FCatContract = new ethers.Contract(contractAddress, FCat.abi, FCatSigner);
-  }
+  console.log('contract with signer   - ', FCatContract);
 
+  /**
+   *
+   * @param e
+   * @param show
+   */
+  const setShowModelTo = (
+    e: React.MouseEvent<Element, MouseEvent>,
+    show: boolean
+  ): void => {
+    e.preventDefault();
+    setShowModal(show);
+  };
+  /**
+   * get the number of supply count
+   */
+  const getCount = async () => {
+    try {
+      let count = await FCatContract.count();
+      console.log(count);
+      setSupply(count);
+    } catch {
+      setSupply('-');
+    }
+  };
+  if (supply === '-') getCount();
   /**
    * Alert user before executing mint action
    *
@@ -66,6 +108,13 @@ export default function Mint(): JSX.Element {
 🐱 You will mint ${mintAmount} tokens🐱\n
 🐱 Hit OK/Close to continue 🐱`);
   };
+  /**
+   * Set mint amount
+   *
+   * @returns void
+   */
+  const onChangeSetMintAmount: (val: string) => void = (val) =>
+    setMintAmount(parseInt(val));
 
   /**
    * Execute mint action
@@ -75,7 +124,7 @@ export default function Mint(): JSX.Element {
   const mintToken: () => void = async () => {
     try {
       /* check before mint */
-      if (!FCatSigner) {
+      if (!FCatSigner || !active) {
         toast.error('Oops! No wallet connected');
         return;
       }
@@ -119,17 +168,18 @@ export default function Mint(): JSX.Element {
       <div id='mintPageBg'>
         <div className='' id='mintPage'>
           <div id='mintInfo'>
-            <h1>0 / 5888 Adopted</h1>
+            <h1>{`${supply} / ${NEXT_PUBLIC_MAX_SUPPLY} Adopted`}</h1>
             <button
               data-toggle='modal'
               data-target='#exampleModal'
               id='checkWL'
+              onClick={(e) => setShowModelTo(e, true)}
             >
               Check Whitelist
             </button>
             <div id='priceInfo'>
-              <h4>Pre-Sale: 0.04 Ξ</h4>
-              <h4>Max 5 per wallet</h4>
+              <h4>{`Pre-Sale: ${NEXT_PUBLIC_COST} Ξ`}</h4>
+              <h4>{`Max ${NEXT_PUBLIC_MAX_MINT_AMOUNT} per wallet`}</h4>
             </div>
             <Form>
               <Form.Group>
@@ -142,7 +192,7 @@ export default function Mint(): JSX.Element {
                   max={NEXT_PUBLIC_MAX_MINT_AMOUNT}
                   // placeholder='a number'
                   value={mintAmount}
-                  onChange={(e) => setMintAmount(parseInt(e.target.value))}
+                  onChange={(e) => onChangeSetMintAmount(e.target.value)}
                 />
               </Form.Group>
             </Form>
@@ -151,6 +201,11 @@ export default function Mint(): JSX.Element {
             </button>
           </div>
         </div>
+        <FCWhiteListModal
+          show={showModal}
+          onHide={() => setShowModal(false)}
+          FCatContract={FCatContract}
+        />
       </div>
     </>
   );
