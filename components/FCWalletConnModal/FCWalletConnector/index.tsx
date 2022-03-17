@@ -4,42 +4,16 @@ import { useCallback, useEffect, useState } from 'react';
 // imports for styling
 import ListGroup from 'react-bootstrap/ListGroup';
 
-// web3 react
+// components
 import { Chain } from '../../Chain';
 import { Status } from '../../Status';
 import { Accounts } from '../../Accounts';
-// import { Network } from '@web3-react/network';
-// import { MetaMask } from '@web3-react/metamask';
-// import { WalletConnect } from '@web3-react/walletconnect';
-// import { hooks as mm_hooks, metaMask } from 'connectors/metaMask';
-// import { hooks as wc_hooks, walletConnect } from 'connectors/walletConnect';
-// import { CHAINS, getAddChainParameters, URLS } from 'chains';
-
-// components
+import FCWalletSpinner from 'components/FCWalletSpinner';
 import MetaMaskDiv from 'components/FCWalletConnModal/FCWalletConnector/MetaMaskDiv';
 import WalletConnectDiv from 'components/FCWalletConnModal/FCWalletConnector/WalletConnectDiv';
-import FCWalletSpinner from 'components/FCWalletSpinner';
 
 // web3 react
-
-import {
-  Web3ReactProvider,
-  useWeb3React,
-  UnsupportedChainIdError,
-} from '@web3-react/core';
-import {
-  InjectedConnector,
-  NoEthereumProviderError,
-  UserRejectedRequestError as UserRejectedRequestErrorInjected,
-} from '@web3-react/injected-connector';
-import {
-  UserRejectedRequestError as UserRejectedRequestErrorWalletConnect,
-  WalletConnectConnector,
-} from '@web3-react/walletconnect-connector';
-import { UserRejectedRequestError as UserRejectedRequestErrorFrame } from '@web3-react/frame-connector';
-import { Web3Provider } from '@ethersproject/providers';
-import { formatEther } from '@ethersproject/units';
-
+import { useWeb3React } from '@web3-react/core';
 import { useEagerConnect, useInactiveListener } from '../../../hooks';
 import {
   injected,
@@ -56,6 +30,7 @@ import {
   // portis,
   // torus,
 } from '../../../connectors';
+import { toast } from 'react-toastify';
 
 enum ConnectorNames {
   Injected = 'Injected',
@@ -90,10 +65,7 @@ const connectorsByName: { [connectorName in ConnectorNames]: any } = {
 };
 
 export default function FCWalletConnector() {
-  console.log('1');
-  // web3 react
   const context = useWeb3React<Web3Provider>();
-  console.log('2');
   const {
     connector,
     library,
@@ -104,8 +76,6 @@ export default function FCWalletConnector() {
     active,
     error,
   } = context;
-
-  console.log(context);
 
   // handle logic to recognize the connector currently being activated
   const [activatingConnector, setActivatingConnector] = useState<any>();
@@ -129,9 +99,15 @@ export default function FCWalletConnector() {
     activate(connectorsByName[name], (error) => {
       if (error) {
         setActivatingConnector(undefined);
-        console.log('ERROR~~~', error);
+        toast.error('⚠️ An error occurred during connection! ', error);
       }
     });
+    toast('🦄 Wallet Connected!');
+  };
+
+  const onClickDisconnectWallet: () => void = () => {
+    deactivate();
+    toast('🦄 Wallet Signed Out!');
   };
 
   return (
@@ -162,13 +138,19 @@ export default function FCWalletConnector() {
                     <WalletConnectDiv />
                   ) : null
                 }
+                {activating && (
+                  <FCWalletSpinner
+                    color={'black'}
+                    style={{ height: '25%', marginLeft: '-1rem' }}
+                  />
+                )}
               </ListGroup.Item>
             );
           })
         ) : active || error ? (
           /* if a wallet is connected */
 
-          <ListGroup.Item action onClick={() => deactivate()}>
+          <ListGroup.Item action onClick={onClickDisconnectWallet}>
             {
               // metamask
               library &&
@@ -187,13 +169,6 @@ export default function FCWalletConnector() {
       }
 
       <ListGroup.Item>
-        {/* <h5>DEBUG SECTION</h5> */}
-        {/* <Select
-          chainId={desiredChainId}
-          switchChain={switchChain}
-          displayDefault={displayDefault}
-          chainIds={[1, 4]}
-        /> */}
         <h5>Account Status</h5>
         <Status />
         <Chain />
