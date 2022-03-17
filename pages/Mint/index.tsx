@@ -67,11 +67,11 @@ export default function Mint(): JSX.Element {
       NEXT_PUBLIC_INFURA_PROJECT_ID
     )
   );
-  console.log('contract with provider - ', FCatContract);
+  // console.log('contract with provider - ', FCatContract);
 
   if (FCatSigner)
     FCatContract = new ethers.Contract(contractAddress, FCat.abi, FCatSigner);
-  console.log('contract with signer   - ', FCatContract);
+  // console.log('contract with signer   - ', FCatContract);
 
   /**
    *
@@ -91,7 +91,6 @@ export default function Mint(): JSX.Element {
   const getCount = async () => {
     try {
       let count = await FCatContract.count();
-      console.log(count);
       setSupply(count);
     } catch {
       setSupply('-');
