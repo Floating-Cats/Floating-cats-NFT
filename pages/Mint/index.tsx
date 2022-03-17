@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import FCBgCloud from 'components/FCHome/FCBgCloud';
 
 // bootstrap imports
 import Row from 'react-bootstrap/Row';
@@ -26,17 +27,11 @@ import { JsonRpcSigner } from '@ethersproject/providers';
 
 // imports for env vars
 const { NEXT_PUBLIC_CONTRACT_ADDR } = process.env;
-const { NEXT_PUBLIC_COST } = process.env;
-const { NEXT_PUBLIC_INFURA_ENDPOINT_RINKEBY } = process.env;
-const { FC_TEST_INFURA_PROJECT_ID } = process.env;
-const { FC_TEST_INFURA_SECRET } = process.env;
+const { NEXT_PUBLIC_MAX_MINT_AMOUNT } = process.env;
 
 export default function Mint(): JSX.Element {
-  const mintPrice: number = parseFloat(NEXT_PUBLIC_COST || '');
   const contractAddress: string = NEXT_PUBLIC_CONTRACT_ADDR || '';
   const [mintAmount, setMintAmount] = useState<number>(1);
-
-  let cost: string = (mintPrice * mintAmount).toString();
 
   const {
     connector,
@@ -79,6 +74,7 @@ export default function Mint(): JSX.Element {
    */
   const mintToken: () => void = async () => {
     try {
+      /* check before mint */
       if (!FCatSigner) {
         toast.error('Oops! No wallet connected');
         return;
@@ -89,21 +85,17 @@ export default function Mint(): JSX.Element {
       //   );
       //   return;
       // }
-      // check if provider is set
       if (isObjEmpty(library)) {
         toast.error(
           '⚠️: Oops! Something went wrong with your wallet provider while we connect you to the ethereum server.\nNo action has taken place.'
         );
         return;
       }
-      // check if mint price is set
-      if (!mintPrice) {
-        toast.error(
-          '⚠️: Oops! Cannot read mint cost.\nNo action has taken place.'
-        );
-        return;
-      }
+
+      /* alert */
       greetingMsg();
+
+      /* mint */
       await toast.promise(
         FCatContract.mint(mintAmount, {
           value: ethers.utils.parseEther('0.02'),
@@ -123,56 +115,42 @@ export default function Mint(): JSX.Element {
 
   return (
     <>
-      <div>
-        <Row>
-          {/* <Col xs={5}>
-            <FCSupplyMaxSupply FCatContract={FCatContract} />
-          </Col>
-          <Col xs={2}>
-            <FCMintAmountForm
-              mintAmount={mintAmount}
-              setMintAmount={setMintAmount}
-            />
-          </Col>
-          <Col xs={5}>
-            <FCSupplyMaxSupply FCatContract={FCatContract} />
-          </Col>
-          <Col xs={5}>
-            <FCWhiteListForm FCatContract={FCatContract} />
-          </Col> */}
-        </Row>
-      </div>
-      <div className='mintPageBg'>
-        <img src='/mint-bg-top.png' alt='' id='mint-bg' />
-        <div className='container' id='mintPage'>
-          <div className='row'>
-            <div className='col'>
-              <img
-                id='mintBtn-blue'
-                src='/mint-btn-blue.png'
-                alt=''
-                onClick={mintToken}
-              />
+      <FCBgCloud />
+      <div id='mintPageBg'>
+        <div className='' id='mintPage'>
+          <div id='mintInfo'>
+            <h1>0 / 5888 Adopted</h1>
+            <button
+              data-toggle='modal'
+              data-target='#exampleModal'
+              id='checkWL'
+            >
+              Check Whitelist
+            </button>
+            <div id='priceInfo'>
+              <h4>Pre-Sale: 0.04 Ξ</h4>
+              <h4>Max 5 per wallet</h4>
             </div>
-            <div className='col'>
-              <img
-                id='mintBtn-red'
-                src='/mint-btn-red.png'
-                alt=''
-                onClick={mintToken}
-              />
-            </div>
-            <div className='col'>
-              <img
-                id='mintBtn-yellow'
-                src='/mint-btn-yellow.png'
-                alt=''
-                onClick={mintToken}
-              />
-            </div>
+            <Form>
+              <Form.Group>
+                <Form.Label>Quantity</Form.Label>
+                <Form.Control
+                  required
+                  id='mint-quantity'
+                  type='number'
+                  min='1'
+                  max={NEXT_PUBLIC_MAX_MINT_AMOUNT}
+                  // placeholder='a number'
+                  value={mintAmount}
+                  onChange={(e) => setMintAmount(parseInt(e.target.value))}
+                />
+              </Form.Group>
+            </Form>
+            <button id='mintbtn' onClick={mintToken}>
+              Mint
+            </button>
           </div>
         </div>
-        {/* <img src='/mint-bg-bt.png' alt='' id='mint-bg' /> */}
       </div>
     </>
   );
