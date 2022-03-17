@@ -33,6 +33,10 @@ import {
   // torus,
 } from '../../../connectors';
 
+// web3 react connector type
+import { InjectedConnector } from '@web3-react/injected-connector';
+import { WalletConnectConnector } from '@web3-react/walletconnect-connector';
+
 enum ConnectorNames {
   Injected = 'Injected',
   // Network = 'Network',
@@ -49,7 +53,12 @@ enum ConnectorNames {
   // Torus = 'Torus',
 }
 
-const connectorsByName: { [connectorName in ConnectorNames]: any } = {
+const connectorsByName: {
+  [connectorName in ConnectorNames]:
+    | InjectedConnector
+    | WalletConnectConnector
+    | any;
+} = {
   [ConnectorNames.Injected]: injected,
   // [ConnectorNames.Network]: network,
   [ConnectorNames.WalletConnect]: walletconnect,
@@ -92,12 +101,12 @@ export default function FCWalletConnector() {
   // handle logic to connect in reaction to certain events on the injected ethereum provider, if it exists
   useInactiveListener(!triedEager || !!activatingConnector);
 
-  const onClickConnectWallet: (currentConnector, name) => void = (
-    currentConnector,
-    name
-  ) => {
+  const onClickConnectWallet: (
+    currentConnector: InjectedConnector | WalletConnectConnector | any,
+    name: string
+  ) => void = (currentConnector, name) => {
     setActivatingConnector(currentConnector);
-    activate(connectorsByName[name], (error) => {
+    activate(currentConnector, (error: Error | string | any) => {
       if (error) {
         setActivatingConnector(undefined);
         toast.error('⚠️ An error occurred during connection! ', error);
@@ -116,7 +125,8 @@ export default function FCWalletConnector() {
         /* if no wallet is connected */
         !active ? (
           Object.keys(connectorsByName).map((name: string) => {
-            const currentConnector = connectorsByName[name];
+            const currentConnector =
+              connectorsByName[name as keyof typeof ConnectorNames];
             const activating = currentConnector === activatingConnector;
             const connected = currentConnector === connector;
             const disabled =

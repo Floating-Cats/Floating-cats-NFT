@@ -1,5 +1,4 @@
 import { useWeb3React } from '@web3-react/core';
-import { Web3ReactType } from './helpers/Web3ReactType';
 
 export function Status() {
   const { error, active } = useWeb3React();
