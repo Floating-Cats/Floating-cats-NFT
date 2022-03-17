@@ -8,7 +8,6 @@ import Form from 'react-bootstrap/Form';
 // other imports
 import { ethers } from 'ethers';
 import { toast } from 'react-toastify';
-import { Web3Provider } from '@ethersproject/providers';
 
 // contracts
 import FCat from 'pages/artifacts/contracts/MyNFT.sol/FloatingCats.json';
@@ -20,11 +19,10 @@ import FCMintAmountForm from 'components/FCMintAmountForm';
 
 // helpers
 // import { Account } from 'web3/eth/accounts'; // for typechecking
-// import Contract  from 'web3/eth/contract'; // for typechecking
+// import Contract from 'web3/eth/contract'; // for typechecking
 import { isObjEmpty } from 'components/helpers/isObjEmpty';
-import { MintInterface } from 'components/helpers/ParamsInterface';
-import { Web3ReactType } from 'components/helpers/Web3ReactType';
 import { useWeb3React } from '@web3-react/core';
+import { JsonRpcSigner } from '@ethersproject/providers';
 
 // imports for env vars
 const { NEXT_PUBLIC_CONTRACT_ADDR } = process.env;
@@ -39,8 +37,29 @@ export default function Mint(): JSX.Element {
   const [mintAmount, setMintAmount] = useState<number>(1);
 
   let cost: string = (mintPrice * mintAmount).toString();
-  // let signer: string = accounts ? accounts[0] : '';
-  // console.log(signer);
+
+  const {
+    connector,
+    library,
+    chainId,
+    account,
+    activate,
+    deactivate,
+    active,
+    error,
+  } = useWeb3React();
+  console.log(library);
+
+  let FCatSigner: JsonRpcSigner | any = library
+    ? library.getSigner()
+    : undefined;
+  console.log(FCatSigner);
+
+  let FCatContract = new ethers.Contract(contractAddress, FCat.abi, library);
+
+  if (FCatSigner) {
+    FCatContract = new ethers.Contract(contractAddress, FCat.abi, FCatSigner);
+  }
 
   /**
    * Alert user before executing mint action
@@ -60,14 +79,10 @@ export default function Mint(): JSX.Element {
    */
   const mintToken: () => void = async () => {
     try {
-      // if (!FCatSigner) {
-      //   toast.error('Oops! No wallet connected');
-      //   return;
-      // }
-      // if (FCatSigner === '') {
-      //   toast.error('Oops! No wallet connected');
-      //   return;
-      // }
+      if (!FCatSigner) {
+        toast.error('Oops! No wallet connected');
+        return;
+      }
       // if (chainId !== 1) {
       //   toast.error(
       //     "You're not on the main network, please switch your network"
@@ -75,72 +90,30 @@ export default function Mint(): JSX.Element {
       //   return;
       // }
       // check if provider is set
-      // if (isObjEmpty(RinkebyProvider)) {
-      //   toast.error(
-      //     '⚠️: Oops! Something went wrong with your wallet provider while we connect you to the ethereum server.\nNo action has taken place.'
-      //   );
-      //   return;
-      // }
+      if (isObjEmpty(library)) {
+        toast.error(
+          '⚠️: Oops! Something went wrong with your wallet provider while we connect you to the ethereum server.\nNo action has taken place.'
+        );
+        return;
+      }
       // check if mint price is set
-      // if (!mintPrice) {
-      //   toast.error(
-      //     '⚠️: Oops! Cannot read mint cost.\nNo action has taken place.'
-      //   );
-      //   return;
-      // }
-      // greetingMsg();
-      // const connection = FCatContract.connect(FCatSigner);
-      // const result = await FCatContract.mint(mintAmount, {
-      //   value: ethers.utils.parseEther('0.02'),
-      // });
-      // await result.wait();
-      // console.log(result);
-      // if (FCatProvider && FCatProvider.connection) {
-      //   // TODO: do something
-      //   if (FCatProvider.connection.url === 'metamask') {
-      //     // mint action?
-      //     console.log('metamask');
-      //   }
-      //   if (FCatProvider.connection.url === 'eip-1993:') {
-      //     // mint action
-      //     console.log('wallet connect');
-      //   }
-      // } else {
-      //   // provider is infura endpoint of HttpProvider type
-      //   console.log('infura endpoint');
-      // }
-      // const tx = {
-      //   from: signer,
-      //   to: contractAddress,
-      //   gas: web3.utils.toHex('4700000'),
-      //   chainId: chainId,
-      //   value: web3.utils.toWei(cost, 'ether'),
-      //   // value: '0x00',
-      //   // nonce: nonce,
-      //   // gasPrice: web3.utils.toHex(web3.utils.toWei('10', 'gwei')),
-      //   // gasLimit: web3.utils.toHex('21204'),
-      //   // maxPriorityFeePerGas: 2999999987,
-      //   data: FCatContract.methods.mint(mintAmount).encodeABI(),
-      // };
-      // // const signedTx = await web3.eth.signTransaction(tx, signer);
-      // const receipt = await web3.eth.sendTransaction(tx);
-      // console.log('receipt = ', receipt);
-      // TODO: request permission from the user to get their accounts
-      // Modern dapp browsers...
-      // await web3.eth.getAccounts().then(console.log);
-      // await web3.eth.requestAccounts().then(console.log); // wont work on HttpProvidder
-      // await toast.promise(
-      //   web3.eth
-      //     .sendSignedTransaction(signedTx.rawTransaction || '')
-      //     .then((transactionReceipt) => {
-      //       console.log('receipt = ', transactionReceipt);
-      //     }),
-      //   {
-      //     pending: 'Transaction is pending',
-      //     success: 'Transaction is approved 👌',
-      //     error: 'Transaction is rejected 🤯',
-      //   }
-      // );
+      if (!mintPrice) {
+        toast.error(
+          '⚠️: Oops! Cannot read mint cost.\nNo action has taken place.'
+        );
+        return;
+      }
+      greetingMsg();
+      await toast.promise(
+        FCatContract.mint(mintAmount, {
+          value: ethers.utils.parseEther('0.02'),
+        }),
+        {
+          pending: 'Transaction is pending',
+          success: 'Transaction is approved 👌',
+          error: 'Transaction is rejected 🤯',
+        }
+      );
     } catch (err) {
       toast.error(`⚠️: Oops! Something went wrong.\n${err}`);
       console.error('Error~~~', err);
@@ -152,10 +125,10 @@ export default function Mint(): JSX.Element {
     <>
       <div>
         <Row>
-          <Col xs={5}>
-            {/* <FCSupplyMaxSupply FCatContract={FCatContract} /> */}
+          {/* <Col xs={5}>
+            <FCSupplyMaxSupply FCatContract={FCatContract} />
           </Col>
-          {/* <Col xs={2}>
+          <Col xs={2}>
             <FCMintAmountForm
               mintAmount={mintAmount}
               setMintAmount={setMintAmount}
