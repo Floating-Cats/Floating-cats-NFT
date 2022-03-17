@@ -32,8 +32,16 @@ export function Accounts() {
     }
   }, [account, library, chainId]); // ensures refresh if referential identity of library doesn't change across chainIds
 
+  const accountFront: string = account ? account.substring(0, 6) : '';
+  const accountBack: string = account
+    ? account.substring(account.length - 4, account.length)
+    : '';
+
   return active ? (
     <>
+      <div id='acc-info'>
+        Accounts: <b>{`${accountFront}...${accountBack}`}</b>
+      </div>
       <div id='acc-info'>
         <span>Balance: </span>
         <span role='img' aria-label='gold'>
