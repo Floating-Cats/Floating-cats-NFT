@@ -40,20 +40,17 @@ export default function FCWhiteListModal({
    */
   const onSubmitCheckWL: () => void = () => {
     try {
-      FCatContract.methods
-        .isWhitelisted(AddrForWL)
-        .call()
-        .then(function (result: boolean) {
-          if (!result) {
-            toast(`⚠️: Oops! The Address Is NOT on Our Whitelist!`);
-            clearForm();
-            return;
-          } else {
-            toast(`🐱 Hi Good Neko! The Address Is on Our Whitelist!`);
-            clearForm();
-            return;
-          }
-        });
+      FCatContract.isWhitelisted(AddrForWL).then(function (result: boolean) {
+        if (!result) {
+          toast(`⚠️: Oops! The Address Is NOT on Our Whitelist!`);
+          clearForm();
+          return;
+        } else {
+          toast(`🐱 Hi Good Neko! The Address Is on Our Whitelist!`);
+          clearForm();
+          return;
+        }
+      });
     } catch (err: any) {
       if (err) {
         if (err.code == 'INVALID_ARGUMENT')

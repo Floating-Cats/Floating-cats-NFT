@@ -4,6 +4,7 @@ import Head from 'next/head';
 // styling
 import 'bootstrap/dist/css/bootstrap.css';
 import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
 import '../styles.css';
 
 // web3react provider
@@ -60,6 +61,18 @@ export default function MyApp({ Component, pageProps }: AppProps) {
             }
           </div>
         </FCLayout>
+        <ToastContainer
+          position='top-center'
+          theme='dark'
+          autoClose={2000} // 1000 ms = 1sec
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+        />
       </Web3ReactProvider>
     </>
   );
