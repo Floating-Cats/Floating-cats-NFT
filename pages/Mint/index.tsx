@@ -1,10 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import FCBgCloud from 'components/FCHome/FCBgCloud';
 
 // bootstrap imports
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
+import Popover from 'react-bootstrap/Popover';
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 
 // other imports
 import { ethers } from 'ethers';
@@ -15,16 +15,15 @@ import FCat from 'pages/artifacts/contracts/MyNFT.sol/FloatingCats.json';
 
 // components
 import FCWhiteListModal from 'components/FCWhiteListModal';
-import FCMintAmountForm from 'components/FCMintAmountForm';
 
 import { Contract } from 'ethers';
 
 // helpers
 // import { Account } from 'web3/eth/accounts'; // for typechecking
 // import Contract from 'web3/eth/contract'; // for typechecking
-import { isObjEmpty } from 'components/helpers/isObjEmpty';
 import { useWeb3React } from '@web3-react/core';
 import { JsonRpcSigner } from '@ethersproject/providers';
+import { isObjEmpty } from 'components/helpers/isObjEmpty';
 
 // imports for env vars
 const { NEXT_PUBLIC_COST } = process.env;
@@ -161,6 +160,18 @@ export default function Mint(): JSX.Element {
     }
   };
 
+  // temporary whitelist check
+  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  const tempMintPopover = (
+    <Popover id='popover-basic'>
+      <Popover.Header as='h3'>Mint is not live</Popover.Header>
+      <Popover.Body style={{ justifyContent: 'center' }}>
+        <img src='/Hidden.gif' height={222} />
+      </Popover.Body>
+    </Popover>
+  );
+  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
   return (
     <>
       <FCBgCloud />
@@ -195,9 +206,16 @@ export default function Mint(): JSX.Element {
                 />
               </Form.Group>
             </Form>
-            <button id='mintbtn' onClick={mintToken}>
+            {/* <button id='mintbtn' onClick={mintToken}>
               Mint
-            </button>
+            </button> */}
+            <OverlayTrigger
+              trigger='click'
+              placement='bottom'
+              overlay={tempMintPopover}
+            >
+              <button id='mintbtn'>Mint</button>
+            </OverlayTrigger>
           </div>
         </div>
         <FCWhiteListModal

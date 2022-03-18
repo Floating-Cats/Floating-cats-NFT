@@ -38,6 +38,17 @@ export default function FCWhiteListModal({
    * Check if the address set by the hook is on the WL.
    * @returns void
    */
+  const isValidAddr: () => boolean = () => {
+    if (!(AddrForWL.length === 42 && AddrForWL.startsWith('0x'))) {
+      toast.error(
+        `⚠️: "${
+          AddrForWL.length > 10 ? AddrForWL.substring(0, 10) + '...' : AddrForWL
+        }" is not a valid wallet address.`
+      );
+      return false;
+    }
+    return true;
+  };
   const onSubmitCheckWL: () => void = () => {
     try {
       FCatContract.isWhitelisted(AddrForWL).then(function (result: boolean) {
@@ -71,6 +82,41 @@ export default function FCWhiteListModal({
     }
   };
 
+  // temporary whitelist check
+  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  const url = '/FCatWL.json';
+
+  const fetchJson = async () => {
+    try {
+      const data = await fetch(url);
+      const response = await data.json();
+      return response;
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  };
+  const CheckLocalWL: () => void = async () => {
+    if (!isValidAddr()) return;
+    let wl = await fetchJson();
+    if (wl) {
+      let wlSet = new Set(wl['Whitelist']);
+      if (wlSet.has(AddrForWL.replace(/\s/g, ''))) {
+        toast(`🐱 Hi Good Neko! This Address Is on Our Whitelist!`);
+        clearForm();
+        return;
+      } else {
+        toast(`⚠️: Oops! The Address Is NOT on Our Whitelist!`);
+        clearForm();
+        return;
+      }
+    } else {
+      toast(`⚠️: Oops! Something went wrong!`);
+      return;
+    }
+  };
+  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
   return (
     <>
       <Modal
@@ -98,7 +144,8 @@ export default function FCWhiteListModal({
               <Button
                 variant='secondary'
                 id='check-wl-btn'
-                onClick={onSubmitCheckWL}
+                onClick={CheckLocalWL}
+                // onClick={onSubmitCheckWL}
               >
                 GO
               </Button>
