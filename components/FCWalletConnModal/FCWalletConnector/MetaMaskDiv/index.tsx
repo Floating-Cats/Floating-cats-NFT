@@ -24,7 +24,7 @@ export default function MetaMaskDiv() {
             <>
               {getHeader()}
               <h6>Open your Metamask extension to switch wallet or network</h6>
-              <h6>Or click to disconnect</h6>
+              <h6>Or click to 'disconnect'</h6>
             </>
           ) : null
         ) : (

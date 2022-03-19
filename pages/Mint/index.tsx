@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import FCBgCloud from 'components/FCHome/FCBgCloud';
 
 // bootstrap imports
@@ -7,11 +7,13 @@ import Popover from 'react-bootstrap/Popover';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 
 // other imports
-import { ethers } from 'ethers';
+import { BigNumber, ethers } from 'ethers';
 import { toast } from 'react-toastify';
 
 // contracts
-import FCat from 'pages/artifacts/contracts/MyNFT.sol/FloatingCats.json';
+import FCatTest3 from 'pages/artifacts/contracts/FCatTest3.sol/FCatTest3.json';
+//rename
+const FCat = FCatTest3;
 
 // components
 import FCWhiteListModal from 'components/FCWhiteListModal';
@@ -19,14 +21,11 @@ import FCWhiteListModal from 'components/FCWhiteListModal';
 import { Contract } from 'ethers';
 
 // helpers
-// import { Account } from 'web3/eth/accounts'; // for typechecking
-// import Contract from 'web3/eth/contract'; // for typechecking
 import { useWeb3React } from '@web3-react/core';
 import { JsonRpcSigner } from '@ethersproject/providers';
 import { isObjEmpty } from 'components/helpers/isObjEmpty';
 
 // imports for env vars
-const { NEXT_PUBLIC_COST } = process.env;
 const { NEXT_PUBLIC_MAX_SUPPLY } = process.env;
 const { NEXT_PUBLIC_CONTRACT_ADDR } = process.env;
 const { NEXT_PUBLIC_MAX_MINT_AMOUNT } = process.env;
@@ -49,6 +48,13 @@ export default function Mint(): JSX.Element {
   const [showModal, setShowModal] = useState<boolean>(false);
   const [mintAmount, setMintAmount] = useState<number>(1);
   const [supply, setSupply] = useState<string>('-');
+  const [cost, setCost] = useState<number>(0.03);
+
+  useEffect(() => {
+    if (supply === '-') initParams();
+
+    return;
+  }, []);
 
   // get contract address
   const contractAddress: string = NEXT_PUBLIC_CONTRACT_ADDR || '';
@@ -62,7 +68,7 @@ export default function Mint(): JSX.Element {
     contractAddress,
     FCat.abi,
     new ethers.providers.InfuraProvider(
-      'rinkeby',
+      'rinkeby', // FIXME: change to 'homestead'
       NEXT_PUBLIC_INFURA_PROJECT_ID
     )
   );
@@ -87,15 +93,18 @@ export default function Mint(): JSX.Element {
   /**
    * get the number of supply count
    */
-  const getCount = async () => {
+  const initParams = async () => {
     try {
-      let count = await FCatContract.count();
-      setSupply(count);
+      let count: number = await FCatContract.totalSupply();
+      let cost_: number = await FCatContract.cost();
+      // console.log(ethers.utils.formatEther(count)); // FIXME: cost not correct
+      // console.log(ethers.utils.formatEther(cost)); // FIXME: cost not correct
+      setSupply(String(count));
+      setCost(parseFloat(ethers.utils.formatEther(cost)));
     } catch {
-      setSupply('-');
+      return;
     }
   };
-  if (supply === '-') getCount();
   /**
    * Alert user before executing mint action
    *
@@ -126,12 +135,12 @@ export default function Mint(): JSX.Element {
         toast.error('Oops! No wallet connected');
         return;
       }
-      if (chainId !== 1) {
-        toast.error(
-          "You're not on the main network, please switch your network"
-        );
-        return;
-      }
+      // if (chainId !== 1) {
+      //   toast.error(
+      //     "You're not on the main network, please switch your network"
+      //   );
+      //   return;
+      // }
       if (isObjEmpty(library)) {
         toast.error(
           '⚠️: Oops! Something went wrong with your wallet provider while we connect you to the ethereum server.\nNo action has taken place.'
@@ -142,10 +151,13 @@ export default function Mint(): JSX.Element {
       /* alert */
       greetingMsg();
 
+      // console.log(BigNumber.from((cost * mintAmount).toString()));
+      // let val: string = ethers.utils.parseEther((cost * mintAmount).toString());
+
       /* mint */
       await toast.promise(
         FCatContract.mint(mintAmount, {
-          value: ethers.utils.parseEther('0.02'),
+          value: cost * mintAmount,
         }),
         {
           pending: 'Transaction is pending',
@@ -188,7 +200,7 @@ export default function Mint(): JSX.Element {
               Check Whitelist
             </button>
             <div id='priceInfo'>
-              <h4>{`Pre-Sale: ${NEXT_PUBLIC_COST} Ξ`}</h4>
+              <h4>{`Pre-Sale: ${cost} Ξ` /* TODO: change to sale status */}</h4>
               <h4>{`Max ${NEXT_PUBLIC_MAX_MINT_AMOUNT} per wallet`}</h4>
             </div>
             <Form>
@@ -206,16 +218,16 @@ export default function Mint(): JSX.Element {
                 />
               </Form.Group>
             </Form>
-            {/* <button id='mintbtn' onClick={mintToken}>
+            <button id='mintbtn' onClick={mintToken}>
               Mint
-            </button> */}
-            <OverlayTrigger
+            </button>
+            {/* <OverlayTrigger
               trigger='click'
               placement='bottom'
               overlay={tempMintPopover}
             >
               <button id='mintbtn'>Mint</button>
-            </OverlayTrigger>
+            </OverlayTrigger> */}
           </div>
         </div>
         <FCWhiteListModal

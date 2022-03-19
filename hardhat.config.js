@@ -42,21 +42,11 @@ module.exports = {
     // testing network
     rinkeby: {
       url: `${process.env.FC_TEST_INFURA_ENDPOINT_RINKEBY}`,
-      accounts: [
-        `0x${process.env.FC_TEST_PRIVATE_KEY_ANDY_RINKEBY_ACC1}`,
-        `0x${process.env.FC_TEST_PRIVATE_KEY_ANDY_RINKEBY_ACC2}`,
-        `0x${process.env.FC_TEST_PRIVATE_KEY_ANDY_RINKEBY_ACC4}`,
-      ],
     },
 
     // main network
     mainnet: {
       url: `${process.env.FC_TEST_INFURA_ENDPOINT_MAINNET}`,
-      accounts: [
-        `0x${process.env.FC_TEST_PRIVATE_KEY_ANDY_RINKEBY_ACC1}`,
-        `0x${process.env.FC_TEST_PRIVATE_KEY_ANDY_RINKEBY_ACC2}`,
-        `0x${process.env.FC_TEST_PRIVATE_KEY_ANDY_RINKEBY_ACC4}`,
-      ],
     },
   },
 

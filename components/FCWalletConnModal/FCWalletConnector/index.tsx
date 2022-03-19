@@ -88,6 +88,7 @@ export default function FCWalletConnector() {
   } = context;
 
   // handle logic to recognize the connector currently being activated
+  const [errorMessage, setErrorMessage] = useState('');
   const [activatingConnector, setActivatingConnector] = useState<any>();
   useEffect(() => {
     if (activatingConnector && activatingConnector === connector) {
@@ -101,21 +102,40 @@ export default function FCWalletConnector() {
   // handle logic to connect in reaction to certain events on the injected ethereum provider, if it exists
   useInactiveListener(!triedEager || !!activatingConnector);
 
+  /**
+   * Reset error message on state changes
+   */
+  const resetErrorMessage: () => void = () => {
+    if (errorMessage.length) {
+      setErrorMessage('');
+    }
+  };
+  /**
+   * Connect to user's wallet on click
+   *
+   * @param currentConnector: a connector provided by web3react
+   * @param name: name of the connector defined in enum
+   */
   const onClickConnectWallet: (
     currentConnector: InjectedConnector | WalletConnectConnector | any,
     name: string
   ) => void = (currentConnector, name) => {
     setActivatingConnector(currentConnector);
-    activate(currentConnector, (error: Error | string | any) => {
-      if (error) {
+    activate(currentConnector, (err: Error | string | any) => {
+      if (err) {
         setActivatingConnector(undefined);
-        toast.error('⚠️ An error occurred during connection! ', error);
+        setErrorMessage(err.toString());
+        toast.error('⚠️ Something went wrong! ', err);
       }
     });
+    resetErrorMessage();
   };
-
+  /**
+   * Disconnect a user's wallet on click
+   */
   const onClickDisconnectWallet: () => void = () => {
     deactivate();
+    resetErrorMessage();
     toast('🦄 Wallet Signed Out!');
   };
 
@@ -180,7 +200,7 @@ export default function FCWalletConnector() {
 
       <ListGroup.Item>
         <h5>Account Status</h5>
-        <Status />
+        <Status errMsg={errorMessage} />
         <Chain />
         <Accounts />
       </ListGroup.Item>

@@ -22,12 +22,9 @@ Archive.zip
 
 # it holds the compiled artifacts (bytecode and metadata), 
 # it’s a good idea to add this directory to your .gitignore
-/artifacts/**/*.json
-/artifacts/contracts/**/*.json
-/src/artifacts/**/*.json
-/artifacts/contracts/**/*.json
+/pages/artifacts/
 
-# it holds our infuraProjectId, mnemonic, etherscanApiKey
+
 # do not share with anyone
 .env
 
@@ -43,3 +40,4 @@ Archive.zip
 
 # tutorial
 /hashlips_art_engine
+/nft-erc721-collection-2.0.0
