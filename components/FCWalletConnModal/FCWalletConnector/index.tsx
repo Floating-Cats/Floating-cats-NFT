@@ -102,6 +102,20 @@ export default function FCWalletConnector() {
   // handle logic to connect in reaction to certain events on the injected ethereum provider, if it exists
   useInactiveListener(!triedEager || !!activatingConnector);
 
+  /**
+   * Reset error message on state changes
+   */
+  const resetErrorMessage: () => void = () => {
+    if (errorMessage.length) {
+      setErrorMessage('');
+    }
+  };
+  /**
+   * Connect to user's wallet on click
+   *
+   * @param currentConnector: a connector provided by web3react
+   * @param name: name of the connector defined in enum
+   */
   const onClickConnectWallet: (
     currentConnector: InjectedConnector | WalletConnectConnector | any,
     name: string
@@ -114,10 +128,14 @@ export default function FCWalletConnector() {
         toast.error('⚠️ Something went wrong! ', err);
       }
     });
+    resetErrorMessage();
   };
-
+  /**
+   * Disconnect a user's wallet on click
+   */
   const onClickDisconnectWallet: () => void = () => {
     deactivate();
+    resetErrorMessage();
     toast('🦄 Wallet Signed Out!');
   };
 
