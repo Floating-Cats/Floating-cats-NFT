@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import FCBgCloud from 'components/FCHome/FCBgCloud';
 
 // bootstrap imports
@@ -11,7 +11,7 @@ import { ethers } from 'ethers';
 import { toast } from 'react-toastify';
 
 // contracts
-import FCat from 'pages/artifacts/contracts/MyNFT.sol/FloatingCats.json';
+import FCat from 'pages/artifacts/contracts/FCTest.sol/FCTest.json';
 
 // components
 import FCWhiteListModal from 'components/FCWhiteListModal';
@@ -19,8 +19,6 @@ import FCWhiteListModal from 'components/FCWhiteListModal';
 import { Contract } from 'ethers';
 
 // helpers
-// import { Account } from 'web3/eth/accounts'; // for typechecking
-// import Contract from 'web3/eth/contract'; // for typechecking
 import { useWeb3React } from '@web3-react/core';
 import { JsonRpcSigner } from '@ethersproject/providers';
 import { isObjEmpty } from 'components/helpers/isObjEmpty';
@@ -49,6 +47,11 @@ export default function Mint(): JSX.Element {
   const [showModal, setShowModal] = useState<boolean>(false);
   const [mintAmount, setMintAmount] = useState<number>(1);
   const [supply, setSupply] = useState<string>('-');
+
+  useEffect(() => {
+    if (supply === '-') getCount();
+    return;
+  }, []);
 
   // get contract address
   const contractAddress: string = NEXT_PUBLIC_CONTRACT_ADDR || '';
@@ -95,7 +98,7 @@ export default function Mint(): JSX.Element {
       setSupply('-');
     }
   };
-  if (supply === '-') getCount();
+
   /**
    * Alert user before executing mint action
    *
@@ -126,12 +129,12 @@ export default function Mint(): JSX.Element {
         toast.error('Oops! No wallet connected');
         return;
       }
-      if (chainId !== 1) {
-        toast.error(
-          "You're not on the main network, please switch your network"
-        );
-        return;
-      }
+      // if (chainId !== 1) {
+      //   toast.error(
+      //     "You're not on the main network, please switch your network"
+      //   );
+      //   return;
+      // }
       if (isObjEmpty(library)) {
         toast.error(
           '⚠️: Oops! Something went wrong with your wallet provider while we connect you to the ethereum server.\nNo action has taken place.'
@@ -206,16 +209,16 @@ export default function Mint(): JSX.Element {
                 />
               </Form.Group>
             </Form>
-            {/* <button id='mintbtn' onClick={mintToken}>
+            <button id='mintbtn' onClick={mintToken}>
               Mint
-            </button> */}
-            <OverlayTrigger
+            </button>
+            {/* <OverlayTrigger
               trigger='click'
               placement='bottom'
               overlay={tempMintPopover}
             >
               <button id='mintbtn'>Mint</button>
-            </OverlayTrigger>
+            </OverlayTrigger> */}
           </div>
         </div>
         <FCWhiteListModal

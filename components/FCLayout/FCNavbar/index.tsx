@@ -16,7 +16,7 @@ export function FCNavbar() {
   const [showModal, setShowModal] = useState<boolean>(false);
 
   // web3 react
-  const { account } = useWeb3React();
+  const { active } = useWeb3React();
 
   const getNavBrand = () => {
     return (
@@ -63,7 +63,7 @@ export function FCNavbar() {
             <Nav.Link href='/#team'>TEAM</Nav.Link>
           </Nav>
           <Nav className='ms-auto'>
-            {account ? (
+            {active ? (
               <Button
                 variant='outline-light'
                 onClick={(e) => setShowModelTo(e, true)}
