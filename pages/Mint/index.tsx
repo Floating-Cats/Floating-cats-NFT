@@ -11,9 +11,9 @@ import { BigNumber, ethers } from 'ethers';
 import { toast } from 'react-toastify';
 
 // contracts
-import FCatTest2 from 'pages/artifacts/contracts/YourNftToken.sol/FCatTest2.json';
+import FCatTest3 from 'pages/artifacts/contracts/FCatTest3.sol/FCatTest3.json';
 //rename
-const FCat = FCatTest2;
+const FCat = FCatTest3;
 
 // components
 import FCWhiteListModal from 'components/FCWhiteListModal';
@@ -99,7 +99,7 @@ export default function Mint(): JSX.Element {
       let cost_: number = await FCatContract.cost();
       // console.log(ethers.utils.formatEther(count)); // FIXME: cost not correct
       // console.log(ethers.utils.formatEther(cost)); // FIXME: cost not correct
-      setSupply(ethers.utils.formatEther(count));
+      setSupply(String(count));
       setCost(parseFloat(ethers.utils.formatEther(cost)));
     } catch {
       return;
@@ -152,12 +152,12 @@ export default function Mint(): JSX.Element {
       greetingMsg();
 
       // console.log(BigNumber.from((cost * mintAmount).toString()));
-      let val: string = ethers.utils.parseEther((cost * mintAmount).toString());
-      console.log(val);
+      // let val: string = ethers.utils.parseEther((cost * mintAmount).toString());
+
       /* mint */
       await toast.promise(
         FCatContract.mint(mintAmount, {
-          value: val,
+          value: cost * mintAmount,
         }),
         {
           pending: 'Transaction is pending',
