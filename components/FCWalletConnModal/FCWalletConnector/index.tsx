@@ -88,6 +88,7 @@ export default function FCWalletConnector() {
   } = context;
 
   // handle logic to recognize the connector currently being activated
+  const [errorMessage, setErrorMessage] = useState('');
   const [activatingConnector, setActivatingConnector] = useState<any>();
   useEffect(() => {
     if (activatingConnector && activatingConnector === connector) {
@@ -106,10 +107,11 @@ export default function FCWalletConnector() {
     name: string
   ) => void = (currentConnector, name) => {
     setActivatingConnector(currentConnector);
-    activate(currentConnector, (error: Error | string | any) => {
-      if (error) {
+    activate(currentConnector, (err: Error | string | any) => {
+      if (err) {
         setActivatingConnector(undefined);
-        toast.error('⚠️ An error occurred during connection! ', error);
+        setErrorMessage(err.toString());
+        toast.error('⚠️ Something went wrong! ', err);
       }
     });
   };
@@ -180,7 +182,7 @@ export default function FCWalletConnector() {
 
       <ListGroup.Item>
         <h5>Account Status</h5>
-        <Status />
+        <Status errMsg={errorMessage} />
         <Chain />
         <Accounts />
       </ListGroup.Item>
