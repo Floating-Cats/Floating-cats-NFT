@@ -144,8 +144,8 @@ export default function FCWhiteListModal({
               <Button
                 variant='secondary'
                 id='check-wl-btn'
-                // onClick={CheckLocalWL}
-                onClick={onSubmitCheckWL}
+                onClick={CheckLocalWL}
+                // onClick={onSubmitCheckWL}
               >
                 GO
               </Button>

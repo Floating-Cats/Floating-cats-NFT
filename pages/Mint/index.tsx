@@ -7,7 +7,7 @@ import Popover from 'react-bootstrap/Popover';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 
 // other imports
-import { ethers } from 'ethers';
+import { BigNumber, ethers } from 'ethers';
 import { toast } from 'react-toastify';
 
 // contracts
@@ -26,7 +26,6 @@ import { JsonRpcSigner } from '@ethersproject/providers';
 import { isObjEmpty } from 'components/helpers/isObjEmpty';
 
 // imports for env vars
-const { NEXT_PUBLIC_COST } = process.env;
 const { NEXT_PUBLIC_MAX_SUPPLY } = process.env;
 const { NEXT_PUBLIC_CONTRACT_ADDR } = process.env;
 const { NEXT_PUBLIC_MAX_MINT_AMOUNT } = process.env;
@@ -49,9 +48,11 @@ export default function Mint(): JSX.Element {
   const [showModal, setShowModal] = useState<boolean>(false);
   const [mintAmount, setMintAmount] = useState<number>(1);
   const [supply, setSupply] = useState<string>('-');
+  const [cost, setCost] = useState<number>(0.03);
 
   useEffect(() => {
-    if (supply === '-') getCount();
+    if (supply === '-') initParams();
+
     return;
   }, []);
 
@@ -67,7 +68,7 @@ export default function Mint(): JSX.Element {
     contractAddress,
     FCat.abi,
     new ethers.providers.InfuraProvider(
-      'rinkeby',
+      'rinkeby', // FIXME: change to 'homestead'
       NEXT_PUBLIC_INFURA_PROJECT_ID
     )
   );
@@ -92,15 +93,18 @@ export default function Mint(): JSX.Element {
   /**
    * get the number of supply count
    */
-  const getCount = async () => {
+  const initParams = async () => {
     try {
-      let count = await FCatContract.count();
-      setSupply(count);
+      let count: number = await FCatContract.totalSupply();
+      let cost_: number = await FCatContract.cost();
+      // console.log(ethers.utils.formatEther(count)); // FIXME: cost not correct
+      // console.log(ethers.utils.formatEther(cost)); // FIXME: cost not correct
+      setSupply(ethers.utils.formatEther(count));
+      setCost(parseFloat(ethers.utils.formatEther(cost)));
     } catch {
-      setSupply('-');
+      return;
     }
   };
-
   /**
    * Alert user before executing mint action
    *
@@ -147,10 +151,13 @@ export default function Mint(): JSX.Element {
       /* alert */
       greetingMsg();
 
+      // console.log(BigNumber.from((cost * mintAmount).toString()));
+      let val: string = ethers.utils.parseEther((cost * mintAmount).toString());
+      console.log(val);
       /* mint */
       await toast.promise(
         FCatContract.mint(mintAmount, {
-          value: ethers.utils.parseEther('0.02'),
+          value: val,
         }),
         {
           pending: 'Transaction is pending',
@@ -193,7 +200,7 @@ export default function Mint(): JSX.Element {
               Check Whitelist
             </button>
             <div id='priceInfo'>
-              <h4>{`Pre-Sale: ${NEXT_PUBLIC_COST} Ξ`}</h4>
+              <h4>{`Pre-Sale: ${cost} Ξ` /* TODO: change to sale status */}</h4>
               <h4>{`Max ${NEXT_PUBLIC_MAX_MINT_AMOUNT} per wallet`}</h4>
             </div>
             <Form>
