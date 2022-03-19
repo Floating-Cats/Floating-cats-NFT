@@ -11,7 +11,9 @@ import { ethers } from 'ethers';
 import { toast } from 'react-toastify';
 
 // contracts
-import FCat from 'pages/artifacts/contracts/FCTest.sol/FCTest.json';
+import FCatTest2 from 'pages/artifacts/contracts/YourNftToken.sol/FCatTest2.json';
+//rename
+const FCat = FCatTest2;
 
 // components
 import FCWhiteListModal from 'components/FCWhiteListModal';
