@@ -10,23 +10,25 @@ import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import { BigNumber, ethers } from 'ethers';
 import { toast } from 'react-toastify';
 
+// whitelist mint verification
+import keccak256 from 'keccak256';
+import { MerkleTree } from 'merkletreejs';
+
 // contracts
 import FCatTest3 from 'pages/artifacts/contracts/FCatTest3.sol/FCatTest3.json';
-//rename
 const FCat = FCatTest3;
 
 // components
 import FCWhiteListModal from 'components/FCWhiteListModal';
 
-import { Contract } from 'ethers';
-
 // helpers
+import { Contract } from 'ethers';
+import { isObjEmpty } from 'components/helpers/isObjEmpty';
 import { useWeb3React } from '@web3-react/core';
 import { JsonRpcSigner } from '@ethersproject/providers';
-import { isObjEmpty } from 'components/helpers/isObjEmpty';
+
+// whitelist
 import CollectionConfig from 'nft-erc721-collection-2.0.0/smart-contract/config/CollectionConfig';
-import keccak256 from 'keccak256';
-import { MerkleTree } from 'merkletreejs';
 
 // imports for env vars
 const { NEXT_PUBLIC_CONTRACT_ADDR } = process.env;
@@ -80,7 +82,7 @@ export default function Mint(): JSX.Element {
     contractAddress,
     FCat.abi,
     new ethers.providers.InfuraProvider(
-      'rinkeby', // FIXME: change to 'homestead'
+      'rinkeby', // FIXME: change to 'homestead' upon deploy official contract
       NEXT_PUBLIC_INFURA_PROJECT_ID
     )
   );
@@ -97,9 +99,10 @@ export default function Mint(): JSX.Element {
     e: React.MouseEvent<Element, MouseEvent>,
     show: boolean
   ): void => {
-    connectedAccountIsWL
-      ? toast(`🐱 Hi Good Neko! This Address Is on Our Whitelist!`)
-      : null;
+    // TODO: uncomment this
+    // connectedAccountIsWL
+    //   ? toast(`🐱 Hi Good Neko! This Address Is on Our Whitelist!`)
+    //   : null;
     e.preventDefault();
     setShowModal(show);
   };
@@ -288,7 +291,7 @@ export default function Mint(): JSX.Element {
       /* mint */
       await toast.promise(
         FCatContract.whitelistMint(mintAmount, proof, {
-          value: ethers.utils.parseEther((cost * mintAmount).toString()), // FIXME: cost may need to check again
+          value: ethers.utils.parseEther((cost * mintAmount).toString()),
         }),
         {
           pending: 'Transaction is pending',
@@ -333,6 +336,9 @@ export default function Mint(): JSX.Element {
   /////////////////////////////////////////////////////////////////////////////////////////////////////
 
   const mintButton: () => JSX.Element | JSX.Element[] = () => {
+    if (supply === maxSupply) {
+    }
+
     return contractStatus === 'Whitelist Only' ? (
       <>
         {/* whitelist sale */}
@@ -402,7 +408,7 @@ export default function Mint(): JSX.Element {
               Check Whitelist
             </button>
             <div id='priceInfo'>
-              <h4>{`Pre-Sale: ${cost} Ξ` /* TODO: change to sale status */}</h4>
+              <h4>{`Pre-Sale: ${cost} Ξ`}</h4>
               <h4>{`Max ${maxMintAmountPerTx} per transaction`}</h4>
               <h4>
                 {`Sale Status: ${contractStatus} `} {statusSpan()}

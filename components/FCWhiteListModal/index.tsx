@@ -94,28 +94,59 @@ export default function FCWhiteListModal({
 
   // temporary whitelist check
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-  /**
-   * Check if the addrForWL is a whitelisted address
-   */
+  const url = '/FCatWL.json'; // TODO: remove temp
+  const fetchJson = async () => {
+    try {
+      const data = await fetch(url);
+      const response = await data.json();
+      return response;
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  };
   const CheckLocalWL: () => void = async () => {
     if (!isValidAddr()) return;
-    if (FCatWL) {
-      if (new Set(FCatWL).has(AddrForWL.replace(/\s/g, ''))) {
+    let wl = await fetchJson();
+    if (wl) {
+      let wlSet = new Set(wl['Whitelist']);
+      if (wlSet.has(AddrForWL.replace(/\s/g, ''))) {
         toast(`🐱 Hi Good Neko! This Address Is on Our Whitelist!`);
         clearForm();
         return;
       } else {
-        toast(`⚠️ Oops! The Address Is NOT on Our Whitelist!`);
+        toast(`⚠️: Oops! The Address Is NOT on Our Whitelist!`);
         clearForm();
         return;
       }
     } else {
-      toast(`⚠️ Oops! Something went wrong!`);
+      toast(`⚠️: Oops! Something went wrong!`);
       return;
     }
   };
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  // TODO: uncomment this
+  /**
+   * Check if the addrForWL is a whitelisted address
+   */
+  // const CheckLocalWL: () => void = async () => {
+  //   if (!isValidAddr()) return;
+  //   if (FCatWL) {
+  //     if (new Set(FCatWL).has(AddrForWL.replace(/\s/g, ''))) {
+  //       toast(`🐱 Hi Good Neko! This Address Is on Our Whitelist!`);
+  //       clearForm();
+  //       return;
+  //     } else {
+  //       toast(`⚠️ Oops! The Address Is NOT on Our Whitelist!`);
+  //       clearForm();
+  //       return;
+  //     }
+  //   } else {
+  //     toast(`⚠️ Oops! Something went wrong!`);
+  //     return;
+  //   }
+  // };
   const statusSpan: () => JSX.Element | JSX.Element[] = () => {
     return !isAccountConnected ? (
       <>
@@ -150,6 +181,8 @@ export default function FCWhiteListModal({
         centered
       >
         <Modal.Header closeButton>
+          {/* 
+          TODO: uncomment this
           <h3>
             {statusSpan()}
             {!isAccountConnected
@@ -157,7 +190,7 @@ export default function FCWhiteListModal({
               : connectedAccountIsWL
               ? ` Hi Good Neko! You're Whitelisted!`
               : ` Oops! The Connected Wallet Is NOT Whitelisted!`}
-          </h3>
+          </h3> */}
         </Modal.Header>
         <Modal.Body>
           <Row>
