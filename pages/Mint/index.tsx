@@ -74,7 +74,7 @@ export default function Mint(): JSX.Element {
       NEXT_PUBLIC_INFURA_PROJECT_ID
     )
   );
-  // console.log('contract with provider - ', FCatContract);
+  console.log('contract with provider - ', FCatContract);
 
   if (FCatSigner)
     FCatContract = new ethers.Contract(contractAddress, FCat.abi, FCatSigner);
@@ -103,9 +103,9 @@ export default function Mint(): JSX.Element {
       let maxMintAmountPerTx_: number = await FCatContract.maxMintAmountPerTx();
 
       /* set contract status */
-      let paused_: boolean = await FCatContract.paused();
+      let paused_: boolean = await FCatContract.paused(); // public sale open/closed
       let whitelistMintEnabled_: boolean =
-        await FCatContract.whitelistMintEnabled();
+        await FCatContract.whitelistMintEnabled(); // whitelist sale open/closed
 
       console.log(`paused_ = ${paused_}`);
       console.log(`whitelistMintEnabled_ = ${whitelistMintEnabled_}`);
@@ -203,8 +203,29 @@ export default function Mint(): JSX.Element {
       return;
     }
   };
+  // const whitelistMintToken:(address: string)=>void = (address) => {
+  //   // Check configuration
+  //   if (CollectionConfig.whitelistAddresses.length < 1) {
+  //     throw 'The whitelist is empty, please add some addresses to the configuration.';
+  //   }
 
-  // temporary whitelist check
+  //   // Build the Merkle Tree
+  //   const leafNodes = CollectionConfig.whitelistAddresses.map((addr) =>
+  //     keccak256(addr)
+  //   );
+  //   const merkleTree = new MerkleTree(leafNodes, keccak256, {
+  //     sortPairs: true,
+  //   });
+  //   const proof = merkleTree
+  //     .getHexProof(keccak256(taskArgs.address))
+  //     .toString()
+  //     .replace(/'/g, '')
+  //     .replace(/ /g, '');
+
+  //   console.log('The whitelist proof for the given address is: ' + proof);
+  // }
+
+  // temporary mint
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   const tempMintPopover = (
     <Popover id='popover-basic'>

@@ -11,6 +11,8 @@ import FormControl from 'react-bootstrap/FormControl';
 import { toast } from 'react-toastify';
 import { Contract } from 'ethers';
 
+const url = '/FCatWL.json';
+
 export default function FCWhiteListModal({
   show,
   onHide,
@@ -49,6 +51,9 @@ export default function FCWhiteListModal({
     }
     return true;
   };
+  /**
+   * Check if the addrForWL is a whitelisted address
+   */
   const onSubmitCheckWL: () => void = () => {
     try {
       FCatContract.isWhitelisted(AddrForWL).then(function (result: boolean) {
@@ -84,8 +89,10 @@ export default function FCWhiteListModal({
 
   // temporary whitelist check
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  const url = '/FCatWL.json';
-
+  /**
+   * fetch json file
+   * @returns
+   */
   const fetchJson = async () => {
     try {
       const data = await fetch(url);
@@ -96,6 +103,9 @@ export default function FCWhiteListModal({
       return null;
     }
   };
+  /**
+   * Check if the addrForWL is a whitelisted address
+   */
   const CheckLocalWL: () => void = async () => {
     if (!isValidAddr()) return;
     let wl = await fetchJson();
