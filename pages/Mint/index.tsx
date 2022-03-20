@@ -26,9 +26,7 @@ import { JsonRpcSigner } from '@ethersproject/providers';
 import { isObjEmpty } from 'components/helpers/isObjEmpty';
 
 // imports for env vars
-const { NEXT_PUBLIC_MAX_SUPPLY } = process.env;
 const { NEXT_PUBLIC_CONTRACT_ADDR } = process.env;
-const { NEXT_PUBLIC_MAX_MINT_AMOUNT } = process.env;
 const { NEXT_PUBLIC_INFURA_PROJECT_ID } = process.env;
 
 export default function Mint(): JSX.Element {
@@ -47,14 +45,18 @@ export default function Mint(): JSX.Element {
   // react hooks
   const [showModal, setShowModal] = useState<boolean>(false);
   const [mintAmount, setMintAmount] = useState<number>(1);
-  const [supply, setSupply] = useState<string>('-');
-  const [cost, setCost] = useState<number>(0.03);
+  const [supply, setSupply] = useState<string>('🐱');
+  const [maxSupply, setMaxSupply] = useState('🐱');
+  const [maxMintAmountPerTx, setMaxMintAmountPerTx] = useState('🐱');
+  const [cost, setCost] = useState<number>(0.0);
+  const [contractStatus, setContractStatus] = useState('TBD 🐱');
 
   useEffect(() => {
-    if (supply === '-') initParams();
+    if (supply === '🐱') initParams();
+    if (active) initParams();
 
     return;
-  }, []);
+  }, [supply]);
 
   // get contract address
   const contractAddress: string = NEXT_PUBLIC_CONTRACT_ADDR || '';
@@ -91,16 +93,33 @@ export default function Mint(): JSX.Element {
     setShowModal(show);
   };
   /**
-   * get the number of supply count
+   * get the number of supply count for this connected address (or current contract state)
    */
   const initParams = async () => {
     try {
-      let count: number = await FCatContract.totalSupply();
-      let cost_: number = await FCatContract.cost();
-      // console.log(ethers.utils.formatEther(count)); // FIXME: cost not correct
-      // console.log(ethers.utils.formatEther(cost)); // FIXME: cost not correct
-      setSupply(String(count));
-      setCost(parseFloat(ethers.utils.formatEther(cost)));
+      let supply_: number = await FCatContract.totalSupply();
+      let maxSupply_: number = await FCatContract.maxSupply();
+      let cost_: number = await FCatContract.cost(); // return unit in Wei
+      let maxMintAmountPerTx_: number = await FCatContract.maxMintAmountPerTx();
+
+      /* set contract status */
+      let paused_: boolean = await FCatContract.paused();
+      let whitelistMintEnabled_: boolean =
+        await FCatContract.whitelistMintEnabled();
+
+      console.log(`paused_ = ${paused_}`);
+      console.log(`whitelistMintEnabled_ = ${whitelistMintEnabled_}`);
+
+      if (paused_) setContractStatus('Paused 🐱');
+      else if (whitelistMintEnabled_) setContractStatus('Whitelist Only 🐱');
+      else if (!paused_ && !whitelistMintEnabled_)
+        setContractStatus('Public Sale 🐱');
+      /***********************/
+
+      setSupply(String(supply_));
+      setMaxSupply(String(maxSupply_));
+      setCost(parseFloat(ethers.utils.formatEther(cost_)));
+      setMaxMintAmountPerTx(String(maxMintAmountPerTx_));
     } catch {
       return;
     }
@@ -151,13 +170,10 @@ export default function Mint(): JSX.Element {
       /* alert */
       greetingMsg();
 
-      // console.log(BigNumber.from((cost * mintAmount).toString()));
-      // let val: string = ethers.utils.parseEther((cost * mintAmount).toString());
-
       /* mint */
       await toast.promise(
         FCatContract.mint(mintAmount, {
-          value: cost * mintAmount,
+          value: ethers.utils.parseEther((cost * mintAmount).toString()),
         }),
         {
           pending: 'Transaction is pending',
@@ -165,9 +181,25 @@ export default function Mint(): JSX.Element {
           error: 'Transaction is rejected 🤯',
         }
       );
-    } catch (err) {
-      toast.error(`⚠️: Oops! Something went wrong.\n${err}`);
-      console.error('Error~~~', err);
+    } catch (err: Error | any) {
+      let errMsg: string = err['message'].toString();
+      let beginIndex: number = errMsg.search('execution reverted: ');
+      errMsg = errMsg.includes('The contract is paused!', beginIndex)
+        ? 'The contract is paused!'
+        : errMsg.includes('Insufficient funds!', beginIndex)
+        ? 'Insufficient funds!'
+        : errMsg.includes('Invalid mint amount!', beginIndex)
+        ? 'Invalid mint amount!'
+        : errMsg.includes('The whitelist sale is not enabled!', beginIndex)
+        ? 'The whitelist sale is not enabled!'
+        : errMsg.includes('Address already claimed!', beginIndex)
+        ? 'Address already claimed!'
+        : errMsg.includes('Invalid proof!', beginIndex)
+        ? 'Invalid proof!'
+        : errMsg.includes('Max supply exceeded!', beginIndex)
+        ? 'Max supply exceeded!'
+        : 'Unexpected Error';
+      toast.error(`⚠️: Oops! ${errMsg}`);
       return;
     }
   };
@@ -190,7 +222,7 @@ export default function Mint(): JSX.Element {
       <div id='mintPageBg'>
         <div className='' id='mintPage'>
           <div id='mintInfo'>
-            <h1>{`${supply} / ${NEXT_PUBLIC_MAX_SUPPLY} Adopted`}</h1>
+            <h1>{`${supply} / ${maxSupply} Adopted`}</h1>
             <button
               data-toggle='modal'
               data-target='#exampleModal'
@@ -201,7 +233,8 @@ export default function Mint(): JSX.Element {
             </button>
             <div id='priceInfo'>
               <h4>{`Pre-Sale: ${cost} Ξ` /* TODO: change to sale status */}</h4>
-              <h4>{`Max ${NEXT_PUBLIC_MAX_MINT_AMOUNT} per wallet`}</h4>
+              <h4>{`Max ${maxMintAmountPerTx} per wallet`}</h4>
+              <h4>{`Sale Status: ${contractStatus}`}</h4>
             </div>
             <Form>
               <Form.Group>
@@ -211,7 +244,7 @@ export default function Mint(): JSX.Element {
                   id='mint-quantity'
                   type='number'
                   min='1'
-                  max={NEXT_PUBLIC_MAX_MINT_AMOUNT}
+                  max={maxMintAmountPerTx}
                   // placeholder='a number'
                   value={mintAmount}
                   onChange={(e) => onChangeSetMintAmount(e.target.value)}
