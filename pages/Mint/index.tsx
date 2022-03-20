@@ -7,7 +7,7 @@ import Popover from 'react-bootstrap/Popover';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 
 // other imports
-import { BigNumber, ethers } from 'ethers';
+import { ethers } from 'ethers';
 import { toast } from 'react-toastify';
 
 // whitelist mint verification
@@ -15,8 +15,8 @@ import keccak256 from 'keccak256';
 import { MerkleTree } from 'merkletreejs';
 
 // contracts
-import FCatTest3 from 'pages/artifacts/contracts/FCatTest3.sol/FCatTest3.json';
-const FCat = FCatTest3;
+import FCatTest4 from 'pages/artifacts/contracts/FCatTest4.sol/FCatTest4.json';
+const FCat = FCatTest4;
 
 // components
 import FCWhiteListModal from 'components/FCWhiteListModal';
@@ -28,7 +28,7 @@ import { useWeb3React } from '@web3-react/core';
 import { JsonRpcSigner } from '@ethersproject/providers';
 
 // whitelist
-import CollectionConfig from 'nft-erc721-collection-2.0.0/smart-contract/config/CollectionConfig';
+import CollectionConfig from '/nft-erc721-collection-2.0.0/smart-contract/config/CollectionConfig';
 
 // imports for env vars
 const { NEXT_PUBLIC_CONTRACT_ADDR } = process.env;
@@ -99,10 +99,9 @@ export default function Mint(): JSX.Element {
     e: React.MouseEvent<Element, MouseEvent>,
     show: boolean
   ): void => {
-    // TODO: uncomment this
-    // connectedAccountIsWL
-    //   ? toast(`🐱 Hi Good Neko! This Address Is on Our Whitelist!`)
-    //   : null;
+    connectedAccountIsWL
+      ? toast(`🐱 Hi Good Neko! This Address Is on Our Whitelist!`)
+      : null;
     e.preventDefault();
     setShowModal(show);
   };
@@ -170,12 +169,12 @@ export default function Mint(): JSX.Element {
       }
 
       // check if the user is on mainnet
-      // if (chainId !== 1) {
-      //   toast.error(
-      //     "You're not on the main network, please switch your network"
-      //   );
-      //   return;
-      // }
+      if (chainId !== 1) {
+        toast.error(
+          "You're not on the main network, please switch your network"
+        );
+        return;
+      }
 
       // check if provider is not empty
       if (isObjEmpty(library)) {
@@ -228,7 +227,7 @@ export default function Mint(): JSX.Element {
    */
   const getMerkleProof: (address: string) => string[] = (address) => {
     // merkle tree
-    const leafNodes = CollectionConfig.whitelistAddresses.map((addr) =>
+    const leafNodes = CollectionConfig.whitelistAddresses.map((addr: string) =>
       keccak256(addr)
     );
     const merkleTree = new MerkleTree(leafNodes, keccak256, {
@@ -270,12 +269,12 @@ export default function Mint(): JSX.Element {
       }
 
       // check if the user is on mainnet
-      // if (chainId !== 1) {
-      //   toast.error(
-      //     "You're not on the main network, please switch your network"
-      //   );
-      //   return;
-      // }
+      if (chainId !== 1) {
+        toast.error(
+          "You're not on the main network, please switch your network"
+        );
+        return;
+      }
 
       // check if provider is not empty
       if (isObjEmpty(library)) {
@@ -323,8 +322,9 @@ export default function Mint(): JSX.Element {
     }
   };
 
-  // temporary mint
-  /////////////////////////////////////////////////////////////////////////////////////////////////////
+  /**
+   * temporary mint
+   */
   const tempMintPopover = (
     <Popover id='popover-basic'>
       <Popover.Header as='h3'>Mint is not live</Popover.Header>
@@ -333,12 +333,11 @@ export default function Mint(): JSX.Element {
       </Popover.Body>
     </Popover>
   );
-  /////////////////////////////////////////////////////////////////////////////////////////////////////
-
+  /**
+   * return mint button according to contract's current state
+   * @returns mint button according to contract's current state
+   */
   const mintButton: () => JSX.Element | JSX.Element[] = () => {
-    if (supply === maxSupply) {
-    }
-
     return contractStatus === 'Whitelist Only' ? (
       <>
         {/* whitelist sale */}

@@ -22,7 +22,7 @@ Archive.zip
 
 # it holds the compiled artifacts (bytecode and metadata), 
 # it’s a good idea to add this directory to your .gitignore
-/pages/artifacts/
+# /pages/artifacts/
 
 
 # do not share with anyone
