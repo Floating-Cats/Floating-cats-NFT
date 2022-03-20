@@ -10,17 +10,22 @@ import FormControl from 'react-bootstrap/FormControl';
 // imports for styling
 import { toast } from 'react-toastify';
 import { Contract } from 'ethers';
-
-const url = '/FCatWL.json';
+import { useWeb3React } from '@web3-react/core';
 
 export default function FCWhiteListModal({
   show,
   onHide,
   FCatContract,
+  FCatWL,
+  isAccountConnected,
+  connectedAccountIsWL,
 }: {
   show: boolean;
   onHide: () => void;
   FCatContract: Contract;
+  FCatWL: string[];
+  isAccountConnected: boolean;
+  connectedAccountIsWL: boolean;
 }): JSX.Element {
   const [AddrForWL, setAddrForWL] = useState<string>('');
 
@@ -89,39 +94,24 @@ export default function FCWhiteListModal({
 
   // temporary whitelist check
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  /**
-   * fetch json file
-   * @returns
-   */
-  const fetchJson = async () => {
-    try {
-      const data = await fetch(url);
-      const response = await data.json();
-      return response;
-    } catch (error) {
-      console.log(error);
-      return null;
-    }
-  };
+
   /**
    * Check if the addrForWL is a whitelisted address
    */
   const CheckLocalWL: () => void = async () => {
     if (!isValidAddr()) return;
-    let wl = await fetchJson();
-    if (wl) {
-      let wlSet = new Set(wl['Whitelist']);
-      if (wlSet.has(AddrForWL.replace(/\s/g, ''))) {
+    if (FCatWL) {
+      if (new Set(FCatWL).has(AddrForWL.replace(/\s/g, ''))) {
         toast(`🐱 Hi Good Neko! This Address Is on Our Whitelist!`);
         clearForm();
         return;
       } else {
-        toast(`⚠️: Oops! The Address Is NOT on Our Whitelist!`);
+        toast(`⚠️ Oops! The Address Is NOT on Our Whitelist!`);
         clearForm();
         return;
       }
     } else {
-      toast(`⚠️: Oops! Something went wrong!`);
+      toast(`⚠️ Oops! Something went wrong!`);
       return;
     }
   };
@@ -136,10 +126,18 @@ export default function FCWhiteListModal({
         aria-labelledby='contained-modal-title-vcenter'
         centered
       >
-        <Modal.Header closeButton></Modal.Header>
+        <Modal.Header closeButton>
+          <h3>
+            {!isAccountConnected
+              ? '💤 No Wallet Connected'
+              : connectedAccountIsWL
+              ? `🐱 Hi Good Neko! You're Whitelisted!`
+              : `⚠️ Oops! The Connected Wallet Is NOT Whitelisted!`}
+          </h3>
+        </Modal.Header>
         <Modal.Body>
           <Row>
-            <h3>Check Whitelist</h3>
+            <h5>Check Whitelist for Another Wallet?</h5>
           </Row>
           <Row>
             <InputGroup className='mb-3'>

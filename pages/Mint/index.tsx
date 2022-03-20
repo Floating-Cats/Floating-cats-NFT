@@ -24,10 +24,14 @@ import { Contract } from 'ethers';
 import { useWeb3React } from '@web3-react/core';
 import { JsonRpcSigner } from '@ethersproject/providers';
 import { isObjEmpty } from 'components/helpers/isObjEmpty';
+import CollectionConfig from 'nft-erc721-collection-2.0.0/smart-contract/config/CollectionConfig';
+import keccak256 from 'keccak256';
+import { MerkleTree } from 'merkletreejs';
 
 // imports for env vars
 const { NEXT_PUBLIC_CONTRACT_ADDR } = process.env;
 const { NEXT_PUBLIC_INFURA_PROJECT_ID } = process.env;
+const FCatWL: string[] = CollectionConfig.whitelistAddresses;
 
 export default function Mint(): JSX.Element {
   // import provider library
@@ -46,10 +50,17 @@ export default function Mint(): JSX.Element {
   const [showModal, setShowModal] = useState<boolean>(false);
   const [mintAmount, setMintAmount] = useState<number>(1);
   const [supply, setSupply] = useState<string>('🐱');
-  const [maxSupply, setMaxSupply] = useState('🐱');
-  const [maxMintAmountPerTx, setMaxMintAmountPerTx] = useState('🐱');
+  const [maxSupply, setMaxSupply] = useState<string>('🐱');
+  const [maxMintAmountPerTx, setMaxMintAmountPerTx] = useState<string>('🐱');
   const [cost, setCost] = useState<number>(0.0);
-  const [contractStatus, setContractStatus] = useState('TBD 🐱');
+  const [contractStatus, setContractStatus] = useState<string>('TBD 🐱');
+  const [WLMintAddress, setWLMintAddress] = useState('');
+
+  // whitelist helper
+  let isAccountConnected: boolean = account ? true : false;
+  let connectedAccountIsWL: boolean = isAccountConnected
+    ? new Set(FCatWL).has((account || '').replace(/\s/g, ''))
+    : false;
 
   useEffect(() => {
     if (supply === '🐱') initParams();
@@ -58,12 +69,22 @@ export default function Mint(): JSX.Element {
     return;
   }, [supply]);
 
+  // merkle tree
+  const leafNodes = CollectionConfig.whitelistAddresses.map((addr) =>
+    keccak256(addr)
+  );
+  const merkleTree = new MerkleTree(leafNodes, keccak256, {
+    sortPairs: true,
+  });
+
   // get contract address
   const contractAddress: string = NEXT_PUBLIC_CONTRACT_ADDR || '';
   // get signer
   const FCatSigner: JsonRpcSigner | any = library
     ? library.getSigner()
     : undefined;
+
+  // console.log(FCatSigner);
 
   // init contract
   let FCatContract: Contract = new ethers.Contract(
@@ -74,7 +95,7 @@ export default function Mint(): JSX.Element {
       NEXT_PUBLIC_INFURA_PROJECT_ID
     )
   );
-  console.log('contract with provider - ', FCatContract);
+  // console.log('contract with provider - ', FCatContract);
 
   if (FCatSigner)
     FCatContract = new ethers.Contract(contractAddress, FCat.abi, FCatSigner);
@@ -89,6 +110,9 @@ export default function Mint(): JSX.Element {
     e: React.MouseEvent<Element, MouseEvent>,
     show: boolean
   ): void => {
+    connectedAccountIsWL
+      ? toast(`🐱 Hi Good Neko! This Address Is on Our Whitelist!`)
+      : null;
     e.preventDefault();
     setShowModal(show);
   };
@@ -107,8 +131,8 @@ export default function Mint(): JSX.Element {
       let whitelistMintEnabled_: boolean =
         await FCatContract.whitelistMintEnabled(); // whitelist sale open/closed
 
-      console.log(`paused_ = ${paused_}`);
-      console.log(`whitelistMintEnabled_ = ${whitelistMintEnabled_}`);
+      // console.log(`paused_ = ${paused_}`);
+      // console.log(`whitelistMintEnabled_ = ${whitelistMintEnabled_}`);
 
       if (paused_) setContractStatus('Paused 🐱');
       else if (whitelistMintEnabled_) setContractStatus('Whitelist Only 🐱');
@@ -151,7 +175,7 @@ export default function Mint(): JSX.Element {
     try {
       /* check before mint */
       if (!FCatSigner || !active) {
-        toast.error('Oops! No wallet connected');
+        toast.error('⚠️ Oops! No wallet connected');
         return;
       }
       // if (chainId !== 1) {
@@ -162,7 +186,7 @@ export default function Mint(): JSX.Element {
       // }
       if (isObjEmpty(library)) {
         toast.error(
-          '⚠️: Oops! Something went wrong with your wallet provider while we connect you to the ethereum server.\nNo action has taken place.'
+          '⚠️ Oops! Something went wrong with your wallet provider while we connect you to the ethereum server.\nNo action has taken place.'
         );
         return;
       }
@@ -199,31 +223,116 @@ export default function Mint(): JSX.Element {
         : errMsg.includes('Max supply exceeded!', beginIndex)
         ? 'Max supply exceeded!'
         : 'Unexpected Error';
-      toast.error(`⚠️: Oops! ${errMsg}`);
+      toast.error(`⚠️ Oops! ${errMsg}`);
       return;
     }
   };
-  // const whitelistMintToken:(address: string)=>void = (address) => {
-  //   // Check configuration
-  //   if (CollectionConfig.whitelistAddresses.length < 1) {
-  //     throw 'The whitelist is empty, please add some addresses to the configuration.';
-  //   }
+  /**
+   * Returns merkle proof of the given address
+   * @param address
+   * @returns
+   */
+  const getMerkleProof: (address: string) => string[] = (address) => {
+    // Build the Merkle Tree
+    try {
+      const proof = merkleTree
+        .getHexProof(keccak256(address))
+        .toString()
+        .replace(/'/g, '')
+        .replace(/ /g, '');
 
-  //   // Build the Merkle Tree
-  //   const leafNodes = CollectionConfig.whitelistAddresses.map((addr) =>
-  //     keccak256(addr)
-  //   );
-  //   const merkleTree = new MerkleTree(leafNodes, keccak256, {
-  //     sortPairs: true,
-  //   });
-  //   const proof = merkleTree
-  //     .getHexProof(keccak256(taskArgs.address))
-  //     .toString()
-  //     .replace(/'/g, '')
-  //     .replace(/ /g, '');
+      return [proof];
+    } catch (err: Error | any) {
+      console.log('HEREHREHRHERHEHR');
+      let errMsg: string = err['message'].toString();
+      let beginIndex: number = errMsg.search('execution reverted: ');
+      errMsg = errMsg.includes('Address already claimed!', beginIndex)
+        ? 'Address already claimed!'
+        : '';
 
-  //   console.log('The whitelist proof for the given address is: ' + proof);
-  // }
+      console.log('here');
+      if (errMsg === 'Address already claimed!') {
+        return ['0x' + merkleTree.getRoot().toString('hex')];
+      } else {
+        return [];
+      }
+    }
+  };
+  /**
+   * whitelist mint token function
+   */
+  const whitelistMintToken: () => void = async () => {
+    // check if address is whitelisted
+    let signerIsWhiteListed: boolean = new Set(FCatWL).has(
+      WLMintAddress.replace(/\s/g, '')
+    );
+
+    // get the merkle proof for the user
+    let proof: string[] = getMerkleProof(WLMintAddress);
+    if (signerIsWhiteListed) {
+      try {
+        /* check before mint */
+        if (!proof.length) {
+          toast.error('⚠️ Oops! Proof list is empty');
+          return;
+        }
+        if (!FCatSigner || !active) {
+          toast.error('⚠️ Oops! No wallet connected');
+          return;
+        }
+        // if (chainId !== 1) {
+        //   toast.error(
+        //     "You're not on the main network, please switch your network"
+        //   );
+        //   return;
+        // }
+        if (isObjEmpty(library)) {
+          toast.error(
+            '⚠️ Oops! Something went wrong with your wallet provider while we connect you to the ethereum server.\nNo action has taken place.'
+          );
+          return;
+        }
+
+        /* alert */
+        greetingMsg();
+
+        /* mint */
+        await toast.promise(
+          FCatContract.whitelistMint(mintAmount, proof, {
+            value: ethers.utils.parseEther((cost * mintAmount).toString()), // FIXME: cost may need to check again
+          }),
+          {
+            pending: 'Transaction is pending',
+            success: 'Transaction is approved 👌',
+            error: 'Transaction is rejected 🤯',
+          }
+        );
+      } catch (err: Error | any) {
+        console.error('Error~~~ ', err);
+        let errMsg: string = err['message'].toString();
+        let beginIndex: number = errMsg.search('execution reverted: ');
+        errMsg = errMsg.includes('The contract is paused!', beginIndex)
+          ? 'The contract is paused!'
+          : errMsg.includes('Insufficient funds!', beginIndex)
+          ? 'Insufficient funds!'
+          : errMsg.includes('Invalid mint amount!', beginIndex)
+          ? 'Invalid mint amount!'
+          : errMsg.includes('The whitelist sale is not enabled!', beginIndex)
+          ? 'The whitelist sale is not enabled!'
+          : errMsg.includes('Address already claimed!', beginIndex)
+          ? 'Address already claimed!'
+          : errMsg.includes('Invalid proof!', beginIndex)
+          ? 'Invalid proof!'
+          : errMsg.includes('Max supply exceeded!', beginIndex)
+          ? 'Max supply exceeded!'
+          : 'Unexpected Error';
+        toast.error(`⚠️ Oops! ${errMsg}`);
+        return;
+      }
+    }
+    toast.error('⚠️ Oops! This address is not whitelisted!');
+    return;
+  };
 
   // temporary mint
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -275,6 +384,26 @@ export default function Mint(): JSX.Element {
             <button id='mintbtn' onClick={mintToken}>
               Mint
             </button>
+
+            {/* <Form.Group>
+              <Form.Label>WL Mint</Form.Label>
+              <Form.Control
+                required
+                id='wl-mint'
+                type='text'
+                placeholder='0xabcde...12345 (your wallet address)'
+                value={WLMintAddress}
+                onChange={(e) => setWLMintAddress(e.target.value)}
+              />
+              <button
+                id='mintbtn'
+                onClick={() => {
+                  whitelistMintToken();
+                }}
+              >
+                WL Mint
+              </button>
+            </Form.Group> */}
             {/* <OverlayTrigger
               trigger='click'
               placement='bottom'
@@ -288,6 +417,9 @@ export default function Mint(): JSX.Element {
           show={showModal}
           onHide={() => setShowModal(false)}
           FCatContract={FCatContract}
+          FCatWL={FCatWL}
+          isAccountConnected={isAccountConnected}
+          connectedAccountIsWL={connectedAccountIsWL}
         />
       </div>
     </>
