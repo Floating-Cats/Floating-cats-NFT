@@ -69,14 +69,6 @@ export default function Mint(): JSX.Element {
     return;
   }, [supply]);
 
-  // merkle tree
-  const leafNodes = CollectionConfig.whitelistAddresses.map((addr) =>
-    keccak256(addr)
-  );
-  const merkleTree = new MerkleTree(leafNodes, keccak256, {
-    sortPairs: true,
-  });
-
   // get contract address
   const contractAddress: string = NEXT_PUBLIC_CONTRACT_ADDR || '';
   // get signer
@@ -233,30 +225,21 @@ export default function Mint(): JSX.Element {
    * @returns
    */
   const getMerkleProof: (address: string) => string[] = (address) => {
+    // merkle tree
+    const leafNodes = CollectionConfig.whitelistAddresses.map((addr) =>
+      keccak256(addr)
+    );
+    const merkleTree = new MerkleTree(leafNodes, keccak256, {
+      sortPairs: true,
+    });
     // Build the Merkle Tree
-    try {
-      const proof = merkleTree
-        .getHexProof(keccak256(address))
-        .toString()
-        .replace(/'/g, '')
-        .replace(/ /g, '');
+    const proof = merkleTree
+      .getHexProof(keccak256(address))
+      .toString()
+      .replace(/'/g, '')
+      .replace(/ /g, '');
 
-      return [proof];
-    } catch (err: Error | any) {
-      console.log('HEREHREHRHERHEHR');
-      let errMsg: string = err['message'].toString();
-      let beginIndex: number = errMsg.search('execution reverted: ');
-      errMsg = errMsg.includes('Address already claimed!', beginIndex)
-        ? 'Address already claimed!'
-        : '';
-
-      console.log('here');
-      if (errMsg === 'Address already claimed!') {
-        return ['0x' + merkleTree.getRoot().toString('hex')];
-      } else {
-        return [];
-      }
-    }
+    return [proof];
   };
   /**
    * whitelist mint token function
@@ -335,7 +318,7 @@ export default function Mint(): JSX.Element {
   };
 
   // temporary mint
-  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////////////////////////////////////////////////////
   const tempMintPopover = (
     <Popover id='popover-basic'>
       <Popover.Header as='h3'>Mint is not live</Popover.Header>
@@ -344,7 +327,36 @@ export default function Mint(): JSX.Element {
       </Popover.Body>
     </Popover>
   );
-  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  const mintButton: () => JSX.Element | JSX.Element[] = () => {
+    return contractStatus === 'Whitelist Only 🐱' ? (
+      <>
+        {/* whitelist sale */}
+        <button id='mintbtn' onClick={whitelistMintToken}>
+          Mint
+        </button>
+      </>
+    ) : contractStatus === 'Public Sale 🐱' ? (
+      <>
+        {/* public sale */}
+        <button id='mintbtn' onClick={mintToken}>
+          Mint
+        </button>
+      </>
+    ) : (
+      <>
+        {/* paused */}
+        <OverlayTrigger
+          trigger='click'
+          placement='bottom'
+          overlay={tempMintPopover}
+        >
+          <button id='mintbtn'>Mint</button>
+        </OverlayTrigger>
+      </>
+    );
+  };
 
   return (
     <>
@@ -381,36 +393,8 @@ export default function Mint(): JSX.Element {
                 />
               </Form.Group>
             </Form>
-            <button id='mintbtn' onClick={mintToken}>
-              Mint
-            </button>
 
-            {/* <Form.Group>
-              <Form.Label>WL Mint</Form.Label>
-              <Form.Control
-                required
-                id='wl-mint'
-                type='text'
-                placeholder='0xabcde...12345 (your wallet address)'
-                value={WLMintAddress}
-                onChange={(e) => setWLMintAddress(e.target.value)}
-              />
-              <button
-                id='mintbtn'
-                onClick={() => {
-                  whitelistMintToken();
-                }}
-              >
-                WL Mint
-              </button>
-            </Form.Group> */}
-            {/* <OverlayTrigger
-              trigger='click'
-              placement='bottom'
-              overlay={tempMintPopover}
-            >
-              <button id='mintbtn'>Mint</button>
-            </OverlayTrigger> */}
+            {mintButton()}
           </div>
         </div>
         <FCWhiteListModal
