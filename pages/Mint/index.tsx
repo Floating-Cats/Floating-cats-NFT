@@ -403,7 +403,7 @@ export default function Mint(): JSX.Element {
             </button>
             <div id='priceInfo'>
               <h4>{`Pre-Sale: ${cost} Ξ` /* TODO: change to sale status */}</h4>
-              <h4>{`Max ${maxMintAmountPerTx} per wallet`}</h4>
+              <h4>{`Max ${maxMintAmountPerTx} per transaction`}</h4>
               <h4>
                 {`Sale Status: ${contractStatus} `} {statusSpan()}
               </h4>
