@@ -53,7 +53,7 @@ export default function Mint(): JSX.Element {
   const [maxSupply, setMaxSupply] = useState<string>('🐱');
   const [maxMintAmountPerTx, setMaxMintAmountPerTx] = useState<string>('🐱');
   const [cost, setCost] = useState<number>(0.0);
-  const [contractStatus, setContractStatus] = useState<string>('TBD 🐱');
+  const [contractStatus, setContractStatus] = useState<string>('TBD');
   const [WLMintAddress, setWLMintAddress] = useState('');
 
   // whitelist helper
@@ -126,10 +126,10 @@ export default function Mint(): JSX.Element {
       // console.log(`paused_ = ${paused_}`);
       // console.log(`whitelistMintEnabled_ = ${whitelistMintEnabled_}`);
 
-      if (paused_) setContractStatus('Paused 🐱');
-      else if (whitelistMintEnabled_) setContractStatus('Whitelist Only 🐱');
+      if (paused_) setContractStatus('Paused');
+      else if (whitelistMintEnabled_) setContractStatus('Whitelist Only');
       else if (!paused_ && !whitelistMintEnabled_)
-        setContractStatus('Public Sale 🐱');
+        setContractStatus('Public Sale');
       /***********************/
 
       setSupply(String(supply_));
@@ -330,14 +330,14 @@ export default function Mint(): JSX.Element {
   /////////////////////////////////////////////////////////////////////////////////////////////////////
 
   const mintButton: () => JSX.Element | JSX.Element[] = () => {
-    return contractStatus === 'Whitelist Only 🐱' ? (
+    return contractStatus === 'Whitelist Only' ? (
       <>
         {/* whitelist sale */}
         <button id='mintbtn' onClick={whitelistMintToken}>
           Mint
         </button>
       </>
-    ) : contractStatus === 'Public Sale 🐱' ? (
+    ) : contractStatus === 'Public Sale' ? (
       <>
         {/* public sale */}
         <button id='mintbtn' onClick={mintToken}>
@@ -354,6 +354,31 @@ export default function Mint(): JSX.Element {
         >
           <button id='mintbtn'>Mint</button>
         </OverlayTrigger>
+      </>
+    );
+  };
+
+  const statusSpan: () => JSX.Element | JSX.Element[] = () => {
+    return contractStatus === 'Whitelist Only' ? (
+      <>
+        {/* whitelist sale */}
+        <span role='img' aria-label='gold'>
+          <img src='/span01.png' height={50} />
+        </span>
+      </>
+    ) : contractStatus === 'Public Sale' ? (
+      <>
+        {/* public sale */}
+        <span role='img' aria-label='gold'>
+          <img src='/span02.png' height={50} />
+        </span>
+      </>
+    ) : (
+      <>
+        {/* paused */}
+        <span role='img' aria-label='gold'>
+          <img src='/span03.png' height={50} />
+        </span>
       </>
     );
   };
@@ -376,7 +401,9 @@ export default function Mint(): JSX.Element {
             <div id='priceInfo'>
               <h4>{`Pre-Sale: ${cost} Ξ` /* TODO: change to sale status */}</h4>
               <h4>{`Max ${maxMintAmountPerTx} per wallet`}</h4>
-              <h4>{`Sale Status: ${contractStatus}`}</h4>
+              <h4>
+                {`Sale Status: ${contractStatus} `} {statusSpan()}
+              </h4>
             </div>
             <Form>
               <Form.Group>

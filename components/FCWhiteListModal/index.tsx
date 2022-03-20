@@ -116,7 +116,30 @@ export default function FCWhiteListModal({
     }
   };
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+  const statusSpan: () => JSX.Element | JSX.Element[] = () => {
+    return !isAccountConnected ? (
+      <>
+        {/* if no account is connected */}
+        <span role='img' aria-label='gold'>
+          <img src='/span03.png' height={50} />
+        </span>
+      </>
+    ) : connectedAccountIsWL ? (
+      <>
+        {/* if connected account is whitelisted */}
+        <span role='img' aria-label='gold'>
+          <img src='/span04.png' height={50} />
+        </span>
+      </>
+    ) : (
+      <>
+        {/* if connected account is not whitelisted */}
+        <span role='img' aria-label='gold'>
+          <img src='/span01.png' height={50} />
+        </span>
+      </>
+    );
+  };
   return (
     <>
       <Modal
@@ -128,11 +151,12 @@ export default function FCWhiteListModal({
       >
         <Modal.Header closeButton>
           <h3>
+            {statusSpan()}
             {!isAccountConnected
-              ? '💤 No Wallet Connected'
+              ? ' No Wallet Connected'
               : connectedAccountIsWL
-              ? `🐱 Hi Good Neko! You're Whitelisted!`
-              : `⚠️ Oops! The Connected Wallet Is NOT Whitelisted!`}
+              ? ` Hi Good Neko! You're Whitelisted!`
+              : ` Oops! The Connected Wallet Is NOT Whitelisted!`}
           </h3>
         </Modal.Header>
         <Modal.Body>
