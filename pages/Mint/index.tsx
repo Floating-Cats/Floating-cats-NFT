@@ -54,7 +54,6 @@ export default function Mint(): JSX.Element {
   const [maxMintAmountPerTx, setMaxMintAmountPerTx] = useState<string>('🐱');
   const [cost, setCost] = useState<number>(0.0);
   const [contractStatus, setContractStatus] = useState<string>('TBD');
-  const [WLMintAddress, setWLMintAddress] = useState('');
 
   // whitelist helper
   let isAccountConnected: boolean = account ? true : false;
@@ -71,12 +70,10 @@ export default function Mint(): JSX.Element {
 
   // get contract address
   const contractAddress: string = NEXT_PUBLIC_CONTRACT_ADDR || '';
-  // get signer
+  // init signer
   const FCatSigner: JsonRpcSigner | any = library
     ? library.getSigner()
     : undefined;
-
-  // console.log(FCatSigner);
 
   // init contract
   let FCatContract: Contract = new ethers.Contract(
@@ -87,11 +84,9 @@ export default function Mint(): JSX.Element {
       NEXT_PUBLIC_INFURA_PROJECT_ID
     )
   );
-  // console.log('contract with provider - ', FCatContract);
 
   if (FCatSigner)
     FCatContract = new ethers.Contract(contractAddress, FCat.abi, FCatSigner);
-  // console.log('contract with signer   - ', FCatContract);
 
   /**
    *
@@ -165,17 +160,21 @@ export default function Mint(): JSX.Element {
    */
   const mintToken: () => void = async () => {
     try {
-      /* check before mint */
+      // check if an account is connected
       if (!FCatSigner || !active) {
         toast.error('⚠️ Oops! No wallet connected');
         return;
       }
+
+      // check if the user is on mainnet
       // if (chainId !== 1) {
       //   toast.error(
       //     "You're not on the main network, please switch your network"
       //   );
       //   return;
       // }
+
+      // check if provider is not empty
       if (isObjEmpty(library)) {
         toast.error(
           '⚠️ Oops! Something went wrong with your wallet provider while we connect you to the ethereum server.\nNo action has taken place.'
@@ -245,76 +244,80 @@ export default function Mint(): JSX.Element {
    * whitelist mint token function
    */
   const whitelistMintToken: () => void = async () => {
-    // check if address is whitelisted
-    let signerIsWhiteListed: boolean = new Set(FCatWL).has(
-      WLMintAddress.replace(/\s/g, '')
-    );
+    try {
+      // check if an account is connected
+      if (!account || !FCatSigner || !active) {
+        toast.error('⚠️ Oops! No wallet connected!');
+      }
 
-    // get the merkle proof for the user
-    let proof: string[] = getMerkleProof(WLMintAddress);
-    if (signerIsWhiteListed) {
-      try {
-        /* check before mint */
-        if (!proof.length) {
-          toast.error('⚠️ Oops! Proof list is empty');
-          return;
-        }
-        if (!FCatSigner || !active) {
-          toast.error('⚠️ Oops! No wallet connected');
-          return;
-        }
-        // if (chainId !== 1) {
-        //   toast.error(
-        //     "You're not on the main network, please switch your network"
-        //   );
-        //   return;
-        // }
-        if (isObjEmpty(library)) {
-          toast.error(
-            '⚠️ Oops! Something went wrong with your wallet provider while we connect you to the ethereum server.\nNo action has taken place.'
-          );
-          return;
-        }
-
-        /* alert */
-        greetingMsg();
-
-        /* mint */
-        await toast.promise(
-          FCatContract.whitelistMint(mintAmount, proof, {
-            value: ethers.utils.parseEther((cost * mintAmount).toString()), // FIXME: cost may need to check again
-          }),
-          {
-            pending: 'Transaction is pending',
-            success: 'Transaction is approved 👌',
-            error: 'Transaction is rejected 🤯',
-          }
-        );
-      } catch (err: Error | any) {
-        console.error('Error~~~ ', err);
-        let errMsg: string = err['message'].toString();
-        let beginIndex: number = errMsg.search('execution reverted: ');
-        errMsg = errMsg.includes('The contract is paused!', beginIndex)
-          ? 'The contract is paused!'
-          : errMsg.includes('Insufficient funds!', beginIndex)
-          ? 'Insufficient funds!'
-          : errMsg.includes('Invalid mint amount!', beginIndex)
-          ? 'Invalid mint amount!'
-          : errMsg.includes('The whitelist sale is not enabled!', beginIndex)
-          ? 'The whitelist sale is not enabled!'
-          : errMsg.includes('Address already claimed!', beginIndex)
-          ? 'Address already claimed!'
-          : errMsg.includes('Invalid proof!', beginIndex)
-          ? 'Invalid proof!'
-          : errMsg.includes('Max supply exceeded!', beginIndex)
-          ? 'Max supply exceeded!'
-          : 'Unexpected Error';
-        toast.error(`⚠️ Oops! ${errMsg}`);
+      // check if the connected account is whitelisted
+      let signerIsWhiteListed: boolean = new Set(FCatWL).has(
+        (account || '').replace(/\s/g, '')
+      );
+      if (!signerIsWhiteListed) {
+        toast.error('⚠️ Oops! This address is not whitelisted!');
         return;
       }
+
+      // check if the proof is valid
+      let proof: string[] = getMerkleProof(account || '');
+      if (!proof.length) {
+        toast.error('⚠️ Oops! Proof list is empty');
+        return;
+      }
+
+      // check if the user is on mainnet
+      // if (chainId !== 1) {
+      //   toast.error(
+      //     "You're not on the main network, please switch your network"
+      //   );
+      //   return;
+      // }
+
+      // check if provider is not empty
+      if (isObjEmpty(library)) {
+        toast.error(
+          '⚠️ Oops! Something went wrong with your wallet provider while we connect you to the ethereum server.\nNo action has taken place.'
+        );
+        return;
+      }
+
+      /* alert */
+      greetingMsg();
+
+      /* mint */
+      await toast.promise(
+        FCatContract.whitelistMint(mintAmount, proof, {
+          value: ethers.utils.parseEther((cost * mintAmount).toString()), // FIXME: cost may need to check again
+        }),
+        {
+          pending: 'Transaction is pending',
+          success: 'Transaction is approved 👌',
+          error: 'Transaction is rejected 🤯',
+        }
+      );
+    } catch (err: Error | any) {
+      console.error('Error~~~ ', err);
+      let errMsg: string = err['message'].toString();
+      let beginIndex: number = errMsg.search('execution reverted: ');
+      errMsg = errMsg.includes('The contract is paused!', beginIndex)
+        ? 'The contract is paused!'
+        : errMsg.includes('Insufficient funds!', beginIndex)
+        ? 'Insufficient funds!'
+        : errMsg.includes('Invalid mint amount!', beginIndex)
+        ? 'Invalid mint amount!'
+        : errMsg.includes('The whitelist sale is not enabled!', beginIndex)
+        ? 'The whitelist sale is not enabled!'
+        : errMsg.includes('Address already claimed!', beginIndex)
+        ? 'Address already claimed!'
+        : errMsg.includes('Invalid proof!', beginIndex)
+        ? 'Invalid proof!'
+        : errMsg.includes('Max supply exceeded!', beginIndex)
+        ? 'Max supply exceeded!'
+        : 'Unexpected Error';
+      toast.error(`⚠️ Oops! ${errMsg}`);
+      return;
     }
-    toast.error('⚠️ Oops! This address is not whitelisted!');
-    return;
   };
 
   // temporary mint
@@ -334,7 +337,7 @@ export default function Mint(): JSX.Element {
       <>
         {/* whitelist sale */}
         <button id='mintbtn' onClick={whitelistMintToken}>
-          Mint
+          Whitelist Mint
         </button>
       </>
     ) : contractStatus === 'Public Sale' ? (
