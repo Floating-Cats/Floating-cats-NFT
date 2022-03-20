@@ -8,9 +8,9 @@
   "scripts": {
     "dev": "next -p 8545",
     "start": "next start",
-    "build": "rm -rf /nft-erc721-collection-2.0.0/smart-contract/test/ && next build",
+    "build": "next build",
     "export": "next export",
-    "fc-build": "npm run build && npm run export",
+    "fc-build": "rm -rf ./nft-erc721-collection-2.0.0/smart-contract/test/ && npm run build && npm run export",
     "fc-refresh": "rm -rf node_modules && rm -rf package-lock.json && npm install",
     "preview": "next preview"
   },

@@ -28,12 +28,12 @@ import { useWeb3React } from '@web3-react/core';
 import { JsonRpcSigner } from '@ethersproject/providers';
 
 // whitelist
-import CollectionConfig from '/nft-erc721-collection-2.0.0/smart-contract/config/CollectionConfig';
+const url = '/FCatWL.json';
 
 // imports for env vars
 const { NEXT_PUBLIC_CONTRACT_ADDR } = process.env;
 const { NEXT_PUBLIC_INFURA_PROJECT_ID } = process.env;
-const FCatWL: string[] = CollectionConfig.whitelistAddresses;
+// const FCatWL: string[] = CollectionConfig.whitelistAddresses;
 
 export default function Mint(): JSX.Element {
   // import provider library
@@ -56,6 +56,7 @@ export default function Mint(): JSX.Element {
   const [maxMintAmountPerTx, setMaxMintAmountPerTx] = useState<string>('🐱');
   const [cost, setCost] = useState<number>(0.0);
   const [contractStatus, setContractStatus] = useState<string>('TBD');
+  const [FCatWL, setFCatWL] = useState<string[]>([]);
 
   // whitelist helper
   let isAccountConnected: boolean = account ? true : false;
@@ -66,9 +67,21 @@ export default function Mint(): JSX.Element {
   useEffect(() => {
     if (supply === '🐱') initParams();
     if (active) initParams();
+    if (!FCatWL.length) fetchJson();
 
     return;
-  }, [supply]);
+  }, [supply, active]);
+
+  const fetchJson = async () => {
+    try {
+      const data = await fetch(url);
+      const response = await data.json();
+      setFCatWL(response['Whitelist']);
+    } catch (error) {
+      console.error(error);
+      return;
+    }
+  };
 
   // get contract address
   const contractAddress: string = NEXT_PUBLIC_CONTRACT_ADDR || '';
@@ -124,9 +137,8 @@ export default function Mint(): JSX.Element {
       // console.log(`whitelistMintEnabled_ = ${whitelistMintEnabled_}`);
 
       if (paused_) setContractStatus('Paused');
-      else if (whitelistMintEnabled_) setContractStatus('Whitelist Only');
-      else if (!paused_ && !whitelistMintEnabled_)
-        setContractStatus('Public Sale');
+      if (whitelistMintEnabled_) setContractStatus('Whitelist Only');
+      if (!paused_ && !whitelistMintEnabled_) setContractStatus('Public Sale');
       /***********************/
 
       setSupply(String(supply_));
@@ -169,12 +181,12 @@ export default function Mint(): JSX.Element {
       }
 
       // check if the user is on mainnet
-      if (chainId !== 1) {
-        toast.error(
-          "You're not on the main network, please switch your network"
-        );
-        return;
-      }
+      // if (chainId !== 1) {
+      //   toast.error(
+      //     "You're not on the main network, please switch your network"
+      //   );
+      //   return;
+      // }
 
       // check if provider is not empty
       if (isObjEmpty(library)) {
@@ -227,9 +239,7 @@ export default function Mint(): JSX.Element {
    */
   const getMerkleProof: (address: string) => string[] = (address) => {
     // merkle tree
-    const leafNodes = CollectionConfig.whitelistAddresses.map((addr: string) =>
-      keccak256(addr)
-    );
+    const leafNodes = FCatWL.map((addr: string) => keccak256(addr));
     const merkleTree = new MerkleTree(leafNodes, keccak256, {
       sortPairs: true,
     });
@@ -240,7 +250,7 @@ export default function Mint(): JSX.Element {
       .replace(/'/g, '')
       .replace(/ /g, '');
 
-    return [proof];
+    return proof.toString().split(',');
   };
   /**
    * whitelist mint token function
@@ -269,12 +279,12 @@ export default function Mint(): JSX.Element {
       }
 
       // check if the user is on mainnet
-      if (chainId !== 1) {
-        toast.error(
-          "You're not on the main network, please switch your network"
-        );
-        return;
-      }
+      // if (chainId !== 1) {
+      //   toast.error(
+      //     "You're not on the main network, please switch your network"
+      //   );
+      //   return;
+      // }
 
       // check if provider is not empty
       if (isObjEmpty(library)) {
@@ -338,6 +348,18 @@ export default function Mint(): JSX.Element {
    * @returns mint button according to contract's current state
    */
   const mintButton: () => JSX.Element | JSX.Element[] = () => {
+    return (
+      <>
+        {/* paused */}
+        <OverlayTrigger
+          trigger='click'
+          placement='bottom'
+          overlay={tempMintPopover}
+        >
+          <button id='mintbtn'>Mint</button>
+        </OverlayTrigger>
+      </>
+    );
     return contractStatus === 'Whitelist Only' ? (
       <>
         {/* whitelist sale */}
@@ -397,7 +419,8 @@ export default function Mint(): JSX.Element {
       <div id='mintPageBg'>
         <div className='' id='mintPage'>
           <div id='mintInfo'>
-            <h1>{`${supply} / ${maxSupply} Adopted`}</h1>
+            <h1>{`${'-'} / ${5888} Adopted`}</h1>
+            {/* <h1>{`${supply} / ${maxSupply} Adopted`}</h1> TODO: uncomment this */}
             <button
               data-toggle='modal'
               data-target='#exampleModal'
@@ -407,10 +430,15 @@ export default function Mint(): JSX.Element {
               Check Whitelist
             </button>
             <div id='priceInfo'>
-              <h4>{`Pre-Sale: ${cost} Ξ`}</h4>
+              {/* <h4>TODO: uncomment this {`Pre-Sale: ${cost} Ξ`}</h4>
               <h4>{`Max ${maxMintAmountPerTx} per transaction`}</h4>
               <h4>
                 {`Sale Status: ${contractStatus} `} {statusSpan()}
+              </h4> */}
+              <h4>{`Pre-Sale/Public: ${'0.04 / 0.05'} Ξ`}</h4>
+              <h4>{`Max ${5} per transaction`}</h4>
+              <h4>
+                {`Sale Status: ${'Not live yet'} `} {statusSpan()}
               </h4>
             </div>
             <Form>
@@ -418,6 +446,7 @@ export default function Mint(): JSX.Element {
                 <Form.Label>Quantity</Form.Label>
                 <Form.Control
                   required
+                  disabled // TODO: remove this
                   id='mint-quantity'
                   type='number'
                   min='1'
