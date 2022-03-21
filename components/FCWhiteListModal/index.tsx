@@ -10,15 +10,22 @@ import FormControl from 'react-bootstrap/FormControl';
 // imports for styling
 import { toast } from 'react-toastify';
 import { Contract } from 'ethers';
+import { useWeb3React } from '@web3-react/core';
 
 export default function FCWhiteListModal({
   show,
   onHide,
   FCatContract,
+  FCatWL,
+  isAccountConnected,
+  connectedAccountIsWL,
 }: {
   show: boolean;
   onHide: () => void;
   FCatContract: Contract;
+  FCatWL: string[];
+  isAccountConnected: boolean;
+  connectedAccountIsWL: boolean;
 }): JSX.Element {
   const [AddrForWL, setAddrForWL] = useState<string>('');
 
@@ -28,7 +35,8 @@ export default function FCWhiteListModal({
    * @param addr - wallet address to chech if it is whitelisted
    * @returns void
    */
-  const onChangeSetAddr: (addr: string) => void = (addr) => setAddrForWL(addr);
+  const onChangeSetAddr: (addr: string) => void = (addr) =>
+    setAddrForWL(addr.trim());
   /**
    * clear form is called when you want the text field of the form to be refreshed
    * @returns void
@@ -39,8 +47,11 @@ export default function FCWhiteListModal({
    * @returns void
    */
   const isValidAddr: () => boolean = () => {
+    // empty string
+    if (!AddrForWL.length) return false;
+    // length != 42 or doesn't start with 0x
     if (!(AddrForWL.length === 42 && AddrForWL.startsWith('0x'))) {
-      toast.error(
+      toast.warning(
         `⚠️: "${
           AddrForWL.length > 10 ? AddrForWL.substring(0, 10) + '...' : AddrForWL
         }" is not a valid wallet address.`
@@ -49,74 +60,85 @@ export default function FCWhiteListModal({
     }
     return true;
   };
-  const onSubmitCheckWL: () => void = () => {
-    try {
-      FCatContract.isWhitelisted(AddrForWL).then(function (result: boolean) {
-        if (!result) {
-          toast(`⚠️: Oops! The Address Is NOT on Our Whitelist!`);
-          clearForm();
-          return;
-        } else {
-          toast(`🐱 Hi Good Neko! The Address Is on Our Whitelist!`);
-          clearForm();
-          return;
-        }
-      });
-    } catch (err: any) {
-      if (err) {
-        if (err.code == 'INVALID_ARGUMENT')
-          toast.error(
-            `⚠️: "${
-              err.value.length > 10
-                ? err.value.substring(0, 10) + '...'
-                : err.value
-            }" is not a valid wallet address.`
-          );
-        else
-          toast.error(
-            `⚠️: Oops! Something went wrong, error code = ${err.code}`
-          );
-      }
-      clearForm();
-      console.error('Error~~~ ', err);
-    }
-  };
 
   // temporary whitelist check
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  const url = '/FCatWL.json';
+  // const url = '/FCatWL.json'; // TODO: remove temp
+  // const fetchJson = async () => {
+  //   try {
+  //     const data = await fetch(url);
+  //     const response = await data.json();
+  //     return response;
+  //   } catch (error) {
+  //     console.log(error);
+  //     return null;
+  //   }
+  // };
+  // const CheckLocalWL: () => void = async () => {
+  //   if (!isValidAddr()) return;
+  //   let wl = await fetchJson();
+  //   if (wl) {
+  //     let wlSet = new Set(wl['Whitelist']);
+  //     if (wlSet.has(AddrForWL.replace(/\s/g, ''))) {
+  //       toast(`🐱 Hi Good Neko! This Address Is on Our Whitelist!`);
+  //       clearForm();
+  //       return;
+  //     } else {
+  //       toast(`⚠️: Oops! The Address Is NOT on Our Whitelist!`);
+  //       clearForm();
+  //       return;
+  //     }
+  //   } else {
+  //     toast(`⚠️: Oops! Something went wrong!`);
+  //     return;
+  //   }
+  // };
+  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-  const fetchJson = async () => {
-    try {
-      const data = await fetch(url);
-      const response = await data.json();
-      return response;
-    } catch (error) {
-      console.log(error);
-      return null;
-    }
-  };
+  /**
+   * Check if the addrForWL is a whitelisted address
+   */
   const CheckLocalWL: () => void = async () => {
     if (!isValidAddr()) return;
-    let wl = await fetchJson();
-    if (wl) {
-      let wlSet = new Set(wl['Whitelist']);
-      if (wlSet.has(AddrForWL.replace(/\s/g, ''))) {
-        toast(`🐱 Hi Good Neko! This Address Is on Our Whitelist!`);
+    if (FCatWL) {
+      if (new Set(FCatWL).has(AddrForWL.replace(/\s/g, ''))) {
+        toast.info(`🐱 Hi Good Neko! This Address Is on Our Whitelist!`);
         clearForm();
         return;
       } else {
-        toast(`⚠️: Oops! The Address Is NOT on Our Whitelist!`);
+        toast.warning(`⚠️ Oops! The Address Is NOT on Our Whitelist!`);
         clearForm();
         return;
       }
     } else {
-      toast(`⚠️: Oops! Something went wrong!`);
+      toast.error(`⚠️ Oops! Something went wrong!`);
       return;
     }
   };
-  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+  const statusSpan: () => JSX.Element | JSX.Element[] = () => {
+    return !isAccountConnected ? (
+      <>
+        {/* if no account is connected */}
+        <span role='img' aria-label='gold'>
+          <img src='/span03.png' height={50} />
+        </span>
+      </>
+    ) : connectedAccountIsWL ? (
+      <>
+        {/* if connected account is whitelisted */}
+        <span role='img' aria-label='gold'>
+          <img src='/span04.png' height={50} />
+        </span>
+      </>
+    ) : (
+      <>
+        {/* if connected account is not whitelisted */}
+        <span role='img' aria-label='gold'>
+          <img src='/span01.png' height={50} />
+        </span>
+      </>
+    );
+  };
   return (
     <>
       <Modal
@@ -126,10 +148,19 @@ export default function FCWhiteListModal({
         aria-labelledby='contained-modal-title-vcenter'
         centered
       >
-        <Modal.Header closeButton></Modal.Header>
+        <Modal.Header closeButton>
+          <h3>
+            {statusSpan()}
+            {!isAccountConnected
+              ? ' No Wallet Connected'
+              : connectedAccountIsWL
+              ? ` Hi Good Neko! You're Whitelisted!`
+              : ` Oops! The Connected Wallet Is NOT Whitelisted!`}
+          </h3>
+        </Modal.Header>
         <Modal.Body>
           <Row>
-            <h3>Check Whitelist</h3>
+            <h5>Check Whitelist for Another Wallet?</h5>
           </Row>
           <Row>
             <InputGroup className='mb-3'>
@@ -145,7 +176,6 @@ export default function FCWhiteListModal({
                 variant='secondary'
                 id='check-wl-btn'
                 onClick={CheckLocalWL}
-                // onClick={onSubmitCheckWL}
               >
                 GO
               </Button>
