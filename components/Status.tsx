@@ -6,9 +6,17 @@ export function Status({ errMsg }: { errMsg: string }) {
   let errDisplayed: boolean = errMsg.length > 0;
   let errMsg_: string = '';
 
-  if (errDisplayed && errMsg.startsWith('NoEthereumProviderError'))
+  console.log(errMsg);
+
+  if (
+    errDisplayed &&
+    errMsg.toString().includes('No Ethereum provider was found')
+  )
     errMsg_ = 'No MetaMask Detected';
-  if (errDisplayed && errMsg.toString().startsWith('UserRejectedRequestError'))
+  if (
+    errDisplayed &&
+    errMsg.toString().includes('The user rejected the request')
+  )
     errMsg_ = 'Connection Cancelled';
 
   return (

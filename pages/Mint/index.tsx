@@ -457,7 +457,6 @@ export default function Mint(): JSX.Element {
                 />
               </Form.Group>
             </Form>
-
             {mintButton()}
           </div>
         </div>
