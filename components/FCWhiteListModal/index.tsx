@@ -46,8 +46,11 @@ export default function FCWhiteListModal({
    * @returns void
    */
   const isValidAddr: () => boolean = () => {
+    // empty string
+    if (!AddrForWL.length) return false;
+    // length != 42 or doesn't start with 0x
     if (!(AddrForWL.length === 42 && AddrForWL.startsWith('0x'))) {
-      toast.error(
+      toast.warning(
         `⚠️: "${
           AddrForWL.length > 10 ? AddrForWL.substring(0, 10) + '...' : AddrForWL
         }" is not a valid wallet address.`
@@ -59,38 +62,38 @@ export default function FCWhiteListModal({
   /**
    * Check if the addrForWL is a whitelisted address
    */
-  const onSubmitCheckWL: () => void = () => {
-    try {
-      FCatContract.isWhitelisted(AddrForWL).then(function (result: boolean) {
-        if (!result) {
-          toast(`⚠️: Oops! The Address Is NOT on Our Whitelist!`);
-          clearForm();
-          return;
-        } else {
-          toast(`🐱 Hi Good Neko! The Address Is on Our Whitelist!`);
-          clearForm();
-          return;
-        }
-      });
-    } catch (err: any) {
-      if (err) {
-        if (err.code == 'INVALID_ARGUMENT')
-          toast.error(
-            `⚠️: "${
-              err.value.length > 10
-                ? err.value.substring(0, 10) + '...'
-                : err.value
-            }" is not a valid wallet address.`
-          );
-        else
-          toast.error(
-            `⚠️: Oops! Something went wrong, error code = ${err.code}`
-          );
-      }
-      clearForm();
-      console.error('Error~~~ ', err);
-    }
-  };
+  // const onSubmitCheckWL: () => void = () => {
+  //   try {
+  //     FCatContract.isWhitelisted(AddrForWL).then(function (result: boolean) {
+  //       if (!result) {
+  //         toast(`⚠️: Oops! The Address Is NOT on Our Whitelist!`);
+  //         clearForm();
+  //         return;
+  //       } else {
+  //         toast(`🐱 Hi Good Neko! The Address Is on Our Whitelist!`);
+  //         clearForm();
+  //         return;
+  //       }
+  //     });
+  //   } catch (err: any) {
+  //     if (err) {
+  //       if (err.code == 'INVALID_ARGUMENT')
+  //         toast.error(
+  //           `⚠️: "${
+  //             err.value.length > 10
+  //               ? err.value.substring(0, 10) + '...'
+  //               : err.value
+  //           }" is not a valid wallet address.`
+  //         );
+  //       else
+  //         toast.error(
+  //           `⚠️: Oops! Something went wrong, error code = ${err.code}`
+  //         );
+  //     }
+  //     clearForm();
+  //     console.error('Error~~~ ', err);
+  //   }
+  // };
 
   // temporary whitelist check
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -133,16 +136,16 @@ export default function FCWhiteListModal({
     if (!isValidAddr()) return;
     if (FCatWL) {
       if (new Set(FCatWL).has(AddrForWL.replace(/\s/g, ''))) {
-        toast(`🐱 Hi Good Neko! This Address Is on Our Whitelist!`);
+        toast.info(`🐱 Hi Good Neko! This Address Is on Our Whitelist!`);
         clearForm();
         return;
       } else {
-        toast(`⚠️ Oops! The Address Is NOT on Our Whitelist!`);
+        toast.warning(`⚠️ Oops! The Address Is NOT on Our Whitelist!`);
         clearForm();
         return;
       }
     } else {
-      toast(`⚠️ Oops! Something went wrong!`);
+      toast.error(`⚠️ Oops! Something went wrong!`);
       return;
     }
   };

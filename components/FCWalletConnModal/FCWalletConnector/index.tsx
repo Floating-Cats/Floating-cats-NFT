@@ -136,7 +136,7 @@ export default function FCWalletConnector() {
   const onClickDisconnectWallet: () => void = () => {
     deactivate();
     resetErrorMessage();
-    toast('🦄 Wallet Signed Out!');
+    toast.info('🦄 Wallet Deactivated!');
   };
 
   return (

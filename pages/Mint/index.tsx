@@ -113,7 +113,7 @@ export default function Mint(): JSX.Element {
     show: boolean
   ): void => {
     connectedAccountIsWL
-      ? toast(`🐱 Hi Good Neko! This Address Is on Our Whitelist!`)
+      ? toast.info(`🐱 Hi Good Neko! This Address Is on Our Whitelist!`)
       : null;
     e.preventDefault();
     setShowModal(show);
@@ -176,13 +176,13 @@ export default function Mint(): JSX.Element {
     try {
       // check if an account is connected
       if (!FCatSigner || !active) {
-        toast.error('⚠️ Oops! No wallet connected');
+        toast.warning('⚠️ Oops! No wallet connected');
         return;
       }
 
       // check if the user is on mainnet
       // if (chainId !== 1) {
-      //   toast.error(
+      //   toast.warning(
       //     "You're not on the main network, please switch your network"
       //   );
       //   return;
@@ -190,7 +190,7 @@ export default function Mint(): JSX.Element {
 
       // check if provider is not empty
       if (isObjEmpty(library)) {
-        toast.error(
+        toast.warning(
           '⚠️ Oops! Something went wrong with your wallet provider while we connect you to the ethereum server.\nNo action has taken place.'
         );
         return;
@@ -259,7 +259,7 @@ export default function Mint(): JSX.Element {
     try {
       // check if an account is connected
       if (!account || !FCatSigner || !active) {
-        toast.error('⚠️ Oops! No wallet connected!');
+        toast.warning('⚠️ Oops! No wallet connected!');
       }
 
       // check if the connected account is whitelisted
@@ -267,20 +267,20 @@ export default function Mint(): JSX.Element {
         (account || '').replace(/\s/g, '')
       );
       if (!signerIsWhiteListed) {
-        toast.error('⚠️ Oops! This address is not whitelisted!');
+        toast.warning('⚠️ Oops! This address is not whitelisted!');
         return;
       }
 
       // check if the proof is valid
       let proof: string[] = getMerkleProof(account || '');
       if (!proof.length) {
-        toast.error('⚠️ Oops! Proof list is empty');
+        toast.warning('⚠️ Oops! Proof list is empty');
         return;
       }
 
       // check if the user is on mainnet
       // if (chainId !== 1) {
-      //   toast.error(
+      //   toast.warning(
       //     "You're not on the main network, please switch your network"
       //   );
       //   return;
@@ -288,7 +288,7 @@ export default function Mint(): JSX.Element {
 
       // check if provider is not empty
       if (isObjEmpty(library)) {
-        toast.error(
+        toast.warning(
           '⚠️ Oops! Something went wrong with your wallet provider while we connect you to the ethereum server.\nNo action has taken place.'
         );
         return;
@@ -348,6 +348,7 @@ export default function Mint(): JSX.Element {
    * @returns mint button according to contract's current state
    */
   const mintButton: () => JSX.Element | JSX.Element[] = () => {
+    // TODO: remove this
     return (
       <>
         {/* paused */}
@@ -360,6 +361,8 @@ export default function Mint(): JSX.Element {
         </OverlayTrigger>
       </>
     );
+
+    // TODO: change to this
     return contractStatus === 'Whitelist Only' ? (
       <>
         {/* whitelist sale */}
