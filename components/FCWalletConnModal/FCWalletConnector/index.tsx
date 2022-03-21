@@ -179,7 +179,6 @@ export default function FCWalletConnector() {
           })
         ) : active || error ? (
           /* if a wallet is connected */
-
           <ListGroup.Item action onClick={onClickDisconnectWallet}>
             {
               // metamask

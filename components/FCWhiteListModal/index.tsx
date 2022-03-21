@@ -35,7 +35,8 @@ export default function FCWhiteListModal({
    * @param addr - wallet address to chech if it is whitelisted
    * @returns void
    */
-  const onChangeSetAddr: (addr: string) => void = (addr) => setAddrForWL(addr);
+  const onChangeSetAddr: (addr: string) => void = (addr) =>
+    setAddrForWL(addr.trim());
   /**
    * clear form is called when you want the text field of the form to be refreshed
    * @returns void
@@ -59,41 +60,6 @@ export default function FCWhiteListModal({
     }
     return true;
   };
-  /**
-   * Check if the addrForWL is a whitelisted address
-   */
-  // const onSubmitCheckWL: () => void = () => {
-  //   try {
-  //     FCatContract.isWhitelisted(AddrForWL).then(function (result: boolean) {
-  //       if (!result) {
-  //         toast(`⚠️: Oops! The Address Is NOT on Our Whitelist!`);
-  //         clearForm();
-  //         return;
-  //       } else {
-  //         toast(`🐱 Hi Good Neko! The Address Is on Our Whitelist!`);
-  //         clearForm();
-  //         return;
-  //       }
-  //     });
-  //   } catch (err: any) {
-  //     if (err) {
-  //       if (err.code == 'INVALID_ARGUMENT')
-  //         toast.error(
-  //           `⚠️: "${
-  //             err.value.length > 10
-  //               ? err.value.substring(0, 10) + '...'
-  //               : err.value
-  //           }" is not a valid wallet address.`
-  //         );
-  //       else
-  //         toast.error(
-  //           `⚠️: Oops! Something went wrong, error code = ${err.code}`
-  //         );
-  //     }
-  //     clearForm();
-  //     console.error('Error~~~ ', err);
-  //   }
-  // };
 
   // temporary whitelist check
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -210,7 +176,6 @@ export default function FCWhiteListModal({
                 variant='secondary'
                 id='check-wl-btn'
                 onClick={CheckLocalWL}
-                // onClick={onSubmitCheckWL}
               >
                 GO
               </Button>

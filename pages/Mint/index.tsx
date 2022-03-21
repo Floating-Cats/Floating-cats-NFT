@@ -33,7 +33,6 @@ const url = '/FCatWL.json';
 // imports for env vars
 const { NEXT_PUBLIC_CONTRACT_ADDR } = process.env;
 const { NEXT_PUBLIC_INFURA_PROJECT_ID } = process.env;
-// const FCatWL: string[] = CollectionConfig.whitelistAddresses;
 
 export default function Mint(): JSX.Element {
   // import provider library
@@ -123,28 +122,29 @@ export default function Mint(): JSX.Element {
    */
   const initParams = async () => {
     try {
+      /* fetch contract info */
       let supply_: number = await FCatContract.totalSupply();
       let maxSupply_: number = await FCatContract.maxSupply();
       let cost_: number = await FCatContract.cost(); // return unit in Wei
       let maxMintAmountPerTx_: number = await FCatContract.maxMintAmountPerTx();
+      /***********************/
 
       /* set contract status */
       let paused_: boolean = await FCatContract.paused(); // public sale open/closed
       let whitelistMintEnabled_: boolean =
         await FCatContract.whitelistMintEnabled(); // whitelist sale open/closed
 
-      // console.log(`paused_ = ${paused_}`);
-      // console.log(`whitelistMintEnabled_ = ${whitelistMintEnabled_}`);
-
       if (paused_) setContractStatus('Paused');
       if (whitelistMintEnabled_) setContractStatus('Whitelist Only');
       if (!paused_ && !whitelistMintEnabled_) setContractStatus('Public Sale');
       /***********************/
 
+      /* set contract info */
       setSupply(String(supply_));
       setMaxSupply(String(maxSupply_));
       setCost(parseFloat(ethers.utils.formatEther(cost_)));
       setMaxMintAmountPerTx(String(maxMintAmountPerTx_));
+      /***********************/
     } catch {
       return;
     }
@@ -243,7 +243,7 @@ export default function Mint(): JSX.Element {
     const merkleTree = new MerkleTree(leafNodes, keccak256, {
       sortPairs: true,
     });
-    // Build the Merkle Tree
+    // build the Merkle Tree
     const proof = merkleTree
       .getHexProof(keccak256(address))
       .toString()
