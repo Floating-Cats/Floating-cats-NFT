@@ -40,7 +40,11 @@ export function Accounts() {
   return active ? (
     <>
       <div id='acc-info'>
-        Accounts: <b>{`${accountFront}...${accountBack}`}</b>
+        <span>Accounts: </span>
+        <span role='img' aria-label='robot'>
+          🤖
+        </span>
+        <b>{`${accountFront}...${accountBack}`}</b>
       </div>
       <div id='acc-info'>
         <span>Balance: </span>

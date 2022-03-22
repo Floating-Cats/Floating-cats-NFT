@@ -5,8 +5,7 @@ export function Status({ errMsg }: { errMsg: string }) {
   const { error, active } = useWeb3React();
   let errDisplayed: boolean = errMsg.length > 0;
   let errMsg_: string = '';
-
-  console.log(errMsg);
+  // console.log(errMsg);
 
   if (
     errDisplayed &&
