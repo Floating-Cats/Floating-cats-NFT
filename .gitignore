@@ -25,6 +25,9 @@ Archive.zip
 # /pages/artifacts/
 
 
+# whitelist
+/public/*json
+
 # do not share with anyone
 .env
 
