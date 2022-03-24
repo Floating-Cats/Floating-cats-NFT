@@ -36,7 +36,7 @@ export default function FCWhiteListModal({
    * @returns void
    */
   const onChangeSetAddr: (addr: string) => void = (addr) =>
-    setAddrForWL(addr.trim());
+    setAddrForWL(addr.replace(/\s+/g, '').trim().toLowerCase());
   /**
    * clear form is called when you want the text field of the form to be refreshed
    * @returns void
@@ -101,7 +101,9 @@ export default function FCWhiteListModal({
   const CheckLocalWL: () => void = async () => {
     if (!isValidAddr()) return;
     if (FCatWL) {
-      if (new Set(FCatWL).has(AddrForWL.replace(/\s/g, ''))) {
+      console.log(AddrForWL);
+      if (new Set(FCatWL).has(AddrForWL)) {
+        //
         toast.info(`🐱 Hi Good Neko! This Address Is on Our Whitelist!`);
         clearForm();
         return;
