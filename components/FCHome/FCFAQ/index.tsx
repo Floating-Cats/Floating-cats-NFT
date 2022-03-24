@@ -22,7 +22,7 @@ export default function FCFAQ() {
         </p>
       </Collapsible>
       <Collapsible trigger=' What is the mint price?' id='faq_Q-03'>
-        <p id='answers'>TBD. Join our discord for the latest updates.</p>
+        <p id='answers'>{`Pre-Sale/Public: ${'0.04 / 0.05'} Ξ`}</p>
       </Collapsible>
       <Collapsible trigger='Will there be a Whitelist?' id='faq_Q-04'>
         <p id='answers-04'>
